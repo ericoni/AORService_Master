@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
+    <ProjectGuid>{9510FB1B-7A22-4E05-9CA2-7252948E54C1}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CalculationEngService</RootNamespace>
+    <AssemblyName>CalculationEngService</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AdditionalFileItemNames>$(AdditionalFileItemNames);None</AdditionalFileItemNames>
+  </PropertyGroup>
+  <PropertyGroup>
+    <IsServiceFabricServiceProject>true</IsServiceFabricServiceProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Fabric, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
+      <HintPath>..\packages\Microsoft.ServiceFabric.6.1.456\lib\net45\System.Fabric.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Fabric.Management.ServiceModel, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
+      <HintPath>..\packages\Microsoft.ServiceFabric.6.1.456\lib\net45\System.Fabric.Management.ServiceModel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Fabric.Management.ServiceModel.XmlSerializers, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ServiceFabric.6.1.456\lib\net45\System.Fabric.Management.ServiceModel.XmlSerializers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Fabric.Strings, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
+      <HintPath>..\packages\Microsoft.ServiceFabric.6.1.456\lib\net45\System.Fabric.Strings.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CalculateHourlyForecast.cs" />
+    <Compile Include="CalculationEngineDistributer.cs" />
+    <Compile Include="CalculationEngineForecast.cs" />
+    <Compile Include="CalculationEngineForecastService.cs" />
+    <Compile Include="CalculationEngineModel.cs" />
+    <Compile Include="CASSubscriber.cs" />
+    <Compile Include="CASSubscriberService.cs" />
+    <Compile Include="CEDistributionService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="SCADADataCollector.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CIMAdapter\CIMAdapter.csproj">
+      <Project>{f680d34f-c148-4314-8914-b2df3e7b17af}</Project>
+      <Name>CIMAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{892cbe15-9ed7-4540-81fa-0eaaba592138}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NMSSubscriberProxy\NMSSubscriberProxy.csproj">
+      <Project>{9166CDF4-DC26-4ACE-A1F3-F23F00B25A66}</Project>
+      <Name>NMSSubscriberProxy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PowerValuesSimulator\PowerValuesSimulator.csproj">
+      <Project>{1a445823-1cdf-4ae9-824c-8232b031b5dd}</Project>
+      <Name>PowerValuesSimulator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RDAdapter\RDAdapter.csproj">
+      <Project>{f2ae1113-efc9-4c01-aa5d-5cb477bdda01}</Project>
+      <Name>RDAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SCADASetpointProxy\SCADASetpointProxy.csproj">
+      <Project>{4CCAC40F-943E-4991-A27B-BFFF01464A94}</Project>
+      <Name>SCADASetpointProxy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SCADASubscriberProxy\SCADASubscriberProxy.csproj">
+      <Project>{359A264A-BF34-4D7B-B32D-F18CD31899EA}</Project>
+      <Name>SCADASubscriberProxy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SmartCacheLibrary\SmartCacheLibrary.csproj">
+      <Project>{eba979e9-5ae2-457c-a0bc-21432490ab96}</Project>
+      <Name>SmartCacheLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TSDBCommon\TSDBCommon.csproj">
+      <Project>{2e749210-4ced-43c5-8990-e9c0e3dd29d8}</Project>
+      <Name>TSDBCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TSDBProxy\TSDBProxy.csproj">
+      <Project>{36142317-69A6-4DE9-AAF4-A0626F39FF79}</Project>
+      <Name>TSDBProxy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WeatherForecastProxy\WeatherForecastProxy.csproj">
+      <Project>{ED550235-5762-4581-9543-9DFB8BBD9649}</Project>
+      <Name>WeatherForecastProxy</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

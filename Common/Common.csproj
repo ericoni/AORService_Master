@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{892CBE15-9ED7-4540-81FA-0EAABA592138}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FTN.Common</RootNamespace>
+    <AssemblyName>FTN.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <UseHostCompilerIfAvailable>false</UseHostCompilerIfAvailable>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>..\bin\</OutputPath>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>..\bin\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>..\bin64\</OutputPath>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>..\bin64\</OutputPath>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CalculationEngine\Model\CAS.cs" />
+    <Compile Include="CalculationEngine\Model\CASEnum.cs" />
+    <Compile Include="CalculationEngine\Model\Command.cs" />
+    <Compile Include="CalculationEngine\Model\ForecastObject.cs" />
+    <Compile Include="CalculationEngine\Model\OptimizationType.cs" />
+    <Compile Include="CalculationEngine\Model\Setpoint.cs" />
+    <Compile Include="CalculationEngine\Service\ICalculateHourlyForecast.cs" />
+    <Compile Include="CalculationEngine\Service\ICEDistribution.cs" />
+    <Compile Include="CalculationEngine\Service\IForecastService.cs" />
+    <Compile Include="NMS\Proxy\NetworkModelGDAProxy.cs" />
+    <Compile Include="NMS\Services\GDA\INetworkModelGDAContract.cs" />
+    <Compile Include="NMS\Services\NetworkModel\INetworkModelClient.cs" />
+    <Compile Include="SCADA\Services\GDA\IScadaGDAContract.cs" />
+    <Compile Include="Trace\CommonTrace.cs" />
+    <Compile Include="Model\Core\ConductingEquipment.cs" />
+    <Compile Include="Model\Core\ConnectivityNodeContainer.cs" />
+    <Compile Include="Model\Core\Equipment.cs" />
+    <Compile Include="Model\Core\EquipmentContainer.cs" />
+    <Compile Include="Model\Core\GeographicalRegion.cs" />
+    <Compile Include="Model\Core\IdentifiedObject.cs" />
+    <Compile Include="Model\Core\PowerSystemResource.cs" />
+    <Compile Include="Model\Core\SubGeographicalRegion.cs" />
+    <Compile Include="Model\Core\Substation.cs" />
+    <Compile Include="NMS\Model\GDA\Association.cs" />
+    <Compile Include="Model\EnumDescs.cs" />
+    <Compile Include="Model\Enums.cs" />
+    <Compile Include="NMS\Model\GDA\CompareHelper.cs" />
+    <Compile Include="NMS\Model\GDA\UpdateResult.cs" />
+    <Compile Include="CalculationEngine\Service\IControlActiveSettingsCallback.cs" />
+    <Compile Include="CalculationEngine\Service\IControlActiveSettingsSubscriber.cs" />
+    <Compile Include="Model\Meas\AnalogValue.cs" />
+    <Compile Include="Model\Meas\DiscreteValue.cs" />
+    <Compile Include="Model\Meas\MeasurementValue.cs" />
+    <Compile Include="ModelException\ErrorCode.cs" />
+    <Compile Include="ModelException\ModelException.cs" />
+    <Compile Include="RawConverter\RawValuesConverter.cs" />
+    <Compile Include="Logger\LogBase.cs" />
+    <Compile Include="Logger\LogHelper.cs" />
+    <Compile Include="SCADA\Services\ReadingAnalogSignals\ISCADAForwarding.cs" />
+    <Compile Include="SCADA\Services\Commanding\ISCADAReceiving.cs" />
+    <Compile Include="SCADA\Services\ReadingAnalogSignals\ISCADASubscriber.cs" />
+    <Compile Include="NMS\Services\DeltaNotify\IDeltaNotify.cs" />
+    <Compile Include="NMS\Services\DeltaNotify\IDeltaNotifyCallback.cs" />
+    <Compile Include="NMS\Services\TwoPhaseCommit\INMSSubscriber.cs" />
+    <Compile Include="NMS\Services\TwoPhaseCommit\ITwoPhaseCommit.cs" />
+    <Compile Include="Model\ModelCodeHelper.cs" />
+    <Compile Include="Model\ModelResourcesDesc.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="NMS\Model\GDA\Delta.cs" />
+    <Compile Include="Model\ModelDefines.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="NMS\Model\GDA\Property.cs" />
+    <Compile Include="NMS\Model\GDA\ResourceDescription.cs" />
+    <Compile Include="NMS\Model\GDA\PropertyValue.cs" />
+    <Compile Include="WeatherForecast\Model\Daily.cs" />
+    <Compile Include="WeatherForecast\Model\Data.cs" />
+    <Compile Include="WeatherForecast\Model\Hourly.cs" />
+    <Compile Include="WeatherForecast\Model\WeatherInfo.cs" />
+    <Compile Include="WeatherForecast\Service\IWeatherForecast.cs" />
+    <Compile Include="Model\Wires\RegulatingCondEq.cs" />
+    <Compile Include="Model\Wires\RotatingMachine.cs" />
+    <Compile Include="Model\Wires\SynchronousMachine.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

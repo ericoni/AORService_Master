@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="DERMSApp.Views.DeltaView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DERMSApp.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="600"
+             d:DesignWidth="450">
+    <Grid Background="#FF313334">
+        <ScrollViewer VerticalScrollBarVisibility="Visible">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Left"
+                           Text="CIM/XML File:" Width="80" Height="16" Margin="1"/>
+                    <TextBox Text="{Binding TextBoxCIMFileText}" Width="259" Height="25" Margin="1"/>
+                    <Button Command="{Binding ButtonBrowseLocationOnClick}" DockPanel.Dock="Right" Content="Browse..." 
+                        Width="86" Height="25" Margin="1"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Text="CIM Profile:" 
+                           Width="80" Height="16" Margin="1"/>
+                    <ComboBox Width="259" Height="25" ItemsSource="{Binding ComboBoxProfileDataSource}"
+                          SelectedItem="{Binding ComboBoxProfileSelectedItem}" Margin="1" VerticalAlignment="Top"/>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Right">
+                        <Button Command="{Binding ButtonConvertCIMOnClick}" Content="Convert" 
+                            Height="25" Width="86" IsEnabled="{Binding ButtonConvertCIMEnabled}" Margin="1"/>
+                        <Button Command="{Binding ButtonApplyDeltaOnClick}" Content="Apply Delta"  
+                            Width="86" Height="25" IsEnabled="{Binding ButtonApplyDeltaEnabled}" Margin="1"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top"
+                           TextAlignment="Left" Text="Report:" Margin="1" Width="80"/>
+                    <TextBox IsReadOnly="True" Margin="1" Text="{Binding RichTextBoxReportText}" HorizontalAlignment="Stretch" Visibility="{Binding ReportVisible}"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
+<!--<Button Command="{Binding ButtonExitOnClick}"
+                Content="Close Delta View" 
+                Width="103" 
+                Height="25" 
+                Margin="337,372,10,23"/>-->
