@@ -363,7 +363,7 @@ namespace ModBusSimulatorService.Model
                     InsertEntities(delta.InsertOperations);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //throw ex;
                 return false;

@@ -373,7 +373,7 @@ namespace Adapter
                 }
                 CommonTrace.WriteTrace(CommonTrace.TraceError, "Getting extent values method successfully finished.");
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //string message = string.Format("Getting related values method  failed for sourceGlobalId = {0} and association (propertyId = {1}, type = {2}). Reason: {3}", regionGid, association.PropertyId, association.Type, e.Message);
                 //Console.WriteLine(message);
