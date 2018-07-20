@@ -132,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
+    <Folder Include="Theme\" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\LoginWindow.xaml">

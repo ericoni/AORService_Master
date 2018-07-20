@@ -19,7 +19,7 @@ namespace AORViewer.Views
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
-	public partial class LoginWindow : Window
+	public partial class LoginWindow : UserControl
 	{
 		public LoginWindow()
 		{
@@ -28,8 +28,8 @@ namespace AORViewer.Views
 
 		private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
 		{
-			//if (this.DataContext != null)
-			//	((dynamic)this.DataContext).SecurePassword = ((PasswordBox)sender).SecurePassword;
+			if (this.DataContext != null)
+				((dynamic)this.DataContext).SecurePassword = ((PasswordBox)sender).SecurePassword;
 		}
 	}
 }

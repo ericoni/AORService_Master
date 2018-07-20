@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 
 namespace AORService
 {
@@ -39,12 +41,34 @@ namespace AORService
 			}
 		}
 
-		public bool Login(string username, string password)
+		public bool Login(string username, SecureString password)
 		{
 			// TO DO
+			string a = SecureStringToString(password);
 			int b = 0;
 			b++;
 			return false;
+		}
+
+		private String SecureStringToString(SecureString value)
+		{
+			IntPtr valuePtr = IntPtr.Zero;
+			try
+			{
+				valuePtr = Marshal.SecureStringToGlobalAllocUnicode(value);
+				return Marshal.PtrToStringUni(valuePtr);
+			}
+			catch (Exception e)
+			{
+				Console.Write(e.StackTrace);
+				return string.Empty;
+			}
+			finally
+			{
+				Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
+			}
+
+
 		}
 	}
 }

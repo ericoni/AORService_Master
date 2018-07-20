@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ServiceModel;
 using AORCommon.AORManagementContract;
+using System.Security;
 
 namespace AORManagement
 {
@@ -15,7 +16,7 @@ namespace AORManagement
 		{
 		}
 
-		public bool Login(string username, string password)
+		public bool Login(string username, SecureString password)
 		{
 			return this.Channel.Login(username, password);
 		}

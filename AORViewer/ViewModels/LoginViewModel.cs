@@ -18,13 +18,14 @@ namespace AORViewer.ViewModels
 	public class LoginViewModel : ViewModelBase
 	{
 		private string textBoxUsername = string.Empty;
+		//private string textBoxPassword = string.Empty; // vratiti se za implementaciju secure string-a ili nesto sa sertifikatima
 		private AORManagementProxy aorManagementProxy = null;
 		/// <summary>
 		/// The current view.
 		/// </summary>
 		private ViewModelBase _currentViewModel;
 		public ICommand ButtonLoginOnClick { get; set; }
-		public SecureString SecurePassword { private set; get; }
+		public SecureString SecurePassword { set; get; }
 
 		public LoginViewModel()
 		{
@@ -41,7 +42,9 @@ namespace AORViewer.ViewModels
 
 		private void ButtonLoginOnClickExecute()
 		{
-			aorManagementProxy.Proxy.Login("aaaa", "bbbb");
+			if (!TextBoxUsernameText.Equals(string.Empty))
+
+				aorManagementProxy.Proxy.Login(TextBoxUsernameText, SecurePassword);
 		}
 
 		/// <summary>
@@ -78,5 +81,20 @@ namespace AORViewer.ViewModels
 				RaisePropertyChanged("TextBoxUsernameText");
 			}
 		}
+
+		//public string TextBoxPasswordText
+		//{
+		//	get
+		//	{
+		//		return textBoxPassword;
+		//	}
+		//	set
+		//	{
+		//		if (textBoxPassword == value)
+		//			return;
+		//		textBoxPassword = value;
+		//		RaisePropertyChanged("TextBoxPasswordText");
+		//	}
+		//}
 	}
 }
