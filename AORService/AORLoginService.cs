@@ -15,7 +15,7 @@ namespace AORService
 		AORLogin aorLogin = null;
 		ServiceHost host = null;
 		NetTcpBinding binding = null;
-		string address = "net.tcp://localhost:10038/IAORManagement"; // provjeriti port 
+		string address = "net.tcp://localhost:10038/IAORManagement";  
 
 		public AORLoginService()
 		{
@@ -25,7 +25,6 @@ namespace AORService
 		}
 		private void InitializeHosts()
 		{
-			//host = new ServiceHost(aorLogin);
 			host = new ServiceHost(typeof(AORLogin));
 		}
 		public void Dispose()

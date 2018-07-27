@@ -39,6 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
@@ -53,7 +54,9 @@
     <Compile Include="AORManagementContract\IAORManagement.cs" />
     <Compile Include="Model\AORArea.cs" />
     <Compile Include="Model\AORGroup.cs" />
+    <Compile Include="Model\AORUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SecurePasswordManager.cs" />
     <Compile Include="Security\IDERMSPrincipal.cs" />
   </ItemGroup>
   <ItemGroup />

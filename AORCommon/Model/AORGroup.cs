@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -10,9 +12,17 @@ namespace AORCommon.Model
 	[DataContract]
 	public class AORGroup
 	{
+		private int id;
 		private string name = "";
 		private long gid = 0;
 
+		[Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public int Id
+		{
+			get { return id; }
+			set { id = value; }
+		}
 		/// <summary>
 		/// Gets or sets the name.
 		/// </summary>

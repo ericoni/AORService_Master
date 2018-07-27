@@ -6,11 +6,14 @@ using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+using AORService.Access;
+using System.Diagnostics;
 
 namespace AORService
 {
 	public class AORLogin : IAORManagement
 	{
+		private UserHelperDB userHelper;
 		/// <summary>
 		/// Singleton instance
 		/// </summary>
@@ -41,13 +44,21 @@ namespace AORService
 			}
 		}
 
-		public bool Login(string username, SecureString password)
+		public AORLogin()
 		{
-			// TO DO
-			string a = SecureStringToString(password);
-			int b = 0;
-			b++;
-			return false;
+			try
+			{
+				userHelper = new UserHelperDB();
+			}
+			catch (Exception e)
+			{
+				Trace.Write(e.StackTrace);
+			}
+		}
+
+		public bool Login(string username, string password)
+		{
+			return userHelper.UserAuthentication(username, password);
 		}
 
 		private String SecureStringToString(SecureString value)

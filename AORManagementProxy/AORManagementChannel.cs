@@ -16,7 +16,7 @@ namespace AORManagement
 		{
 		}
 
-		public bool Login(string username, SecureString password)
+		public bool Login(string username, string password)
 		{
 			return this.Channel.Login(username, password);
 		}

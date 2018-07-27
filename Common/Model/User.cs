@@ -1,6 +1,8 @@
 ﻿using AORCommon.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,26 +11,32 @@ namespace FTN.Common.Model
 {
 	public class User
 	{
-		string username;
-		string password;
-		List<AORArea> aorAreas;
+		//List<AORArea> aorAreas;
 
-		public string Username
+		//public List<AORArea> AorAreas
+		//{
+		//	get { return aorAreas; }
+		//	set { aorAreas = value; }
+		//}
+
+		private int id;
+		public string Username { get; set; }
+		public string Password { get; set; }
+
+		public User() { }
+
+		public User(string username, string password)
 		{
-			get { return username; }
-			set { username = value; }
+			this.Username = username;
+			this.Password = password;
 		}
 
-		public string Password
+		[Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public int Id
 		{
-			get { return password; }
-			set { password = value; }
-		}
-
-		public List<AORArea> AorAreas
-		{
-			get { return aorAreas; }
-			set { aorAreas = value; }
+			get { return id; }
+			set { id = value; }
 		}
 	}
 }

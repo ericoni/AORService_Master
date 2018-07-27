@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -10,12 +12,20 @@ namespace AORCommon.Model
 	[DataContract]
 	public class AORArea
 	{
+		private int id;
 		private string name = string.Empty;
 		private bool controlAssignable = false;                                
 		private bool viewAssignable = false;                                   
 		private List<AORGroup> groups = new List<AORGroup>();                   
 		private List<string> areas = new List<string>();
 
+		[Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public int Id
+		{
+			get { return id; }
+			set { id = value; }
+		}
 		/// <summary>
 		/// Gets or sets the name.
 		/// </summary>

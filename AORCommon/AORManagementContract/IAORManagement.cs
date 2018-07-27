@@ -12,6 +12,6 @@ namespace AORCommon.AORManagementContract
 	public interface IAORManagement
 	{
 		[OperationContract]
-		bool Login(string username, SecureString password);
+		bool Login(string username, string password);
 	}
 }
