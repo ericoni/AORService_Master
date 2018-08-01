@@ -172,6 +172,7 @@
     <Compile Include="ViewModels\GenerationForecastViewModel.cs" />
     <Compile Include="ViewModels\GeographicalRegionViewModel.cs" />
     <Compile Include="ViewModels\HistoryDataChartViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\NetworkRootViewModel.cs" />
     <Compile Include="ViewModels\SubGeographicalRegionViewModel.cs" />
     <Compile Include="ViewModels\SubstationViewModel.cs" />
@@ -187,6 +188,9 @@
     </Compile>
     <Compile Include="Views\HistoryDataChartView.xaml.cs">
       <DependentUpon>HistoryDataChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TabularView.xaml.cs">
       <DependentUpon>TabularView.xaml</DependentUpon>
@@ -206,6 +210,10 @@
     <Page Include="Views\HistoryDataChartView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoginWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -261,7 +269,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\RegionIcon.png" />
@@ -271,6 +281,10 @@
     <Resource Include="Images\Windmill.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AORManagementProxy\AORManagementProxy.csproj">
+      <Project>{497DAC3E-CC92-430C-A178-9505A1789832}</Project>
+      <Name>AORManagementProxy</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CEDistributionProxy\CEDistributionProxy.csproj">
       <Project>{F650DC7B-BC13-498B-9DB4-6EAEC8E27FE7}</Project>
       <Name>CEDistributionProxy</Name>

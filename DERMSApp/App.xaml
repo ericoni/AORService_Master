@@ -37,6 +37,9 @@
       <DataTemplate DataType="{x:Type vm:GenerationForecastViewModel}">
         <views:GenerationForecastView />
       </DataTemplate>
+		<!--<DataTemplate DataType="{x:Type vm:LoginViewModel}">
+		<views:LoginWindow/>
+      </DataTemplate>-->
     </ResourceDictionary>
   </Application.Resources>
 </Application>

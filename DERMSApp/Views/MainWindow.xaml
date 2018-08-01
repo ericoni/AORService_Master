@@ -11,7 +11,11 @@
         DataContext="{Binding Main, Source={StaticResource Locator}}"
         WindowState="Maximized"
         Height="600"
-        Width="800">
+        Width="800"
+		x:Name="Glavni">
+	<Window.Resources>
+		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+	</Window.Resources>
     <Grid Background="#FF0C0C0C">
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
@@ -21,6 +25,11 @@
             <!--<TextBlock Text="Distributed Energy Resources&#x0a;Management System" 
                        FontSize="18"/>-->
             <Menu DockPanel.Dock="Bottom" Height="25">
+				<Menu.ItemsPanel>
+					<ItemsPanelTemplate>
+						<DockPanel HorizontalAlignment ="Stretch"/>
+					</ItemsPanelTemplate>
+				</Menu.ItemsPanel>
                 <MenuItem Command="{Binding SecondViewCommand}" VerticalContentAlignment="Center">
                     <MenuItem.Icon>
                         <Image Source="../Images/HomeIcon.png"/>
@@ -32,6 +41,8 @@
                     </MenuItem.Icon>
                     <MenuItem Header="Load delta" Command="{Binding FirstViewCommand}"/>
                 </MenuItem>
+				<MenuItem Header="Login" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Right" Command="{Binding LoginCommand}">
+				</MenuItem>
                 <!--Button Width="88"
                     Height="23"
                     Command="{Binding SecondViewCommand}"
@@ -47,12 +58,18 @@
         <!--ContentControl Grid.Row="1" 
                         Content="{Binding CurrentViewModel}"/-->
         <DockPanel Grid.Row="1" Margin="1,0,0,0">
-            <ContentControl DockPanel.Dock="Top" Content="{Binding CurrentViewModel}"/>
+			<ContentControl DockPanel.Dock="Top" Content="{Binding CurrentViewModel}" Visibility="{Binding Path=DataTemplatesVisibility, Converter={StaticResource BooleanToVisibilityConverter} }"/>
             <!--viewModels:EntireNetworkViewModel/>
             </ContentControl>
             <ContentControl DockPanel.Dock="Top">
                 <viewModels:DeltaViewModel/>
             </-->
         </DockPanel>
-    </Grid>
+		<Grid Grid.Row="1" Visibility="{Binding Path=GridVisibility, Converter={StaticResource BooleanToVisibilityConverter} }">
+			<TextBox Height="30"  TextWrapping="Wrap" Text="{Binding TextBoxUsernameText}" Width="120" Margin="325,130,347,369"/>
+			<TextBox Height="30" TextWrapping="Wrap" Text="{Binding TextBoxPasswordText}" Width="120" Margin="325,198,347,301"/>
+			<Button x:Name="button" Command="{Binding ButtonLoginOnClick}" Content="Login" HorizontalAlignment="Left" Margin="346,273,0,0" VerticalAlignment="Top" Width="75"/>
+
+		</Grid>
+	</Grid>
 </Window>

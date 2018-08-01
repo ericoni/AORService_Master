@@ -69,6 +69,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AORService", "AORService\AO
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AORManagementProxy", "AORManagementProxy\AORManagementProxy.csproj", "{497DAC3E-CC92-430C-A178-9505A1789832}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AORCache", "AORCache\AORCache.csproj", "{063FF0F1-A9BC-4CF2-8858-3B936292F39C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -389,6 +391,18 @@ Global
 		{497DAC3E-CC92-430C-A178-9505A1789832}.Release|x64.Build.0 = Release|Any CPU
 		{497DAC3E-CC92-430C-A178-9505A1789832}.Release|x86.ActiveCfg = Release|Any CPU
 		{497DAC3E-CC92-430C-A178-9505A1789832}.Release|x86.Build.0 = Release|Any CPU
+		{063FF0F1-A9BC-4CF2-8858-3B936292F39C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{063FF0F1-A9BC-4CF2-8858-3B936292F39C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{063FF0F1-A9BC-4CF2-8858-3B936292F39C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{063FF0F1-A9BC-4CF2-8858-3B936292F39C}.Debug|x64.Build.0 = Debug|Any CPU
+		{063FF0F1-A9BC-4CF2-8858-3B936292F39C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{063FF0F1-A9BC-4CF2-8858-3B936292F39C}.Debug|x86.Build.0 = Debug|Any CPU
+		{063FF0F1-A9BC-4CF2-8858-3B936292F39C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{063FF0F1-A9BC-4CF2-8858-3B936292F39C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{063FF0F1-A9BC-4CF2-8858-3B936292F39C}.Release|x64.ActiveCfg = Release|Any CPU
+		{063FF0F1-A9BC-4CF2-8858-3B936292F39C}.Release|x64.Build.0 = Release|Any CPU
+		{063FF0F1-A9BC-4CF2-8858-3B936292F39C}.Release|x86.ActiveCfg = Release|Any CPU
+		{063FF0F1-A9BC-4CF2-8858-3B936292F39C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

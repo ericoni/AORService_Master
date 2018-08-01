@@ -13,6 +13,7 @@ using SmartCacheLibrary.Interfaces;
 using System.ServiceModel;
 using FTN.Services.NetworkModelService.DataModel.Meas;
 using DERMSApp.Model;
+using AORManagement;
 
 namespace DERMSApp.ViewModels
 {
@@ -29,6 +30,17 @@ namespace DERMSApp.ViewModels
 		/*private SynchronizationContext _uiSyncContext = null;
 		DuplexChannelFactory<ICacheService> factory = null;
 		ICacheService proxy = null;*/
+		#region Fields
+		private string textBoxUsername = string.Empty;
+		private string textBoxPassword = string.Empty; // vratiti se za implementaciju secure string-a ili nesto sa sertifikatima
+		private bool isUserAuthenticated = false;
+		private bool isLoginGridVisible = true;
+		private bool dataTemplatesVisibility = false;
+
+		/// <summary>
+		/// Proxy for AOR Management
+		/// </summary>
+		private AORManagementProxy aorManagementProxy = null;
 		/// <summary>
 		/// The current view.
 		/// </summary>
@@ -40,6 +52,10 @@ namespace DERMSApp.ViewModels
         //readonly static TabularViewModel _tabularViewModel = new TabularViewModel();
 		readonly static EntireNetworkViewModel _tabularViewModel = new EntireNetworkViewModel();
 
+		/// <summary>
+		/// Static instance of one of the ViewModels.
+		/// </summary>
+		readonly static LoginViewModel _loginViewModel = new LoginViewModel();
 
 		/// <summary>
 		/// Static instance of one of the ViewModels.
@@ -60,14 +76,14 @@ namespace DERMSApp.ViewModels
         /// Max number of tries to connect to Calculation Engine
         /// </summary>
         private const int maxTry = 5;
+		#endregion
 
-
-        /// <summary>
-        /// The CurrentView property.  The setter is private since only this 
-        /// class can change the view via a command.  If the View is changed,
-        /// we need to raise a property changed event (via INPC).
-        /// </summary>
-        public ViewModelBase CurrentViewModel
+		/// <summary>
+		/// The CurrentView property.  The setter is private since only this 
+		/// class can change the view via a command.  If the View is changed,
+		/// we need to raise a property changed event (via INPC).
+		/// </summary>
+		public ViewModelBase CurrentViewModel
         {
             get
             {
@@ -94,12 +110,17 @@ namespace DERMSApp.ViewModels
         /// </summary>
         public ICommand SecondViewCommand { get; private set; }
 
+		/// <summary>
+		/// Simple property to hold the 'ButtonLoginCommand' - when executed it will send 
+		/// login request to AORService
+		/// </summary>
+		public ICommand ButtonLoginOnClick { get; set; }
 
-        /// <summary>
-        /// The Show Network property. 
-        /// Changes if the Network Table and Tree View needs to be shown.
-        /// </summary>
-        public Visibility ShowNetwork
+		/// <summary>
+		/// The Show Network property. 
+		/// Changes if the Network Table and Tree View needs to be shown.
+		/// </summary>
+		public Visibility ShowNetwork
         {
             get { return showNetwork; }
             set
@@ -135,8 +156,12 @@ namespace DERMSApp.ViewModels
         /// </summary>
         public MainWindowViewModel()
         {
-            CurrentViewModel = MainWindowViewModel._tabularViewModel;
-            FirstViewCommand = new RelayCommand(() => ExecuteFirstViewCommand());
+            CurrentViewModel = MainWindowViewModel._loginViewModel; // bio je tabular
+
+			aorManagementProxy = new AORManagementProxy();
+			ButtonLoginOnClick = new RelayCommand(() => ButtonLoginOnClickExecute(), () => true);
+
+			FirstViewCommand = new RelayCommand(() => ExecuteFirstViewCommand());
             SecondViewCommand = new RelayCommand(() => ExecuteSecondViewCommand());
             //ConnectToCalculationEngine();
             //ShowNetwork = Visibility.Visible;
@@ -167,10 +192,27 @@ namespace DERMSApp.ViewModels
             }
         }
 
-        /// <summary>
-        /// Set the CurrentViewModel to 'FirstViewModel'
-        /// </summary>
-        private void ExecuteFirstViewCommand()
+		public bool ButtonLoginOnClickExecute()
+		{
+			if (aorManagementProxy.Proxy.Login(TextBoxUsernameText, TextBoxPasswordText))
+			{
+				IsUserAuthenticated = true;
+				GridVisibility = false;
+				CurrentViewModel = _tabularViewModel;
+				DataTemplatesVisibility = true; // ostavitii ovako ili se vratiti i probati sa onim event djavolima
+				return true;
+			}
+			else
+			{
+				IsUserAuthenticated = false;
+				return false;
+			}
+		}
+
+		/// <summary>
+		/// Set the CurrentViewModel to 'FirstViewModel'
+		/// </summary>
+		private void ExecuteFirstViewCommand()
         {
             CurrentViewModel = MainWindowViewModel._deltaViewModel;
             //ShowNetwork = Visibility.Collapsed;
@@ -188,19 +230,87 @@ namespace DERMSApp.ViewModels
             //ShowApplyDelta = Visibility.Collapsed;
         }
 
-        /// <summary>
-        /// Set the CurrentViewModel to 'ThirdViewModel'
-        /// </summary>
-        /*private void ExecuteThirdViewCommand()
+		public string TextBoxUsernameText
+		{
+			get
+			{
+				return textBoxUsername;
+			}
+			set
+			{
+				if (textBoxUsername == value)
+					return;
+				textBoxUsername = value;
+				RaisePropertyChanged("TextBoxUsernameText");
+			}
+		}
+
+		public string TextBoxPasswordText
+		{
+			get
+			{
+				return textBoxPassword;
+			}
+			set
+			{
+				if (textBoxPassword == value)
+					return;
+				textBoxPassword = value;
+				RaisePropertyChanged("TextBoxPasswordText");
+			}
+		}
+
+		public bool IsUserAuthenticated
+		{
+			get
+			{
+				return isUserAuthenticated;
+			}
+			private set
+			{
+				isUserAuthenticated = value;
+				RaisePropertyChanged("IsUserAuthenticated");
+			}
+		}
+
+		public bool GridVisibility
+		{
+			get
+			{
+				return 	isLoginGridVisible;
+			}
+			set
+			{
+				isLoginGridVisible = value;
+				RaisePropertyChanged("GridVisibility");
+			}
+		}
+
+		public bool DataTemplatesVisibility
+		{
+			get
+			{
+				return dataTemplatesVisibility;
+			}
+			set
+			{
+				dataTemplatesVisibility = value;
+				RaisePropertyChanged("DataTemplatesVisibility");
+			}
+		}
+		/// <summary>
+		/// Set the CurrentViewModel to 'ThirdViewModel'
+		/// </summary>
+		/*private void ExecuteThirdViewCommand()
         {
             ShowNetwork = Visibility.Collapsed;
             ShowApplyDelta = Visibility.Collapsed;
         }*/
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /*private void ConnectToCalculationEngine()
+		/// <summary>
+		/// 
+		/// </summary>
+		/*private void ConnectToCalculationEngine()
 		{
 			// Capture the UI synchronization context
 			_uiSyncContext = SynchronizationContext.Current;
@@ -264,5 +374,5 @@ namespace DERMSApp.ViewModels
 		}*/
 
 
-    }
+	}
 }
