@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AORManagementContract\IAORManagement.cs" />
+    <Compile Include="Helpers\ADLDSHelper.cs" />
     <Compile Include="Helpers\AORHelper.cs" />
     <Compile Include="Model\AORArea.cs" />
     <Compile Include="Model\AORGroup.cs" />
