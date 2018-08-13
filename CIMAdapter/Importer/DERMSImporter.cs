@@ -100,6 +100,8 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
 			ImportSynchronousMachines();
 			ImportAnalogValues();
 			ImportDiscretValues();
+			ImportAORUsers();
+			
 
 			LogManager.Log("Loading elements and creating delta completed.", LogLevel.Info);
 		}
@@ -353,6 +355,172 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
 			return rd;
 		}
 		#endregion Import DiscretValue
+
+		#region Import AORArea
+		private void ImportAORAreas()
+		{
+			SortedDictionary<string, object> cimAORAreas = concreteModel.GetAllObjectsOfType("DERMS.AORArea");
+			if (cimAORAreas != null)
+			{
+				foreach (KeyValuePair<string, object> cimAORAreaPair in cimAORAreas)
+				{
+					DERMS.AORArea cimAORAreaValue = cimAORAreaPair.Value as DERMS.AORArea;
+
+					ResourceDescription rd = CreateAORAreaResourceDescription(cimAORAreaValue);
+					if (rd != null)
+					{
+						delta.AddDeltaOperation(DeltaOpType.Insert, rd, true);
+						report.Report.Append("AORArea ID = ").Append(cimAORAreaValue.ID).Append(" SUCCESSFULLY converted to GID = ").AppendLine(rd.Id.ToString());
+					}
+					else
+					{
+						report.Report.Append("AORArea ID = ").Append(cimAORAreaValue.ID).AppendLine(" FAILED to be converted");
+					}
+				}
+				report.Report.AppendLine();
+			}
+		}
+
+		private ResourceDescription CreateAORAreaResourceDescription(DERMS.AORArea cimAORArea)
+		{
+			ResourceDescription rd = null;
+			if (cimAORArea != null)
+			{
+				long gid = ModelCodeHelper.CreateGlobalId(0, (short)DMSType.AOR_AREA, importHelper.CheckOutIndexForDMSType(DMSType.AOR_AREA));
+				rd = new ResourceDescription(gid);
+				importHelper.DefineIDMapping(cimAORArea.ID, gid);
+
+				////populate ResourceDescription
+				DERMSConveter.PopulateAORAreaProperties(cimAORArea, rd, importHelper, report);
+			}
+			return rd;
+		}
+		#endregion
+
+		#region Import AORGroup
+		private void ImportAORGroups()
+		{
+			SortedDictionary<string, object> cimAORGroups = concreteModel.GetAllObjectsOfType("DERMS.AORGroup");
+			if (cimAORGroups != null)
+			{
+				foreach (KeyValuePair<string, object> cimAORGroupPair in cimAORGroups)
+				{
+					DERMS.AORGroup cimAORGroup = cimAORGroupPair.Value as DERMS.AORGroup;
+
+					ResourceDescription rd = CreateAORGroupsDescription(cimAORGroup);
+					if (rd != null)
+					{
+						delta.AddDeltaOperation(DeltaOpType.Insert, rd, true);
+						report.Report.Append("AORGroup ID = ").Append(cimAORGroup.ID).Append(" SUCCESSFULLY converted to GID = ").AppendLine(rd.Id.ToString());
+					}
+					else
+					{
+						report.Report.Append("AORGroup ID = ").Append(cimAORGroup.ID).AppendLine(" FAILED to be converted");
+					}
+				}
+				report.Report.AppendLine();
+			}
+		}
+
+		private ResourceDescription CreateAORGroupsDescription(DERMS.AORGroup cimAORGroup)
+		{
+			ResourceDescription rd = null;
+			if (cimAORGroup != null)
+			{
+				long gid = ModelCodeHelper.CreateGlobalId(0, (short)DMSType.AOR_GROUP, importHelper.CheckOutIndexForDMSType(DMSType.AOR_GROUP));
+				rd = new ResourceDescription(gid);
+				importHelper.DefineIDMapping(cimAORGroup.ID, gid);
+
+				////populate ResourceDescription
+				DERMSConveter.PopulateAORGroupProperties(cimAORGroup, rd, importHelper, report);
+			}
+			return rd;
+		}
+
+		#endregion
+
+		#region Import AORUser
+		private void ImportAORUsers()
+		{
+			SortedDictionary<string, object> cimAnalogValues = concreteModel.GetAllObjectsOfType("DERMS.AORUser");
+			if (cimAnalogValues != null)
+			{
+				foreach (KeyValuePair<string, object> cimAnalogValuePair in cimAnalogValues)
+				{
+					DERMS.AORUser cimAORUser = cimAnalogValuePair.Value as DERMS.AORUser;
+
+					ResourceDescription rd = CreateAnalogValueResourceDescription(cimAORUser);
+					if (rd != null)
+					{
+						delta.AddDeltaOperation(DeltaOpType.Insert, rd, true);
+						report.Report.Append("AORUser ID = ").Append(cimAORUser.ID).Append(" SUCCESSFULLY converted to GID = ").AppendLine(rd.Id.ToString());
+					}
+					else
+					{
+						report.Report.Append("AORUser ID = ").Append(cimAORUser.ID).AppendLine(" FAILED to be converted");
+					}
+				}
+				report.Report.AppendLine();
+			}
+		}
+
+		private ResourceDescription CreateAnalogValueResourceDescription(DERMS.AORUser cimAORUser)
+		{
+			ResourceDescription rd = null;
+			if (cimAORUser != null)
+			{
+				long gid = ModelCodeHelper.CreateGlobalId(0, (short)DMSType.AOR_USER, importHelper.CheckOutIndexForDMSType(DMSType.AOR_USER));
+				rd = new ResourceDescription(gid);
+				importHelper.DefineIDMapping(cimAORUser.ID, gid);
+
+				////populate ResourceDescription
+				DERMSConveter.PopulateAORUserProperties(cimAORUser, rd, importHelper, report);
+			}
+			return rd;
+		}
+
+		#endregion
+
+		#region ImportAORAgAggregator
+		private void ImportAORAgAggregators()
+		{
+			SortedDictionary<string, object> cimRegions = concreteModel.GetAllObjectsOfType("DERMS.AOR_AGAggregator");
+			if (cimRegions != null)
+			{
+				foreach (KeyValuePair<string, object> cimRegionPair in cimRegions)
+				{
+					DERMS.AOR_AGAggregator cimRegion = cimRegionPair.Value as DERMS.AOR_AGAggregator;
+
+					ResourceDescription rd = CreateAORAgAggregatorResourceDescription(cimRegion);
+					if (rd != null)
+					{
+						delta.AddDeltaOperation(DeltaOpType.Insert, rd, true)
+						report.Report.Append("AOR_AGAggregator ID = ").Append(cimRegion.ID).Append(" SUCCESSFULLY converted to GID = ").AppendLine(rd.Id.ToString());
+					}
+					else
+					{
+						report.Report.Append("AOR_AGAggregator ID = ").Append(cimRegion.ID).AppendLine(" FAILED to be converted");
+					}
+				}
+				report.Report.AppendLine();
+			}
+		}
+
+		private ResourceDescription CreateAORAgAggregatorResourceDescription(DERMS.AOR_AGAggregator cimAOR_AGAggregator)
+		{
+			ResourceDescription rd = null;
+			if (cimAOR_AGAggregator != null)
+			{
+				long gid = ModelCodeHelper.CreateGlobalId(0, (short)DMSType.AOR_AGAGGREGATOR, importHelper.CheckOutIndexForDMSType(DMSType.AOR_AGAGGREGATOR));
+				rd = new ResourceDescription(gid);
+				importHelper.DefineIDMapping(cimAOR_AGAggregator.ID, gid);
+
+				////populate ResourceDescription
+				DERMSConveter.PopulateAORAgAggregatorProperties(cimAOR_AGAggregator, rd);
+			}
+			return rd;
+		}
+		#endregion
 
 		#endregion Import
 	}

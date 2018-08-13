@@ -95,6 +95,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AORModel\AORAGAggregator.cs" />
+    <Compile Include="AORModel\AORArea.cs" />
+    <Compile Include="AORModel\AORGroup.cs" />
+    <Compile Include="AORModel\AORUser.cs" />
     <Compile Include="CalculationEngine\Model\CAS.cs" />
     <Compile Include="CalculationEngine\Model\CASEnum.cs" />
     <Compile Include="CalculationEngine\Model\Command.cs" />

@@ -16,11 +16,25 @@ namespace FTN.Services.NetworkModelService.DataModel.Wires
 		private float maxQ;
 		private float minP;
 		private float maxP;
+		private long aorGroup = 0;
 		private List<long> measurements = new List<long>();
 
 		public SynchronousMachine(long globalId)
 			: base(globalId)
 		{
+		}
+
+		[DataMember]
+		public long AORGroup
+		{
+			get
+			{
+				return aorGroup;
+			}
+			set
+			{
+				aorGroup = value;
+			}
 		}
 
 		[DataMember]
@@ -108,6 +122,7 @@ namespace FTN.Services.NetworkModelService.DataModel.Wires
 				return (x.baseQ == this.baseQ && x.minQ == this.minQ && x.maxQ == this.maxQ  &&
 						x.minP == this.minP &&
 						x.maxP == this.maxP && 
+						x.aorGroup == this.aorGroup &&
 						CompareHelper.CompareLists(x.measurements, this.measurements));
 			}
 			else
@@ -134,6 +149,7 @@ namespace FTN.Services.NetworkModelService.DataModel.Wires
 			((SynchronousMachine)copy).maxQ = this.maxQ;
 			((SynchronousMachine)copy).minP = this.minP;
 			((SynchronousMachine)copy).maxP = this.maxP;
+			((SynchronousMachine)copy).aorGroup = this.aorGroup;
 			return base.DeepCopy(copy);
 		}
 
@@ -148,6 +164,7 @@ namespace FTN.Services.NetworkModelService.DataModel.Wires
 				case ModelCode.SYNCMACHINE_MEASVALUES:
 				case ModelCode.SYNCMACHINE_MAXP:
 				case ModelCode.SYNCMACHINE_MINP:
+				case ModelCode.SYNCMACHINE_AORGROUP:
 					return true;
 
 				default:
@@ -184,6 +201,10 @@ namespace FTN.Services.NetworkModelService.DataModel.Wires
 					property.SetValue(minP);
 					break;
 
+				case ModelCode.SYNCMACHINE_AORGROUP:
+					property.SetValue(aorGroup);
+					break;
+
 				default:
 					base.GetProperty(property);
 					break;
@@ -214,6 +235,10 @@ namespace FTN.Services.NetworkModelService.DataModel.Wires
 					maxP = property.AsFloat();
 					break;
 
+				case ModelCode.SYNCMACHINE_AORGROUP:
+					aorGroup = property.AsReference();
+					break;
+
 				default:
 					base.SetProperty(property);
 					break;
@@ -236,6 +261,12 @@ namespace FTN.Services.NetworkModelService.DataModel.Wires
 			if (measurements != null && measurements.Count != 0 && (refType == TypeOfReference.Target || refType == TypeOfReference.Both))
 			{
 				references[ModelCode.SYNCMACHINE_MEASVALUES] = measurements.GetRange(0, measurements.Count);
+			}
+
+			if (aorGroup != 0 && (refType != TypeOfReference.Reference || refType != TypeOfReference.Both))
+			{
+				references[ModelCode.SYNCMACHINE_AORGROUP] = new List<long>();
+				references[ModelCode.SYNCMACHINE_AORGROUP].Add(aorGroup);
 			}
 
 			base.GetReferences(references, refType);

@@ -12,6 +12,7 @@ namespace FTN.Services.NetworkModelService.DataModel.Core
 			: base(globalId) { }
 
 		private long subRegion;
+		private long aorGroup;
 		private float latitude;
 		private float longitude;
 
@@ -19,6 +20,12 @@ namespace FTN.Services.NetworkModelService.DataModel.Core
 		{
 			get { return this.subRegion; }
 			set { this.subRegion = value; }
+		}
+
+		public long AORGroup
+		{
+			get { return this.aorGroup; }
+			set { this.aorGroup = value; }
 		}
 
 		public float Latitude
@@ -40,6 +47,7 @@ namespace FTN.Services.NetworkModelService.DataModel.Core
 				Substation x = (Substation)obj;
 				return ((x.SubRegion == this.SubRegion) && 
 					x.Longitude == this.Longitude &&
+					x.aorGroup == this.aorGroup && 
 					x.Latitude == this.Latitude);
 			}
 			else
@@ -62,6 +70,7 @@ namespace FTN.Services.NetworkModelService.DataModel.Core
 			((Substation)copy).subRegion = this.subRegion;
 			((Substation)copy).latitude = this.latitude;
 			((Substation)copy).longitude = this.longitude;
+			((Substation)copy).aorGroup = this.aorGroup;
 			return base.DeepCopy(copy);
 		}
 
@@ -74,6 +83,7 @@ namespace FTN.Services.NetworkModelService.DataModel.Core
 				case ModelCode.SUBSTATION_SUBREGION:		
 				case ModelCode.SUBSTATION_LATITUDE:
 				case ModelCode.SUBSTATION_LONGITUDE:
+				case ModelCode.SUBSTATION_AORGROUP:
 					return true;
 				default:
 					return base.HasProperty(property);
@@ -96,6 +106,10 @@ namespace FTN.Services.NetworkModelService.DataModel.Core
 					property.SetValue(Longitude);
 					break;
 
+				case ModelCode.SUBSTATION_AORGROUP:
+					property.SetValue(AORGroup);
+					break;
+
 				default:
 					base.GetProperty(property);
 					break;
@@ -114,6 +128,9 @@ namespace FTN.Services.NetworkModelService.DataModel.Core
 					break;
 				case ModelCode.SUBSTATION_LONGITUDE:
 					Longitude = property.AsFloat();
+					break;
+				case ModelCode.SUBSTATION_AORGROUP:
+					AORGroup = property.AsReference();
 					break;
 
 				default:
@@ -138,6 +155,12 @@ namespace FTN.Services.NetworkModelService.DataModel.Core
 			{
 				references[ModelCode.SUBSTATION_SUBREGION] = new List<long>();
 				references[ModelCode.SUBSTATION_SUBREGION].Add(SubRegion);
+			}
+
+			if (AORGroup != 0 && (refType == TypeOfReference.Reference || refType == TypeOfReference.Both))
+			{
+				references[ModelCode.SUBSTATION_AORGROUP] = new List<long>();
+				references[ModelCode.SUBSTATION_AORGROUP].Add(AORGroup);
 			}
 
 			base.GetReferences(references, refType);

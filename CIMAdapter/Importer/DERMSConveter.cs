@@ -265,6 +265,90 @@
 			}
 		}
 
+		public static void PopulateAORAreaProperties(DERMS.AORArea cimAORArea, ResourceDescription rd, ImportHelper importHelper, TransformAndLoadReport report)
+		{
+			if ((cimAORArea != null) && (rd != null))
+			{
+				DERMSConveter.PopulateIdentifiedObjectProperties(cimAORArea, rd);
+
+				if (cimAORArea.IsControlableHasValue)
+				{
+					rd.AddProperty(new Property(ModelCode.AOR_AREA_CONTROLLABLE, cimAORArea.IsControlable));
+				}
+				if (cimAORArea.IsViewableHasValue)
+				{
+					rd.AddProperty(new Property(ModelCode.AOR_AREA_VIEWABLE, cimAORArea.IsViewable));
+				}
+				if (cimAORArea.CoveredByHasValue)
+				{
+					rd.AddProperty(new Property(ModelCode.AOR_AREA_COVEREDBY, cimAORArea.CoveredBy));
+				}
+
+				if (cimAORArea.AORUserHasValue)
+				{
+					long gid = importHelper.GetMappedGID(cimAORArea.AORUser.ID);
+					if (gid < 0)
+					{
+						report.Report.Append("WARNING: Convert ").Append(cimAORArea.GetType().ToString()).Append(" rdfID = \"").Append(cimAORArea.ID);
+						report.Report.Append("\" - Failed to set reference to AORArea: rdfID \"").Append(cimAORArea.AORUser.ID).AppendLine(" \" is not mapped to GID!");
+					}
+					rd.AddProperty(new Property(ModelCode.AOR_AREA_USER, gid));
+				}
+
+				if (cimAORArea.AOR_AGAggregatorHasValue)
+				{
+					long gid = importHelper.GetMappedGID(cimAORArea.AOR_AGAggregator.ID);
+					if (gid < 0)
+					{
+						report.Report.Append("WARNING: Convert ").Append(cimAORArea.GetType().ToString()).Append(" rdfID = \"").Append(cimAORArea.ID);
+						report.Report.Append("\" - Failed to set reference to AORArea: rdfID \"").Append(cimAORArea.AOR_AGAggregator.ID).AppendLine(" \" is not mapped to GID!");
+					}
+					rd.AddProperty(new Property(ModelCode.AOR_AREA_AGGREGATOR, gid));
+				}
+			}
+		}
+
+		public static void PopulateAORGroupProperties(DERMS.AORGroup cimAORGroup, ResourceDescription rd, ImportHelper importHelper, TransformAndLoadReport report)
+		{
+			if ((cimAORGroup != null) && (rd != null))
+			{
+				DERMSConveter.PopulateIdentifiedObjectProperties(cimAORGroup, rd);
+
+				if (cimAORGroup.IsCoveredHasValue)
+				{
+					rd.AddProperty(new Property(ModelCode.AOR_GROUP_COVERED, cimAORGroup.IsCovered));
+				}
+
+				if (cimAORGroup.AOR_AGAggregatorHasValue)
+				{
+					long gid = importHelper.GetMappedGID(cimAORGroup.AOR_AGAggregator.ID);
+					if (gid < 0)
+					{
+						report.Report.Append("WARNING: Convert ").Append(cimAORGroup.GetType().ToString()).Append(" rdfID = \"").Append(cimAORGroup.ID);
+						report.Report.Append("\" - Failed to set reference to AORGroup: rdfID \"").Append(cimAORGroup.AOR_AGAggregator.ID).AppendLine(" \" is not mapped to GID!");
+					}
+					rd.AddProperty(new Property(ModelCode.AOR_GROUP_AGGREGATOR, gid));
+				}
+			}
+		}
+
+		public static void PopulateAORUserProperties(DERMS.AORUser cimAORUser, ResourceDescription rd, ImportHelper importHelper, TransformAndLoadReport report)
+		{
+			if ((cimAORUser != null) && (rd != null))
+			{
+				DERMSConveter.PopulateIdentifiedObjectProperties(cimAORUser, rd);
+
+				if (cimAORUser.ViewAreasHasValue)
+				{
+					rd.AddProperty(new Property(ModelCode.AOR_USER_VIEWAREAS, cimAORUser.ViewAreas));
+				}
+				if (cimAORUser.ControlAreasHasValue)
+				{
+					rd.AddProperty(new Property(ModelCode.AOR_USER_CONTROLAREAS, cimAORUser.ControlAreas));
+				}
+			}
+		}
+
 		#endregion Populate ResourceDescription
 
 		#region Enums convert
