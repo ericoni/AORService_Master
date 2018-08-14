@@ -349,6 +349,14 @@
 			}
 		}
 
+		public static void PopulateAORAgAggregatorProperties(DERMS.AOR_AGAggregator cimAORAgAggregator, ResourceDescription rd)
+		{
+			if ((cimAORAgAggregator != null) && (rd != null))
+			{
+				DERMSConveter.PopulateIdentifiedObjectProperties(cimAORAgAggregator, rd);
+			}
+		}
+
 		#endregion Populate ResourceDescription
 
 		#region Enums convert

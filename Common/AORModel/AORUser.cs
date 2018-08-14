@@ -14,6 +14,7 @@ namespace FTN.Common.AORModel
 	{
 		public AORUser(long globalId) : base(globalId)
 		{
+			AORAreas = new List<long>();
 		}
 
 		[DataMember]
@@ -138,6 +139,34 @@ namespace FTN.Common.AORModel
 			}
 		}
 
-		#endregion IReference implementation	
+		#endregion IReference implementation
+
+		public AORUser ConvertFromRD(ResourceDescription rd)
+		{
+			if (((DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(rd.Id)) == DMSType.AOR_USER)
+			{
+				if (rd.Properties != null)
+				{
+					foreach (Property property in rd.Properties)
+					{
+						if (property.Id == ModelCode.IDOBJ_GID)
+						{
+							this.GlobalId = property.AsLong();
+							continue;
+						}
+						else
+						{
+							switch (property.Id)
+							{
+								case ModelCode.AOR_USER_AREAS:
+									continue;
+							}
+							this.SetProperty(property);
+						}
+					}
+				}
+			}
+			return this;
+		}
 	}
 }

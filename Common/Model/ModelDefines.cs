@@ -18,7 +18,7 @@ namespace FTN.Common
 		AOR_AREA											= 0x0007,
 		AOR_GROUP											= 0x0008,
 		AOR_USER											= 0x0009,
-		AOR_AGAGGREGATOR									= 0x000A,
+		AOR_AGAGGREGATOR									= 0x000a,
 	}
 
 	[Flags]
@@ -102,14 +102,14 @@ namespace FTN.Common
 		AOR_GROUP_SUBSTATIONS						= 0x1600000000080519,
 		AOR_GROUP_SYNCMACHINES						= 0x1600000000080619,
 
-		A0R_USER									= 0x1700000000090000,
+		AOR_USER									= 0x1700000000090000,
 		AOR_USER_AREAS								= 0x1700000000090119,
 		AOR_USER_CONTROLAREAS						= 0x1700000000090207,  // bilo je 17 njihovo pa sam prebacio
 		AOR_USER_VIEWAREAS							= 0x1700000000090307, // prosiriti sa check in time, i timeout-om za MASTER
 																// mozda je potrebno ubaciti ovde i polja tipa permission etc.s
-		AOR_AGAGGREGATOR							= 0x18000000000A0000,
-		AOR_AGAGGREGATOR_AORGROUPS					= 0x18000000000A0119,
-		AOR_AGAGGREGATOR_AORAREAS					= 0x18000000000A0219,
+		AOR_AGAGGREGATOR							= 0x18000000000a0000,
+		AOR_AGAGGREGATOR_AORGROUPS					= 0x18000000000a0119,
+		AOR_AGAGGREGATOR_AORAREAS					= 0x18000000000a0219,
 	}
 
 	[Flags]

@@ -11,6 +11,7 @@ using FTN.Common;
 using FTN.Services.NetworkModelService.DataModel.Meas;
 using FTN.Services.NetworkModelService.DataModel.Core;
 using FTN.Services.NetworkModelService.DataModel.Wires;
+using FTN.Common.AORModel;
 
 namespace FTN.Services.NetworkModelService
 {		
@@ -140,8 +141,19 @@ namespace FTN.Services.NetworkModelService
                 case DMSType.DISCRETEVALUE:
                     io = new DiscreteValue(globalId);
                     break;
-
-                default:					
+				case DMSType.AOR_AGAGGREGATOR:
+					io = new AORAGAggregator(globalId);
+					break;
+				case DMSType.AOR_USER:
+					io = new AORUser(globalId);
+					break;
+				case DMSType.AOR_GROUP:
+					io = new AORGroup(globalId);
+					break;
+				case DMSType.AOR_AREA:
+					io = new AORArea(globalId);
+					break;
+				default:					
 					string message = String.Format("Failed to create entity because specified type ({0}) is not supported.", type);
 					CommonTrace.WriteTrace(CommonTrace.TraceError, message);
 					throw new Exception(message);					

@@ -156,7 +156,9 @@ namespace DERMSApp.ViewModels
         /// </summary>
         public MainWindowViewModel()
         {
-            CurrentViewModel = MainWindowViewModel._loginViewModel; // bio je tabular
+            CurrentViewModel = MainWindowViewModel._tabularViewModel; // bio je tabular //vratiti ga posle na logovanje i obrisati ovu liniju ispod
+			DataTemplatesVisibility = true;
+			GridVisibility = false;
 
 			aorManagementProxy = new AORManagementProxy();
 			ButtonLoginOnClick = new RelayCommand(() => ButtonLoginOnClickExecute(), () => true);

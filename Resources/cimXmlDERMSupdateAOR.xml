@@ -55,7 +55,7 @@
 		<cim:IdentifiedObject.mRID> area_1</cim:IdentifiedObject.mRID>
 		<cim:IdentifiedObject.name>area_1</cim:IdentifiedObject.name>
 	</cim:AORArea>
-		<cim:AORArea rdf:ID="area_2">
+	<cim:AORArea rdf:ID="area_2">
 		<cim:AORArea.AOR_AGAggregator rdf:resource="#ag_2"/>
 		<cim:AORArea.AORUser rdf:resource="#user_2"/>
 		<cim:AORArea.coveredBy></cim:AORArea.coveredBy>
@@ -79,7 +79,11 @@
 	</cim:AORUser>
 	
 	<cim:AOR_AGAggregator rdf:ID="ag_1">
+		<cim:IdentifiedObject.mRID> ag_1</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>ag_1</cim:IdentifiedObject.name>
 	</cim:AOR_AGAggregator>
 	<cim:AOR_AGAggregator rdf:ID="ag_2">
+		<cim:IdentifiedObject.mRID>ag_2 </cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>ag_2</cim:IdentifiedObject.name>
 	</cim:AOR_AGAggregator>
 </rdf:RDF>

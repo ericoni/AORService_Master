@@ -39,12 +39,6 @@ namespace FTN.Common.AORModel
 		public List<long> Substations { get; set; }
 		[DataMember]
 		public List<long> SynchronousMachines { get; set; }
-		/// <summary>
-		/// Gets or sets the gid.
-		/// </summary>
-		/// <value>
-		/// The gid.
-		/// </value>
 		[DataMember]
 		public long Gid
 		{
@@ -101,7 +95,7 @@ namespace FTN.Common.AORModel
 				case ModelCode.AOR_GROUP_AGGREGATOR:
 					AORAGAggregator = property.AsReference();
 					break;
-				case ModelCode.AOR_AREA_USER:
+				case ModelCode.AOR_GROUP_COVERED:
 					IsCovered = property.AsBool();
 					break;
 
@@ -198,6 +192,34 @@ namespace FTN.Common.AORModel
 			}
 		}
 
-		#endregion IReference implementation	
+		#endregion IReference implementation
+
+		public AORGroup ConvertFromRD(ResourceDescription rd)
+		{
+			if (((DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(rd.Id)) == DMSType.AOR_GROUP)
+			{
+				if (rd.Properties != null)
+				{
+					foreach (Property property in rd.Properties)
+					{
+						if (property.Id == ModelCode.IDOBJ_GID)
+						{
+							this.GlobalId = property.AsLong();
+						}
+						else
+						{
+							switch (property.Id)
+							{
+								case ModelCode.AOR_GROUP_SUBSTATIONS:
+								case ModelCode.AOR_GROUP_SYNCMACHINES:
+									continue;
+							}
+							this.SetProperty(property);
+						}
+					}
+				}
+			}
+			return this;
+		}
 	}
 }

@@ -96,12 +96,14 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
 
 			ImportGeographicalRegions();
 			ImportSubGeographicalRegions();
+			ImportAORAgAggregators();
+			ImportAORUsers();
+			ImportAORGroups();
 			ImportSubstations();
 			ImportSynchronousMachines();
 			ImportAnalogValues();
 			ImportDiscretValues();
-			ImportAORUsers();
-			
+			ImportAORAreas();
 
 			LogManager.Log("Loading elements and creating delta completed.", LogLevel.Info);
 		}
@@ -484,26 +486,29 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
 		#region ImportAORAgAggregator
 		private void ImportAORAgAggregators()
 		{
-			SortedDictionary<string, object> cimRegions = concreteModel.GetAllObjectsOfType("DERMS.AOR_AGAggregator");
-			if (cimRegions != null)
-			{
-				foreach (KeyValuePair<string, object> cimRegionPair in cimRegions)
-				{
-					DERMS.AOR_AGAggregator cimRegion = cimRegionPair.Value as DERMS.AOR_AGAggregator;
+			SortedDictionary<string, object> cimAORAgAggregators = concreteModel.GetAllObjectsOfType("DERMS.AOR_AGAggregator");
 
-					ResourceDescription rd = CreateAORAgAggregatorResourceDescription(cimRegion);
-					if (rd != null)
-					{
-						delta.AddDeltaOperation(DeltaOpType.Insert, rd, true)
-						report.Report.Append("AOR_AGAggregator ID = ").Append(cimRegion.ID).Append(" SUCCESSFULLY converted to GID = ").AppendLine(rd.Id.ToString());
-					}
-					else
-					{
-						report.Report.Append("AOR_AGAggregator ID = ").Append(cimRegion.ID).AppendLine(" FAILED to be converted");
-					}
-				}
-				report.Report.AppendLine();
+			if (cimAORAgAggregators == null)
+			{
+				return;
 			}
+
+			foreach (KeyValuePair<string, object> cimAggregatorPair in cimAORAgAggregators)
+			{
+				DERMS.AOR_AGAggregator cimAOR_AGAggregator = cimAggregatorPair.Value as DERMS.AOR_AGAggregator;
+
+				ResourceDescription rd = CreateAORAgAggregatorResourceDescription(cimAOR_AGAggregator);
+				if (rd != null)
+				{
+					delta.AddDeltaOperation(DeltaOpType.Insert, rd, true);
+						report.Report.Append("AOR_AGAggregator ID = ").Append(cimAOR_AGAggregator.ID).Append(" SUCCESSFULLY converted to GID = ").AppendLine(rd.Id.ToString());
+				}
+				else
+				{
+					report.Report.Append("AOR_AGAggregator ID = ").Append(cimAOR_AGAggregator.ID).AppendLine(" FAILED to be converted");
+				}
+			}
+			report.Report.AppendLine();
 		}
 
 		private ResourceDescription CreateAORAgAggregatorResourceDescription(DERMS.AOR_AGAggregator cimAOR_AGAggregator)

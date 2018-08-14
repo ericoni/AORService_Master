@@ -183,7 +183,25 @@ namespace FTN.Common.AORModel
 			}
 		}
 
-		#endregion IReference implementation	
+		#endregion IReference implementation
+
+		public AORArea ConvertFromRD(ResourceDescription rd)
+		{
+			if (((DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(rd.Id)) == DMSType.AOR_AREA)
+			{
+				if (rd.Properties != null)
+				{
+					foreach (Property property in rd.Properties)
+					{
+						if (property.Id == ModelCode.IDOBJ_GID)
+						{
+							this.GlobalId = property.AsLong();
+						}
+					}
+				}
+			}
+			return this;
+		}
 
 	}
 }

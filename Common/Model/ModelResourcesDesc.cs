@@ -868,13 +868,17 @@ namespace FTN.Common
 		{			
 			typeIdsInInsertOrder.Add(ModelCode.REGION);
 			typeIdsInInsertOrder.Add(ModelCode.SUBREGION);
+			typeIdsInInsertOrder.Add(ModelCode.AOR_AGAGGREGATOR);
+			typeIdsInInsertOrder.Add(ModelCode.AOR_USER);
+			typeIdsInInsertOrder.Add(ModelCode.AOR_GROUP);
 			typeIdsInInsertOrder.Add(ModelCode.SUBSTATION);
 			typeIdsInInsertOrder.Add(ModelCode.SYNCMACHINE);
 			typeIdsInInsertOrder.Add(ModelCode.ANALOGVALUE);
 			typeIdsInInsertOrder.Add(ModelCode.DISCRETEVALUE);
+			typeIdsInInsertOrder.Add(ModelCode.AOR_AREA);
 		}
 
-		private void InitializeNotSettablePropertyIds()
+		private void InitializeNotSettablePropertyIds() // vrati se provjeri sta je ovo
 		{			
 			notSettablePropertyIds.Add(ModelCode.IDOBJ_GID);
 			notSettablePropertyIds.Add(ModelCode.EQCONTAINER);
