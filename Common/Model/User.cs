@@ -10,32 +10,27 @@ namespace FTN.Common.Model
 {
 	public class User
 	{
-		//List<AORArea> aorAreas;
-
-		//public List<AORArea> AorAreas
-		//{
-		//	get { return aorAreas; }
-		//	set { aorAreas = value; }
-		//}
-
-		private int id;
+		[Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public int Id { get; set; }
 		public string Username { get; set; }
 		public string Password { get; set; }
+		public DNAAuthority DNAAuthority { get; set; }
 
 		public User() { }
 
-		public User(string username, string password)
+		public User(string username, string password, DNAAuthority dnaAuthority)
 		{
 			this.Username = username;
 			this.Password = password;
+			this.DNAAuthority = dnaAuthority;
 		}
 
-		[Key]
-		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int Id
-		{
-			get { return id; }
-			set { id = value; }
-		}
+		
+		//public int Id
+		//{
+		//	get { return id; }
+		//	set { id = value; }
+		//}
 	}
 }

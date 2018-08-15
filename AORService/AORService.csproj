@@ -90,6 +90,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AORCache\AORCache.csproj">
+      <Project>{063FF0F1-A9BC-4CF2-8858-3B936292F39C}</Project>
+      <Name>AORCache</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AORCommon\AORCommon.csproj">
       <Project>{8D3521E8-89E2-4E7C-B469-E1FDBD06A479}</Project>
       <Name>AORCommon</Name>

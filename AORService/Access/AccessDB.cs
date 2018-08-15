@@ -13,5 +13,9 @@ namespace AORService.Access
 		public AccessDB() : base("UsersDB") { }
 
 		public DbSet<User> Users { get; set; }
+
+		public DbSet<DNAAuthority> DNAs { get; set; }
+
+		public DbSet<Permission> Perms { get; set; }
 	}
 }
