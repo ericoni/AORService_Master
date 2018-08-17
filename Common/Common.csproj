@@ -95,6 +95,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AORContracts\IAORGDAContract.cs" />
     <Compile Include="AORModel\AORAGAggregator.cs" />
     <Compile Include="AORModel\AORArea.cs" />
     <Compile Include="AORModel\AORGroup.cs" />

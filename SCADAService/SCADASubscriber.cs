@@ -25,7 +25,7 @@ namespace SCADA
         private static object syncRoot = new Object();
 
         /// <summary>
-        /// Lista subscribera zainteresovani za Scada podatke
+        /// Lista subscribera zainteresovanih za Scada podatke
         /// </summary>
         private Dictionary<ISCADAForwarding, List<DMSType>> subscribers;
 

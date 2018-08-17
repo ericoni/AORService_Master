@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace FTN.Common.Model
 {
@@ -12,9 +13,12 @@ namespace FTN.Common.Model
 	{
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		[XmlIgnore]
 		public int Id { get; set; }
+		[XmlAttribute]
 		public string Name { get; set; } //DNAAuthority ima List<Permission> sto tabeli Permissions daje vezu ka DNAAuthority
 		[NotMapped]
+		[XmlAttribute]
 		public string Description { get; set; }
 
 		public Permission() { }

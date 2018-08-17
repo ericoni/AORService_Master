@@ -1,6 +1,7 @@
 ﻿using FTN.Common.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,10 +13,12 @@ namespace ActiveAORCache
 {
 	public class AORCache : IAORCache, IDisposable
 	{
-		const string ADLDS_Config = "ADLDS_Configuration.xml";
+		const string ADLDS_Config = "ADLDS_Configuration2.xml";
 		public AORCache()
 		{
-			WriteXmlToFile();
+			//CreatePermXml(ADLDS_Config);
+			//ReadPermXml(ADLDS_Config);
+			var aorCacheModel= AORCacheModel.Instance;
 		}
 
 		public void SynchronizeAORConfig()
@@ -27,61 +30,48 @@ namespace ActiveAORCache
 		{
 		}
 
-		private void WriteXmlToFile()
+		private void CreatePermXml(string filename)
 		{
-			using (XmlWriter writer = XmlWriter.Create(ADLDS_Config)) //LEFT TO DO
-			{
-				writer.Settings.Indent = true;
-				writer.WriteStartDocument();
-				writer.WriteStartElement("ADLSD_Population");
+			XmlSerializer serializer = new XmlSerializer(typeof(List<Permission>));
+			TextWriter writer = new StreamWriter(filename);
 
-				List<Permission> perms = new List<Permission>(5);
-				Permission p1 = new Permission("DNA_AuthorityDispatcher");
-				Permission p2 = new Permission("DNAAuthorityDBAdmin");
-				Permission p3 = new Permission("DNA_AuthorityOperator");
-				Permission p4 = new Permission("DNA_AuthorityWebManager");
-				Permission p5 = new Permission("DNA_AuthorityNetworkEditor");
-				perms.AddRange(new List<Permission>() { p1, p2, p3, p4, p5 });
+			List<Permission> perms = new List<Permission>(5);
+			Permission p1 = new Permission("DNA_AuthorityDispatcher", "Some description");
+			Permission p2 = new Permission("DNAAuthorityDBAdmin");
+			Permission p3 = new Permission("DNA_AuthorityOperator");
+			Permission p4 = new Permission("DNA_AuthorityWebManager");
+			Permission p5 = new Permission("DNA_AuthorityNetworkEditor");
+			perms.AddRange(new List<Permission>() { p1, p2, p3, p4, p5 });
 
-				foreach (var p in perms)
-				{
-					writer.WriteStartElement("Permission");
-					writer.WriteElementString("Name", p.Name);
-
-					writer.WriteEndElement();
-				}
-
-				writer.WriteEndElement();
-				writer.WriteEndDocument();
-			}
+			serializer.Serialize(writer, perms);
+			writer.Close();
 		}
 
-		[Obsolete]
-		private static bool Serialize<T>(T value, ref string serializeXml)
+		private void ReadPermXml(string filename)
 		{
-			if (value == null)
+			XmlSerializer serializer = new XmlSerializer(typeof(List<Permission>));
+			serializer.UnknownNode += new XmlNodeEventHandler(serializer_UnknownNode);
+			serializer.UnknownAttribute += new XmlAttributeEventHandler(serializer_UnknownAttribute);
+
+			using (FileStream fs = new FileStream(filename, FileMode.Open))
 			{
-				return false;
+				List<Permission> permList;
+				permList = (List<Permission>)serializer.Deserialize(fs);
 			}
+			int a = 5;
+			a++;
+		}
 
-			try
-			{
-				XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
-				StringWriter stringWriter = new StringWriter();
-				XmlWriter writer = XmlWriter.Create(stringWriter);
+		private void serializer_UnknownNode (object sender, XmlNodeEventArgs e)
+		{
+			Trace.WriteLine("Unknown Node:" + e.Name + "\t" + e.Text);
+		}
 
-				xmlSerializer.Serialize(writer, value);
-
-				serializeXml = stringWriter.ToString();
-
-				writer.Close();
-				return true;
-			}
-			catch 
-			{
-				return false;
-				
-			}
+		private void serializer_UnknownAttribute (object sender, XmlAttributeEventArgs e)
+		{
+			System.Xml.XmlAttribute attr = e.Attr;
+			Trace.WriteLine("Unknown attribute " +
+			attr.Name + "='" + attr.Value + "'");
 		}
 	}
 }

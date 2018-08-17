@@ -291,7 +291,7 @@ namespace MODBUSLibrary
             }
 			catch (Exception e)
 			{
-				Trace.Write("Error has occured {0}", e.StackTrace);
+				Trace.Write("Error has occurred {0}", e.StackTrace);
             }
 		}
 
@@ -304,7 +304,7 @@ namespace MODBUSLibrary
             }
 			catch (Exception e)
 			{
-				Trace.Write("Error has occured {0}", e.StackTrace);
+				Trace.Write("Error has occurred {0}", e.StackTrace);
             }
 		}
 

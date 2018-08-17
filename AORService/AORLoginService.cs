@@ -1,4 +1,4 @@
-﻿using AORCommon.AORManagementContract;
+﻿using AORCommon.AORContract;
 using System;
 using System.Collections.Generic;
 using System.Linq;

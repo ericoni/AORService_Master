@@ -20,7 +20,7 @@ namespace NMSSub
         private object instance = null;
 
         // Broj pokusaja uspostavljanja komunikacije
-        private const int maxTry = 5;
+        private const int maxTry = 7;
 
         // Spavanje do narednog pokusaja
         private const int sleepTime = 3000;

@@ -9,7 +9,5 @@ namespace AORCommon.Helpers
 	public class AORHelper
 	{
 		public static AORHelper Current;
-
-
 	}
 }

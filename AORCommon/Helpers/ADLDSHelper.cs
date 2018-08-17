@@ -18,8 +18,6 @@ namespace AORCommon.Helpers
 		{
 			areas = new List<AORArea>();
 			groups = new List<AORGroup>();
-
-
 		}
 	}
 }

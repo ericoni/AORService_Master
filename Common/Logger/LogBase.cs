@@ -15,7 +15,18 @@ namespace FTN.Common.Logger
 
     public enum LogService
     {
-        NMSNetworkModel, NMSSmartContainer, SCADACrunching, SCADATwoPhaseCommit, SCADASetpoint, CalculationEngineDistributer, CETwoPhaseCommit, CEDataCollector, CalculationEngineForecast, SCADADataCollector, CalculateHourlyForecast
+        NMSNetworkModel,
+		NMSSmartContainer,
+		SCADACrunching,
+		SCADATwoPhaseCommit,
+		SCADASetpoint,
+		CalculationEngineDistributer,
+		CETwoPhaseCommit,
+		CEDataCollector,
+		CalculationEngineForecast,
+		SCADADataCollector,
+		CalculateHourlyForecast,
+		AORCache2PC
     }
 
     public abstract class LogBase

@@ -54,7 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AORManagementContract\IAORManagement.cs" />
+    <Compile Include="AORContract\IAORManagement.cs" />
     <Compile Include="Helpers\ADLDSHelper.cs" />
     <Compile Include="Helpers\AORHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

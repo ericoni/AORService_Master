@@ -146,28 +146,32 @@ namespace FTN.Common.AORModel
 
 		public AORAGAggregator ConvertFromRD(ResourceDescription rd)
 		{
-			if (((DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(rd.Id)) == DMSType.AOR_AGAGGREGATOR)
+
+			if (((DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(rd.Id)) != DMSType.AOR_AGAGGREGATOR)
 			{
-				if (rd.Properties != null)
+				return this;
+			}
+			if (rd.Properties == null)
+			{
+				return this;
+			}
+
+			foreach (Property property in rd.Properties)
+			{
+				if (property.Id == ModelCode.IDOBJ_GID)
 				{
-					foreach (Property property in rd.Properties)
+					this.GlobalId = property.AsLong();
+					continue;
+				}
+				else
+				{
+					switch (property.Id)
 					{
-						if (property.Id == ModelCode.IDOBJ_GID)
-						{
-							this.GlobalId = property.AsLong();
+						case ModelCode.AOR_AGAGGREGATOR_AORAREAS:
+						case ModelCode.AOR_AGAGGREGATOR_AORGROUPS:
 							continue;
-						}
-						else
-						{
-							switch (property.Id)
-							{
-								case ModelCode.AOR_AGAGGREGATOR_AORAREAS:
-								case ModelCode.AOR_AGAGGREGATOR_AORGROUPS:
-									continue;
-							}
-							this.SetProperty(property);
-						}
 					}
+					this.SetProperty(property);
 				}
 			}
 			return this;

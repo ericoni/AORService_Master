@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using FTN.Common.AORModel;
 
-namespace AORCommon.AORManagementContract
+namespace FTN.Common.AORContract
 {
 	[ServiceContract]
-	public interface IAORManagement
+	public interface IAORGDAContract
 	{
 		[OperationContract]
-		bool Login(string username, string password);
+		List<AORArea> GetAORAreas();
 	}
 }

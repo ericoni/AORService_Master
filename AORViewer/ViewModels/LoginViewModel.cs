@@ -1,4 +1,4 @@
-﻿using AORCommon.AORManagementContract;
+﻿using AORCommon.AORContract;
 using AORManagement;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace FTN.Common.Model
 {
@@ -12,8 +13,14 @@ namespace FTN.Common.Model
 	{
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		[XmlIgnore]
 		public int Id { get; set; }
+		[XmlAttribute]
 		public List<Permission> PermissionList { get; set; }         // EF does not support collections of primitive types
+		[XmlAttribute]
+		public string Name { get; set; }
+		[XmlAttribute]
+		public string Description { get; set; }
 		//public Permission PermissionList { get; set; }   
 		//public DNAAuthority(Permission permissionList)
 		//{
@@ -21,8 +28,16 @@ namespace FTN.Common.Model
 		//}
 		public DNAAuthority() { }
 
-		public DNAAuthority(List<Permission> permissionList)
+		public DNAAuthority(string name, List<Permission> permissionList)
 		{
+			this.Name = name;
+			this.PermissionList = permissionList;
+		}
+
+		public DNAAuthority(string name, string desc, List<Permission> permissionList)
+		{
+			this.Name = name;
+			this.Description = desc;
 			this.PermissionList = permissionList;
 		}
 	}

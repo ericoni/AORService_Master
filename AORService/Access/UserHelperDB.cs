@@ -36,16 +36,16 @@ namespace AORService.Access
 				if (access.Users.Count() == 0)
 				{
 					#region perms
-					Permission p1 = new Permission("DNA_AuthorityDispatcher");
-					Permission p2 = new Permission("DNAAuthorityDBAdmin");
-					Permission p3 = new Permission("DNA_AuthorityOperator");
-					Permission p4 = new Permission("DNA_AuthorityWebManager");
-					Permission p5 = new Permission("DNA_AuthorityNetworkEditor");
+					Permission p1 = new Permission("DNA_PermissionControlSCADA", "Permission to issue commands towards SCADA system.");
+					Permission p2 = new Permission("DNA_PermissionUpdateNetworkModel", "Permission to apply delta (model changes)- update current network model within their assigned AOR");
+					Permission p3 = new Permission("DNA_PermissionViewSystem", "Permission to view content of AORViewer");
+					Permission p4 = new Permission("DNA_PermissionSystemAdministration", "Permission to view system settings in AORViewer");
+					Permission p5 = new Permission("DNA_PermissionViewSecurity", "Permission to view security content of AORViewer");
+					Permission p6 = new Permission("DNA_PermissionSecurityAdministration", "Permission to edit security content of AORViewer");
+					Permission p7 = new Permission("DNA_PermissionViewAdministration", "Permission to edit security content of AORViewer");
+					Permission p8 = new Permission("DNA_PermissionViewSCADA", "Permission to view content operating under SCADA system.");
 
-					//Permission p1 = new Permission(new List<string>() { "DNA_AuthorityDispatcher" });
-					//Permission p2 = new Permission(new List<string>() { "DNAAuthorityDBAdmin", "DNA_AuthorityOperator" }); // vrati se ovde
-
-					IList<Permission> perms = new List<Permission>() { p1, p2 };
+					IList<Permission> perms = new List<Permission>() { p1, p2, p3, p4, p5, p6, p7, p8 };
 					access.Perms.AddRange(perms);
 
 					int k = access.SaveChanges();
@@ -55,10 +55,13 @@ namespace AORService.Access
 					#endregion
 
 					#region DNAs
-					DNAAuthority dna1 = new DNAAuthority(new List<Permission>() { p1, p2 }); //new List<Permission>() { p1 }
-					DNAAuthority dna2 = new DNAAuthority(new List<Permission>() { p3, p4, p5 });
-
-					IList<DNAAuthority> dnaAuthorities = new List<DNAAuthority>() { dna1, dna2 };
+					DNAAuthority dna1 = new DNAAuthority("DNA_AuthorityDispatcher", new List<Permission>() { p1, p8, p5, p7 }); 
+					DNAAuthority dna2 = new DNAAuthority("DNA_AuthorityNetworkEditor", new List<Permission>() { p2 });
+					DNAAuthority dna3 = new DNAAuthority("DNA_SCADAAdmin", "Provides complete control to all aspects of the SCADA system.", new List<Permission>() { p1, p8 });
+					DNAAuthority dna4 = new DNAAuthority("DNA_Viewer", "Required for a user to access the SCADA system.  Provides non-interactive access to data according to AOR.", new List<Permission>() { p3, p5, p7, p8 });
+					DNAAuthority dna5 = new DNAAuthority("DNA_DMSAdmin", new List<Permission>() {p3, p5, p7 });
+					DNAAuthority dna6 = new DNAAuthority("DNA_Operator", new List<Permission>() { p1, p2, p8 }); 
+					IList<DNAAuthority> dnaAuthorities = new List<DNAAuthority>() { dna1, dna2, dna3, dna4, dna5, dna6 };
 					access.DNAs.AddRange(dnaAuthorities);
 
 					int l = access.SaveChanges();

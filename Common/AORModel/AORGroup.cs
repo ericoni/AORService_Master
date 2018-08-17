@@ -196,27 +196,31 @@ namespace FTN.Common.AORModel
 
 		public AORGroup ConvertFromRD(ResourceDescription rd)
 		{
-			if (((DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(rd.Id)) == DMSType.AOR_GROUP)
+			if (((DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(rd.Id)) != DMSType.AOR_GROUP)
 			{
-				if (rd.Properties != null)
+				return this;
+			}
+
+			if (rd.Properties == null)
+			{
+				return this;
+			}
+
+			foreach (Property property in rd.Properties)
+			{
+				if (property.Id == ModelCode.IDOBJ_GID)
 				{
-					foreach (Property property in rd.Properties)
+					this.GlobalId = property.AsLong();
+				}
+				else
+				{
+					switch (property.Id)
 					{
-						if (property.Id == ModelCode.IDOBJ_GID)
-						{
-							this.GlobalId = property.AsLong();
-						}
-						else
-						{
-							switch (property.Id)
-							{
-								case ModelCode.AOR_GROUP_SUBSTATIONS:
-								case ModelCode.AOR_GROUP_SYNCMACHINES:
-									continue;
-							}
-							this.SetProperty(property);
-						}
+						case ModelCode.AOR_GROUP_SUBSTATIONS:
+						case ModelCode.AOR_GROUP_SYNCMACHINES:
+							continue;
 					}
+					this.SetProperty(property);
 				}
 			}
 			return this;

@@ -9,37 +9,37 @@
 			 d1p1:Ignorable="d" 
 			 xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
   <Application.Resources>
-    <ResourceDictionary>
-      <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="Theme/Theme.xaml" />
-      </ResourceDictionary.MergedDictionaries>
-      <vm:ViewModelLocator p7:Key="Locator" p8:IsDataSource="True" xmlns:p8="http://schemas.microsoft.com/expression/blend/2008" xmlns:p7="http://schemas.microsoft.com/winfx/2006/xaml" />
-      <!--
-            We define the data templates here so we can apply them across the
-            entire application.
-            
-            The data template just says that if our data type is of a particular
-            view-model type, then render the appropriate view.  The framework
-            takes care of this dynamically.  Note that the DataContext for
-            the underlying view is already set at this point, so the
-            view (UserControl), doesn't need to have it's DataContext set
-            directly.
-        -->
-      <DataTemplate DataType="{x:Type vm:EntireNetworkViewModel}">
-        <views:TabularView />
-      </DataTemplate>
-      <DataTemplate DataType="{x:Type vm:DeltaViewModel}">
-        <views:DeltaView />
-      </DataTemplate>
-      <DataTemplate DataType="{x:Type vm:HistoryDataChartViewModel}">
-        <views:HistoryDataChartView />
-      </DataTemplate>
-      <DataTemplate DataType="{x:Type vm:GenerationForecastViewModel}">
-        <views:GenerationForecastView />
-      </DataTemplate>
+	<ResourceDictionary>
+	  <ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="Theme/Theme.xaml" />
+	  </ResourceDictionary.MergedDictionaries>
+	  <vm:ViewModelLocator p7:Key="Locator" p8:IsDataSource="True" xmlns:p8="http://schemas.microsoft.com/expression/blend/2008" xmlns:p7="http://schemas.microsoft.com/winfx/2006/xaml" />
+	  <!--
+			We define the data templates here so we can apply them across the
+			entire application.
+			
+			The data template just says that if our data type is of a particular
+			view-model type, then render the appropriate view.  The framework
+			takes care of this dynamically.  Note that the DataContext for
+			the underlying view is already set at this point, so the
+			view (UserControl), doesn't need to have it's DataContext set
+			directly.
+		-->
+	  <DataTemplate DataType="{x:Type vm:EntireNetworkViewModel}">
+		<views:TabularView />
+	  </DataTemplate>
+	  <DataTemplate DataType="{x:Type vm:DeltaViewModel}">
+		<views:DeltaView />
+	  </DataTemplate>
+	  <DataTemplate DataType="{x:Type vm:HistoryDataChartViewModel}">
+		<views:HistoryDataChartView />
+	  </DataTemplate>
+	  <DataTemplate DataType="{x:Type vm:GenerationForecastViewModel}">
+		<views:GenerationForecastView />
+	  </DataTemplate>
 		<!--<DataTemplate DataType="{x:Type vm:LoginViewModel}">
 		<views:LoginWindow/>
-      </DataTemplate>-->
-    </ResourceDictionary>
+	  </DataTemplate>-->
+	</ResourceDictionary>
   </Application.Resources>
 </Application>

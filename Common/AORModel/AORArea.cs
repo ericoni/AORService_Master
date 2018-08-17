@@ -187,21 +187,29 @@ namespace FTN.Common.AORModel
 
 		public AORArea ConvertFromRD(ResourceDescription rd)
 		{
-			if (((DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(rd.Id)) == DMSType.AOR_AREA)
+			if (((DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(rd.Id)) != DMSType.AOR_AREA)
 			{
-				if (rd.Properties != null)
+				return this;
+			}
+			if (rd.Properties == null)
+			{
+				return this;
+			}
+
+			foreach (Property property in rd.Properties)
+			{
+				if (property.Id == ModelCode.IDOBJ_GID)
 				{
-					foreach (Property property in rd.Properties)
-					{
-						if (property.Id == ModelCode.IDOBJ_GID)
-						{
-							this.GlobalId = property.AsLong();
-						}
-					}
+					this.GlobalId = property.AsLong();
+				}
+				else
+				{
+					
+					this.SetProperty(property);
 				}
 			}
+
 			return this;
 		}
-
 	}
 }

@@ -57,7 +57,7 @@ namespace SCADA
         {
             if (host == null)
             {
-                throw new Exception("SCADA Subscriber can not be opend because it is not initialized.");
+                throw new Exception("SCADA Subscriber can not be opened because it is not initialized.");
             }
 
             string message = string.Empty;
@@ -85,7 +85,7 @@ namespace SCADA
             Console.WriteLine("{0}", message);
             CommonTrace.WriteTrace(CommonTrace.TraceInfo, message);
 
-            Console.WriteLine("************************************************************************SCADA Subscriber sterted", message);
+            Console.WriteLine("************************************************************************SCADA Subscriber started", message);
         }
     }
 }
