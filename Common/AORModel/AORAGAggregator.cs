@@ -144,7 +144,7 @@ namespace FTN.Common.AORModel
 
 		#endregion IReference implementation
 
-		public AORAGAggregator ConvertFromRD(ResourceDescription rd)
+		public AORAGAggregator ConvertFromRD(ResourceDescription rd) // nece setovati ka vise vezu
 		{
 
 			if (((DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(rd.Id)) != DMSType.AOR_AGAGGREGATOR)
@@ -174,6 +174,17 @@ namespace FTN.Common.AORModel
 					this.SetProperty(property);
 				}
 			}
+
+			foreach (var aorGroup in rd.Properties[0].PropertyValue.LongValues)
+			{
+				this.AORGroups.Add(aorGroup);
+			}
+
+			foreach (var aorArea in rd.Properties[1].PropertyValue.LongValues)
+			{
+				this.AORAreas.Add(aorArea);
+			}
+
 			return this;
 		}
 	}

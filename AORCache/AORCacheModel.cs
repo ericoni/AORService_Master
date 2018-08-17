@@ -40,7 +40,10 @@ namespace ActiveAORCache
 		public AORCacheModel()
 		{
 			rdAdapter = new RDAdapter();
-			var areas = rdAdapter.GetAORAreas();
+			//var areas = rdAdapter.GetAORAreas();
+			//var aggs = rdAdapter.GetAORAgAggregatorsRDs();
+			var aggs = rdAdapter.GetAORAgAggregators();
+
 			int c = 5;
 			c++;
 		}

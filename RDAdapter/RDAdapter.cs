@@ -627,8 +627,8 @@ namespace Adapter
 			return substations;
 		}
 
-		// AOR SECTION
-		public List<AORAGAggregator> GetAORAgAggregator()
+		#region AOR Section
+		public List<AORAGAggregator> GetAORAgAggregators()
 		{
 			int iteratorId = 0;
 			List<long> ids = new List<long>();
@@ -717,5 +717,52 @@ namespace Adapter
 
 			return aorAreaValues;
 		}
+
+		public List<AORGroup> GetAORGroups()
+		{
+			int iteratorId = 0;
+			List<long> ids = new List<long>();
+			List<AORGroup> aorAORGroupValues = new List<AORGroup>();
+
+			try
+			{
+				int numberOfResources = 500;
+				int resourcesLeft = 0;
+
+				List<ModelCode> properties = modelResourcesDesc.GetAllPropertyIds(ModelCode.AOR_GROUP);
+
+				iteratorId = GdaQueryProxy.GetExtentValues(ModelCode.AOR_AGAGGREGATOR, properties);
+				resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
+
+				while (resourcesLeft > 0)
+				{
+					List<ResourceDescription> rds = GdaQueryProxy.IteratorNext(numberOfResources, iteratorId);
+
+					for (int i = 0; i < rds.Count; i++)
+					{
+						var rg = GdaQueryProxy.GetValues(rds[i].Id, properties);
+						AORGroup aorGroupValue = new AORGroup(rds[i].Id);
+						aorAORGroupValues.Add(aorGroupValue.ConvertFromRD(rg));
+					}
+
+					resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
+				}
+
+				GdaQueryProxy.IteratorClose(iteratorId);
+
+				CommonTrace.WriteTrace(CommonTrace.TraceError, "Getting extent values method successfully finished. (GetAORAgAggregator)");
+
+			}
+			catch (Exception e)
+			{
+				string message = string.Format("Getting extent values method failed for {0}.\n\t{1}", ModelCode.AOR_GROUP, e.Message);
+				Console.WriteLine(message);
+				CommonTrace.WriteTrace(CommonTrace.TraceError, message);
+			}
+
+			return aorAORGroupValues;
+		}
+
+		#endregion
 	}
 }
