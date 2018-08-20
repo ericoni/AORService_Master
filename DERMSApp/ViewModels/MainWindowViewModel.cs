@@ -40,7 +40,7 @@ namespace DERMSApp.ViewModels
 		/// <summary>
 		/// Proxy for AOR Management
 		/// </summary>
-		private AORManagementProxy aorManagementProxy = null;
+		//private AORManagementProxy aorManagementProxy = null;
 		/// <summary>
 		/// The current view.
 		/// </summary>
@@ -160,8 +160,8 @@ namespace DERMSApp.ViewModels
 			DataTemplatesVisibility = true;
 			GridVisibility = false;
 
-			aorManagementProxy = new AORManagementProxy();
-			ButtonLoginOnClick = new RelayCommand(() => ButtonLoginOnClickExecute(), () => true);
+			//aorManagementProxy = new AORManagementProxy(); // vrati se AOR
+			//ButtonLoginOnClick = new RelayCommand(() => ButtonLoginOnClickExecute(), () => true);
 
 			FirstViewCommand = new RelayCommand(() => ExecuteFirstViewCommand());
             SecondViewCommand = new RelayCommand(() => ExecuteSecondViewCommand());
@@ -194,22 +194,22 @@ namespace DERMSApp.ViewModels
             }
         }
 
-		public bool ButtonLoginOnClickExecute()
-		{
-			if (aorManagementProxy.Proxy.Login(TextBoxUsernameText, TextBoxPasswordText))
-			{
-				IsUserAuthenticated = true;
-				GridVisibility = false;
-				CurrentViewModel = _tabularViewModel;
-				DataTemplatesVisibility = true; // ostavitii ovako ili se vratiti i probati sa onim event djavolima
-				return true;
-			}
-			else
-			{
-				IsUserAuthenticated = false;
-				return false;
-			}
-		}
+		//public bool ButtonLoginOnClickExecute()
+		//{
+		//	if (aorManagementProxy.Proxy.Login(TextBoxUsernameText, TextBoxPasswordText))
+		//	{
+		//		IsUserAuthenticated = true;
+		//		GridVisibility = false;
+		//		CurrentViewModel = _tabularViewModel;
+		//		DataTemplatesVisibility = true; // ostavitii ovako ili se vratiti i probati sa onim event djavolima
+		//		return true;
+		//	}
+		//	else
+		//	{
+		//		IsUserAuthenticated = false;
+		//		return false;
+		//	}
+		//}
 
 		/// <summary>
 		/// Set the CurrentViewModel to 'FirstViewModel'
@@ -300,6 +300,9 @@ namespace DERMSApp.ViewModels
 				RaisePropertyChanged("DataTemplatesVisibility");
 			}
 		}
+
+		#region Master commented code
+
 		/// <summary>
 		/// Set the CurrentViewModel to 'ThirdViewModel'
 		/// </summary>
@@ -374,7 +377,7 @@ namespace DERMSApp.ViewModels
 			}
 			
 		}*/
-
+		#endregion
 
 	}
 }

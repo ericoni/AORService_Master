@@ -10,7 +10,7 @@ namespace AORManagement
 {
 	public class AORManagementProxy
 	{
-		private const int maxTries = 5;
+		private const int maxTries = 10;
 		private const int sleepTime = 3000;
 		private AORManagementChannel proxy;
 

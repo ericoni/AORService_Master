@@ -32,18 +32,18 @@ namespace DERMSApp.Views
 				((dynamic)this.DataContext).SecurePassword = ((PasswordBox)sender).SecurePassword;
 		}
 
-		private void Button_Click(object sender, RoutedEventArgs e)
-		{
-			LoginViewModel vm = this.DataContext as LoginViewModel;
-			vm.ButtonLoginOnClickExecute();
+		//private void Button_Click(object sender, RoutedEventArgs e) // bolo
+		//{
+		//	LoginViewModel vm = this.DataContext as LoginViewModel;
+		//	vm.ButtonLoginOnClickExecute();
 
-			if (vm.IsUserAuthenticated == true)
-			{
-				Window main = this.Parent as Window;
-				// umesto new setovati onaj tamo
-				(main.DataContext as MainWindowViewModel).CurrentViewModel = new EntireNetworkViewModel();
-			}
+		//	if (vm.IsUserAuthenticated == true)
+		//	{
+		//		Window main = this.Parent as Window;
+		//		// umesto new setovati onaj tamo
+		//		(main.DataContext as MainWindowViewModel).CurrentViewModel = new EntireNetworkViewModel();
+		//	}
 
-		}
+		//}
 	}
 }

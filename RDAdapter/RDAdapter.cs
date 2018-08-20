@@ -718,7 +718,7 @@ namespace Adapter
 			return aorAreaValues;
 		}
 
-		public List<AORGroup> GetAORGroups()
+		public List<AORGroup> GetAORGroups() // nesto nije u redu, za Area je dobro, grupe ne rade..
 		{
 			int iteratorId = 0;
 			List<long> ids = new List<long>();
@@ -731,7 +731,7 @@ namespace Adapter
 
 				List<ModelCode> properties = modelResourcesDesc.GetAllPropertyIds(ModelCode.AOR_GROUP);
 
-				iteratorId = GdaQueryProxy.GetExtentValues(ModelCode.AOR_AGAGGREGATOR, properties);
+				iteratorId = GdaQueryProxy.GetExtentValues(ModelCode.AOR_GROUP, properties);
 				resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
 
 				while (resourcesLeft > 0)
@@ -750,7 +750,7 @@ namespace Adapter
 
 				GdaQueryProxy.IteratorClose(iteratorId);
 
-				CommonTrace.WriteTrace(CommonTrace.TraceError, "Getting extent values method successfully finished. (GetAORAgAggregator)");
+				CommonTrace.WriteTrace(CommonTrace.TraceError, "Getting extent values method successfully finished. (GetAORGroups)");
 
 			}
 			catch (Exception e)
@@ -762,6 +762,89 @@ namespace Adapter
 
 			return aorAORGroupValues;
 		}
+
+		public List<AORGroup> GetGroupsForAgr(long groupGid)
+		{
+			List<AORGroup> resultIds = new List<AORGroup>();
+
+			int numberOfResources = 500;
+			Association association = new Association(ModelCode.AOR_AGAGGREGATOR_AORGROUPS, 0, false);
+
+			try
+			{
+				List<ModelCode> properties = modelResourcesDesc.GetAllPropertyIds(ModelCode.AOR_GROUP);
+
+				int iteratorId = GdaQueryProxy.GetRelatedValues(groupGid, properties, association);
+				int resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
+
+				while (resourcesLeft > 0)
+				{
+					List<ResourceDescription> rds = GdaQueryProxy.IteratorNext(numberOfResources, iteratorId);
+
+					foreach (ResourceDescription rd in rds)
+					{
+						AORGroup tempGroup = new AORGroup(rd.Id);
+						resultIds.Add(tempGroup.ConvertFromRD(rd));
+					}
+
+					resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
+				}
+
+				GdaQueryProxy.IteratorClose(iteratorId);
+
+				CommonTrace.WriteTrace(CommonTrace.TraceError, "Getting extent values method successfully finished.");
+			}
+			catch (Exception e)
+			{
+				string message = string.Format("Getting related values method  failed for sourceGlobalId = {0} and association (propertyId = {1}, type = {2}). Reason: {3}", groupGid, association.PropertyId, association.Type, e.Message);
+				Console.WriteLine(message);
+				CommonTrace.WriteTrace(CommonTrace.TraceError, message);
+			}
+
+			return resultIds;
+		}
+
+		public List<AORArea> GetAreasForAgr(long areaGid)
+		{
+			List<AORArea> resultIds = new List<AORArea>();
+
+			int numberOfResources = 500;
+			Association association = new Association(ModelCode.AOR_AGAGGREGATOR_AORGROUPS, 0, false);
+
+			try
+			{
+				List<ModelCode> properties = modelResourcesDesc.GetAllPropertyIds(ModelCode.AOR_AREA);
+
+				int iteratorId = GdaQueryProxy.GetRelatedValues(areaGid, properties, association);
+				int resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
+
+				while (resourcesLeft > 0)
+				{
+					List<ResourceDescription> rds = GdaQueryProxy.IteratorNext(numberOfResources, iteratorId);
+
+					foreach (ResourceDescription rd in rds)
+					{
+						AORArea tempArea = new AORArea(rd.Id);
+						resultIds.Add(tempArea.ConvertFromRD(rd));
+					}
+
+					resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
+				}
+
+				GdaQueryProxy.IteratorClose(iteratorId);
+
+				CommonTrace.WriteTrace(CommonTrace.TraceError, "Getting extent values method successfully finished.");
+			}
+			catch (Exception e)
+			{
+				string message = string.Format("Getting related values method  failed for sourceGlobalId = {0} and association (propertyId = {1}, type = {2}). Reason: {3}", areaGid, association.PropertyId, association.Type, e.Message);
+				Console.WriteLine(message);
+				CommonTrace.WriteTrace(CommonTrace.TraceError, message);
+			}
+
+			return resultIds;
+		}
+
 
 		#endregion
 	}

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,15 @@ namespace DERMSApp.ViewModels
         /// </summary>
         public ViewModelLocator()
         {
-            _main = new MainWindowViewModel();
+			try
+			{
+				_main = new MainWindowViewModel();
+			}
+			catch (Exception e)
+			{
+				Trace.Write("Stupid exception in constructor" + e.StackTrace);
+			}
+          
         }
 
         /// <summary>
@@ -29,7 +38,7 @@ namespace DERMSApp.ViewModels
             "CA1822:MarkMembersAsStatic",
             Justification = "This non-static member is needed for data binding purposes.")]
         public MainWindowViewModel Main
-        {
+        {		
             get
             {
                 return _main;

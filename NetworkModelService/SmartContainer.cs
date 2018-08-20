@@ -874,8 +874,8 @@ namespace FTN.Services.NetworkModelService
         {
             if (EntityExists(model, globalId))
             {
-                DMSType type = (DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(globalId);
-                IdentifiedObject io = GetContainer(model, type).GetEntity(globalId);
+                DMSType type = (DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(globalId); // vrati se, iz nepoznatog razloga vrati pogresan DMS type (34359738372)
+				IdentifiedObject io = GetContainer(model, type).GetEntity(globalId);
 
                 return io;
             }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ServiceModel;
-using AORCommon.AORManagementContract;
+using AORCommon.AORContract;
 using System.Security;
 
 namespace AORManagement

@@ -19,7 +19,7 @@ namespace AORViewer.ViewModels
 	{
 		private string textBoxUsername = string.Empty;
 		private string textBoxPassword = string.Empty; // vratiti se za implementaciju secure string-a ili nesto sa sertifikatima
-		private AORManagementProxy aorManagementProxy = null;
+		//private AORManagementProxy aorManagementProxy = null; //vrati se
 		/// <summary>
 		/// The current view.
 		/// </summary>
@@ -30,8 +30,8 @@ namespace AORViewer.ViewModels
 		public LoginViewModel()
 		{
 			InitGUIElements();
-			aorManagementProxy = new AORManagementProxy();
-			ButtonLoginOnClick = new RelayCommand(() => ButtonLoginOnClickExecute(), () => true);
+			//aorManagementProxy = new AORManagementProxy();
+			//ButtonLoginOnClick = new RelayCommand(() => ButtonLoginOnClickExecute(), () => true); //vrati se i gore
 		}
 
 		private void InitGUIElements()
@@ -40,14 +40,14 @@ namespace AORViewer.ViewModels
 			
 		}
 
-		private void ButtonLoginOnClickExecute()
-		{
-			if (!TextBoxUsernameText.Equals(string.Empty))
-				if (aorManagementProxy.Proxy.Login(TextBoxUsernameText, TextBoxPasswordText))
-					MessageBox.Show("Success");
-				else
-					MessageBox.Show("Fail");
-		}
+		//private void ButtonLoginOnClickExecute()
+		//{
+		//	if (!TextBoxUsernameText.Equals(string.Empty))
+		//		if (aorManagementProxy.Proxy.Login(TextBoxUsernameText, TextBoxPasswordText))
+		//			MessageBox.Show("Success");
+		//		else
+		//			MessageBox.Show("Fail");
+		//}
 
 		/// <summary>
 		/// The CurrentView property.  The setter is private since only this 

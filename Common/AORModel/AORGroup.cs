@@ -30,15 +30,22 @@ namespace FTN.Common.AORModel
 			get { return id; }
 			set { id = value; }
 		}
-
 		[DataMember]
 		public long AORAGAggregator { get; set; }
 		[DataMember]
 		public bool IsCovered { get; set; }
 		[DataMember]
-		public List<long> Substations { get; set; }
+		public List<long> Substations
+		{
+			get { return substations; }
+			set { substations = value; }
+		}
 		[DataMember]
-		public List<long> SynchronousMachines { get; set; }
+		public List<long> SynchronousMachines
+		{
+			get { return synchronousMachines; }
+			set { synchronousMachines = value; }
+		}
 		[DataMember]
 		public long Gid
 		{

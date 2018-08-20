@@ -17,13 +17,19 @@ namespace FTN.Common.AORModel
 		private int id;
 		private long aorUser = 0;
 		private long aorAggregator = 0;
+		private string coveredBy = string.Empty;
 
-		[DataMember]
-		public string CoveredBy { get; set; }
 		[DataMember]
 		public bool IsControllable { get; set; }
 		[DataMember]
 		public bool IsViewable { get; set; }
+
+		[DataMember]
+		public string CoveredBy
+		{
+			get { return coveredBy; }
+			set { coveredBy = value; }
+		}
 
 		public AORArea(long globalId) : base(globalId)
 		{

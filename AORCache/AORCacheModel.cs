@@ -42,7 +42,10 @@ namespace ActiveAORCache
 			rdAdapter = new RDAdapter();
 			//var areas = rdAdapter.GetAORAreas();
 			//var aggs = rdAdapter.GetAORAgAggregatorsRDs();
-			var aggs = rdAdapter.GetAORAgAggregators();
+			//var aggs = rdAdapter.GetAORAgAggregators();
+			//var allGroups = rdAdapter.GetAORGroups();
+			//var g = rdAdapter.GetGroupsForAgr(42949672962);
+			var areasForAg = rdAdapter.GetAreasForAgr(42949672962);
 
 			int c = 5;
 			c++;

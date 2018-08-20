@@ -13,5 +13,9 @@ namespace FTN.Common.AORContract
 	{
 		[OperationContract]
 		List<AORArea> GetAORAreas();
+		[OperationContract]
+		List<AORGroup> GetGroupsForAgr(long groupGid);
+		[OperationContract]
+		List<AORArea> GetAreasForAgr(long areaGid);
 	}
 }
