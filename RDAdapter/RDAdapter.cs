@@ -809,7 +809,7 @@ namespace Adapter
 			List<AORArea> resultIds = new List<AORArea>();
 
 			int numberOfResources = 500;
-			Association association = new Association(ModelCode.AOR_AGAGGREGATOR_AORGROUPS, 0, false);
+			Association association = new Association(ModelCode.AOR_AGAGGREGATOR_AORAREAS, 0, false);
 
 			try
 			{
@@ -844,7 +844,6 @@ namespace Adapter
 
 			return resultIds;
 		}
-
 
 		#endregion
 	}
