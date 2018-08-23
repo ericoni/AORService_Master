@@ -32,7 +32,9 @@ namespace DERMSApp.ViewModels
         {
             ReactiveVisibility = Visibility.Collapsed;
 
-            foreach (SynchronousMachine der in rdAdapter.GetDERs(region.GlobalId))
+			var allDers = rdAdapter.GetDERs(region.GlobalId);
+
+			foreach (SynchronousMachine der in allDers)
             {
                 if (der.FuelType == FTN.Common.FuelType.Wind)
                 {
@@ -71,8 +73,9 @@ namespace DERMSApp.ViewModels
         protected override void LoadChildren()
         {
 			foreach (SubGeographicalRegion subGeographicalRegion in rdAdapter.GetSubRegionsForRegion(_region.GlobalId))
+			{
 				base.Children.Add(new SubGeographicalRegionViewModel(subGeographicalRegion, this, _ders));
-            
+			}
 		}
 
         protected override void LoadDERS()
@@ -102,7 +105,10 @@ namespace DERMSApp.ViewModels
         private void ExecuteReactivePowerCommand()
         {
             _ders.Clear();
-            foreach (SynchronousMachine der in rdAdapter.GetDERs(_region.GlobalId))
+
+			var allDers = rdAdapter.GetDERs(_region.GlobalId);
+
+			foreach (SynchronousMachine der in allDers)
             {
                 TableSMItem item = new TableSMItem();
                 item = (TableSMItem)CacheReceiver.Instance.TableItemList.Where(o => o.Gid.Equals(der.GlobalId)).FirstOrDefault();
@@ -128,7 +134,10 @@ namespace DERMSApp.ViewModels
         private void ExecuteActivePowerCommand()
         {
             _ders.Clear();
-            foreach (SynchronousMachine der in rdAdapter.GetDERs(_region.GlobalId))
+
+			var allDers = rdAdapter.GetDERs(_region.GlobalId);
+
+			foreach (SynchronousMachine der in allDers)
             {
                 TableSMItem item = new TableSMItem();
                 item = (TableSMItem)CacheReceiver.Instance.TableItemList.Where(o => o.Gid.Equals(der.GlobalId)).FirstOrDefault();

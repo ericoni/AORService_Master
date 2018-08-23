@@ -14,12 +14,12 @@ namespace AORViewer.ViewModel
     /// See http://www.galasoft.ch/mvvm
     /// </para>
     /// </summary>
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel2 : ViewModelBase
     {
 		/// <summary>
 		/// Initializes a new instance of the MainViewModel class.
 		/// </summary>
-		public MainViewModel()
+		public MainViewModel2()
 		{
 			////if (IsInDesignMode)
 			////{

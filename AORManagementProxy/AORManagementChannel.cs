@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 using System.ServiceModel;
 using AORCommon.AORContract;
 using System.Security;
+using FTN.Common.AORContract;
+using FTN.Common.Model;
 
 namespace AORManagement
 {
 	public class AORManagementChannel : ClientBase<IAORManagement>, IAORManagement
 	{
 		public AORManagementChannel()
-			: base("AORLoginEndpoint")
+			: base("AORViewerComm")
 		{
 		}
 

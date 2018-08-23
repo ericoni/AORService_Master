@@ -43,14 +43,14 @@ namespace AORViewer.ViewModel
 			////    SimpleIoc.Default.Register<IDataService, DataService>();
 			////}
 
-			SimpleIoc.Default.Register<MainViewModel>();
+			SimpleIoc.Default.Register<MainViewModel2>();
 		}
 
-		public MainViewModel Main
+		public MainViewModel2 Main
 		{
 			get
 			{
-				return ServiceLocator.Current.GetInstance<MainViewModel>();
+				return ServiceLocator.Current.GetInstance<MainViewModel2>();
 			}
 		}
 

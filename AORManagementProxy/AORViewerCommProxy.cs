@@ -6,15 +6,15 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AORManagement
+namespace AORManagementProxy
 {
-	public class AORManagementProxy
+	public class AORViewerCommProxy
 	{
 		private const int maxTries = 10;
 		private const int sleepTime = 3000;
-		private AORManagementChannel proxy;
+		private AORViewerCommChannel proxy;
 
-		public AORManagementProxy()
+		public AORViewerCommProxy()
 		{
 			OpenChannel();
 		}
@@ -26,11 +26,11 @@ namespace AORManagement
 			while (true)
 			{
 				if (tryCounter == maxTries)
-					throw new Exception("AORManagementProxy: Connection error.");
+					throw new Exception("AORViewerCommProxy: Connection error.");
 
 				try
 				{
-					proxy = new AORManagementChannel();
+					proxy = new AORViewerCommChannel();
 					proxy.Open();
 					break;
 				}
@@ -38,12 +38,12 @@ namespace AORManagement
 				{
 					tryCounter++;
 					Thread.Sleep(sleepTime);
-					Trace.Write("Exception trace is:" + e.StackTrace);
+					Trace.Write("Exception trace :" + e.StackTrace);
 				}
 			}
 		}
 
-		public AORManagementChannel Proxy
+		public AORViewerCommChannel Proxy
 		{
 			get
 			{
@@ -55,5 +55,6 @@ namespace AORManagement
 				return proxy;
 			}
 		}
+
 	}
 }

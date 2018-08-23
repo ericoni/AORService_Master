@@ -9,6 +9,7 @@ using System.Xml.Serialization;
 
 namespace FTN.Common.Model
 {
+	[Serializable]
 	public class Permission
 	{
 		[Key]
@@ -33,11 +34,5 @@ namespace FTN.Common.Model
 			this.Name = name;
 			this.Description = desc;
 		}
-		//public List<string> PermList { get; set;  //vrati se ovamo
-
-		//public Permission(List<string> pl)
-		//{
-		//	this.PermList = pl;
-		//}
 	}
 }

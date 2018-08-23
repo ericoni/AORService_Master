@@ -8,13 +8,13 @@
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			 d1p1:Ignorable="d" xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
 	<Application.Resources>
-		<ResourceDictionary>
-			<vm:ViewModelLocator p7:Key="Locator" p8:IsDataSource="True" xmlns:p8="http://schemas.microsoft.com/expression/blend/2008" xmlns:p7="http://schemas.microsoft.com/winfx/2006/xaml" />
+		<!--<ResourceDictionary>-->
+			<!--<vm:ViewModelLocator p7:Key="Locator" p8:IsDataSource="True" xmlns:p8="http://schemas.microsoft.com/expression/blend/2008" xmlns:p7="http://schemas.microsoft.com/winfx/2006/xaml" />-->
 
-			<DataTemplate DataType="{x:Type vm:LoginViewModel}">
+			<!--<DataTemplate DataType="{x:Type vm:LoginViewModel}">
 				<views:LoginWindow />
-			</DataTemplate>
-		</ResourceDictionary>
-		
+			</DataTemplate>-->
+		<!--</ResourceDictionary>-->
+		<!--<vm:AORVMainWindowViewModel x:Key="AORVMainWindowViewModel" />-->
 	</Application.Resources>
 </Application>

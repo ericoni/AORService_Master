@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using AORService.Access;
 using System.Diagnostics;
+using FTN.Common.AORContract;
+using FTN.Common.Model;
 
 namespace AORService
 {
@@ -23,7 +25,6 @@ namespace AORService
 		/// Lock object
 		/// </summary>
 		private static object syncRoot = new Object();
-
 		/// <summary>
 		/// Singleton method
 		/// </summary>
@@ -78,8 +79,6 @@ namespace AORService
 			{
 				Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
 			}
-
-
 		}
 	}
 }

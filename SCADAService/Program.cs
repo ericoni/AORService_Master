@@ -43,10 +43,10 @@ namespace SCADA
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                Console.WriteLine("Scada services failed.");
+                Console.WriteLine("Starting Scada services has failed.");
                 Console.WriteLine(ex.StackTrace);
                 CommonTrace.WriteTrace(CommonTrace.TraceError, ex.Message);
-                CommonTrace.WriteTrace(CommonTrace.TraceError, "Scada services failed.");
+                CommonTrace.WriteTrace(CommonTrace.TraceError, "Starting Scada services has failed.");
                 CommonTrace.WriteTrace(CommonTrace.TraceError, ex.StackTrace);
                 Console.ReadLine();
             }

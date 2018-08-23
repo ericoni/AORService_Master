@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AORContracts\IAORGDAContract.cs" />
+    <Compile Include="AORContracts\IAORViewerCommunication.cs" />
     <Compile Include="AORModel\AORAGAggregator.cs" />
     <Compile Include="AORModel\AORArea.cs" />
     <Compile Include="AORModel\AORGroup.cs" />

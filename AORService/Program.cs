@@ -1,4 +1,5 @@
 ﻿using ActiveAORCache;
+using AORService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,16 +19,20 @@ namespace AORService
 			Console.WriteLine("************************************************************************Starting services", message);
 
 			AORLoginService aorLoginService = new AORLoginService();
+			AORViewerCommService aorViewerCommService = new AORViewerCommService();
 
 			try
 			{
 				aorLoginService.Start();
 				Console.WriteLine("AORService has been started.");
+
+				aorViewerCommService.Start();
+				Console.WriteLine("AORViewerCommunication server has been started.");
 			}
 			catch (Exception ex)
 			{
 				Console.WriteLine(string.Format("{0}, StackTrace: {1}", ex.Message, ex.StackTrace));
-				Console.WriteLine("AORService startup failed.");
+				Console.WriteLine("AORServices startup failed.");
 			}
 
 			Console.Read();

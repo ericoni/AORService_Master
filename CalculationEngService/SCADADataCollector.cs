@@ -105,7 +105,7 @@ namespace CalculationEngService
                 //Sent to TSDB
                 proxyTSDB.Proxy.WriteAnalogValue(values);
 
-                //when receive data from SCADA publich it to all clients
+                //when data from SCADA is received, publish it to all clients
                 SmartCache.Instance.Cache.CacheList.Clear();
 				SmartCache.Instance.Cache.CacheList.Add(new CacheObject(DateTime.Now, measurements));
 				SmartCache.Instance.ReceiveCache("", null);
