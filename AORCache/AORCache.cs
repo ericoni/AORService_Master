@@ -16,8 +16,6 @@ namespace ActiveAORCache
 		
 		public AORCache()
 		{
-			//CreatePermXml(ADLDS_Config);
-			//ReadPermXml(ADLDS_Config);
 			//var aorCacheModel= AORCacheModel.Instance;
 		}
 

@@ -22,17 +22,21 @@
 			
 			<ListBox Grid.Row="0" Grid.Column="0" ItemsSource="{Binding AORViewerList}" SelectedItem="{Binding SelectedElement}" />
 
-			<Grid Grid.Column="1"  Visibility="{Binding IsPermissionsSelected}">
-				
-			</Grid>
+			<DataGrid Grid.Column="1"  Visibility="{Binding IsPermissionsSelected}" ItemsSource="{Binding PermissionList}" 
+					  CanUserAddRows="False" GridLinesVisibility="Vertical" AutoGenerateColumns="False">
+				<DataGrid.Columns>
+					<DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+					<DataGridTextColumn Header="Description" Binding="{Binding Description}" />
+				</DataGrid.Columns>
+			</DataGrid>
 
-			<Grid Grid.Column="1" Visibility="{Binding IsAuthoritiesSelected}" >
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto"></ColumnDefinition>
-					<ColumnDefinition Width="Auto"></ColumnDefinition>
-				</Grid.ColumnDefinitions>
-				
-			</Grid>
+			<DataGrid Grid.Column="1" Visibility="{Binding IsAuthoritiesSelected}" ItemsSource="{Binding DNAList}" 
+					  CanUserAddRows="False" GridLinesVisibility="Vertical" AutoGenerateColumns="False">
+				<DataGrid.Columns>
+					<DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+					<DataGridTextColumn Header="Description" Binding="{Binding Description}" />
+				</DataGrid.Columns>				
+			</DataGrid>
 			<Grid Grid.Column="1" Visibility="{Binding IsAORAreasSelected}">
 				<TextBox Text="{Binding SelectedElement.Description}"></TextBox>
 			</Grid>

@@ -91,7 +91,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Model\LSModelBase.cs" />
     <Compile Include="ViewModels\AORVMainWindowViewModel.cs" />
     <Compile Include="ViewModels\ObsoleteFiles\LoginViewModel.cs" />
     <Compile Include="ViewModels\ObsoleteFiles\MainWindowViewModel.cs" />

@@ -16,7 +16,8 @@ namespace AORViewer.ViewModels
 		private List<LBModelBase> aorViewerTempList;
 		private LBModelBase selectedElement;
 		private List<Permission> permissionList;
-		AORViewerCommProxy aorViewCommProxy;
+		private List<DNAAuthority> dnaList;
+		private AORViewerCommProxy aorViewCommProxy;
 
 		public AORVMainWindowViewModel()
 		{
@@ -31,10 +32,14 @@ namespace AORViewer.ViewModels
 				aorViewCommProxy = new AORViewerCommProxy();
 				var pList = aorViewCommProxy.Proxy.GetAllPermissions();
 				PermissionList = pList;
+
+				//aorViewCommProxy.Proxy.SerializeDNAs();
+				var dnas = aorViewCommProxy.Proxy.GetAllDNAs();
+				DNAList = dnas;
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine("Constructor failed: " + ex.StackTrace);
+				Console.WriteLine("AORVMainWindowViewModel Constructor failed: " + ex.StackTrace);
 			}
 		}
 		public List<LBModelBase> AORViewerList
@@ -62,6 +67,20 @@ namespace AORViewer.ViewModels
 			{
 				permissionList = value;
 				OnPropertyChanged("PermissionList");
+			}
+		}
+
+		public List<DNAAuthority> DNAList
+		{
+			get
+			{
+				return dnaList;
+			}
+
+			set
+			{
+				dnaList = value;
+				OnPropertyChanged("DNAList");
 			}
 		}
 

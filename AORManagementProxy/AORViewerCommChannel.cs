@@ -21,5 +21,15 @@ namespace AORManagementProxy
 		{
 			return this.Channel.GetAllPermissions();
 		}
+
+		public List<DNAAuthority> GetAllDNAs()
+		{
+			return this.Channel.GetAllDNAs();
+		}
+
+		public void SerializeDNAs()
+		{
+			this.Channel.SerializeDNAs();
+		}
 	}
 }

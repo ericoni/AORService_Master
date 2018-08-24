@@ -13,5 +13,9 @@ namespace FTN.Common.AORContract
 	{
 		[OperationContract]
 		List<Permission> GetAllPermissions();
+		[OperationContract]
+		void SerializeDNAs();
+		[OperationContract]
+		List<DNAAuthority> GetAllDNAs();
 	}
 }

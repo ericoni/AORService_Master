@@ -22,7 +22,11 @@ namespace FTN.Common.Model
 		[XmlAttribute]
 		public string Description { get; set; }
 
-		public Permission() { }
+		public Permission()
+		{
+			this.Name = string.Empty;
+			this.Description = string.Empty;
+		}
 
 		public Permission(string name)
 		{

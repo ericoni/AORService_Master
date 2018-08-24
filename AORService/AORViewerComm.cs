@@ -18,11 +18,21 @@ namespace AORService
 		public AORViewerComm()
 		{
 			aorXmlHelper = new AORXmlHelper();
-
 		}
+
 		public List<Permission> GetAllPermissions()
 		{
 			return aorXmlHelper.ReadPermXml();
+		}
+
+		public void SerializeDNAs()
+		{
+			aorXmlHelper.CreatePermXml();
+		}
+
+		public List<DNAAuthority> GetAllDNAs()
+		{
+			return aorXmlHelper.ReadDNAFromXml();
 		}
 	}
 }

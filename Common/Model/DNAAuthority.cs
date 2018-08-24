@@ -9,13 +9,14 @@ using System.Xml.Serialization;
 
 namespace FTN.Common.Model
 {
+	[Serializable]
 	public class DNAAuthority
 	{
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		[XmlIgnore]
 		public int Id { get; set; }
-		[XmlAttribute]
+		[XmlArray]
 		public List<Permission> PermissionList { get; set; }         // EF does not support collections of primitive types
 		[XmlAttribute]
 		public string Name { get; set; }
