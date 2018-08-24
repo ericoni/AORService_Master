@@ -36,17 +36,29 @@ namespace ActiveAORCache
 		/// </summary>
 		private object lock2PC = new object();
 
+		public List<AORArea> GetModelAORAreas()
+		{
+			return aorAreas;
+		}
+
+		public List<AORGroup> GetModelAORGroups()
+		{
+			return aorGroups;
+		}
+
 		#endregion
 		public AORCacheModel()
 		{
 			rdAdapter = new RDAdapter();
-			//var areas = rdAdapter.GetAORAreas();
+			aorAreas = rdAdapter.GetAORAreas();
+			aorGroups = rdAdapter.GetAORGroups();
+
 			//var aggs = rdAdapter.GetAORAgAggregatorsRDs();
 			//var aggs = rdAdapter.GetAORAgAggregators();
-			//var allGroups = rdAdapter.GetAORGroups();
 			//var g = rdAdapter.GetGroupsForAgr(42949672962);
 			//var areasForAg = rdAdapter.GetAreasForAgr(42949672962);
 		}
+
 		/// <summary>
 		/// Singleton method
 		/// </summary>

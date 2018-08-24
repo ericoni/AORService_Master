@@ -5,6 +5,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using FTN.Common.Model;
+using FTN.Common.AORModel;
 
 namespace FTN.Common.AORContract
 {
@@ -17,5 +18,9 @@ namespace FTN.Common.AORContract
 		void SerializeDNAs();
 		[OperationContract]
 		List<DNAAuthority> GetAllDNAs();
+		[OperationContract]
+		List<AORArea> GetAORAreas();
+		[OperationContract]
+		List<AORGroup> GetAORGroups();
 	}
 }

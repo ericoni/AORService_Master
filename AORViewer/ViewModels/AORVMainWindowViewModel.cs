@@ -7,6 +7,7 @@ using System.Windows;
 using AORViewer.Model;
 using FTN.Common.Model;
 using AORManagementProxy;
+using FTN.Common.AORModel;
 
 namespace AORViewer.ViewModels
 {
@@ -17,6 +18,8 @@ namespace AORViewer.ViewModels
 		private LBModelBase selectedElement;
 		private List<Permission> permissionList;
 		private List<DNAAuthority> dnaList;
+		private List<AORArea> aorAreas;
+		private List<AORGroup> aorGroups;
 		private AORViewerCommProxy aorViewCommProxy;
 
 		public AORVMainWindowViewModel()
@@ -33,9 +36,14 @@ namespace AORViewer.ViewModels
 				var pList = aorViewCommProxy.Proxy.GetAllPermissions();
 				PermissionList = pList;
 
-				//aorViewCommProxy.Proxy.SerializeDNAs();
 				var dnas = aorViewCommProxy.Proxy.GetAllDNAs();
 				DNAList = dnas;
+
+				var groups = aorViewCommProxy.Proxy.GetAORGroups();
+				AORGroups = groups;
+
+				var areas = aorViewCommProxy.Proxy.GetAORAreas();
+				AORAreas = areas;
 			}
 			catch (Exception ex)
 			{
@@ -67,6 +75,34 @@ namespace AORViewer.ViewModels
 			{
 				permissionList = value;
 				OnPropertyChanged("PermissionList");
+			}
+		}
+
+		public List<AORArea> AORAreas
+		{
+			get
+			{
+				return aorAreas;
+			}
+
+			set
+			{
+				aorAreas = value;
+				OnPropertyChanged("AORAreas");
+			}
+		}
+
+		public List<AORGroup> AORGroups
+		{
+			get
+			{
+				return aorGroups;
+			}
+
+			set
+			{
+				aorGroups = value;
+				OnPropertyChanged("AORGroups");
 			}
 		}
 

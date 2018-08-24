@@ -7,6 +7,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using FTN.Common.Model;
+using FTN.Common.AORModel;
 
 namespace AORManagementProxy
 {
@@ -25,6 +26,16 @@ namespace AORManagementProxy
 		public List<DNAAuthority> GetAllDNAs()
 		{
 			return this.Channel.GetAllDNAs();
+		}
+
+		public List<AORArea> GetAORAreas()
+		{
+			return this.Channel.GetAORAreas();
+		}
+
+		public List<AORGroup> GetAORGroups()
+		{
+			return this.Channel.GetAORGroups();
 		}
 
 		public void SerializeDNAs()

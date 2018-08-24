@@ -10,10 +10,11 @@ using AORService.Access;
 using System.Diagnostics;
 using FTN.Common.AORContract;
 using FTN.Common.Model;
+using ActiveAORCache;
 
 namespace AORService
 {
-	public class AORLogin : IAORManagement
+	public class AORLogin : IAORManagement // veza DERMS app i servisa, a drugi je za vezu izmedju AORViewera i servisa
 	{
 		private UserHelperDB userHelper;
 		/// <summary>
@@ -25,6 +26,7 @@ namespace AORService
 		/// Lock object
 		/// </summary>
 		private static object syncRoot = new Object();
+
 		/// <summary>
 		/// Singleton method
 		/// </summary>
@@ -50,6 +52,8 @@ namespace AORService
 			try
 			{
 				userHelper = new UserHelperDB();
+				
+
 			}
 			catch (Exception e)
 			{

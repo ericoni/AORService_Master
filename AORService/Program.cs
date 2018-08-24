@@ -12,8 +12,6 @@ namespace AORService
 	{
 		static void Main(string[] args)
 		{
-			AORCache aorCache = new AORCache(); // vrati se da sredis ovo 
-
 			string message = "Starting AOR LoginService...\nStarting AOR LoginService...\n";
 			Console.WriteLine("\n{0}\n", message);
 			Console.WriteLine("************************************************************************Starting services", message);

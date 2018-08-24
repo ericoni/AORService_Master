@@ -8,15 +8,49 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
+using FTN.Common.AORModel;
+using System.ServiceModel;
 
 namespace ActiveAORCache
 {
+	//[ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
 	public class AORCache : IAORCache, IDisposable
 	{
-		
+		/// <summary>
+		/// Lock object for Singleton implementation
+		/// </summary>
+		private static object syncRoot = new Object();
+
+		/// <summary>
+		/// Singleton instance
+		/// </summary>
+		//private static volatile AORCache instance;
+
+		public AORCacheModel AORCacheModel { get; private set; }
+
+		/// <summary>
+		/// Singleton method
+		/// </summary>
+		//public static AORCache Instance
+		//{
+		//	get
+		//	{
+		//		if (instance == null)
+		//		{
+		//			lock (syncRoot)
+		//			{
+		//				if (instance == null)
+		//					instance = new AORCache();
+		//			}
+		//		}
+
+		//		return instance;
+		//	}
+		//}
+
 		public AORCache()
 		{
-			//var aorCacheModel= AORCacheModel.Instance;
+			AORCacheModel = AORCacheModel.Instance;
 		}
 
 		public void SynchronizeAORConfig()
@@ -27,5 +61,16 @@ namespace ActiveAORCache
 		public void Dispose()
 		{
 		}
+
+		public List<AORArea> GetAORAreas()
+		{
+			return AORCacheModel.GetModelAORAreas();
+		}
+
+		public List<AORGroup> GetAORGroups()
+		{
+			return AORCacheModel.GetModelAORGroups();
+		}
+		
 	}
 }

@@ -14,7 +14,7 @@ namespace AORManagement
 	public class AORManagementChannel : ClientBase<IAORManagement>, IAORManagement
 	{
 		public AORManagementChannel()
-			: base("AORViewerComm")
+			: base("AORViewerComm") // vrati se da sredis ovo
 		{
 		}
 

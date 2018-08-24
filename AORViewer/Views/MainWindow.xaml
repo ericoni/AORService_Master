@@ -37,14 +37,25 @@
 					<DataGridTextColumn Header="Description" Binding="{Binding Description}" />
 				</DataGrid.Columns>				
 			</DataGrid>
-			<Grid Grid.Column="1" Visibility="{Binding IsAORAreasSelected}">
+			<!--<Grid Grid.Column="1" Visibility="{Binding IsAORAreasSelected}">
 				<TextBox Text="{Binding SelectedElement.Description}"></TextBox>
-			</Grid>
+			</Grid>-->
+			<DataGrid Grid.Column="1" Visibility="{Binding IsAORAreasSelected}" ItemsSource="{Binding AORAreas}" 
+					  CanUserAddRows="False" GridLinesVisibility="Vertical" AutoGenerateColumns="False">
+				<DataGrid.Columns>
+					<DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+				</DataGrid.Columns>
+			</DataGrid>
 
-			<Grid Grid.Column="1" Visibility="{Binding IsAORGroupsSelected}" >
-				
+			<!--<Grid Grid.Column="1" Visibility="{Binding IsAORGroupsSelected}" >
 				<TextBox Text="{Binding SelectedElement.Description}"></TextBox>
-			</Grid>
+			</Grid>-->
+			<DataGrid Grid.Column="1" Visibility="{Binding IsAORGroupsSelected}" ItemsSource="{Binding AORGroups}" 
+					  CanUserAddRows="False" GridLinesVisibility="Vertical" AutoGenerateColumns="False">
+				<DataGrid.Columns>
+					<DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+				</DataGrid.Columns>
+			</DataGrid>
 		</Grid>
 	</Grid>
 </Window>
