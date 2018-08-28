@@ -191,6 +191,17 @@
 				{
 					rd.AddProperty(new Property(ModelCode.SYNCMACHINE_MAXP, cimSynchronousMachine.MaxP));
 				}
+				if (cimSynchronousMachine.AORGroupHasValue)
+				{
+					long gid = importHelper.GetMappedGID(cimSynchronousMachine.AORGroup.ID);
+					if (gid < 0)
+					{
+						report.Report.Append("WARNING: Convert ").Append(cimSynchronousMachine.GetType().ToString()).Append(" rdfID = \"").Append(cimSynchronousMachine.ID);
+						report.Report.Append("\" - Failed to set reference to SynchronousMachine: rdfID \"").Append(cimSynchronousMachine.AORGroup.ID).AppendLine(" \" is not mapped to GID!");
+					}
+					rd.AddProperty(new Property(ModelCode.SYNCMACHINE_AORGROUP, gid));
+				}
+
 			}
 		}
 

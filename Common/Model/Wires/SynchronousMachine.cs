@@ -9,6 +9,7 @@ using System.Text;
 namespace FTN.Services.NetworkModelService.DataModel.Wires
 {
 	[DataContract]
+	[Serializable]
 	public class SynchronousMachine : RotatingMachine
 	{
 		private float baseQ;

@@ -16,7 +16,7 @@ namespace FTN.Common.AORModel
 	{
 		private int id;
 		private long gid = 0;
-		private List<long> substations = new List<long>();
+		//private List<long> substations = new List<long>();
 		private List<long> synchronousMachines = new List<long>();
 
 		public AORGroup(long globalId) : base(globalId)
@@ -34,12 +34,12 @@ namespace FTN.Common.AORModel
 		public long AORAGAggregator { get; set; }
 		[DataMember]
 		public bool IsCovered { get; set; }
-		[DataMember]
-		public List<long> Substations
-		{
-			get { return substations; }
-			set { substations = value; }
-		}
+		//[DataMember]
+		//public List<long> Substations
+		//{
+		//	get { return substations; }
+		//	set { substations = value; }
+		//}
 		[DataMember]
 		public List<long> SynchronousMachines
 		{
@@ -61,7 +61,7 @@ namespace FTN.Common.AORModel
 			{
 				case ModelCode.AOR_GROUP_AGGREGATOR:
 				case ModelCode.AOR_GROUP_COVERED:
-				case ModelCode.AOR_GROUP_SUBSTATIONS:
+				//case ModelCode.AOR_GROUP_SUBSTATIONS:
 				case ModelCode.AOR_GROUP_SYNCMACHINES:
 					return true;
 				default:
@@ -81,9 +81,9 @@ namespace FTN.Common.AORModel
 					property.SetValue(IsCovered);
 					break;
 
-				case ModelCode.AOR_GROUP_SUBSTATIONS:
-					property.SetValue(Substations);
-					break;
+				//case ModelCode.AOR_GROUP_SUBSTATIONS:
+				//	property.SetValue(Substations);
+				//	break;
 
 				case ModelCode.AOR_GROUP_SYNCMACHINES:
 					property.SetValue(SynchronousMachines);
@@ -120,21 +120,21 @@ namespace FTN.Common.AORModel
 		{
 			get
 			{
-				return SynchronousMachines.Count > 0 || Substations.Count > 0 || base.IsReferenced;
+				return SynchronousMachines.Count > 0 || base.IsReferenced; 
 			}
 		}
 
 		public override void GetReferences(Dictionary<ModelCode, List<long>> references, TypeOfReference refType)
 		{
-			if (Substations != null && Substations.Count > 0 &&
-				(refType == TypeOfReference.Target || refType == TypeOfReference.Both))
-			{
-				references[ModelCode.AOR_GROUP_SUBSTATIONS] = Substations.GetRange(0, Substations.Count);
-			}
+			//if (Substations != null && Substations.Count > 0 &&
+			//	(refType == TypeOfReference.Target || refType == TypeOfReference.Both))
+			//{
+			//	references[ModelCode.AOR_GROUP_SUBSTATIONS] = Substations.GetRange(0, Substations.Count);
+			//}
 			if (SynchronousMachines != null && SynchronousMachines.Count > 0 &&
 				(refType == TypeOfReference.Target || refType == TypeOfReference.Both))
 			{
-				references[ModelCode.AOR_GROUP_SYNCMACHINES] = Substations.GetRange(0, SynchronousMachines.Count);
+				references[ModelCode.AOR_GROUP_SYNCMACHINES] = SynchronousMachines.GetRange(0, SynchronousMachines.Count);
 			}
 
 			if (AORAGAggregator != 0 && (refType != TypeOfReference.Reference || refType != TypeOfReference.Both))
@@ -150,9 +150,9 @@ namespace FTN.Common.AORModel
 		{
 			switch (referenceId)
 			{
-				case ModelCode.SUBSTATION_AORGROUP:
-					Substations.Add(globalId);
-					break;
+			//	case ModelCode.SUBSTATION_AORGROUP:
+			//		Substations.Add(globalId);
+			//		break;
 				case ModelCode.SYNCMACHINE_AORGROUP:
 					SynchronousMachines.Add(globalId);
 					break;
@@ -166,18 +166,18 @@ namespace FTN.Common.AORModel
 		{
 			switch (referenceId)
 			{
-				case ModelCode.SUBSTATION_AORGROUP:
+				//case ModelCode.SUBSTATION_AORGROUP:
 
-					if (Substations.Contains(globalId))
-					{
-						Substations.Remove(globalId);
+				//	if (Substations.Contains(globalId))
+				//	{
+				//		Substations.Remove(globalId);
 
-					}
-					else
-					{
-						CommonTrace.WriteTrace(CommonTrace.TraceWarning, "Entity (GID = 0x{0:x16}) doesn't contain reference 0x{1:x16}.", this.GlobalId, globalId);
-					}
-					break;
+				//	}
+				//	else
+				//	{
+				//		CommonTrace.WriteTrace(CommonTrace.TraceWarning, "Entity (GID = 0x{0:x16}) doesn't contain reference 0x{1:x16}.", this.GlobalId, globalId);
+				//	}
+				//	break;
 
 				case ModelCode.SYNCMACHINE_AORGROUP:
 
@@ -223,7 +223,7 @@ namespace FTN.Common.AORModel
 				{
 					switch (property.Id)
 					{
-						case ModelCode.AOR_GROUP_SUBSTATIONS:
+						//case ModelCode.AOR_GROUP_SUBSTATIONS:
 						case ModelCode.AOR_GROUP_SYNCMACHINES:
 							continue;
 					}

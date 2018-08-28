@@ -12,7 +12,7 @@ namespace FTN.Services.NetworkModelService.DataModel.Core
 			: base(globalId) { }
 
 		private long subRegion;
-		private long aorGroup;
+		//private long aorGroup;
 		private float latitude;
 		private float longitude;
 
@@ -22,11 +22,11 @@ namespace FTN.Services.NetworkModelService.DataModel.Core
 			set { this.subRegion = value; }
 		}
 
-		public long AORGroup
-		{
-			get { return this.aorGroup; }
-			set { this.aorGroup = value; }
-		}
+		//public long AORGroup
+		//{
+		//	get { return this.aorGroup; }
+		//	set { this.aorGroup = value; }
+		//}
 
 		public float Latitude
 		{
@@ -47,7 +47,7 @@ namespace FTN.Services.NetworkModelService.DataModel.Core
 				Substation x = (Substation)obj;
 				return ((x.SubRegion == this.SubRegion) && 
 					x.Longitude == this.Longitude &&
-					x.aorGroup == this.aorGroup && 
+				//	x.aorGroup == this.aorGroup && 
 					x.Latitude == this.Latitude);
 			}
 			else
@@ -70,7 +70,7 @@ namespace FTN.Services.NetworkModelService.DataModel.Core
 			((Substation)copy).subRegion = this.subRegion;
 			((Substation)copy).latitude = this.latitude;
 			((Substation)copy).longitude = this.longitude;
-			((Substation)copy).aorGroup = this.aorGroup;
+			//((Substation)copy).aorGroup = this.aorGroup;
 			return base.DeepCopy(copy);
 		}
 
@@ -83,7 +83,7 @@ namespace FTN.Services.NetworkModelService.DataModel.Core
 				case ModelCode.SUBSTATION_SUBREGION:		
 				case ModelCode.SUBSTATION_LATITUDE:
 				case ModelCode.SUBSTATION_LONGITUDE:
-				case ModelCode.SUBSTATION_AORGROUP:
+				//case ModelCode.SUBSTATION_AORGROUP:
 					return true;
 				default:
 					return base.HasProperty(property);
@@ -106,9 +106,9 @@ namespace FTN.Services.NetworkModelService.DataModel.Core
 					property.SetValue(Longitude);
 					break;
 
-				case ModelCode.SUBSTATION_AORGROUP:
-					property.SetValue(AORGroup);
-					break;
+				//case ModelCode.SUBSTATION_AORGROUP:
+				//	property.SetValue(AORGroup);
+				//	break;
 
 				default:
 					base.GetProperty(property);
@@ -129,9 +129,9 @@ namespace FTN.Services.NetworkModelService.DataModel.Core
 				case ModelCode.SUBSTATION_LONGITUDE:
 					Longitude = property.AsFloat();
 					break;
-				case ModelCode.SUBSTATION_AORGROUP:
-					AORGroup = property.AsReference();
-					break;
+				//case ModelCode.SUBSTATION_AORGROUP:
+				//	AORGroup = property.AsReference();
+				//	break;
 
 				default:
 					base.SetProperty(property);
@@ -157,42 +157,42 @@ namespace FTN.Services.NetworkModelService.DataModel.Core
 				references[ModelCode.SUBSTATION_SUBREGION].Add(SubRegion);
 			}
 
-			if (AORGroup != 0 && (refType == TypeOfReference.Reference || refType == TypeOfReference.Both))
-			{
-				references[ModelCode.SUBSTATION_AORGROUP] = new List<long>();
-				references[ModelCode.SUBSTATION_AORGROUP].Add(AORGroup);
-			}
+			//if (AORGroup != 0 && (refType == TypeOfReference.Reference || refType == TypeOfReference.Both))
+			//{
+			//	references[ModelCode.SUBSTATION_AORGROUP] = new List<long>();
+			//	references[ModelCode.SUBSTATION_AORGROUP].Add(AORGroup);
+			//}
 
 			base.GetReferences(references, refType);
 		}
 
-        public Substation ConvertFromRD(ResourceDescription rd)
-        {
-            if(((DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(rd.Id))==DMSType.SUBSTATION)
-            {
-                if(rd.Properties!=null)
-                {
-                    foreach(Property property in rd.Properties)
-                    {
-                        if(property.Id == ModelCode.IDOBJ_GID)
-                        {
-                            this.GlobalId = property.AsLong();
-                            continue;
-                        }
-                        else
-                        {
+		public Substation ConvertFromRD(ResourceDescription rd)
+		{
+			if(((DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(rd.Id))==DMSType.SUBSTATION)
+			{
+				if(rd.Properties!=null)
+				{
+					foreach(Property property in rd.Properties)
+					{
+						if(property.Id == ModelCode.IDOBJ_GID)
+						{
+							this.GlobalId = property.AsLong();
+							continue;
+						}
+						else
+						{
 							switch (property.Id)
 							{
 								case ModelCode.EQCONTAINER_EQUIPMENTS:
 									continue;
 							}
 							this.SetProperty(property);
-                        }
-                    }
-                }
-            }
-            return this;
-        }
+						}
+					}
+				}
+			}
+			return this;
+		}
 
 	}
 }
