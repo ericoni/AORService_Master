@@ -42,6 +42,12 @@
 			</Grid>-->
 			<DataGrid Grid.Column="1" Visibility="{Binding IsAORAreasSelected}" ItemsSource="{Binding AORAreas}" 
 					  CanUserAddRows="False" GridLinesVisibility="Vertical" AutoGenerateColumns="False">
+				<DataGrid.ContextMenu>
+					<ContextMenu>
+						<MenuItem Header="Properties" Command="{Binding AORAreaPropertiesCommand}" />
+						<MenuItem Header="Delete" Command="{Binding AORAreaDeleteCommand}" />
+					</ContextMenu>
+				</DataGrid.ContextMenu>
 				<DataGrid.Columns>
 					<DataGridTextColumn Header="Name" Binding="{Binding Name}" />
 				</DataGrid.Columns>
@@ -52,6 +58,12 @@
 			</Grid>-->
 			<DataGrid Grid.Column="1" Visibility="{Binding IsAORGroupsSelected}" ItemsSource="{Binding AORGroups}" 
 					  CanUserAddRows="False" GridLinesVisibility="Vertical" AutoGenerateColumns="False">
+				<DataGrid.ContextMenu>
+					<ContextMenu>
+						<MenuItem Header="Properties" Command="{Binding AORGroupPropertiesCommand}" />
+						<MenuItem Header="Delete" Command="{Binding AORGroupDeleteCommand}" />
+					</ContextMenu>
+				</DataGrid.ContextMenu>
 				<DataGrid.Columns>
 					<DataGridTextColumn Header="Name" Binding="{Binding Name}" />
 				</DataGrid.Columns>

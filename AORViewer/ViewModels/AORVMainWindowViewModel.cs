@@ -8,6 +8,8 @@ using AORViewer.Model;
 using FTN.Common.Model;
 using AORManagementProxy;
 using FTN.Common.AORModel;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
 
 namespace AORViewer.ViewModels
 {
@@ -21,14 +23,24 @@ namespace AORViewer.ViewModels
 		private List<AORArea> aorAreas;
 		private List<AORGroup> aorGroups;
 		private AORViewerCommProxy aorViewCommProxy;
+		public ICommand AORAreaPropertiesCommand { get; private set; }
+		public ICommand AORAreaDeleteCommand { get; private set; }
+		public ICommand AORGroupPropertiesCommand { get; private set; }
+		public ICommand AORGroupDeleteCommand { get; private set; }
 
 		public AORVMainWindowViewModel()
 		{
-			
+
 			aorViewerTempList = new List<LBModelBase>(4)
 			{ new LBModelBase(LBType.Permissions.ToString(), "Neki opis"), new LBModelBase(LBType.AOR_Groups.ToString(), "AOR GRUPE"),
 				new LBModelBase(LBType.AOR_Areas.ToString(), "ARea"), new LBModelBase(LBType.DNA_Authorities.ToString(), "Dna nesto")};
 			AORViewerList = aorViewerTempList;
+
+			AORAreaPropertiesCommand = new RelayCommand(() => ExecuteAreaPropertiesCommand());
+			AORAreaDeleteCommand = new RelayCommand(() => ExecuteAreaDeleteCommand());
+
+			AORGroupPropertiesCommand = new RelayCommand(() => ExecuteGroupPropertiesCommand());
+			AORGroupDeleteCommand = new RelayCommand(() => ExecuteGroupDeleteCommand());
 
 			try
 			{
@@ -157,6 +169,22 @@ namespace AORViewer.ViewModels
 		public Visibility IsAORGroupsSelected
 		{
 			get { return SelectedElement.Name.Equals(LBType.AOR_Groups.ToString()) ? Visibility.Visible : Visibility.Collapsed; }
+		}
+		private void ExecuteAreaPropertiesCommand()
+		{
+
+		}
+		private void ExecuteAreaDeleteCommand()
+		{
+
+		}
+		private void ExecuteGroupPropertiesCommand()
+		{
+
+		}
+		private void ExecuteGroupDeleteCommand()
+		{
+
 		}
 	}
 }
