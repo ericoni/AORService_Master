@@ -1,4 +1,5 @@
 ﻿using FTN.Common;
+using FTN.Common.AORCachedModel;
 using FTN.Common.AORContract;
 using FTN.Common.AORModel;
 using FTN.ServiceContracts;
@@ -27,7 +28,19 @@ namespace Adapter
 
 		public RDAdapter()
 		{
+			//var smId = 34359738372;
+			//var a = GetSyncMachinesForAreaGroupGid(smId);
+			//var gWithSmInfo = GetAORGroupsWithSmInfo(34359738372);
 		}
+		/*    34359738369 gid za group
+   
+			 34359738370
+   
+				34359738371
+   
+					 34359738372
+   
+					 34359738373*/
 
 		private NetworkModelGDAProxy GdaQueryProxy
 		{
@@ -39,11 +52,11 @@ namespace Adapter
 
 					while (true)
 					{
-						//if (tryCounter.Equals(maxTry)) //vrati se
-						//{
-						//	throw new Exception("RAAdapter: Connection error.");
-						//}
-							
+						if (tryCounter.Equals(maxTry))
+						{
+							throw new Exception("RAAdapter: Connection error.");
+						}
+
 						try
 						{
 							gdaQueryProxy = new NetworkModelGDAProxy("NetworkModelGDAEndpoint");
@@ -718,7 +731,7 @@ namespace Adapter
 			return aorAreaValues;
 		}
 
-		public List<AORGroup> GetAORGroups() // nesto nije u redu, za Area je dobro, grupe ne rade..
+		public List<AORGroup> GetAORGroups() 
 		{
 			int iteratorId = 0;
 			List<long> ids = new List<long>();
@@ -844,6 +857,104 @@ namespace Adapter
 
 			return resultIds;
 		}
+
+		public List<SynchronousMachine> GetSyncMachinesForAreaGroupGid(long areaGid)
+		{
+			List<SynchronousMachine> resultIds = new List<SynchronousMachine>();
+
+			int numberOfResources = 500;
+			Association association = new Association(ModelCode.AOR_GROUP_SYNCMACHINES, 0, false);
+
+			try
+			{
+				List<ModelCode> properties = modelResourcesDesc.GetAllPropertyIds(ModelCode.SYNCMACHINE);
+
+				int iteratorId = GdaQueryProxy.GetRelatedValues(areaGid, properties, association);
+				int resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
+
+				while (resourcesLeft > 0)
+				{
+					List<ResourceDescription> rds = GdaQueryProxy.IteratorNext(numberOfResources, iteratorId);
+
+					foreach (ResourceDescription rd in rds)
+					{
+						SynchronousMachine tempSM = new SynchronousMachine(rd.Id);
+						resultIds.Add(tempSM.ConvertFromRD(rd));
+					}
+
+					resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
+				}
+
+				GdaQueryProxy.IteratorClose(iteratorId);
+
+				CommonTrace.WriteTrace(CommonTrace.TraceError, "Getting extent values method (GetSyncMachinesForAreaGid) successfully finished.");
+			}
+			catch (Exception e)
+			{
+				string message = string.Format("Getting related values method  failed for sourceGlobalId = {0} and association (propertyId = {1}, type = {2}). Reason: {3}", areaGid, association.PropertyId, association.Type, e.Message);
+				Console.WriteLine(message);
+				CommonTrace.WriteTrace(CommonTrace.TraceError, message);
+			}
+
+			return resultIds;
+		}
+
+		/// <summary>
+		/// Returns all AOR Areas with full information
+		/// </summary>
+		/// <param name="areaGid"></param>
+		/// <returns></returns>
+		public List<AORGroupCached> GetAORGroupsWithSmInfo(long gid) // LEFT TO DO
+		{
+			int iteratorId = 0;
+			int resourcesLeft = 0;
+
+			int numberOfResources = 500;
+			Association association = new Association(ModelCode.AOR_GROUP_SYNCMACHINES, 0, false);
+
+			List<AORGroup> aorGroups = GetAORGroups();
+			List<AORGroupCached> resultIds = new List<AORGroupCached>(aorGroups.Count);
+			List<SynchronousMachine> syncMachines = null;
+
+			try
+			{
+				List<ModelCode> properties = modelResourcesDesc.GetAllPropertyIds(ModelCode.SYNCMACHINE);
+
+				foreach (var aorGroup in aorGroups)
+				{
+					iteratorId = GdaQueryProxy.GetRelatedValues(aorGroup.GlobalId, properties, association);
+					resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
+					syncMachines = new List<SynchronousMachine>(aorGroup.SynchronousMachines.Count);
+
+					while (resourcesLeft > 0)
+					{
+						List<ResourceDescription> rds = GdaQueryProxy.IteratorNext(numberOfResources, iteratorId);
+
+						foreach (ResourceDescription rd in rds)
+						{
+							SynchronousMachine tempSM = new SynchronousMachine(rd.Id);
+							syncMachines.Add(tempSM.ConvertFromRD(rd));
+						}
+
+						resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
+					}
+					resultIds.Add(new AORGroupCached(aorGroup.Name, syncMachines));
+				}
+
+				GdaQueryProxy.IteratorClose(iteratorId);
+
+				CommonTrace.WriteTrace(CommonTrace.TraceError, "Getting extent values method (GetAORGroupsWithSmInfo) successfully finished.");
+			}
+			catch (Exception e)
+			{
+				string message = string.Format("Getting related values method  failed for sourceGlobalId = {0} and association (propertyId = {1}, type = {2}). Reason: {3}", gid, association.PropertyId, association.Type, e.Message);
+				Console.WriteLine(message);
+				CommonTrace.WriteTrace(CommonTrace.TraceError, message);
+			}
+
+			return resultIds;
+		}
+
 
 		#endregion
 	}
