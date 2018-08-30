@@ -95,8 +95,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AORCachedModel\AORCachedArea.cs" />
     <Compile Include="AORCachedModel\AORCachedEntity.cs" />
-    <Compile Include="AORCachedModel\AORGroupCached.cs" />
+    <Compile Include="AORCachedModel\AORCachedGroup.cs" />
     <Compile Include="AORContracts\IAORGDAContract.cs" />
     <Compile Include="AORContracts\IAORViewerCommunication.cs" />
     <Compile Include="AORModel\AORAGAggregator.cs" />

@@ -2,6 +2,8 @@
 using FTN.Services.NetworkModelService.DataModel.Core;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -12,6 +14,7 @@ namespace FTN.Services.NetworkModelService.DataModel.Wires
 	[Serializable]
 	public class SynchronousMachine : RotatingMachine
 	{
+		private int id;
 		private float baseQ;
 		private float minQ;
 		private float maxQ;
@@ -23,6 +26,14 @@ namespace FTN.Services.NetworkModelService.DataModel.Wires
 		public SynchronousMachine(long globalId)
 			: base(globalId)
 		{
+		}
+
+		[Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)] 
+		public int Id
+		{
+			get { return id; }
+			set { id = value; }
 		}
 
 		[DataMember]
@@ -310,35 +321,35 @@ namespace FTN.Services.NetworkModelService.DataModel.Wires
 			}
 		}
 
-        #endregion IReference implementation
+		#endregion IReference implementation
 
-        public SynchronousMachine ConvertFromRD(ResourceDescription rd)
-        {
-            if (((DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(rd.Id)) == DMSType.SYNCMACHINE)
-            {
-                if (rd.Properties != null)
-                {
-                    foreach (Property property in rd.Properties)
-                    {
-                        if (property.Id == ModelCode.IDOBJ_GID)
-                        {
-                            this.GlobalId = property.AsLong();
-                            continue;
-                        }
-                        else
-                        {
+		public SynchronousMachine ConvertFromRD(ResourceDescription rd)
+		{
+			if (((DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(rd.Id)) == DMSType.SYNCMACHINE)
+			{
+				if (rd.Properties != null)
+				{
+					foreach (Property property in rd.Properties)
+					{
+						if (property.Id == ModelCode.IDOBJ_GID)
+						{
+							this.GlobalId = property.AsLong();
+							continue;
+						}
+						else
+						{
 							switch (property.Id)
 							{
 								case ModelCode.SYNCMACHINE_MEASVALUES:
 									continue;
 							}
 							this.SetProperty(property);
-                        }
-                    }
-                }
-            }
-            return this;
-        }
+						}
+					}
+				}
+			}
+			return this;
+		}
 
-    }
+	}
 }

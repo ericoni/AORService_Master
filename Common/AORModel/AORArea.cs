@@ -36,7 +36,7 @@ namespace FTN.Common.AORModel
 		}
 
 		[Key]
-		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)] // vrati se (izbaciti ovo posle, jer se upisuje CachedAORArea
 		public int Id
 		{
 			get { return id; }

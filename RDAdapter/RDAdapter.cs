@@ -904,16 +904,17 @@ namespace Adapter
 		/// </summary>
 		/// <param name="areaGid"></param>
 		/// <returns></returns>
-		public List<AORGroupCached> GetAORGroupsWithSmInfo(long gid) // LEFT TO DO
+		public List<AORCachedGroup> GetAORGroupsWithSmInfo() // LEFT TO DO
 		{
 			int iteratorId = 0;
 			int resourcesLeft = 0;
+			long gid = 0; // vrati se 
 
 			int numberOfResources = 500;
 			Association association = new Association(ModelCode.AOR_GROUP_SYNCMACHINES, 0, false);
 
 			List<AORGroup> aorGroups = GetAORGroups();
-			List<AORGroupCached> resultIds = new List<AORGroupCached>(aorGroups.Count);
+			List<AORCachedGroup> resultIds = new List<AORCachedGroup>(aorGroups.Count);
 			List<SynchronousMachine> syncMachines = null;
 
 			try
@@ -938,7 +939,7 @@ namespace Adapter
 
 						resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
 					}
-					resultIds.Add(new AORGroupCached(aorGroup.Name, syncMachines));
+					resultIds.Add(new AORCachedGroup(aorGroup.Name, syncMachines));
 				}
 
 				GdaQueryProxy.IteratorClose(iteratorId);

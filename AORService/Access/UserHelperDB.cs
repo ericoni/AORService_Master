@@ -6,12 +6,17 @@ using System.Threading.Tasks;
 using FTN.Common.Model;
 using AORCommon;
 using System.Diagnostics;
+using Adapter;
+using FTN.Common.AORCachedModel;
 
 namespace AORService.Access
 {
 	public class UserHelperDB : IUserHelperDB
 	{
 		private static IUserHelperDB myDB;
+		private RDAdapter rdAdapter = null;
+		private List<AORCachedArea> aorAreas = null;
+		private List<AORCachedGroup> aorGroups = null;
 
 		public static IUserHelperDB Instance
 		{
@@ -31,6 +36,15 @@ namespace AORService.Access
 
 		public UserHelperDB() 
 		{
+			rdAdapter = new RDAdapter();
+			aorGroups = rdAdapter.GetAORGroupsWithSmInfo(); // aorGroups with sm info
+			aorAreas = new List<AORCachedArea>(2);
+
+			foreach (var area in aorAreas)
+			{
+				area.Groups.AddRange(aorGroups);
+			}
+
 			using (var access = new AccessDB())
 			{
 				if (access.Users.Count() == 0)
@@ -52,6 +66,11 @@ namespace AORService.Access
 
 					if (k <= 0)
 						throw new Exception("Failed to save permissions.");
+					IList<Permission> halfPerms = new List<Permission> { p1, p2, p3, p4 };
+					IList<Permission> almostFullPerms = new List<Permission> { p1, p2, p3, p4, p5, p8 };
+
+					aorAreas[0].Permissions.AddRange(halfPerms);
+					aorAreas[1].Permissions.AddRange(almostFullPerms);
 					#endregion
 
 					#region DNAs
@@ -69,6 +88,12 @@ namespace AORService.Access
 					if (l <= 0)
 						throw new Exception("Failed to save DNAs in UserHelperDB");
 					#endregion
+
+					for (int i = 0; i < aorAreas.Count; i++)
+					{
+
+
+					}
 
 					for (int i = 1; i < 3; i++)
 					{
@@ -99,11 +124,11 @@ namespace AORService.Access
 				//return myUser[0].Password.Equals(SecurePasswordManager.Hash(password));
 				return myUser[0].Password.Equals(password);
 				/* 
-				     int i = access.SaveChanges();
+					 int i = access.SaveChanges();
 
-                if (i > 0)
-                    return true;
-                return false;*/
+				if (i > 0)
+					return true;
+				return false;*/
 			}
 		}
 	}
