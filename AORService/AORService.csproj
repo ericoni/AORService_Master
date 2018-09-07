@@ -76,10 +76,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Access\AccessDB.cs" />
-    <Compile Include="Access\Configuration.cs" />
-    <Compile Include="Access\IUserHelperDB.cs" />
-    <Compile Include="Access\UserHelperDB.cs" />
     <Compile Include="AORLogin.cs" />
     <Compile Include="AORLoginService.cs" />
     <Compile Include="AORViewerCommService.cs" />

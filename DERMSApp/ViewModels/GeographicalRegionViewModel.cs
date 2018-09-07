@@ -17,148 +17,148 @@ using Adapter;
 
 namespace DERMSApp.ViewModels
 {
-    public class GeographicalRegionViewModel : TreeViewItemViewModel
-    {
-        readonly GeographicalRegion _region;
+	public class GeographicalRegionViewModel : TreeViewItemViewModel
+	{
+		readonly GeographicalRegion _region;
 		private RDAdapter rdAdapter = new RDAdapter();
-        private Visibility reactiveVisibility;
+		private Visibility reactiveVisibility;
 
-        public ICommand ActivePowerCommand { get; private set; }
-        public ICommand ReactivePowerCommand { get; private set; }
+		public ICommand ActivePowerCommand { get; private set; }
+		public ICommand ReactivePowerCommand { get; private set; }
 
-        ObservableCollection<TableSMItem> _ders;
-        public GeographicalRegionViewModel(GeographicalRegion region, NetworkRootViewModel parent, ObservableCollection<TableSMItem> ders) 
-            : base(parent, true)
-        {
-            ReactiveVisibility = Visibility.Collapsed;
+		ObservableCollection<TableSMItem> _ders;
+		public GeographicalRegionViewModel(GeographicalRegion region, NetworkRootViewModel parent, ObservableCollection<TableSMItem> ders) 
+			: base(parent, true)
+		{
+			ReactiveVisibility = Visibility.Collapsed;
 
 			var allDers = rdAdapter.GetDERs(region.GlobalId);
 
 			foreach (SynchronousMachine der in allDers)
-            {
-                if (der.FuelType == FTN.Common.FuelType.Wind)
-                {
-                    ReactiveVisibility = Visibility.Visible;
-                    break;
-                }
-            }
+			{
+				if (der.FuelType == FTN.Common.FuelType.Wind)
+				{
+					ReactiveVisibility = Visibility.Visible;
+					break;
+				}
+			}
 
-            _region = region;
-            ActivePowerCommand = new RelayCommand(() => ExecuteActivePowerCommand());
-            ReactivePowerCommand = new RelayCommand(() => ExecuteReactivePowerCommand());
-            _ders = ders;
-            _ders.Clear();
-        }
+			_region = region;
+			ActivePowerCommand = new RelayCommand(() => ExecuteActivePowerCommand());
+			ReactivePowerCommand = new RelayCommand(() => ExecuteReactivePowerCommand());
+			_ders = ders;
+			_ders.Clear();
+		}
 
-        public string GeographicalRegionViewModelName
-        {
-            get { return _region.Name; }
-        }
+		public string GeographicalRegionViewModelName
+		{
+			get { return _region.Name; }
+		}
 
-        public Visibility ReactiveVisibility
-        {
-            get
-            {
-                return reactiveVisibility;
-            }
+		public Visibility ReactiveVisibility
+		{
+			get
+			{
+				return reactiveVisibility;
+			}
 
-            set
-            {
-                reactiveVisibility = value;
-                OnPropertyChanged("ReactiveVisibility");
-            }
-        }
+			set
+			{
+				reactiveVisibility = value;
+				OnPropertyChanged("ReactiveVisibility");
+			}
+		}
 
 
-        protected override void LoadChildren()
-        {
+		protected override void LoadChildren()
+		{
 			foreach (SubGeographicalRegion subGeographicalRegion in rdAdapter.GetSubRegionsForRegion(_region.GlobalId))
 			{
 				base.Children.Add(new SubGeographicalRegionViewModel(subGeographicalRegion, this, _ders));
 			}
 		}
 
-        protected override void LoadDERS()
-        {
-            EventSystem.Publish<long>(_region.GlobalId);
-            _ders.Clear();
-            foreach (SynchronousMachine der in rdAdapter.GetDERs(_region.GlobalId))
-            {
-                TableSMItem item = new TableSMItem();
-                item = (TableSMItem)CacheReceiver.Instance.TableItemList.Where(o => o.Gid.Equals(der.GlobalId)).FirstOrDefault();
-                if (item == null)
-                {
-                    item = new TableSMItem();
-                    item.CurrentP = 0;
-                    item.TimeStamp = new DateTime();
-                    item.CurrentQ = 0;
-                    item.PDecrease = 0;
-                    item.PIncrease = 0;
-                    item.QDecrease = 0;
-                    item.QIncrease = 0;
-                }
-                item.Der = der;
-                _ders.Add(item);
-            }
-        }
+		protected override void LoadDERS()
+		{
+			EventSystem.Publish<long>(_region.GlobalId);
+			_ders.Clear();
+			foreach (SynchronousMachine der in rdAdapter.GetDERs(_region.GlobalId))
+			{
+				TableSMItem item = new TableSMItem();
+				item = (TableSMItem)CacheReceiver.Instance.TableItemList.Where(o => o.Gid.Equals(der.GlobalId)).FirstOrDefault();
+				if (item == null)
+				{
+					item = new TableSMItem();
+					item.CurrentP = 0;
+					item.TimeStamp = new DateTime();
+					item.CurrentQ = 0;
+					item.PDecrease = 0;
+					item.PIncrease = 0;
+					item.QDecrease = 0;
+					item.QIncrease = 0;
+				}
+				item.Der = der;
+				_ders.Add(item);
+			}
+		}
 
-        private void ExecuteReactivePowerCommand()
-        {
-            _ders.Clear();
-
-			var allDers = rdAdapter.GetDERs(_region.GlobalId);
-
-			foreach (SynchronousMachine der in allDers)
-            {
-                TableSMItem item = new TableSMItem();
-                item = (TableSMItem)CacheReceiver.Instance.TableItemList.Where(o => o.Gid.Equals(der.GlobalId)).FirstOrDefault();
-                if (item == null)
-                {
-                    item = new TableSMItem();
-                    item.CurrentP = 0;
-                    item.TimeStamp = new DateTime();
-                    item.CurrentQ = 0;
-                    item.PDecrease = 0;
-                    item.PIncrease = 0;
-                    item.QDecrease = 0;
-                    item.QIncrease = 0;
-                }
-                item.Der = der;
-                _ders.Add(item);
-            }
-            base.IsSelected = true;
-            EventSystem.Publish<ObservableCollection<TableSMItem>>(_ders);
-            EventSystem.Publish<ForecastObjData>(new ForecastObjData() { Gid = _region.GlobalId, Power = false, IsGroup = true });
-        }
-
-        private void ExecuteActivePowerCommand()
-        {
-            _ders.Clear();
+		private void ExecuteReactivePowerCommand()
+		{
+			_ders.Clear();
 
 			var allDers = rdAdapter.GetDERs(_region.GlobalId);
 
 			foreach (SynchronousMachine der in allDers)
-            {
-                TableSMItem item = new TableSMItem();
-                item = (TableSMItem)CacheReceiver.Instance.TableItemList.Where(o => o.Gid.Equals(der.GlobalId)).FirstOrDefault();
-                if (item == null)
-                {
-                    item = new TableSMItem();
-                    item.CurrentP = 0;
-                    item.TimeStamp = new DateTime();
-                    item.CurrentQ = 0;
-                    item.PDecrease = 0;
-                    item.PIncrease = 0;
-                    item.QDecrease = 0;
-                    item.QIncrease = 0;
-                }
-                item.Der = der;
-                _ders.Add(item);
-            }
+			{
+				TableSMItem item = new TableSMItem();
+				item = (TableSMItem)CacheReceiver.Instance.TableItemList.Where(o => o.Gid.Equals(der.GlobalId)).FirstOrDefault();
+				if (item == null)
+				{
+					item = new TableSMItem();
+					item.CurrentP = 0;
+					item.TimeStamp = new DateTime();
+					item.CurrentQ = 0;
+					item.PDecrease = 0;
+					item.PIncrease = 0;
+					item.QDecrease = 0;
+					item.QIncrease = 0;
+				}
+				item.Der = der;
+				_ders.Add(item);
+			}
+			base.IsSelected = true;
+			EventSystem.Publish<ObservableCollection<TableSMItem>>(_ders);
+			EventSystem.Publish<ForecastObjData>(new ForecastObjData() { Gid = _region.GlobalId, Power = false, IsGroup = true });
+		}
 
-            base.IsSelected = true;
-            EventSystem.Publish<ObservableCollection<TableSMItem>>(_ders);
-            EventSystem.Publish<ForecastObjData>(new ForecastObjData() { Gid = _region.GlobalId, Power = true, IsGroup = true });
-        }
-    }
+		private void ExecuteActivePowerCommand()
+		{
+			_ders.Clear();
+
+			var allDers = rdAdapter.GetDERs(_region.GlobalId);
+
+			foreach (SynchronousMachine der in allDers)
+			{
+				TableSMItem item = new TableSMItem();
+				item = (TableSMItem)CacheReceiver.Instance.TableItemList.Where(o => o.Gid.Equals(der.GlobalId)).FirstOrDefault();
+				if (item == null)
+				{
+					item = new TableSMItem();
+					item.CurrentP = 0;
+					item.TimeStamp = new DateTime();
+					item.CurrentQ = 0;
+					item.PDecrease = 0;
+					item.PIncrease = 0;
+					item.QDecrease = 0;
+					item.QIncrease = 0;
+				}
+				item.Der = der;
+				_ders.Add(item);
+			}
+
+			base.IsSelected = true;
+			EventSystem.Publish<ObservableCollection<TableSMItem>>(_ders);
+			EventSystem.Publish<ForecastObjData>(new ForecastObjData() { Gid = _region.GlobalId, Power = true, IsGroup = true });
+		}
+	}
 }

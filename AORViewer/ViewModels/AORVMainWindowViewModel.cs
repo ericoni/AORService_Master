@@ -172,7 +172,7 @@ namespace AORViewer.ViewModels
 		}
 		private void ExecuteAreaPropertiesCommand()
 		{
-
+			aorViewCommProxy.Proxy.GetPermissionsForArea(555);
 		}
 		private void ExecuteAreaDeleteCommand()
 		{

@@ -51,5 +51,10 @@ namespace AORService
 		{
 			return aorCache.GetAORGroups();
 		}
+
+		public List<Permission> GetPermissionsForArea(long areaId)
+		{
+			return aorCache.GetPermissionsForArea(areaId);
+		}
 	}
 }

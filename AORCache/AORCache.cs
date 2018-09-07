@@ -71,6 +71,10 @@ namespace ActiveAORCache
 		{
 			return AORCacheModel.GetModelAORGroups();
 		}
-		
+
+		public List<Permission> GetPermissionsForArea(long areaId)
+		{
+			return AORCacheModel.GetPermissionsForArea(areaId);
+		}
 	}
 }

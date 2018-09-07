@@ -637,10 +637,10 @@ namespace CalculationEngService
                 return false;
             }
 
-            // Lista sinhroni masina nad kojima se komanduje
+            // Lista sinhronih masina nad kojima se komanduje
             List<SynchronousMachine> ders = GetDERsForGlobalID(command.GlobalId);
 
-            // Ako nema sinhroni masina -> kraj
+            // Ako nema sinhronih masina -> kraj
             if (ders == null || ders.Count.Equals(0))
             {
                 return false;
@@ -690,10 +690,10 @@ namespace CalculationEngService
 
         public bool CommandExists(long gid, PowerType powerType)
         {
-            // Lista sinhroni masina nad kojima se komanduje
+            // Lista sinhronih masina nad kojima se komanduje
             List<SynchronousMachine> ders = GetDERsForGlobalID(gid);
 
-            // Ako nema sinhroni masina -> kraj
+            // Ako nema sinhronih masina -> kraj
             if (ders == null || ders.Count.Equals(0))
             {
                 return false;
@@ -731,13 +731,13 @@ namespace CalculationEngService
 
         public bool CancelCommand(long gid, PowerType powerType)
         {
-            // Lista sinhroni masina nad kojima se komanduje
+            // Lista sinhronih masina nad kojima se komanduje
             List<SynchronousMachine> ders = GetDERsForGlobalID(gid);
 
             // Lista sa komandama za brisanje
             List<Command> commandsForRemove = new List<Command>();
 
-            // Ako nema sinhroni masina -> kraj
+            // Ako nema sinhronih masina -> kraj
             if (ders == null || ders.Count.Equals(0))
             {
                 return false;
@@ -786,10 +786,10 @@ namespace CalculationEngService
                 returnValue.Add(startTime.AddHours(i).Ticks, 0);
             }
 
-            // Lista sinhroni masina nad kojima se komanduje
+            // Lista sinhronih masina nad kojima se komanduje
             List<SynchronousMachine> ders = GetDERsForGlobalID(gid);
 
-            // Ako nema sinhroni masina -> kraj
+            // Ako nema sinhronih masina -> kraj
             if (ders == null || ders.Count.Equals(0))
             {
                 return null;

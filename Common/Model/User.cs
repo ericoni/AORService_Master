@@ -17,24 +17,17 @@ namespace FTN.Common.Model
 		public int Id { get; set; }
 		public string Username { get; set; }
 		public string Password { get; set; }
-		public DNAAuthority DNAAuthority { get; set; }
-		public List<AORCachedArea> ControlAreas { get; set; } 
+		public List<DNAAuthority> DNAs { get; set; }
+		public List<AORCachedArea> ControlAreas { get; set; }
 		public List<AORCachedArea> ViewAreas { get; set; }
 
 		public User() { }
 
-		public User(string username, string password, DNAAuthority dnaAuthority)
+		public User(string username, string password, List<DNAAuthority> dnas, List<AORCachedArea> controlAreas, List<AORCachedArea> viewAreas)
 		{
 			this.Username = username;
 			this.Password = password;
-			this.DNAAuthority = dnaAuthority;
-		}
-
-		public User(string username, string password, DNAAuthority dnaAuthority, List<AORCachedArea> controlAreas, List<AORCachedArea> viewAreas)
-		{
-			this.Username = username;
-			this.Password = password;
-			this.DNAAuthority = dnaAuthority;
+			this.DNAs = dnas;
 			this.ControlAreas = controlAreas;
 			this.ViewAreas = viewAreas;
 		}

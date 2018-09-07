@@ -13,6 +13,8 @@ namespace FTN.Common.AORCachedModel
 	[Serializable]
 	public class AORCachedArea : AORCachedEntity
 	{
+		//[Key]
+		//public string AreaName { get; set; }
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }
@@ -26,9 +28,11 @@ namespace FTN.Common.AORCachedModel
 		public List<AORCachedGroup> Groups { get; set; }
 		[DataMember]
 		public List<Permission> Permissions { get; set; }
+		//[DataMember]
+		//public List<User> Users { get; set; } // covered by those users // vrati se ovde 
 		[DataMember]
-		public List<User> Users { get; set; } // covered by those users
-		
+		public List<User> User { get; set; }
+
 		public AORCachedArea() { }
 		public AORCachedArea(List<Permission> perms)
 		{
@@ -37,12 +41,13 @@ namespace FTN.Common.AORCachedModel
 		public AORCachedArea(List<Permission> perms, List<User> users)
 		{
 			this.Permissions = perms;
-			this.Users = users;
+			this.User = users;
 		}
-		public AORCachedArea(List<Permission> perms, List<User> users, List<AORCachedGroup> groups)
+		public AORCachedArea(string name, string description, List<Permission> perms, List<User> user, List<AORCachedGroup> groups) : base(description, false)
 		{
+			this.Name = name;
 			this.Permissions = perms;
-			this.Users = users;
+			this.User = user;
 			this.Groups = groups;
 		}
 	}

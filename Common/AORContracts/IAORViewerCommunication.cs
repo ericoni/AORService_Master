@@ -22,5 +22,7 @@ namespace FTN.Common.AORContract
 		List<AORArea> GetAORAreas();
 		[OperationContract]
 		List<AORGroup> GetAORGroups();
+		[OperationContract]
+		List<Permission> GetPermissionsForArea(long areaId);
 	}
 }

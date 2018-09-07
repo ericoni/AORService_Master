@@ -115,7 +115,7 @@
     <Compile Include="CalculationEngine\Service\ICEDistribution.cs" />
     <Compile Include="CalculationEngine\Service\IForecastService.cs" />
     <Compile Include="Model\DNAAuthority.cs" />
-    <Compile Include="Model\Permissions.cs" />
+    <Compile Include="Model\Permission.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="NMS\Proxy\NetworkModelGDAProxy.cs" />
     <Compile Include="NMS\Services\GDA\INetworkModelGDAContract.cs" />

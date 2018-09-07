@@ -9,6 +9,8 @@ using FTN.Common;
 using FTN.Common.AORModel;
 using FTN.Common.Logger;
 using Adapter;
+using AORC.Acess;
+using FTN.Common.Model;
 
 namespace ActiveAORCache
 {
@@ -222,6 +224,19 @@ namespace ActiveAORCache
 		private bool AORGroupExists(string mrid)
 		{
 			return aorGroups.Select(u => u.Mrid.Equals(mrid)).ToList().Count > 0;
+		}
+						
+		public List<Permission> GetPermissionsForArea(long areaId) 
+		{
+			using (var access = new AccessDB())
+			{
+				var aQuery = (from a in access.Areas.Include("Permissions")
+								   where a.Name.Equals("West-Area")
+								   select a).ToList();
+
+				var c = aQuery[0].Permissions;
+				return c;
+			}
 		}
 	}
 }

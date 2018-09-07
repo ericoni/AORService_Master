@@ -15,5 +15,14 @@ namespace FTN.Common.AORCachedModel
 		{
 			this.Name = name;
 		}
+		public AORCachedEntity(string description, bool nebitno)
+		{
+			this.Description = description;
+		}
+		public AORCachedEntity(string name, string description)
+		{
+			this.Name = name;
+			this.Description = description;
+		}
 	}
 }

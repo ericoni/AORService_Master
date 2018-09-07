@@ -1,21 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FTN.Common.Model;
-using AORCommon;
-using System.Diagnostics;
 using Adapter;
 using FTN.Common.AORCachedModel;
 
-namespace AORService.Access
+namespace AORC.Acess
 {
 	public class UserHelperDB : IUserHelperDB
 	{
 		private static IUserHelperDB myDB;
 		private RDAdapter rdAdapter = null;
-		private List<AORCachedArea> aorAreas = null;
 		private List<AORCachedGroup> aorGroups = null;
 
 		public static IUserHelperDB Instance
@@ -38,12 +33,6 @@ namespace AORService.Access
 		{
 			rdAdapter = new RDAdapter();
 			aorGroups = rdAdapter.GetAORGroupsWithSmInfo(); // aorGroups with sm info
-			aorAreas = new List<AORCachedArea>(2);
-
-			foreach (var area in aorAreas)
-			{
-				area.Groups.AddRange(aorGroups);
-			}
 
 			using (var access = new AccessDB())
 			{
@@ -60,18 +49,15 @@ namespace AORService.Access
 					Permission p8 = new Permission("DNA_PermissionViewSCADA", "Permission to view content operating under SCADA system.");
 
 					IList<Permission> perms = new List<Permission>() { p1, p2, p3, p4, p5, p6, p7, p8 };
-					access.Perms.AddRange(perms);
+					access.Permissions.AddRange(perms);
 
 					int k = access.SaveChanges();
 
 					if (k <= 0)
 						throw new Exception("Failed to save permissions.");
+					#endregion
 					IList<Permission> halfPerms = new List<Permission> { p1, p2, p3, p4 };
 					IList<Permission> almostFullPerms = new List<Permission> { p1, p2, p3, p4, p5, p8 };
-
-					aorAreas[0].Permissions.AddRange(halfPerms);
-					aorAreas[1].Permissions.AddRange(almostFullPerms);
-					#endregion
 
 					#region DNAs
 					DNAAuthority dna1 = new DNAAuthority("DNA_AuthorityDispatcher", new List<Permission>() { p1, p8, p5, p7 }); 
@@ -87,30 +73,44 @@ namespace AORService.Access
 
 					if (l <= 0)
 						throw new Exception("Failed to save DNAs in UserHelperDB");
-					#endregion
+					#endregion DNAs
+					AORCachedArea area1 = new AORCachedArea("West-Area", "", (List<Permission>)halfPerms, null, aorGroups); // dodati im usera naknadno
+					AORCachedArea area2 = new AORCachedArea("East-Area", "", (List<Permission>)almostFullPerms, null, aorGroups);
 
-					for (int i = 0; i < aorAreas.Count; i++)
-					{
-
-
-					}
-
+					#region Users
 					for (int i = 1; i < 3; i++)
 					{
 						//access.Users.Add(new User("admin" + i.ToString(), SecurePasswordManager.Hash("admin")));
 						if (i == 2)
 						{
-							access.Users.Add(new User("a" + i.ToString(), "a", dna1));
+							access.Users.Add(new User("a" + i.ToString(), "a", new List<DNAAuthority>() { dna1, dna4, dna6 }, new List<AORCachedArea>() { area1 }, new List<AORCachedArea>() { area1 })); 
 							continue;
 						}
-						access.Users.Add(new User("a" + i.ToString(), "a", 
-							dna2)); // database fill
+						access.Users.Add(new User("a" + i.ToString(), "a", new List<DNAAuthority>() { dna2, dna4, dna6 }, new List<AORCachedArea>() { area2 }, new List<AORCachedArea>() { area2 }));
 					}
 
 					int j = access.SaveChanges();
 
 					if (j <= 0)
 						throw new Exception("Failed to save user changes!");
+
+					var user1 = access.Users.Where(u => u.Username.Equals("a1")).ToList()[0]; // vrati se ovde da uljudis kod
+					var user2 = access.Users.Where(u => u.Username.Equals("a2")).ToList()[0];
+
+					var a1 = access.Areas.Where(a => a.Name.Equals("West-Area")).ToList()[0];
+					a1.User.Add(user1);
+					a1.User.Add(user2);
+
+					var a2 = access.Areas.Where(a => a.Name.Equals("East-Area")).ToList()[0];
+					a2.User.Add(user1);
+					a2.User.Add(user2);
+
+					AORCachedArea area3 = new AORCachedArea("Najnovija-Area", "", (List<Permission>)almostFullPerms, new List<User>() { user1, user2 }, aorGroups);
+					access.Areas.Add(area3);
+
+					j = access.SaveChanges();
+						throw new Exception("Failed to save aor areas changes, at the end!");
+					#endregion
 				}
 			}
 		}

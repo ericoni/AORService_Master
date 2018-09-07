@@ -1,6 +1,8 @@
 ﻿using FTN.Services.NetworkModelService.DataModel.Wires;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,9 +12,11 @@ namespace FTN.Common.AORCachedModel
 	[Serializable]
 	public class AORCachedGroup : AORCachedEntity
 	{
+		[Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public int Id { get; set; }
 		public List<SynchronousMachine> SMachines { get; set; }
 		public List<AORCachedArea> Areas { get; set; }
-
 		public AORCachedGroup()
 		{
 			SMachines = new List<SynchronousMachine>();
