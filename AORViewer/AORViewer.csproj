@@ -98,6 +98,9 @@
     <Compile Include="ViewModels\ObsoleteFiles\ViewModelLocator.cs" />
     <Compile Include="ViewModel\MainViewModel2.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="Views\AORAreaProperties.xaml.cs">
+      <DependentUpon>AORAreaProperties.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
@@ -139,6 +142,10 @@
     <Folder Include="Theme\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\AORAreaProperties.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

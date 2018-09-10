@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FTN.Common.AORCachedModel;
+using FTN.Services.NetworkModelService.DataModel.Wires;
 
 namespace AORC.Acess
 {
@@ -20,5 +21,6 @@ namespace AORC.Acess
 		public DbSet<Permission> Permissions { get; set; }
 		public DbSet<AORCachedGroup> Groups { get; set; }
 		public DbSet<AORCachedArea> Areas { get; set; }
+        public DbSet<SynchronousMachine> SyncMachines { get; set; }
 	}
 }

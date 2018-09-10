@@ -88,28 +88,44 @@ namespace AORC.Acess
 						}
 						access.Users.Add(new User("a" + i.ToString(), "a", new List<DNAAuthority>() { dna2, dna4, dna6 }, new List<AORCachedArea>() { area2 }, new List<AORCachedArea>() { area2 }));
 					}
-
+                    
 					int j = access.SaveChanges();
 
-					if (j <= 0)
-						throw new Exception("Failed to save user changes!");
+                    if (j <= 0)
+                        throw new Exception("Failed to save user changes!");
 
-					var user1 = access.Users.Where(u => u.Username.Equals("a1")).ToList()[0]; // vrati se ovde da uljudis kod
-					var user2 = access.Users.Where(u => u.Username.Equals("a2")).ToList()[0];
+                    // problem kod dodavanja nove area, na vec postojeceg usera. Ne doda se novi area entitet u bazu!
 
-					var a1 = access.Areas.Where(a => a.Name.Equals("West-Area")).ToList()[0];
-					a1.User.Add(user1);
-					a1.User.Add(user2);
+     //               var user1 = access.Users.Where(u => u.Username.Equals("a1")).ToList()[0]; // vrati se ovde da uljudis kod
+					//var user2 = access.Users.Where(u => u.Username.Equals("a2")).ToList()[0]; //izvlacenje usera
 
-					var a2 = access.Areas.Where(a => a.Name.Equals("East-Area")).ToList()[0];
-					a2.User.Add(user1);
-					a2.User.Add(user2);
+     //               //var a1 = access.Areas.Where(a => a.Name.Equals("West-Area")).ToList()[0]; //dodjela tog usera na AREA-a
+     //               //a1.User.Add(user1);
+     //               //a1.User.Add(user2);
 
-					AORCachedArea area3 = new AORCachedArea("Najnovija-Area", "", (List<Permission>)almostFullPerms, new List<User>() { user1, user2 }, aorGroups);
-					access.Areas.Add(area3);
+     //               //var a2 = access.Areas.Where(a => a.Name.Equals("East-Area")).ToList()[0];
+     //               //a2.User.Add(user1);
+     //               //a2.User.Add(user2);
+     //               area1.User.Add(user1);
+     //               area1.User.Add(user2);
 
-					j = access.SaveChanges();
-						throw new Exception("Failed to save aor areas changes, at the end!");
+     //               area2.User.Add(user1);
+     //               area2.User.Add(user2);
+
+     //               AORCachedArea area3 = new AORCachedArea("Najnovija-Area", "", (List<Permission>)almostFullPerms, new List<User>() { user1, user2 }, aorGroups);
+     //               access.Areas.Add(area1);
+     //               access.Areas.Add(area2);
+     //               access.Areas.Add(area3);
+
+					//j = access.SaveChanges();
+     //               if(j <= 0)
+     //                   throw new Exception("Failed to save new area Najnovija area changes!");
+
+                    access.Groups.AddRange(aorGroups);
+                    j = access.SaveChanges();
+                    if (j <= 0)
+                        throw new Exception("Failed to save aorGroups!");
+
 					#endregion
 				}
 			}

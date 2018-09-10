@@ -24,7 +24,7 @@ namespace AORService
 		public AORViewerComm()
 		{
 			aorXmlHelper = new AORXmlHelper();
-			aorCache = new AORCache();
+            aorCache = new AORCache();
 		}
 
 		public List<Permission> GetAllPermissions()
@@ -34,7 +34,7 @@ namespace AORService
 
 		public void SerializeDNAs()
 		{
-			aorXmlHelper.CreatePermXml();
+			aorXmlHelper.CreateXml(true);
 		}
 
 		public List<DNAAuthority> GetAllDNAs()

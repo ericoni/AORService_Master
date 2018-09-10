@@ -30,7 +30,6 @@ namespace AORViewer.ViewModels
 
 		public AORVMainWindowViewModel()
 		{
-
 			aorViewerTempList = new List<LBModelBase>(4)
 			{ new LBModelBase(LBType.Permissions.ToString(), "Neki opis"), new LBModelBase(LBType.AOR_Groups.ToString(), "AOR GRUPE"),
 				new LBModelBase(LBType.AOR_Areas.ToString(), "ARea"), new LBModelBase(LBType.DNA_Authorities.ToString(), "Dna nesto")};
@@ -153,22 +152,45 @@ namespace AORViewer.ViewModels
 
 		public Visibility IsPermissionsSelected
 		{
-			get { return SelectedElement.Name.Equals(LBType.Permissions.ToString()) ? Visibility.Visible : Visibility.Collapsed; }
+			get
+            {
+                if (SelectedElement != null)
+                    return SelectedElement.Name.Equals(LBType.Permissions.ToString()) ? Visibility.Visible : Visibility.Collapsed;
+                else
+                    return Visibility.Collapsed;
+            }
 		}
 
 		public Visibility IsAuthoritiesSelected
-		{
-			get { return SelectedElement.Name.Equals(LBType.DNA_Authorities.ToString()) ? Visibility.Visible : Visibility.Collapsed; }
+        {
+            get
+            {
+                if (SelectedElement != null)
+                    return SelectedElement.Name.Equals(LBType.DNA_Authorities.ToString()) ? Visibility.Visible : Visibility.Collapsed;
+                else
+                    return Visibility.Collapsed;
+            }
 		}
 
 		public Visibility IsAORAreasSelected
 		{
-			get { return SelectedElement.Name.Equals(LBType.AOR_Areas.ToString()) ? Visibility.Visible : Visibility.Collapsed; }
+            get {
+                if (SelectedElement != null)
+                    return SelectedElement.Name.Equals(LBType.AOR_Areas.ToString()) ? Visibility.Visible : Visibility.Collapsed;
+                 else
+                    return Visibility.Collapsed;
+            }
 		}
 
 		public Visibility IsAORGroupsSelected
-		{
-			get { return SelectedElement.Name.Equals(LBType.AOR_Groups.ToString()) ? Visibility.Visible : Visibility.Collapsed; }
+        {
+            get
+            {
+                if (SelectedElement != null)
+                    return SelectedElement.Name.Equals(LBType.AOR_Groups.ToString()) ? Visibility.Visible : Visibility.Collapsed;
+                else
+                    return Visibility.Collapsed;
+            }
 		}
 		private void ExecuteAreaPropertiesCommand()
 		{
