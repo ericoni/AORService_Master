@@ -8,6 +8,7 @@ using FTN.Common.Model;
 using FTN.Common.AORModel;
 using ActiveAORCache;
 using System.ServiceModel;
+using FTN.Common.AORCachedModel;
 
 namespace AORService
 {
@@ -24,7 +25,7 @@ namespace AORService
 		public AORViewerComm()
 		{
 			aorXmlHelper = new AORXmlHelper();
-            aorCache = new AORCache();
+			aorCache = new AORCache();
 		}
 
 		public List<Permission> GetAllPermissions()
@@ -42,7 +43,7 @@ namespace AORService
 			return aorXmlHelper.ReadDNAFromXml();
 		}
 
-		public List<AORArea> GetAORAreas()
+		public List<AORCachedArea> GetAORAreas()
 		{
 			return aorCache.GetAORAreas();
 		}

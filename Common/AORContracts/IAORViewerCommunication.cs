@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FTN.Common.Model;
 using FTN.Common.AORModel;
+using FTN.Common.AORCachedModel;
 
 namespace FTN.Common.AORContract
 {
@@ -19,7 +20,7 @@ namespace FTN.Common.AORContract
 		[OperationContract]
 		List<DNAAuthority> GetAllDNAs();
 		[OperationContract]
-		List<AORArea> GetAORAreas();
+		List<AORCachedArea> GetAORAreas();
 		[OperationContract]
 		List<AORGroup> GetAORGroups();
 		[OperationContract]

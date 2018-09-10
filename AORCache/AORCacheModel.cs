@@ -11,6 +11,7 @@ using FTN.Common.Logger;
 using Adapter;
 using AORC.Acess;
 using FTN.Common.Model;
+using FTN.Common.AORCachedModel;
 
 namespace ActiveAORCache
 {
@@ -38,11 +39,6 @@ namespace ActiveAORCache
 		/// </summary>
 		private object lock2PC = new object();
 
-		public List<AORArea> GetModelAORAreas()
-		{
-			return aorAreas;
-		}
-
 		public List<AORGroup> GetModelAORGroups()
 		{
 			return aorGroups;
@@ -52,7 +48,6 @@ namespace ActiveAORCache
 		public AORCacheModel()
 		{
 			rdAdapter = new RDAdapter();
-			aorAreas = rdAdapter.GetAORAreas();
 			aorGroups = rdAdapter.GetAORGroups();
 
 			//var aggs = rdAdapter.GetAORAgAggregatorsRDs();
@@ -236,6 +231,17 @@ namespace ActiveAORCache
 
 				var c = aQuery[0].Permissions;
 				return c;
+			}
+		}
+
+		public List<AORCachedArea> GetModelAORAreas()
+		{
+			using (var access = new AccessDB())
+			{
+				var query = (from a in access.Areas.Include("Permissions")
+							 select a);
+
+				return query.ToList();
 			}
 		}
 	}

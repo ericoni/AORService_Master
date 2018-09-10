@@ -10,19 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace AORViewer.Views
 {
-    /// <summary>
-    /// Interaction logic for AORAreaProperties.xaml
-    /// </summary>
-    public partial class AORAreaProperties : UserControl
-    {
-        public AORAreaProperties()
-        {
-            InitializeComponent();
-        }
-    }
+	/// <summary>
+	/// Interaction logic for AreaPropertiesWindow.xaml
+	/// </summary>
+	public partial class AreaPropertiesWindow : Window
+	{
+		public AreaPropertiesWindow()
+		{
+			InitializeComponent();
+		}
+	}
 }

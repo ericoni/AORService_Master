@@ -1,4 +1,5 @@
-﻿using FTN.Common.AORModel;
+﻿using FTN.Common.AORCachedModel;
+using FTN.Common.AORModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,6 @@ namespace ActiveAORCache
 	{
 		void SynchronizeAORConfig();
 		List<AORGroup> GetAORGroups();
-		List<AORArea> GetAORAreas();
+		List<AORCachedArea> GetAORAreas();
 	}
 }

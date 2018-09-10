@@ -10,6 +10,8 @@ using AORManagementProxy;
 using FTN.Common.AORModel;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using FTN.Common.AORCachedModel;
+using AORViewer.Views;
 
 namespace AORViewer.ViewModels
 {
@@ -20,7 +22,7 @@ namespace AORViewer.ViewModels
 		private LBModelBase selectedElement;
 		private List<Permission> permissionList;
 		private List<DNAAuthority> dnaList;
-		private List<AORArea> aorAreas;
+		private List<AORCachedArea> aorAreas;
 		private List<AORGroup> aorGroups;
 		private AORViewerCommProxy aorViewCommProxy;
 		public ICommand AORAreaPropertiesCommand { get; private set; }
@@ -28,7 +30,7 @@ namespace AORViewer.ViewModels
 		public ICommand AORGroupPropertiesCommand { get; private set; }
 		public ICommand AORGroupDeleteCommand { get; private set; }
 
-		public AORVMainWindowViewModel()
+		public AORVMainWindowViewModel() // na instanciranju uzima sve iz cache
 		{
 			aorViewerTempList = new List<LBModelBase>(4)
 			{ new LBModelBase(LBType.Permissions.ToString(), "Neki opis"), new LBModelBase(LBType.AOR_Groups.ToString(), "AOR GRUPE"),
@@ -89,7 +91,7 @@ namespace AORViewer.ViewModels
 			}
 		}
 
-		public List<AORArea> AORAreas
+		public List<AORCachedArea> AORAreas
 		{
 			get
 			{
@@ -153,48 +155,50 @@ namespace AORViewer.ViewModels
 		public Visibility IsPermissionsSelected
 		{
 			get
-            {
-                if (SelectedElement != null)
-                    return SelectedElement.Name.Equals(LBType.Permissions.ToString()) ? Visibility.Visible : Visibility.Collapsed;
-                else
-                    return Visibility.Collapsed;
-            }
+			{
+				if (SelectedElement != null)
+					return SelectedElement.Name.Equals(LBType.Permissions.ToString()) ? Visibility.Visible : Visibility.Collapsed;
+				else
+					return Visibility.Collapsed;
+			}
 		}
 
 		public Visibility IsAuthoritiesSelected
-        {
-            get
-            {
-                if (SelectedElement != null)
-                    return SelectedElement.Name.Equals(LBType.DNA_Authorities.ToString()) ? Visibility.Visible : Visibility.Collapsed;
-                else
-                    return Visibility.Collapsed;
-            }
+		{
+			get
+			{
+				if (SelectedElement != null)
+					return SelectedElement.Name.Equals(LBType.DNA_Authorities.ToString()) ? Visibility.Visible : Visibility.Collapsed;
+				else
+					return Visibility.Collapsed;
+			}
 		}
 
 		public Visibility IsAORAreasSelected
 		{
-            get {
-                if (SelectedElement != null)
-                    return SelectedElement.Name.Equals(LBType.AOR_Areas.ToString()) ? Visibility.Visible : Visibility.Collapsed;
-                 else
-                    return Visibility.Collapsed;
-            }
+			get {
+				if (SelectedElement != null)
+					return SelectedElement.Name.Equals(LBType.AOR_Areas.ToString()) ? Visibility.Visible : Visibility.Collapsed;
+				 else
+					return Visibility.Collapsed;
+			}
 		}
 
 		public Visibility IsAORGroupsSelected
-        {
-            get
-            {
-                if (SelectedElement != null)
-                    return SelectedElement.Name.Equals(LBType.AOR_Groups.ToString()) ? Visibility.Visible : Visibility.Collapsed;
-                else
-                    return Visibility.Collapsed;
-            }
+		{
+			get
+			{
+				if (SelectedElement != null)
+					return SelectedElement.Name.Equals(LBType.AOR_Groups.ToString()) ? Visibility.Visible : Visibility.Collapsed;
+				else
+					return Visibility.Collapsed;
+			}
 		}
 		private void ExecuteAreaPropertiesCommand()
 		{
-			aorViewCommProxy.Proxy.GetPermissionsForArea(555);
+			//aorViewCommProxy.Proxy.GetPermissionsForArea(555);
+			AreaPropertiesWindow areaPropWindow = new AreaPropertiesWindow();
+			areaPropWindow.ShowDialog();
 		}
 		private void ExecuteAreaDeleteCommand()
 		{

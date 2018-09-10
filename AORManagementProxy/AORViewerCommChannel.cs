@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FTN.Common.Model;
 using FTN.Common.AORModel;
+using FTN.Common.AORCachedModel;
 
 namespace AORManagementProxy
 {
@@ -28,7 +29,7 @@ namespace AORManagementProxy
 			return this.Channel.GetAllDNAs();
 		}
 
-		public List<AORArea> GetAORAreas()
+		public List<AORCachedArea> GetAORAreas()
 		{
 			return this.Channel.GetAORAreas();
 		}

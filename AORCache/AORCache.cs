@@ -10,6 +10,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using FTN.Common.AORModel;
 using System.ServiceModel;
+using FTN.Common.AORCachedModel;
 
 namespace ActiveAORCache
 {
@@ -62,7 +63,7 @@ namespace ActiveAORCache
 		{
 		}
 
-		public List<AORArea> GetAORAreas()
+		public List<AORCachedArea> GetAORAreas()
 		{
 			return AORCacheModel.GetModelAORAreas();
 		}
