@@ -21,8 +21,8 @@ namespace ActiveAORCache
 		#region Fields
 		private List<AORGroup> aorGroups;
 		private List<AORGroup> aorGroupsCopy;
-		private List<AORArea> aorAreas;
-		private List<AORArea> aorAreasCopy;
+		private List<AORCachedArea> aorAreas;
+		private List<AORCachedArea> aorAreasCopy;
 		private RDAdapter rdAdapter; 
 		/// <summary>
 		/// Singleton instance
@@ -50,6 +50,7 @@ namespace ActiveAORCache
 			rdAdapter = new RDAdapter();
 			aorGroups = rdAdapter.GetAORGroups();
 
+            aorAreas = GetModelAORAreas();
 			//var aggs = rdAdapter.GetAORAgAggregatorsRDs();
 			//var aggs = rdAdapter.GetAORAgAggregators();
 			//var g = rdAdapter.GetGroupsForAgr(42949672962);
@@ -104,7 +105,7 @@ namespace ActiveAORCache
 			lock (lock2PC)
 			{
 				aorAreas = aorAreasCopy;
-				aorAreasCopy = new List<AORArea>();
+				aorAreasCopy = new List<AORCachedArea>();
 
 				aorGroups = aorGroupsCopy;
 				aorGroupsCopy = new List<AORGroup>();
@@ -117,14 +118,14 @@ namespace ActiveAORCache
 			lock (lock2PC)
 			{
 				aorGroupsCopy = new List<AORGroup>();
-				aorAreasCopy = new List<AORArea>();
+				aorAreasCopy = new List<AORCachedArea>();
 			}
 		}
 
 		private void MakeCopy()
 		{
 			aorGroupsCopy = new List<AORGroup>(aorGroups.Count);
-			aorAreasCopy = new List<AORArea>(aorAreas.Count);
+			aorAreasCopy = new List<AORCachedArea>(aorAreas.Count);
 
 			foreach (var group in aorGroups)
 			{
@@ -176,9 +177,9 @@ namespace ActiveAORCache
 			switch (type)
 			{
 				case DMSType.AOR_AREA:
-					AORArea newAorArea = new AORArea(rd.Id);
-					newAorArea.ConvertFromRD(rd);
-					aorAreasCopy.Add(newAorArea);
+					//AORCachedArea newAorArea = new AORCachedArea(rd.Id);
+					//newAorArea.ConvertFromRD(rd);
+					//aorAreasCopy.Add(newAorArea); // vrati se
 					break;
 				case DMSType.AOR_GROUP:
 					AORGroup newAorGroup = new AORGroup(rd.Id);
@@ -213,7 +214,9 @@ namespace ActiveAORCache
 
 		private bool AORAreaExists(string mrid)
 		{
-			return aorAreas.Select(u => u.Mrid.Equals(mrid)).ToList().Count > 0;
+            //return aorAreas.Select(u => u.Mrid.Equals(mrid)).ToList().Count > 0;
+            //return aorAreas.Select(u => u.id)
+            return false;  // vrati se
 		}
 
 		private bool AORGroupExists(string mrid)
@@ -241,7 +244,8 @@ namespace ActiveAORCache
 				var query = (from a in access.Areas.Include("Permissions")
 							 select a);
 
-				return query.ToList();
+				var c =  query.ToList();
+                return c;
 			}
 		}
 	}

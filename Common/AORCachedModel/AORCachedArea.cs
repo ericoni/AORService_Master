@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 namespace FTN.Common.AORCachedModel
 {
 	[Serializable]
+    [DataContract]
 	public class AORCachedArea : AORCachedEntity
 	{
 		//[Key]

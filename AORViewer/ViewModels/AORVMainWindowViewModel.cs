@@ -55,9 +55,9 @@ namespace AORViewer.ViewModels
 				var groups = aorViewCommProxy.Proxy.GetAORGroups();
 				AORGroups = groups;
 
-				var areas = aorViewCommProxy.Proxy.GetAORAreas();
-				AORAreas = areas;
-			}
+                var areas = aorViewCommProxy.Proxy.GetAORAreas();
+                AORAreas = areas;
+            }
 			catch (Exception ex)
 			{
 				Console.WriteLine("AORVMainWindowViewModel Constructor failed: " + ex.StackTrace);
@@ -177,9 +177,13 @@ namespace AORViewer.ViewModels
 		public Visibility IsAORAreasSelected
 		{
 			get {
-				if (SelectedElement != null)
-					return SelectedElement.Name.Equals(LBType.AOR_Areas.ToString()) ? Visibility.Visible : Visibility.Collapsed;
-				 else
+                if (SelectedElement != null)
+                {
+                    //AORAreas = aorViewCommProxy.Proxy.GetAORAreas(); //vrati se
+                    return SelectedElement.Name.Equals(LBType.AOR_Areas.ToString()) ? Visibility.Visible : Visibility.Collapsed;
+
+                }
+                else
 					return Visibility.Collapsed;
 			}
 		}
