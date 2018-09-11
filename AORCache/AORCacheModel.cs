@@ -50,7 +50,7 @@ namespace ActiveAORCache
 			rdAdapter = new RDAdapter();
 			aorGroups = rdAdapter.GetAORGroups();
 
-            aorAreas = GetModelAORAreas();
+			aorAreas = GetModelAORAreas();
 			//var aggs = rdAdapter.GetAORAgAggregatorsRDs();
 			//var aggs = rdAdapter.GetAORAgAggregators();
 			//var g = rdAdapter.GetGroupsForAgr(42949672962);
@@ -214,9 +214,9 @@ namespace ActiveAORCache
 
 		private bool AORAreaExists(string mrid)
 		{
-            //return aorAreas.Select(u => u.Mrid.Equals(mrid)).ToList().Count > 0;
-            //return aorAreas.Select(u => u.id)
-            return false;  // vrati se
+			//return aorAreas.Select(u => u.Mrid.Equals(mrid)).ToList().Count > 0;
+			//return aorAreas.Select(u => u.id)
+			return false;  // vrati se
 		}
 
 		private bool AORGroupExists(string mrid)
@@ -224,7 +224,7 @@ namespace ActiveAORCache
 			return aorGroups.Select(u => u.Mrid.Equals(mrid)).ToList().Count > 0;
 		}
 						
-		public List<Permission> GetPermissionsForArea(long areaId) 
+		public List<Permission> GetPermissionsForArea(long areaId)  //vrati se ovde 
 		{
 			using (var access = new AccessDB())
 			{
@@ -245,7 +245,7 @@ namespace ActiveAORCache
 							 select a);
 
 				var c =  query.ToList();
-                return c;
+				return c;
 			}
 		}
 	}

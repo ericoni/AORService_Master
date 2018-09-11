@@ -31,13 +31,13 @@ namespace MODBUSLibrary
 		/// </summary>
 		public void WriteSingleCoil(int registerAddress, short value)
 		{   
-            byte[] messageToSend = new byte[requestMessageSize];
+			byte[] messageToSend = new byte[requestMessageSize];
 			Array.Clear(messageToSend, 0, messageToSend.Length);
 
 			WriteHelper(registerAddress, value, 0x05, messageToSend, true);
 
 			SendData(messageToSend);
-        }
+		}
 
 		/// <summary>
 		/// Method to write single analog value. (old)
@@ -73,7 +73,7 @@ namespace MODBUSLibrary
 			BitPacking(0x06, registerAddress, messageToSend, lower);
 			SendData(messageToSend);
 			GetData(response);
-        }
+		}
 
 		private void BitPacking(short functionCode, int registerAddress, byte[] messageToSend, short value)
 		{
@@ -131,7 +131,7 @@ namespace MODBUSLibrary
 
 			GetData(response);
 
-            for (int i = response.Length - bytesReceived; i < response.Length; i++)
+			for (int i = response.Length - bytesReceived; i < response.Length; i++)
 			{
 				byte tempResponse = response[i];
 
@@ -145,11 +145,11 @@ namespace MODBUSLibrary
 					if ((tempResponse & 1) == 1)
 					{
 						Trace.Write("\nOpened breaker at starting address + " + counter++.ToString());
-                    }
+					}
 					else
 					{
 						Trace.Write("\nClosed breaker at starting address + " + counter++.ToString());
-                    }
+					}
 					tempResponse >>= 1;
 				}
 			}
@@ -189,10 +189,10 @@ namespace MODBUSLibrary
 
 			GetData(response);
 
-			for (int i = 9, j = 10; i <= response.Length - 2; i += 2, j += 2)
+			for (int i = 9, j = 10; i <= response.Length - 2; i += 2, j += 2)  // vrati se da vratis trace, ukoliko bude bio potreban
 			{
 				value = response[j] | response[i] << 8;  // posle "byte count" u response ( posle 8. bajta) prvi bajt cuva Hi, a sledeci Low od a.value
-				Trace.Write("\nAnalog value: " + value.ToString());
+				//Trace.Write("\nAnalog value: " + value.ToString());
 			}
 			return value;
 		}
@@ -233,9 +233,9 @@ namespace MODBUSLibrary
 
 			GetData(response);
 
-			Trace.Write("Values acquired: \n");
+			//Trace.Write("Values acquired: \n");
 
-            for (int i = 9, j = 10; i <= response.Length - 3; i += 2, j += 2)
+			for (int i = 9, j = 10; i <= response.Length - 3; i += 2, j += 2) // vrati se ukoliko bude bilo potrebno da se cita iz trace
 			{
 				byteArray = new byte[4];
 
@@ -250,8 +250,8 @@ namespace MODBUSLibrary
 
 				packedFloat = System.BitConverter.ToSingle(byteArray, 0);
 				floatList.Add(packedFloat);
-				Trace.Write(packedFloat.ToString() + " " + "\n" );
-            }
+				//Trace.Write(packedFloat.ToString() + " " + "\n");
+			}
 
 			return floatList;
 		}
@@ -264,10 +264,10 @@ namespace MODBUSLibrary
 			try
 			{
 				tcpClient.Connect("127.0.0.1", port);
-            }
+			}
 			catch (Exception e)
 			{
-                throw new Exception(e.Message);
+				throw new Exception(e.Message);
 			}
 
 		}
@@ -280,7 +280,7 @@ namespace MODBUSLibrary
 		{
 			stream.Dispose();
 			tcpClient.Close();
-        }
+		}
 
 		private void SendData(byte[] messageToSend)
 		{
@@ -288,11 +288,11 @@ namespace MODBUSLibrary
 			{
 				stream = tcpClient.GetStream();
 				stream.Write(messageToSend, 0, messageToSend.Length);
-            }
+			}
 			catch (Exception e)
 			{
 				Trace.Write("Error has occurred {0}", e.StackTrace);
-            }
+			}
 		}
 
 		private void GetData(byte[] response)
@@ -301,11 +301,11 @@ namespace MODBUSLibrary
 			{
 				stream = tcpClient.GetStream();
 				stream.Read(response, 0, response.Length);
-            }
+			}
 			catch (Exception e)
 			{
 				Trace.Write("Error has occurred {0}", e.StackTrace);
-            }
+			}
 		}
 
 		private void WriteHelper(int registerAddress, short value, short functionCode, byte[] messageToSend, bool isDigital)

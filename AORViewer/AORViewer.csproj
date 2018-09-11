@@ -96,10 +96,11 @@
     <Compile Include="ViewModels\ObsoleteFiles\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\ObsoleteFiles\ViewModelLocator.cs" />
-    <Compile Include="ViewModel\MainViewModel2.cs" />
-    <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Views\AreaPropertiesWindow.xaml.cs">
       <DependentUpon>AreaPropertiesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GroupPropertiesWindow.xaml.cs">
+      <DependentUpon>GroupPropertiesWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
@@ -143,6 +144,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\AreaPropertiesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GroupPropertiesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -4,18 +4,22 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace FTN.Common.AORCachedModel
 {
 	[Serializable]
+	[DataContract]
 	public class AORCachedGroup : AORCachedEntity
 	{
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }
+		[DataMember]
 		public List<SynchronousMachine> SMachines { get; set; }
+		[DataMember]
 		public List<AORCachedArea> Areas { get; set; }
 		public AORCachedGroup()
 		{

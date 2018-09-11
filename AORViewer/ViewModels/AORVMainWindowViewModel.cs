@@ -25,6 +25,8 @@ namespace AORViewer.ViewModels
 		private List<AORCachedArea> aorAreas;
 		private List<AORGroup> aorGroups;
 		private AORViewerCommProxy aorViewCommProxy;
+		private AORCachedArea selectedArea;
+		private AORCachedGroup selectedGroup;
 		public ICommand AORAreaPropertiesCommand { get; private set; }
 		public ICommand AORAreaDeleteCommand { get; private set; }
 		public ICommand AORGroupPropertiesCommand { get; private set; }
@@ -55,9 +57,9 @@ namespace AORViewer.ViewModels
 				var groups = aorViewCommProxy.Proxy.GetAORGroups();
 				AORGroups = groups;
 
-                var areas = aorViewCommProxy.Proxy.GetAORAreas();
-                AORAreas = areas;
-            }
+				var areas = aorViewCommProxy.Proxy.GetAORAreas();
+				AORAreas = areas;
+			}
 			catch (Exception ex)
 			{
 				Console.WriteLine("AORVMainWindowViewModel Constructor failed: " + ex.StackTrace);
@@ -177,13 +179,11 @@ namespace AORViewer.ViewModels
 		public Visibility IsAORAreasSelected
 		{
 			get {
-                if (SelectedElement != null)
-                {
-                    //AORAreas = aorViewCommProxy.Proxy.GetAORAreas(); //vrati se
-                    return SelectedElement.Name.Equals(LBType.AOR_Areas.ToString()) ? Visibility.Visible : Visibility.Collapsed;
-
-                }
-                else
+				if (SelectedElement != null)
+				{
+					return SelectedElement.Name.Equals(LBType.AOR_Areas.ToString()) ? Visibility.Visible : Visibility.Collapsed;
+				}
+				else
 					return Visibility.Collapsed;
 			}
 		}
@@ -201,7 +201,7 @@ namespace AORViewer.ViewModels
 		private void ExecuteAreaPropertiesCommand()
 		{
 			//aorViewCommProxy.Proxy.GetPermissionsForArea(555);
-			AreaPropertiesWindow areaPropWindow = new AreaPropertiesWindow();
+			AreaPropertiesWindow areaPropWindow = new AreaPropertiesWindow(selectedArea);
 			areaPropWindow.ShowDialog();
 		}
 		private void ExecuteAreaDeleteCommand()
@@ -210,11 +210,31 @@ namespace AORViewer.ViewModels
 		}
 		private void ExecuteGroupPropertiesCommand()
 		{
-
+			GroupPropertiesWindow groupPropWindow = new GroupPropertiesWindow(selectedGroup);
+			groupPropWindow.ShowDialog();
 		}
 		private void ExecuteGroupDeleteCommand()
 		{
 
+		}
+		public AORCachedArea SelectedArea
+		{
+			get { return selectedArea; }
+			set
+			{
+				selectedArea = value;
+				OnPropertyChanged("SelectedArea");
+			}
+		}
+
+		public AORCachedGroup SelectedGroup
+		{
+			get { return selectedGroup; }
+			set
+			{
+				selectedGroup = value;
+				OnPropertyChanged("SelectedGroup");
+			}
 		}
 	}
 }

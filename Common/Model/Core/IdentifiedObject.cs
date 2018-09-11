@@ -13,14 +13,14 @@ namespace FTN.Services.NetworkModelService.DataModel.Core
 
 	[Serializable]
 	[DataContract]
-    public enum TypeOfReference : short
+	public enum TypeOfReference : short
 	{
-        [EnumMember]
-        Reference = 1,
-        [EnumMember]
-        Target = 2,
-        [EnumMember]
-        Both = 3,
+		[EnumMember]
+		Reference = 1,
+		[EnumMember]
+		Target = 2,
+		[EnumMember]
+		Both = 3,
 	}
 
 
@@ -63,11 +63,11 @@ namespace FTN.Services.NetworkModelService.DataModel.Core
 			this.globalId = globalId;			
 		}
 
-        /// <summary>
-        /// Gets or sets global id of the entity (identified object).
-        /// </summary>			
-        [DataMember]
-        public long GlobalId
+		/// <summary>
+		/// Gets or sets global id of the entity (identified object).
+		/// </summary>			
+		[DataMember]
+		public long GlobalId
 		{
 			get
 			{
@@ -80,31 +80,31 @@ namespace FTN.Services.NetworkModelService.DataModel.Core
 			}
 		}
 
-        /// <summary>
-        /// Gets or sets name of the entity (identified object).
-        /// </summary>			
-        [DataMember]
-        public string Name
+		/// <summary>
+		/// Gets or sets name of the entity (identified object).
+		/// </summary>			
+		[DataMember]
+		public string Name
 		{
 			get { return name; }
 			set { name = value; }
 		}
 
-        /// <summary>
-        /// Gets or sets mrid of the entity (identified object).
-        /// </summary>			
-        [DataMember]
-        public string Mrid
+		/// <summary>
+		/// Gets or sets mrid of the entity (identified object).
+		/// </summary>			
+		[DataMember]
+		public string Mrid
 		{
 			get { return mrid; }
 			set { mrid = value; }
 		}
 
-        /// <summary>
-        /// Gets or sets description of the entity (identified object).
-        /// </summary>			
-        [DataMember]
-        public string Description
+		/// <summary>
+		/// Gets or sets description of the entity (identified object).
+		/// </summary>			
+		[DataMember]
+		public string Description
 		{
 			get { return description; }
 			set { description = value; }

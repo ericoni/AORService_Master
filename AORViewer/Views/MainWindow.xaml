@@ -5,6 +5,7 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:VM="clr-namespace:AORViewer.ViewModels"
 		xmlns:local="clr-namespace:AORViewer.Views"
+		xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
 		mc:Ignorable="d"
 		Title="AOR Viewer" Height="600" Width="800">
 	<Window.DataContext>
@@ -40,11 +41,11 @@
 			<!--<Grid Grid.Column="1" Visibility="{Binding IsAORAreasSelected}">
 				<TextBox Text="{Binding SelectedElement.Description}"></TextBox>
 			</Grid>-->
-			<DataGrid Grid.Column="1" Visibility="{Binding IsAORAreasSelected}" ItemsSource="{Binding AORAreas}" 
+			<DataGrid Grid.Column="1" Visibility="{Binding IsAORAreasSelected}" ItemsSource="{Binding AORAreas}" SelectedItem="{Binding SelectedArea}" 
 					  CanUserAddRows="False" GridLinesVisibility="Vertical" AutoGenerateColumns="False">
 				<DataGrid.ContextMenu>
 					<ContextMenu>
-						<MenuItem Header="Properties" Command="{Binding AORAreaPropertiesCommand}" />
+						<MenuItem Header="Properties" Command="{Binding AORAreaPropertiesCommand}"  />
 						<MenuItem Header="Delete" Command="{Binding AORAreaDeleteCommand}" />
 					</ContextMenu>
 				</DataGrid.ContextMenu>
@@ -56,8 +57,9 @@
 			<!--<Grid Grid.Column="1" Visibility="{Binding IsAORGroupsSelected}" >
 				<TextBox Text="{Binding SelectedElement.Description}"></TextBox>
 			</Grid>-->
-			<DataGrid Grid.Column="1" Visibility="{Binding IsAORGroupsSelected}" ItemsSource="{Binding AORGroups}" 
-					  CanUserAddRows="False" GridLinesVisibility="Vertical" AutoGenerateColumns="False">
+			<!--SelectedItem="{Binding SelectedGroup}"-->
+			<DataGrid Grid.Column="1" Visibility="{Binding IsAORGroupsSelected}" ItemsSource="{Binding AORGroups}" SelectedItem="{Binding SelectedGroup }"
+				CanUserAddRows="False" GridLinesVisibility="Vertical" AutoGenerateColumns="False">
 				<DataGrid.ContextMenu>
 					<ContextMenu>
 						<MenuItem Header="Properties" Command="{Binding AORGroupPropertiesCommand}" />

@@ -47,19 +47,19 @@ namespace SCADAService
 
 			Thread taskA = new Thread(() => DataAcquisition());
 
-            taskA.Start();
+			taskA.Start();
 		}
 
 		private void DataAcquisition()
 		{
 			while (true)
 			{
-                LogHelper.Log(LogTarget.File, LogService.SCADACrunching, " INFO - SCADACrunching.cs - Data acquisition, new measurement ciclus.");
-                timestamp = DateTime.Now;
+				LogHelper.Log(LogTarget.File, LogService.SCADACrunching, " INFO - SCADACrunching.cs - Data acquisition, new measurement ciclus.");
+				timestamp = DateTime.Now;
 
-                lock (SCADAModel.Instance.Lock2PC)
+				lock (SCADAModel.Instance.Lock2PC)
 				{
-                    foreach (var analogValue in scadaModel.AnalogValues)
+					foreach (var analogValue in scadaModel.AnalogValues)
 					{
 						var value = client.ReadHoldingRegisters2(analogValue.Address, 1);
 
@@ -67,8 +67,8 @@ namespace SCADAService
 
 						if (syncMachine == null)
 						{
-                            LogHelper.Log(LogTarget.File, LogService.SCADACrunching, " ERROR - SCADACrunching.cs - Data acquisition, Synchronous machine is not assigned to analog value.");
-                            throw new Exception("Synchronous machine is not assigned to analog value.");
+							LogHelper.Log(LogTarget.File, LogService.SCADACrunching, " ERROR - SCADACrunching.cs - Data acquisition, Synchronous machine is not assigned to analog value.");
+							throw new Exception("Synchronous machine is not assigned to analog value.");
 						}
 
 						analogValue.Value = RawValuesConverter.ConvertRange(value[0], RAW_MIN, RAW_MAX, EGU_MIN, EGU_MAX);
@@ -76,11 +76,11 @@ namespace SCADAService
 						analogValue.Timestamp = timestamp.Ticks;
 					}
 
-                    SCADASubscriber.Instance.NotifySubscribers(DMSType.ANALOGVALUE);
+					SCADASubscriber.Instance.NotifySubscribers(DMSType.ANALOGVALUE);
 
-                }
-                     
-                Thread.Sleep(3000);
+				}
+					 
+				Thread.Sleep(3000);
 			}
 		}
 	}

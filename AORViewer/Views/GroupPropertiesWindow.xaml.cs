@@ -16,17 +16,17 @@ using System.Windows.Shapes;
 namespace AORViewer.Views
 {
 	/// <summary>
-	/// Interaction logic for AreaPropertiesWindow.xaml
+	/// Interaction logic for GroupPropertiesWindow.xaml
 	/// </summary>
-	public partial class AreaPropertiesWindow : Window
+	public partial class GroupPropertiesWindow : Window
 	{
-		AORCachedArea selectedArea;
+		AORCachedGroup selectedGroup;
 
-		public AreaPropertiesWindow(AORCachedArea selectedArea)
+		public GroupPropertiesWindow(AORCachedGroup selectedGroup)
 		{
 			InitializeComponent();
-			this.selectedArea = selectedArea;
-			this.DataContext = selectedArea;
+			this.selectedGroup = selectedGroup;
+			this.DataContext = selectedGroup;
 		}
 	}
 }
