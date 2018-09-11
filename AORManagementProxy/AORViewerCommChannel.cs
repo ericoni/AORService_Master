@@ -34,7 +34,7 @@ namespace AORManagementProxy
 			return this.Channel.GetAORAreas();
 		}
 
-		public List<AORGroup> GetAORGroups()
+		public List<AORCachedGroup> GetAORGroups()
 		{
 			return this.Channel.GetAORGroups();
 		}

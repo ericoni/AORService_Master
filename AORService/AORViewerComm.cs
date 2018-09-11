@@ -43,12 +43,12 @@ namespace AORService
 			return aorXmlHelper.ReadDNAFromXml();
 		}
 
-		public List<AORCachedArea> GetAORAreas()
+		public List<AORCachedArea> GetAORAreas() // vrati se analizirati sta se od ovoga koristi
 		{
 			return aorCache.GetAORAreas();
 		}
 
-		public List<AORGroup> GetAORGroups()
+		public List<AORCachedGroup> GetAORGroups()
 		{
 			return aorCache.GetAORGroups();
 		}
@@ -57,5 +57,5 @@ namespace AORService
 		{
 			return aorCache.GetPermissionsForArea(areaId);
 		}
-	}
+    }
 }

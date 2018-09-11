@@ -68,7 +68,7 @@ namespace ActiveAORCache
 			return AORCacheModel.GetModelAORAreas();
 		}
 
-		public List<AORGroup> GetAORGroups()
+		public List<AORCachedGroup> GetAORGroups()
 		{
 			return AORCacheModel.GetModelAORGroups();
 		}

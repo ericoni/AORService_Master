@@ -11,7 +11,7 @@ namespace ActiveAORCache
 	public interface IAORCache
 	{
 		void SynchronizeAORConfig();
-		List<AORGroup> GetAORGroups();
+		List<AORCachedGroup> GetAORGroups();
 		List<AORCachedArea> GetAORAreas();
 	}
 }

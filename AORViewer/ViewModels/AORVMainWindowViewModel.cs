@@ -23,7 +23,7 @@ namespace AORViewer.ViewModels
 		private List<Permission> permissionList;
 		private List<DNAAuthority> dnaList;
 		private List<AORCachedArea> aorAreas;
-		private List<AORGroup> aorGroups;
+		private List<AORCachedGroup> aorGroups;
 		private AORViewerCommProxy aorViewCommProxy;
 		private AORCachedArea selectedArea;
 		private AORCachedGroup selectedGroup;
@@ -107,7 +107,7 @@ namespace AORViewer.ViewModels
 			}
 		}
 
-		public List<AORGroup> AORGroups
+		public List<AORCachedGroup> AORGroups
 		{
 			get
 			{

@@ -23,6 +23,7 @@ namespace ActiveAORCache
 		private List<AORGroup> aorGroupsCopy;
 		private List<AORCachedArea> aorAreas;
 		private List<AORCachedArea> aorAreasCopy;
+        List<AORCachedGroup> aorGroupsModel;
 		private RDAdapter rdAdapter; 
 		/// <summary>
 		/// Singleton instance
@@ -39,18 +40,21 @@ namespace ActiveAORCache
 		/// </summary>
 		private object lock2PC = new object();
 
-		public List<AORGroup> GetModelAORGroups()
+		public List<AORCachedGroup> GetModelAORGroups()
 		{
-			return aorGroups;
+			return aorGroupsModel;
 		}
 
 		#endregion
 		public AORCacheModel()
 		{
-			rdAdapter = new RDAdapter();
-			aorGroups = rdAdapter.GetAORGroups();
+			//rdAdapter = new RDAdapter();
+			//aorGroups = rdAdapter.GetAORGroups();
+
 
 			aorAreas = GetModelAORAreas();
+
+            aorGroupsModel = GetModelAORGroup();
 			//var aggs = rdAdapter.GetAORAgAggregatorsRDs();
 			//var aggs = rdAdapter.GetAORAgAggregators();
 			//var g = rdAdapter.GetGroupsForAgr(42949672962);
@@ -77,7 +81,8 @@ namespace ActiveAORCache
 			}
 		}
 
-		public bool Prepare(Delta delta)
+        #region Two Phase Commit
+        public bool Prepare(Delta delta)
 		{
 			lock (lock2PC)
 			{
@@ -121,8 +126,9 @@ namespace ActiveAORCache
 				aorAreasCopy = new List<AORCachedArea>();
 			}
 		}
+        #endregion 
 
-		private void MakeCopy()
+        private void MakeCopy()
 		{
 			aorGroupsCopy = new List<AORGroup>(aorGroups.Count);
 			aorAreasCopy = new List<AORCachedArea>(aorAreas.Count);
@@ -248,6 +254,20 @@ namespace ActiveAORCache
 				return c;
 			}
 		}
+
+        public List<AORCachedGroup> GetModelAORGroup()
+        {
+            using (var access = new AccessDB())
+            {
+                //var query = (from a in access.Groups.Include("AORCachedAreas").Include("SynchronousMachines")
+                //             select a); // vrati se ovde kad sredis vezu area i grupe
+
+                var query = (from a in access.Groups
+                             select a);
+                var c = query.ToList();
+                return c;
+            }
+        }
 	}
 }
 
