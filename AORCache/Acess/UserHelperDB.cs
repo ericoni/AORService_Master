@@ -97,21 +97,24 @@ namespace AORC.Acess
 						access.Users.Add(u2);
 					}
 
+                    //area1.Users.Add(u1); // ovo mi pokvari bazu, ako se napise na ovom mjestu
+                    //area2.Users.Add(u2);
+
 					access.Areas.Add(area1);
 					access.Areas.Add(area2);
 
 					int j = access.SaveChanges();
-
 					if (j <= 0)
 						throw new Exception("Failed to save user and area changes!"); // pojavio se problem nestajanja permisija!! mozda ima vezE sa DNA authority
 
-					//j = access.SaveChanges();
+                    var area1FromDb = access.Areas.Where(a => a.Id == 0).ToList()[0];
+                    area1FromDb.Users.Add(u1);
 
-					//if (j <= 0)
-					//	throw new Exception("Failed to save user and area changes!");
+                    j = access.SaveChanges();
+                    if (j <= 0)
+                        throw new Exception("Failed to save budz area changes!");
 
-
-					access.Groups.AddRange(aorGroups);
+                    access.Groups.AddRange(aorGroups);
 					j = access.SaveChanges();
 					if (j <= 0)
 						throw new Exception("Failed to save aorGroups!");
