@@ -32,9 +32,12 @@ namespace FTN.Common.AORCachedModel
 		//[DataMember]
 		//public List<User> Users { get; set; } // covered by those users // vrati se ovde 
 		[DataMember]
-		public List<User> User { get; set; }
+		public List<User> Users { get; set; }
 
-		public AORCachedArea() { }
+		public AORCachedArea()
+        {
+            this.Users = new List<User>();
+        }
 		public AORCachedArea(List<Permission> perms)
 		{
 			this.Permissions = perms;
@@ -42,13 +45,13 @@ namespace FTN.Common.AORCachedModel
 		public AORCachedArea(List<Permission> perms, List<User> users)
 		{
 			this.Permissions = perms;
-			this.User = users;
+			this.Users = users;
 		}
-		public AORCachedArea(string name, string description, List<Permission> perms, List<User> user, List<AORCachedGroup> groups) : base(description, false)
+		public AORCachedArea(string name, string description, List<Permission> perms, List<User> users, List<AORCachedGroup> groups) : base(description, false)
 		{
 			this.Name = name;
 			this.Permissions = perms;
-			this.User = user;
+			this.Users = users;
 			this.Groups = groups;
 		}
 	}

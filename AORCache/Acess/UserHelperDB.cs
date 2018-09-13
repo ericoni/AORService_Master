@@ -77,19 +77,28 @@ namespace AORC.Acess
 					AORCachedArea area1 = new AORCachedArea("West-Area", "", (List<Permission>)halfPerms, null, aorGroups); // dodati im usera naknadno
 					AORCachedArea area2 = new AORCachedArea("East-Area", "", (List<Permission>)almostFullPerms, null, aorGroups);
 
+                    User u1 = null;
+                    User u2 = null;
+
 					#region Users
 					for (int i = 1; i < 3; i++)
 					{
 						//access.Users.Add(new User("admin" + i.ToString(), SecurePasswordManager.Hash("admin")));
 						if (i == 2)
 						{
-							access.Users.Add(new User("a" + i.ToString(), "a", new List<DNAAuthority>() { dna1, dna4, dna6 }, new List<AORCachedArea>() { area1 }, new List<AORCachedArea>() { area1 })); 
-							continue;
+                            u1 = new User("a" + i.ToString(), "a", new List<DNAAuthority>() { dna1, dna4, dna6 }, new List<AORCachedArea>() { area1 }, new List<AORCachedArea>() { area1 });
+                            //access.Users.Add(new User("a" + i.ToString(), "a", new List<DNAAuthority>() { dna1, dna4, dna6 }, new List<AORCachedArea>() { area1 }, new List<AORCachedArea>() { area1 }));
+                            access.Users.Add(u1);
+                            continue;
 						}
-						access.Users.Add(new User("a" + i.ToString(), "a", new List<DNAAuthority>() { dna2, dna4, dna6 }, new List<AORCachedArea>() { area2 }, new List<AORCachedArea>() { area2 }));
-					}
+                        u2 = new User("a" + i.ToString(), "a", new List<DNAAuthority>() { dna2, dna4, dna6 }, new List<AORCachedArea>() { area2 }, new List<AORCachedArea>() { area2 });
+                        //access.Users.Add(new User("a" + i.ToString(), "a", new List<DNAAuthority>() { dna2, dna4, dna6 }, new List<AORCachedArea>() { area2 }, new List<AORCachedArea>() { area2 }));
+                        access.Users.Add(u2);
+                    }
 					
 					int j = access.SaveChanges();
+                    area1.Users.Add(u1);
+                    area2.Users.Add(u2);
 
 					if (j <= 0)
 						throw new Exception("Failed to save user changes!");
