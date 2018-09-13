@@ -58,7 +58,7 @@
 				<TextBox Text="{Binding SelectedElement.Description}"></TextBox>
 			</Grid>-->
 			<!--SelectedItem="{Binding SelectedGroup}"-->
-            <DataGrid Grid.Column="1" Visibility="{Binding IsAORGroupsSelected}" ItemsSource="{Binding AORGroups}" SelectedItem="{Binding SelectedGroup}"
+			<DataGrid Grid.Column="1" Visibility="{Binding IsAORGroupsSelected}" ItemsSource="{Binding AORGroups}" SelectedItem="{Binding SelectedGroup}"
 				CanUserAddRows="False" GridLinesVisibility="Vertical" AutoGenerateColumns="False">
 				<DataGrid.ContextMenu>
 					<ContextMenu>

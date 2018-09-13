@@ -24,11 +24,14 @@ namespace AORViewer.ViewModels
 		private List<DNAAuthority> dnaList;
 		private List<AORCachedArea> aorAreas;
 		private List<AORCachedGroup> aorGroups;
+		private List<User> users;
 		private AORViewerCommProxy aorViewCommProxy;
 		private AORCachedArea selectedArea;
 		private AORCachedGroup selectedGroup;
 		public ICommand AORAreaPropertiesCommand { get; private set; }
 		public ICommand AORAreaDeleteCommand { get; private set; }
+		public ICommand AORAreaGetUsersCommand { get; private set; } 
+
 		public ICommand AORGroupPropertiesCommand { get; private set; }
 		public ICommand AORGroupDeleteCommand { get; private set; }
 
@@ -41,6 +44,7 @@ namespace AORViewer.ViewModels
 
 			AORAreaPropertiesCommand = new RelayCommand(() => ExecuteAreaPropertiesCommand());
 			AORAreaDeleteCommand = new RelayCommand(() => ExecuteAreaDeleteCommand());
+			AORAreaGetUsersCommand = new RelayCommand(() => ExecuteAreaGetUsersCommand());
 
 			AORGroupPropertiesCommand = new RelayCommand(() => ExecuteGroupPropertiesCommand());
 			AORGroupDeleteCommand = new RelayCommand(() => ExecuteGroupDeleteCommand());
@@ -59,12 +63,17 @@ namespace AORViewer.ViewModels
 
 				var areas = aorViewCommProxy.Proxy.GetAORAreas();
 				AORAreas = areas;
+
+				users = aorViewCommProxy.Proxy.GetAllUsers();
+				Users = users;
 			}
 			catch (Exception ex)
 			{
 				Console.WriteLine("AORVMainWindowViewModel Constructor failed: " + ex.StackTrace);
 			}
 		}
+
+	
 		public List<LBModelBase> AORViewerList
 		{
 			get
@@ -135,6 +144,20 @@ namespace AORViewer.ViewModels
 			}
 		}
 
+		public List<User> Users
+		{
+			get
+			{
+				return users;
+			}
+
+			set
+			{
+				users = value;
+				OnPropertyChanged("Users");
+			}
+		}
+
 		public LBModelBase SelectedElement
 		{
 			get { return selectedElement; }
@@ -201,12 +224,19 @@ namespace AORViewer.ViewModels
 		private void ExecuteAreaPropertiesCommand()
 		{
 			//aorViewCommProxy.Proxy.GetPermissionsForArea(555);
-			AreaPropertiesWindow areaPropWindow = new AreaPropertiesWindow(selectedArea);
+			//AreaPropertiesWindow areaPropWindow = new AreaPropertiesWindow(selectedArea);
+			AreaPropertiesWindow areaPropWindow = new AreaPropertiesWindow(this);
 			areaPropWindow.ShowDialog();
 		}
 		private void ExecuteAreaDeleteCommand()
 		{
 
+		}
+
+		private void ExecuteAreaGetUsersCommand()
+		{
+			AreaAddUserWindow areaAddUserWindow = new AreaAddUserWindow(this);
+			areaAddUserWindow.ShowDialog();
 		}
 		private void ExecuteGroupPropertiesCommand()
 		{

@@ -23,7 +23,7 @@ namespace ActiveAORCache
 		private List<AORGroup> aorGroupsCopy;
 		private List<AORCachedArea> aorAreas;
 		private List<AORCachedArea> aorAreasCopy;
-        List<AORCachedGroup> aorGroupsModel;
+		List<AORCachedGroup> aorGroupsModel;
 		private RDAdapter rdAdapter; 
 		/// <summary>
 		/// Singleton instance
@@ -54,7 +54,7 @@ namespace ActiveAORCache
 
 			aorAreas = GetModelAORAreas();
 
-            aorGroupsModel = GetModelAORGroup();
+			aorGroupsModel = GetModelAORGroup();
 			//var aggs = rdAdapter.GetAORAgAggregatorsRDs();
 			//var aggs = rdAdapter.GetAORAgAggregators();
 			//var g = rdAdapter.GetGroupsForAgr(42949672962);
@@ -81,8 +81,8 @@ namespace ActiveAORCache
 			}
 		}
 
-        #region Two Phase Commit
-        public bool Prepare(Delta delta)
+		#region Two Phase Commit
+		public bool Prepare(Delta delta)
 		{
 			lock (lock2PC)
 			{
@@ -126,9 +126,9 @@ namespace ActiveAORCache
 				aorAreasCopy = new List<AORCachedArea>();
 			}
 		}
-        #endregion 
+		#endregion 
 
-        private void MakeCopy()
+		private void MakeCopy()
 		{
 			aorGroupsCopy = new List<AORGroup>(aorGroups.Count);
 			aorAreasCopy = new List<AORCachedArea>(aorAreas.Count);
@@ -255,19 +255,34 @@ namespace ActiveAORCache
 			}
 		}
 
-        public List<AORCachedGroup> GetModelAORGroup()
-        {
-            using (var access = new AccessDB())
-            {
-                //var query = (from a in access.Groups.Include("AORCachedAreas").Include("SynchronousMachines")
-                //             select a); // vrati se ovde kad sredis vezu area i grupe
+		public List<AORCachedGroup> GetModelAORGroup()
+		{
+			using (var access = new AccessDB())
+			{
+				//var query = (from a in access.Groups.Include("AORCachedAreas").Include("SynchronousMachines")
+				//             select a); // vrati se ovde kad sredis vezu area i grupe
 
-                var query = (from a in access.Groups
-                             select a);
-                var c = query.ToList();
-                return c;
-            }
-        }
+				var query = (from a in access.Groups
+							 select a);
+				var c = query.ToList();
+				return c;
+			}
+		}
+
+		public List<User> GetAllUsers()
+		{
+			using (var access = new AccessDB())
+			{
+				var query = (from a in access.Users
+							 select a);
+				var c = query.ToList();
+
+				//var query2 = (from a in access.Users.Include("AORCachedAreas")
+				//			  select a);
+				//var c2 = query2.ToList();
+				return c;
+			}
+		}
 	}
 }
 

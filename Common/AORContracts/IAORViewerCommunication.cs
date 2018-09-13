@@ -24,6 +24,8 @@ namespace FTN.Common.AORContract
 		[OperationContract]
 		List<AORCachedGroup> GetAORGroups();
 		[OperationContract]
+		List<User> GetAllUsers();
+		[OperationContract]
 		List<Permission> GetPermissionsForArea(long areaId);
-    }
+	}
 }

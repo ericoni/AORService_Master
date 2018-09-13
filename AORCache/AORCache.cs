@@ -17,37 +17,7 @@ namespace ActiveAORCache
 	//[ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
 	public class AORCache : IAORCache, IDisposable
 	{
-		/// <summary>
-		/// Lock object for Singleton implementation
-		/// </summary>
-		private static object syncRoot = new Object();
-
-		/// <summary>
-		/// Singleton instance
-		/// </summary>
-		//private static volatile AORCache instance;
-
 		public AORCacheModel AORCacheModel { get; private set; }
-
-		/// <summary>
-		/// Singleton method
-		/// </summary>
-		//public static AORCache Instance
-		//{
-		//	get
-		//	{
-		//		if (instance == null)
-		//		{
-		//			lock (syncRoot)
-		//			{
-		//				if (instance == null)
-		//					instance = new AORCache();
-		//			}
-		//		}
-
-		//		return instance;
-		//	}
-		//}
 
 		public AORCache()
 		{
@@ -71,6 +41,11 @@ namespace ActiveAORCache
 		public List<AORCachedGroup> GetAORGroups()
 		{
 			return AORCacheModel.GetModelAORGroups();
+		}
+
+		public List<User> GetAllUsers()
+		{
+			return AORCacheModel.GetAllUsers();
 		}
 
 		public List<Permission> GetPermissionsForArea(long areaId)

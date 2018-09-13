@@ -4,17 +4,18 @@
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:local="clr-namespace:AORViewer.Views"
+		xmlns:VM="clr-namespace:AORViewer.ViewModels"
 		xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
 		mc:Ignorable="d"
-		Title="{Binding Name}" Height="450" Width="380" ResizeMode="NoResize">
+		Title="{Binding SelectedArea.Name}" Height="450" Width="380" ResizeMode="NoResize">
 	<Grid Height="369" VerticalAlignment="Top">
 		<TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="349" Margin="10,10,0,0" VerticalAlignment="Top" Width="354">
 			<TabItem Header="General">
 				<Grid Background="#FFE5E5E5">
-					<Label  Content="{Binding Name}" HorizontalAlignment="Left" Margin="42,33,0,0" VerticalAlignment="Top"/>
-					<TextBox  HorizontalAlignment="Left" Height="84" Margin="10,207,0,0" TextWrapping="Wrap" Text="{Binding Description}" VerticalAlignment="Top" Width="281"/>
+					<Label  Content="{Binding SelectedArea.Name}" HorizontalAlignment="Left" Margin="42,33,0,0" VerticalAlignment="Top"/>
+					<TextBox  HorizontalAlignment="Left" Height="84" Margin="10,207,0,0" TextWrapping="Wrap" Text="{Binding SelectedArea.Description}" VerticalAlignment="Top" Width="281"/>
 					<Label Content="Description" HorizontalAlignment="Left" Margin="10,176,0,0" VerticalAlignment="Top"/>
-					<ListBox ItemsSource="{Binding Permissions}" HorizontalAlignment="Left" Height="80" Margin="10,79,0,0" VerticalAlignment="Top" Width="248">
+					<ListBox ItemsSource="{Binding SelectedArea.Permissions}" HorizontalAlignment="Left" Height="80" Margin="10,79,0,0" VerticalAlignment="Top" Width="248">
 						<ListBox.ItemTemplate>
 							<DataTemplate>
 								<TextBlock Text="{Binding Name}" />
@@ -27,7 +28,12 @@
 				</Grid>
 			</TabItem>
 			<TabItem Header="Parent members">
-				<Grid Background="#FFE5E5E5"/>
+				<Grid Background="#FFE5E5E5">
+					<ListBox HorizontalAlignment="Left" Height="146" Margin="22,46,0,0" VerticalAlignment="Top" Width="236"/>
+					<Label Content="Users" HorizontalAlignment="Left" Margin="22,10,0,0" VerticalAlignment="Top"/>
+					<Button Content="Add" Command="{Binding AORAreaGetUsersCommand}" HorizontalAlignment="Left" Margin="103,236,0,0" VerticalAlignment="Top" Width="75"/>
+					<Button Content="Remove" HorizontalAlignment="Left" Margin="183,236,0,0" VerticalAlignment="Top" Width="75"/>
+				</Grid>
 			</TabItem>
 			<TabItem Header="Child members">
 				<Grid Background="#FFE5E5E5"/>

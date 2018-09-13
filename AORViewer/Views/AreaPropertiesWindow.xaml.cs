@@ -1,4 +1,5 @@
-﻿using FTN.Common.AORCachedModel;
+﻿using AORViewer.ViewModels;
+using FTN.Common.AORCachedModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,11 +23,25 @@ namespace AORViewer.Views
 	{
 		AORCachedArea selectedArea;
 
-		public AreaPropertiesWindow(AORCachedArea selectedArea)
+		//public AreaPropertiesWindow(AORCachedArea selectedArea)
+		//{
+		//	InitializeComponent();
+		//	this.selectedArea = selectedArea;
+		//	this.DataContext = selectedArea;
+		//}
+
+		//public AreaPropertiesWindow()
+		//{
+		//	InitializeComponent();
+		//	//this.selectedArea = selectedArea;
+		//	//this.DataContext = mw;
+		//}
+		public AreaPropertiesWindow(AORVMainWindowViewModel mainVM)
 		{
 			InitializeComponent();
-			this.selectedArea = selectedArea;
-			this.DataContext = selectedArea;
+			this.DataContext = mainVM;
+			//this.selectedArea = selectedArea;
+			//this.DataContext = mw;
 		}
 	}
 }

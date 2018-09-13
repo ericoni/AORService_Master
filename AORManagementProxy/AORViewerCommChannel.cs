@@ -38,6 +38,10 @@ namespace AORManagementProxy
 		{
 			return this.Channel.GetAORGroups();
 		}
+		public List<User> GetAllUsers()
+		{
+			return this.Channel.GetAllUsers();
+		}
 
 		public void SerializeDNAs()
 		{
