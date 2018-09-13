@@ -29,14 +29,19 @@
 			</TabItem>
 			<TabItem Header="Parent members">
 				<Grid Background="#FFE5E5E5">
-					<ListBox HorizontalAlignment="Left" Height="146" Margin="22,46,0,0" VerticalAlignment="Top" Width="236"/>
+					<ListBox HorizontalAlignment="Left" Height="156" Margin="22,46,0,0" VerticalAlignment="Top" Width="303"/>
 					<Label Content="Users" HorizontalAlignment="Left" Margin="22,10,0,0" VerticalAlignment="Top"/>
-					<Button Content="Add" Command="{Binding AORAreaGetUsersCommand}" HorizontalAlignment="Left" Margin="103,236,0,0" VerticalAlignment="Top" Width="75"/>
-					<Button Content="Remove" HorizontalAlignment="Left" Margin="183,236,0,0" VerticalAlignment="Top" Width="75"/>
+					<Button Content="Add" Command="{Binding AORAreaGetUsersCommand}" HorizontalAlignment="Left" Margin="170,241,0,0" VerticalAlignment="Top" Width="75"/>
+					<Button Content="Remove" HorizontalAlignment="Left" Margin="250,241,0,0" VerticalAlignment="Top" Width="75"/>
 				</Grid>
 			</TabItem>
 			<TabItem Header="Child members">
-				<Grid Background="#FFE5E5E5"/>
+				<Grid Background="#FFE5E5E5">
+					<ListBox HorizontalAlignment="Left" Height="156" Margin="22,46,0,0" VerticalAlignment="Top" Width="303"/>
+					<Label Content="Belonging AOR Group/Areas" HorizontalAlignment="Left" Margin="22,15,0,0" VerticalAlignment="Top"/>
+					<Button Content="Add" HorizontalAlignment="Left" Margin="170,241,0,0" VerticalAlignment="Top" Width="75"/>
+					<Button Content="Remove" HorizontalAlignment="Left" Margin="250,241,0,0" VerticalAlignment="Top" Width="75"/>
+				</Grid>
 			</TabItem>
 		</TabControl>
 		<Button  Content="OK" HorizontalAlignment="Left" Margin="129,373,0,-24" VerticalAlignment="Top" Width="75"/>

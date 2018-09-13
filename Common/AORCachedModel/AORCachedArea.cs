@@ -12,6 +12,7 @@ namespace FTN.Common.AORCachedModel
 {
 	[Serializable]
 	[DataContract]
+	[KnownType(typeof(User))]
 	public class AORCachedArea : AORCachedEntity
 	{
 		//[Key]
@@ -19,6 +20,8 @@ namespace FTN.Common.AORCachedModel
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }
+		[DataMember]
+		public string Mrid { get; set; }
 		[DataMember]
 		public bool IsControllable { get; set; }
 		[DataMember]
@@ -35,17 +38,20 @@ namespace FTN.Common.AORCachedModel
 		public List<User> Users { get; set; }
 
 		public AORCachedArea()
-        {
-            this.Users = new List<User>();
-        }
-		public AORCachedArea(List<Permission> perms)
+		{
+			this.Users = new List<User>();
+			this.Mrid = Guid.NewGuid().ToString();
+		}
+		public AORCachedArea(List<Permission> perms)// vrati se, obrisi cst
 		{
 			this.Permissions = perms;
+			this.Mrid = Guid.NewGuid().ToString();
 		}
 		public AORCachedArea(List<Permission> perms, List<User> users)
 		{
 			this.Permissions = perms;
 			this.Users = users;
+			this.Mrid = Guid.NewGuid().ToString();
 		}
 		public AORCachedArea(string name, string description, List<Permission> perms, List<User> users, List<AORCachedGroup> groups) : base(description, false)
 		{
@@ -53,6 +59,7 @@ namespace FTN.Common.AORCachedModel
 			this.Permissions = perms;
 			this.Users = users;
 			this.Groups = groups;
+			this.Mrid = Guid.NewGuid().ToString();
 		}
 	}
 }

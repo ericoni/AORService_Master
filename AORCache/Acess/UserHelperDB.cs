@@ -56,8 +56,8 @@ namespace AORC.Acess
 					if (k <= 0)
 						throw new Exception("Failed to save permissions.");
 					#endregion
-					IList<Permission> halfPerms = new List<Permission> { p1, p2, p3, p4 };
-					IList<Permission> almostFullPerms = new List<Permission> { p1, p2, p3, p4, p5, p8 };
+					//IList<Permission> halfPerms = new List<Permission> { p1, p2, p3, p4 }; // nije upisivalo sve, nego je jelo 2 od 6 perms u jednom slucaju
+					//IList<Permission> almostFullPerms = new List<Permission> { p1, p2, p3, p4, p5, p8 };
 
 					#region DNAs
 					DNAAuthority dna1 = new DNAAuthority("DNA_AuthorityDispatcher", new List<Permission>() { p1, p8, p5, p7 }); 
@@ -78,9 +78,8 @@ namespace AORC.Acess
 					User u1 = null;
 					User u2 = null;
 
-					AORCachedArea area1 = new AORCachedArea("West-Area", "", (List<Permission>)halfPerms, new List<User>() { u1 } , aorGroups); // dodati im usera naknadno
-					AORCachedArea area2 = new AORCachedArea("East-Area", "", (List<Permission>)almostFullPerms, new List<User>() { u2 }, aorGroups);
-
+					AORCachedArea area1 = new AORCachedArea("West-Area", "", new List<Permission> { p1, p2, p3, p4 }, null , aorGroups); // dodati im usera naknadno
+					AORCachedArea area2 = new AORCachedArea("East-Area", "", new List<Permission> { p1, p2, p3, p4, p5, p8 }, null, aorGroups);
 
 					#region Users
 					for (int i = 1; i < 3; i++)
@@ -88,51 +87,29 @@ namespace AORC.Acess
 						//access.Users.Add(new User("admin" + i.ToString(), SecurePasswordManager.Hash("admin")));
 						if (i == 2)
 						{
-							u1 = new User("a" + i.ToString(), "a", new List<DNAAuthority>() { dna1, dna4, dna6 }, new List<AORCachedArea>() { area1 }, new List<AORCachedArea>() { area1 });
+							u1 = new User("a" + i.ToString(), "a", new List<DNAAuthority>() { dna1, dna4, dna6 }, null, null);// new List<AORCachedArea>() { area1 }, new List<AORCachedArea>() { area1 });
 							//access.Users.Add(new User("a" + i.ToString(), "a", new List<DNAAuthority>() { dna1, dna4, dna6 }, new List<AORCachedArea>() { area1 }, new List<AORCachedArea>() { area1 }));
 							access.Users.Add(u1);
 							continue;
 						}
-						u2 = new User("a" + i.ToString(), "a", new List<DNAAuthority>() { dna2, dna4, dna6 }, new List<AORCachedArea>() { area2 }, new List<AORCachedArea>() { area2 });
+						u2 = new User("a" + i.ToString(), "a", new List<DNAAuthority>() { dna2, dna4, dna6 }, null, null); //new List<AORCachedArea>() { area2 }, new List<AORCachedArea>() { area2 });
 						//access.Users.Add(new User("a" + i.ToString(), "a", new List<DNAAuthority>() { dna2, dna4, dna6 }, new List<AORCachedArea>() { area2 }, new List<AORCachedArea>() { area2 }));
 						access.Users.Add(u2);
 					}
-					
-					
-					//area1.Users.Add(u1);
-					//area2.Users.Add(u2);
+
+					access.Areas.Add(area1);
+					access.Areas.Add(area2);
 
 					int j = access.SaveChanges();
 
 					if (j <= 0)
-						throw new Exception("Failed to save user changes!");
-
-					// problem kod dodavanja nove area, na vec postojeceg usera. Ne doda se novi area entitet u bazu!
-
-	 //               var user1 = access.Users.Where(u => u.Username.Equals("a1")).ToList()[0]; // vrati se ovde da uljudis kod
-					//var user2 = access.Users.Where(u => u.Username.Equals("a2")).ToList()[0]; //izvlacenje usera
-
-	 //               //var a1 = access.Areas.Where(a => a.Name.Equals("West-Area")).ToList()[0]; //dodjela tog usera na AREA-a
-	 //               //a1.User.Add(user1);
-	 //               //a1.User.Add(user2);
-
-	 //               //var a2 = access.Areas.Where(a => a.Name.Equals("East-Area")).ToList()[0];
-	 //               //a2.User.Add(user1);
-	 //               //a2.User.Add(user2);
-	 //               area1.User.Add(user1);
-	 //               area1.User.Add(user2);
-
-	 //               area2.User.Add(user1);
-	 //               area2.User.Add(user2);
-
-	 //               AORCachedArea area3 = new AORCachedArea("Najnovija-Area", "", (List<Permission>)almostFullPerms, new List<User>() { user1, user2 }, aorGroups);
-	 //               access.Areas.Add(area1);
-	 //               access.Areas.Add(area2);
-	 //               access.Areas.Add(area3);
+						throw new Exception("Failed to save user and area changes!"); // pojavio se problem nestajanja permisija!! mozda ima vezE sa DNA authority
 
 					//j = access.SaveChanges();
-	 //               if(j <= 0)
-	 //                   throw new Exception("Failed to save new area Najnovija area changes!");
+
+					//if (j <= 0)
+					//	throw new Exception("Failed to save user and area changes!");
+
 
 					access.Groups.AddRange(aorGroups);
 					j = access.SaveChanges();

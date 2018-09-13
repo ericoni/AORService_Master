@@ -21,6 +21,8 @@ namespace FTN.Common.AORCachedModel
 		public List<SynchronousMachine> SMachines { get; set; }
 		[DataMember]
 		public List<AORCachedArea> Areas { get; set; }
+		[DataMember]
+		public string Mrid { get; set; }
 		public AORCachedGroup()
 		{
 			SMachines = new List<SynchronousMachine>();
@@ -29,12 +31,14 @@ namespace FTN.Common.AORCachedModel
 		public AORCachedGroup(string name, List<SynchronousMachine> sms) : base(name) // vrati se da obrises ovaj
 		{
 			this.SMachines = sms;
+			this.Mrid = Guid.NewGuid().ToString();
 		}
 
 		public AORCachedGroup(string name, List<SynchronousMachine> sms, List<AORCachedArea> areas) : base(name)
 		{
 			this.SMachines = sms;
 			this.Areas = areas;
+			this.Mrid = Guid.NewGuid().ToString();
 		}
 	}
 }

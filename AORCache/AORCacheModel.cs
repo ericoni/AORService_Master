@@ -126,8 +126,9 @@ namespace ActiveAORCache
 				aorAreasCopy = new List<AORCachedArea>();
 			}
 		}
-		#endregion 
+		#endregion
 
+		#region Distributed Transaction
 		private void MakeCopy()
 		{
 			aorGroupsCopy = new List<AORGroup>(aorGroups.Count);
@@ -229,7 +230,8 @@ namespace ActiveAORCache
 		{
 			return aorGroups.Select(u => u.Mrid.Equals(mrid)).ToList().Count > 0;
 		}
-						
+
+		#endregion Distributed Transaction
 		public List<Permission> GetPermissionsForArea(long areaId)  //vrati se ovde 
 		{
 			using (var access = new AccessDB())
@@ -247,10 +249,11 @@ namespace ActiveAORCache
 		{
 			using (var access = new AccessDB())
 			{
-				var query = (from a in access.Areas.Include("Permissions")
+				var query = (from a in access.Areas.Include("Permissions") // ne moze se include("User")
 							 select a);
 
-				var c =  query.ToList();
+				var c = query.ToList();
+
 				return c;
 			}
 		}
@@ -273,16 +276,25 @@ namespace ActiveAORCache
 		{
 			using (var access = new AccessDB())
 			{
-				var query = (from a in access.Users
+				var query = (from a in access.Users // vrati se za vezu area -> user
 							 select a);
 				var c = query.ToList();
 
-				//var query2 = (from a in access.Users.Include("AORCachedAreas")
-				//			  select a);
-				//var c2 = query2.ToList();
 				return c;
 			}
 		}
+
+		//public List<AORCachedGroup> GetGroupsForArea()
+		//{
+		//	using (var access = new AccessDB())
+		//	{
+		//		var query = (from a in access.Areas
+		//					 select a);
+		//		var c = query.ToList();
+
+		//		return c;
+		//	}
+		//}
 	}
 }
 
