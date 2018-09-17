@@ -1,4 +1,5 @@
-﻿using FTN.Common.AORCachedModel;
+﻿using AORViewer.ViewModels;
+using FTN.Common.AORCachedModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,11 +23,11 @@ namespace AORViewer.Views
 	{
 		AORCachedGroup selectedGroup;
 
-		public GroupPropertiesWindow(AORCachedGroup selectedGroup)
+		public GroupPropertiesWindow(AORVMainWindowViewModel mainVM)
 		{
 			InitializeComponent();
-			this.selectedGroup = selectedGroup;
-			this.DataContext = selectedGroup;
+			//this.selectedGroup = selectedGroup;
+			this.DataContext = mainVM;
 		}
 	}
 }
