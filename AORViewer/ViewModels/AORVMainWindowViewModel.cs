@@ -37,10 +37,12 @@ namespace AORViewer.ViewModels
 
 		public AORVMainWindowViewModel() // na instanciranju uzima sve iz cache
 		{
-			aorViewerTempList = new List<LBModelBase>(4)
-			{ new LBModelBase(LBType.Permissions.ToString(), "Neki opis"), new LBModelBase(LBType.AOR_Groups.ToString(), "AOR GRUPE"),
-				new LBModelBase(LBType.AOR_Areas.ToString(), "ARea"), new LBModelBase(LBType.DNA_Authorities.ToString(), "Dna nesto")};
-			AORViewerList = aorViewerTempList;
+            aorViewerTempList = new List<LBModelBase>(4)
+            { new LBModelBase(LBType.Permissions.ToString(), "Neki opis", @"..\..\..\Images\moreAM.jpg"),
+                new LBModelBase(LBType.AOR_Groups.ToString(), "AOR GRUPE",@"..\..\..\Images\AORGroup.jpg"),
+                new LBModelBase(LBType.AOR_Areas.ToString(), "ARea",@"..\..\..\Images\AORArea.jpg"),
+                new LBModelBase(LBType.DNA_Authorities.ToString(), "Dna nesto", @"..\..\..\Images\moreAM.jpg")};
+            AORViewerList = aorViewerTempList;
 
 			AORAreaPropertiesCommand = new RelayCommand(() => ExecuteAreaPropertiesCommand());
 			AORAreaDeleteCommand = new RelayCommand(() => ExecuteAreaDeleteCommand());

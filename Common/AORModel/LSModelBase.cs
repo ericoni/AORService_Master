@@ -6,27 +6,48 @@ using System.Threading.Tasks;
 
 namespace AORViewer.Model
 {
-	public class LBModelBase
-	{
-		public string Name { get; set; }
-		public string Description { get; set;  }
+    public class LBModelBase
+    {
+        public string Name { get; set; }
+        public string Description { get; set; }
+        string imagePath; 
 
-		public LBModelBase(string name)
+        public LBModelBase(string name)
 		{
 			this.Name = name;
 		}
 
-		public LBModelBase(string name, string desc)
+		public LBModelBase(string name, string desc) // obrisi ovaj
 		{
 			this.Name = name;
 			this.Description = desc;
 		}
 
-		public override string ToString()
+        public LBModelBase(string name, string desc, string imagePath)
+        {
+            this.Name = name;
+            this.Description = desc;
+            this.imagePath = imagePath;
+        }
+
+
+        public override string ToString()
 		{
 			return Name;
 		}
-	}
+
+        public string DisplayedImage
+        {
+            get
+            {
+                return imagePath;
+            } //  path relative to the Main.exe file. //@"..\..\..\Images\moreAM.jpg"
+            set
+            {
+                this.imagePath = value;
+            }
+        }
+    }
 
 	public enum LBType
 	{
