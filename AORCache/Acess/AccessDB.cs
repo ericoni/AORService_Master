@@ -21,6 +21,31 @@ namespace AORC.Acess
 		public DbSet<Permission> Permissions { get; set; }
 		public DbSet<AORCachedGroup> Groups { get; set; }
 		public DbSet<AORCachedArea> Areas { get; set; }
-        public DbSet<SynchronousMachine> SyncMachines { get; set; }
+		public DbSet<SynchronousMachine> SyncMachines { get; set; }
+		
+		protected override void OnModelCreating(DbModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<Permission>()
+				.HasMany(a => a.DNAs)
+				.WithMany(d => d.PermissionList)
+				.Map(m =>
+					{
+						m.MapLeftKey("PermissionId");
+						m.MapRightKey("DNAId");
+						m.ToTable("DNAPerms");
+					});
+
+			modelBuilder.Entity<AORCachedArea>()
+				.HasMany(g => g.Groups)
+				.WithMany(a => a.Areas)
+				.Map(k => 
+					{
+						k.MapLeftKey("AreaId");
+						k.MapRightKey("GroupId");
+						k.ToTable("AreasGroupsCombined");
+					});
+
+			base.OnModelCreating(modelBuilder);
+		}
 	}
 }

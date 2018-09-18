@@ -19,7 +19,7 @@ namespace FTN.Common.AORCachedModel
 		//public string AreaName { get; set; }
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int Id { get; set; }
+		public int AreaId { get; set; }
 		[DataMember]
 		public string Mrid { get; set; }
 		[DataMember]

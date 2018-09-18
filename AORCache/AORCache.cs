@@ -22,6 +22,9 @@ namespace ActiveAORCache
 		public AORCache()
 		{
 			AORCacheModel = AORCacheModel.Instance;
+			var a = AORCacheModel.GetNewAORAreas();
+			int c = 5;
+			c++;
 		}
 
 		public void SynchronizeAORConfig()

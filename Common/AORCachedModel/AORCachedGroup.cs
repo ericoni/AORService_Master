@@ -16,7 +16,7 @@ namespace FTN.Common.AORCachedModel
 	{
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int Id { get; set; }
+		public int GroupId { get; set; }
 		[DataMember]
 		public List<SynchronousMachine> SMachines { get; set; }
 		[DataMember]

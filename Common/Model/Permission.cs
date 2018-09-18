@@ -15,12 +15,14 @@ namespace FTN.Common.Model
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		[XmlIgnore]
-		public int Id { get; set; }
+		public int PermissionId { get; set; }
 		[XmlAttribute]
 		public string Name { get; set; } //DNAAuthority ima List<Permission> sto tabeli Permissions daje vezu ka DNAAuthority
 		[NotMapped]
 		[XmlAttribute]
 		public string Description { get; set; }
+		[XmlIgnore]
+		public List<DNAAuthority> DNAs { get; set; }
 
 		public Permission()
 		{

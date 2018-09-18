@@ -15,7 +15,7 @@ namespace FTN.Common.Model
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		[XmlIgnore]
-		public int Id { get; set; }
+		public int DNAId { get; set; }
 		[XmlArray]
 		public List<Permission> PermissionList { get; set; }         // EF does not support collections of primitive types
 		[XmlAttribute]

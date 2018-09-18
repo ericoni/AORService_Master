@@ -45,6 +45,11 @@ namespace ActiveAORCache
 			return aorGroupsModel;
 		}
 
+		public List<AORCachedArea> GetNewAORAreas() // novo dodata metoda 
+		{
+			return aorAreas;
+		}
+
 		#endregion
 		public AORCacheModel()
 		{
@@ -232,15 +237,18 @@ namespace ActiveAORCache
 		}
 
 		#endregion Distributed Transaction
-		public List<Permission> GetPermissionsForArea(long areaId)  //vrati se ovde 
+		public List<Permission> GetPermissionsForArea(long areaId)  //vrati se ovde jer vadim perms za DNA
 		{
 			using (var access = new AccessDB())
 			{
-				var aQuery = (from a in access.Areas.Include("Permissions")
-								   where a.Name.Equals("West-Area")
-								   select a).ToList();
+				//	var aQuery = (from a in access.Areas.Include("Permissions") 
+				//					   where a.Name.Equals("West-Area")
+				//					   select a).ToList();
 
-				var c = aQuery[0].Permissions;
+				//	var c = aQuery[0].Permissions;
+				var query = access.Permissions.Where(d => d.DNAs.Any(a => a.DNAId == areaId));
+				var c = query.ToList();
+
 				return c;
 			}
 		}
@@ -249,10 +257,13 @@ namespace ActiveAORCache
 		{
 			using (var access = new AccessDB())
 			{
-				var query = (from a in access.Areas.Include("Permissions") // ne moze se include("User")
-							 select a);
+				//var query = (from a in access.Areas.Include("Permissions") // ne moze se include("User") //vrati se
+				//			 select a);
+				//var c = query.ToList();
 
-				var c = query.ToList();
+				//var query = access.Areas.Where(a=> a.Groups.)
+				//var c = query.ToList();
+
 
 				return c;
 			}
