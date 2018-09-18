@@ -301,22 +301,24 @@ namespace WeatherForecastService
 		/// <param name="lon"></param>
 		public WeatherInfo GetCurrentWeatherDataByLatLon(float lat, float lon)
 		{
-			WeatherInfo weatherInfo = null;
+			//WeatherInfo weatherInfo = null;
 
-			string url = string.Format("https://api.darksky.net/forecast/{0}/{1},{2}?units=si&exclude=flags,alerts,minutely,hourly", appId, lat, lon);
-			using (WebClient client = new WebClient())
-			{
+			//string url = string.Format("https://api.darksky.net/forecast/{0}/{1},{2}?units=si&exclude=flags,alerts,minutely,hourly", appId, lat, lon);
+			//using (WebClient client = new WebClient())
+			//{
 
-				string json = client.DownloadString(url);
-				weatherInfo = (new JavaScriptSerializer()).Deserialize<WeatherInfo>(json);
-			}
+			//	string json = client.DownloadString(url);
+			//	weatherInfo = (new JavaScriptSerializer()).Deserialize<WeatherInfo>(json);
+			//}
 
-			weatherInfo.Currently.Time = UnixTimeStampToDateTime(weatherInfo.Currently.Time).Ticks;
-			weatherInfo.Daily.Data.FirstOrDefault().Time = UnixTimeStampToDateTime(weatherInfo.Daily.Data.FirstOrDefault().Time).Ticks;
-			weatherInfo.Daily.Data.FirstOrDefault().SunriseTime = UnixTimeStampToDateTime(weatherInfo.Daily.Data.FirstOrDefault().SunriseTime).Ticks;
-			weatherInfo.Daily.Data.FirstOrDefault().SunsetTime = UnixTimeStampToDateTime(weatherInfo.Daily.Data.FirstOrDefault().SunsetTime).Ticks;
+			//weatherInfo.Currently.Time = UnixTimeStampToDateTime(weatherInfo.Currently.Time).Ticks;
+			//weatherInfo.Daily.Data.FirstOrDefault().Time = UnixTimeStampToDateTime(weatherInfo.Daily.Data.FirstOrDefault().Time).Ticks;
+			//weatherInfo.Daily.Data.FirstOrDefault().SunriseTime = UnixTimeStampToDateTime(weatherInfo.Daily.Data.FirstOrDefault().SunriseTime).Ticks;
+			//weatherInfo.Daily.Data.FirstOrDefault().SunsetTime = UnixTimeStampToDateTime(weatherInfo.Daily.Data.FirstOrDefault().SunsetTime).Ticks;
 
-			return weatherInfo;
+			//return weatherInfo;
+
+			return null; // vrati se ovamo
 		}
 
 		public WeatherInfo Get7DayPerHourForecastByGid(long gid)
@@ -461,22 +463,23 @@ namespace WeatherForecastService
 
 		public WeatherInfo Get7DayPerHourForecastByLatLon(float lat, float lon)
 		{
-			WeatherInfo weatherInfo = null;
+			//WeatherInfo weatherInfo = null;
 
-			string url = string.Format("https://api.darksky.net/forecast/{0}/{1},{2}?extend=hourly&units=si&exclude=flags,alerts,minutely,currently", appId, lat, lon);
-			using (WebClient client = new WebClient())
-			{
+			//string url = string.Format("https://api.darksky.net/forecast/{0}/{1},{2}?extend=hourly&units=si&exclude=flags,alerts,minutely,currently", appId, lat, lon);
+			//using (WebClient client = new WebClient())
+			//{
 
-				string json = client.DownloadString(url);
-				weatherInfo = (new JavaScriptSerializer()).Deserialize<WeatherInfo>(json);
-			}
+			//	string json = client.DownloadString(url);
+			//	weatherInfo = (new JavaScriptSerializer()).Deserialize<WeatherInfo>(json);
+			//}
 
-			foreach (Data data in weatherInfo.Hourly.Data)
-			{
-				data.Time = UnixTimeStampToDateTime(data.Time).Ticks;
-			}
+			//foreach (Data data in weatherInfo.Hourly.Data)
+			//{
+			//	data.Time = UnixTimeStampToDateTime(data.Time).Ticks;
+			//}
 
-			return weatherInfo;
+			//return weatherInfo;
+			return null;
 		}
 
 		/// <summary>

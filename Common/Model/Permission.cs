@@ -22,7 +22,9 @@ namespace FTN.Common.Model
 		[XmlAttribute]
 		public string Description { get; set; }
 		[XmlIgnore]
-		public List<DNAAuthority> DNAs { get; set; }
+		public List<DNAAuthority> DNAs { get; set; } // ubaceno samo zbog EF many to many
+		[XmlIgnore]
+		public List<AORCachedModel.AORCachedArea> Areas { get; set; } // ubaceno samo zbog EF many to many
 
 		public Permission()
 		{

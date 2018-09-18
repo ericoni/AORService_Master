@@ -71,10 +71,6 @@ namespace AORViewer.ViewModels
 
 				//var dnaSpecial = aorViewCommProxy.Proxy.GetPermissionsForArea(4); // u stvari je DNA prosledjen
 				//int c = 5;
-
-				var modelAorAreas = aorViewCommProxy.Proxy.GetAORAreas();
-				int c = 5; ;
-				c++;
 			}
 			catch (Exception ex)
 			{

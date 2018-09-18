@@ -22,6 +22,7 @@ namespace AORC.Acess
 		public DbSet<AORCachedGroup> Groups { get; set; }
 		public DbSet<AORCachedArea> Areas { get; set; }
 		public DbSet<SynchronousMachine> SyncMachines { get; set; }
+		//public DbSet<AreasGroupsCombined> AreasGroupsCombined { get; set; } //vrati se ovde
 		
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
@@ -44,6 +45,26 @@ namespace AORC.Acess
 						k.MapRightKey("GroupId");
 						k.ToTable("AreasGroupsCombined");
 					});
+
+			modelBuilder.Entity<AORCachedArea>()
+				.HasMany(p => p.Permissions)
+				.WithMany(a => a.Areas)
+				.Map(k =>
+				{
+					k.MapLeftKey("AreaId");
+					k.MapRightKey("PermissionId");
+					k.ToTable("AreasPermissionsCombined");
+				});
+
+			modelBuilder.Entity<AORCachedArea>()
+				.HasMany(u => u.Users)
+				.WithMany(a => a.Areas)
+				.Map(k =>
+				{
+					k.MapLeftKey("AreaId");
+					k.MapRightKey("UserId");
+					k.ToTable("AreasUsersCombined");
+				});
 
 			base.OnModelCreating(modelBuilder);
 		}

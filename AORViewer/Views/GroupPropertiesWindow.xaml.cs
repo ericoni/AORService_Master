@@ -21,12 +21,9 @@ namespace AORViewer.Views
 	/// </summary>
 	public partial class GroupPropertiesWindow : Window
 	{
-		AORCachedGroup selectedGroup;
-
 		public GroupPropertiesWindow(AORVMainWindowViewModel mainVM)
 		{
 			InitializeComponent();
-			//this.selectedGroup = selectedGroup;
 			this.DataContext = mainVM;
 		}
 	}

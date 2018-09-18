@@ -53,17 +53,9 @@ namespace ActiveAORCache
 		#endregion
 		public AORCacheModel()
 		{
-			//rdAdapter = new RDAdapter();
-			//aorGroups = rdAdapter.GetAORGroups();
-
-
 			aorAreas = GetModelAORAreas();
 
 			aorGroupsModel = GetModelAORGroup();
-			//var aggs = rdAdapter.GetAORAgAggregatorsRDs();
-			//var aggs = rdAdapter.GetAORAgAggregators();
-			//var g = rdAdapter.GetGroupsForAgr(42949672962);
-			//var areasForAg = rdAdapter.GetAreasForAgr(42949672962);
 		}
 
 		/// <summary>
@@ -134,6 +126,7 @@ namespace ActiveAORCache
 		#endregion
 
 		#region Distributed Transaction
+
 		private void MakeCopy()
 		{
 			aorGroupsCopy = new List<AORGroup>(aorGroups.Count);
@@ -236,36 +229,50 @@ namespace ActiveAORCache
 			return aorGroups.Select(u => u.Mrid.Equals(mrid)).ToList().Count > 0;
 		}
 
+
 		#endregion Distributed Transaction
-		public List<Permission> GetPermissionsForArea(long areaId)  //vrati se ovde jer vadim perms za DNA
+
+		public List<Permission> GetPermissionsForDNAs(long areaId)  //vrati se ovde jer vadim perms za DNA, iako pise par. areaID
 		{
 			using (var access = new AccessDB())
 			{
-				//	var aQuery = (from a in access.Areas.Include("Permissions") 
-				//					   where a.Name.Equals("West-Area")
-				//					   select a).ToList();
-
-				//	var c = aQuery[0].Permissions;
 				var query = access.Permissions.Where(d => d.DNAs.Any(a => a.DNAId == areaId));
-				var c = query.ToList();
+				var result = query.ToList();
 
-				return c;
+				return result;
 			}
 		}
 
-		public List<AORCachedArea> GetModelAORAreas()
+		public List<Permission> GetPermissionsForArea(long areaId) 
 		{
 			using (var access = new AccessDB())
 			{
-				//var query = (from a in access.Areas.Include("Permissions") // ne moze se include("User") //vrati se
-				//			 select a);
-				//var c = query.ToList();
+				var query = access.Permissions.Where(d => d.DNAs.Any(a => a.DNAId == areaId));
+				var result = query.ToList();
 
-				//var query = access.Areas.Where(a=> a.Groups.)
-				//var c = query.ToList();
+				return result;
+			}
+		}
 
+		public List<AORCachedGroup> GetAORGroupsForArea(int areaId)
+		{
+			using (var access = new AccessDB())
+			{
+				var query = access.Groups.Where(g => g.Areas.Any(a => a.AreaId == areaId));
+				var result = query.ToList();
 
-				return c;
+				return result;
+			}
+		}
+
+		public List<AORCachedArea> GetModelAORAreas() //access.Areas.Where(a => a.Groups.Any(d => d.GroupId == 4)); // ovo radi okej
+		{
+			using (var access = new AccessDB())
+			{
+				var query = access.Areas;
+				var result = query.ToList();
+
+				return result;
 			}
 		}
 
@@ -273,13 +280,11 @@ namespace ActiveAORCache
 		{
 			using (var access = new AccessDB())
 			{
-				//var query = (from a in access.Groups.Include("AORCachedAreas").Include("SynchronousMachines")
-				//             select a); // vrati se ovde kad sredis vezu area i grupe
-
-				var query = (from a in access.Groups
+				var query = (from a in access.Groups // ne radi Include do SMs
 							 select a);
-				var c = query.ToList();
-				return c;
+
+				var result = query.ToList();
+				return result;
 			}
 		}
 
@@ -294,18 +299,6 @@ namespace ActiveAORCache
 				return c;
 			}
 		}
-
-		//public List<AORCachedGroup> GetGroupsForArea()
-		//{
-		//	using (var access = new AccessDB())
-		//	{
-		//		var query = (from a in access.Areas
-		//					 select a);
-		//		var c = query.ToList();
-
-		//		return c;
-		//	}
-		//}
 	}
 }
 

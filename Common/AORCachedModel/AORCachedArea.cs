@@ -32,10 +32,8 @@ namespace FTN.Common.AORCachedModel
 		public List<AORCachedGroup> Groups { get; set; }
 		[DataMember]
 		public List<Permission> Permissions { get; set; }
-		//[DataMember]
-		//public List<User> Users { get; set; } // covered by those users // vrati se ovde 
 		[DataMember]
-		public List<User> Users { get; set; }
+		public List<User> Users { get; set; }  // ubaceno samo zbog EF many to many
 
 		public AORCachedArea()
 		{
@@ -53,11 +51,10 @@ namespace FTN.Common.AORCachedModel
 			this.Users = users;
 			this.Mrid = Guid.NewGuid().ToString();
 		}
-		public AORCachedArea(string name, string description, List<Permission> perms, List<User> users, List<AORCachedGroup> groups) : base(description, false)
+		public AORCachedArea(string name, string description, List<Permission> perms, List<AORCachedGroup> groups) : base(description, false)
 		{
 			this.Name = name;
 			this.Permissions = perms;
-			this.Users = users;
 			this.Groups = groups;
 			this.Mrid = Guid.NewGuid().ToString();
 		}
