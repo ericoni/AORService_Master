@@ -56,8 +56,6 @@ namespace AORC.Acess
 					if (k <= 0)
 						throw new Exception("Failed to save permissions.");
 					#endregion
-					//IList<Permission> halfPerms = new List<Permission> { p1, p2, p3, p4 }; // nije upisivalo sve, nego je jelo 2 od 6 perms u jednom slucaju
-					//IList<Permission> almostFullPerms = new List<Permission> { p1, p2, p3, p4, p5, p8 };
 
 					#region DNAs
 					DNAAuthority dna1 = new DNAAuthority("DNA_AuthorityDispatcher", new List<Permission>() { p1, p8, p5, p7 });
@@ -75,30 +73,16 @@ namespace AORC.Acess
 						throw new Exception("Failed to save DNAs in UserHelperDB");
 					#endregion DNAs
 
-					User u1 = null;
-					User u2 = null;
-
 					AORCachedArea area1 = new AORCachedArea("West-Area", "", new List<Permission> { p1, p2, p3, p4 }, aorGroups); // dodati im usera naknadno
 					AORCachedArea area2 = new AORCachedArea("East-Area", "", new List<Permission> { p1, p2, p3, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1]});
 
 					#region Users
-					for (int i = 1; i < 3; i++)
-					{
-						//access.Users.Add(new User("admin" + i.ToString(), SecurePasswordManager.Hash("admin")));
-						if (i == 2)
-						{
-							u1 = new User("a" + i.ToString(), "a", new List<DNAAuthority>() { dna1, dna4, dna6 }, new List<AORCachedArea>() { area1, area2 });// new List<AORCachedArea>() { area1 }, new List<AORCachedArea>() { area1 });
-																															  //access.Users.Add(new User("a" + i.ToString(), "a", new List<DNAAuthority>() { dna1, dna4, dna6 }, new List<AORCachedArea>() { area1 }, new List<AORCachedArea>() { area1 }));
-							access.Users.Add(u1);
-							continue;
-						}
-						u2 = new User("a" + i.ToString(), "a", new List<DNAAuthority>() { dna2, dna4, dna6 }, new List<AORCachedArea>() { area1 }); //new List<AORCachedArea>() { area2 }, new List<AORCachedArea>() { area2 });
-																														   //access.Users.Add(new User("a" + i.ToString(), "a", new List<DNAAuthority>() { dna2, dna4, dna6 }, new List<AORCachedArea>() { area2 }, new List<AORCachedArea>() { area2 }));
-						access.Users.Add(u2);
-					}
 
-					//area1.Users.Add(u1); // ovo mi pokvari bazu, ako se napise na ovom mjestu
-					//area2.Users.Add(u2);
+					User u1 = new User("a1", "a", new List<DNAAuthority>() { dna1, dna4, dna6 }, new List<AORCachedArea>() { area1, area2 });
+					User u2 = new User("a2", "a", new List<DNAAuthority>() { dna2, dna4, dna6 }, new List<AORCachedArea>() { area1 }); 
+
+					access.Users.Add(u1);
+					access.Users.Add(u2);
 
 					access.Areas.Add(area1);
 					access.Areas.Add(area2);
@@ -107,18 +91,11 @@ namespace AORC.Acess
 					if (j <= 0)
 						throw new Exception("Failed to save user and area changes!");
 
-					//var area1FromDb = access.Areas.Where(a => a.Id == 0).ToList()[0];
-					//area1FromDb.Users.Add(u1);
-
-					//j = access.SaveChanges();
-					//if (j <= 0)
-					//	throw new Exception("Failed to save budz area changes!");
-
 					access.Groups.AddRange(aorGroups);
+
 					j = access.SaveChanges();
 					if (j <= 0)
 						throw new Exception("Failed to save aorGroups!");
-
 					#endregion
 				}
 			}

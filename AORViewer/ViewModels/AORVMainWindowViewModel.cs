@@ -17,6 +17,7 @@ namespace AORViewer.ViewModels
 {
 	public class AORVMainWindowViewModel : ViewModelBase
 	{
+		#region Fields
 		private List<LBModelBase> aorViewerList;
 		private List<LBModelBase> aorViewerTempList;
 		private LBModelBase selectedElement;
@@ -28,12 +29,16 @@ namespace AORViewer.ViewModels
 		private AORViewerCommProxy aorViewCommProxy;
 		private AORCachedArea selectedArea;
 		private AORCachedGroup selectedGroup;
+		#endregion Fields
+		#region Commands
 		public ICommand AORAreaPropertiesCommand { get; private set; }
 		public ICommand AORAreaDeleteCommand { get; private set; }
 		public ICommand AORAreaGetUsersCommand { get; private set; } 
-
 		public ICommand AORGroupPropertiesCommand { get; private set; }
 		public ICommand AORGroupDeleteCommand { get; private set; }
+		public ICommand AORGroupGetAreasCommand { get; private set; }
+
+		#endregion Commands
 
 		public AORVMainWindowViewModel() // na instanciranju uzima sve iz cache
 		{
@@ -50,6 +55,7 @@ namespace AORViewer.ViewModels
 
 			AORGroupPropertiesCommand = new RelayCommand(() => ExecuteGroupPropertiesCommand());
 			AORGroupDeleteCommand = new RelayCommand(() => ExecuteGroupDeleteCommand());
+			AORGroupGetAreasCommand = new RelayCommand(() => ExecuteGroupGetAreasCommand());
 
 			try
 			{
@@ -252,6 +258,13 @@ namespace AORViewer.ViewModels
 		{
 
 		}
+
+		private void ExecuteGroupGetAreasCommand()
+		{
+			GroupAddAreaWindow groupAddAreaWindow = new GroupAddAreaWindow(this);
+			groupAddAreaWindow.ShowDialog();
+		}
+
 		public AORCachedArea SelectedArea
 		{
 			get { return selectedArea; }

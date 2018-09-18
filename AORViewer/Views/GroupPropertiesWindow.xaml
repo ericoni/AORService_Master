@@ -23,7 +23,10 @@
 			</TabItem>
 			<TabItem Header="Parent members">
 				<Grid Background="#FFE5E5E5">
-					<ListBox HorizontalAlignment="Left" Height="97" Margin="10,58,0,0" VerticalAlignment="Top" Width="247"/>
+					<ListBox HorizontalAlignment="Left" Height="156" Margin="22,46,0,0" VerticalAlignment="Top" Width="303"/>
+					<Button Content="Add" HorizontalAlignment="Left" Margin="170,241,0,0" VerticalAlignment="Top" Width="75"/>
+					<Button Content="Remove" HorizontalAlignment="Left" Margin="250,241,0,0" VerticalAlignment="Top" Width="75"/>
+					<Label Content="Areas" HorizontalAlignment="Left" Margin="22,20,0,0" VerticalAlignment="Top"/>
 				</Grid>
 			</TabItem>
 			<TabItem Header="Child members">

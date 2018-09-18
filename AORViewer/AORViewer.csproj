@@ -102,6 +102,9 @@
     <Compile Include="Views\AreaPropertiesWindow.xaml.cs">
       <DependentUpon>AreaPropertiesWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\GroupAddAreaWindow.xaml.cs">
+      <DependentUpon>GroupAddAreaWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\GroupPropertiesWindow.xaml.cs">
       <DependentUpon>GroupPropertiesWindow.xaml</DependentUpon>
     </Compile>
@@ -151,6 +154,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AreaPropertiesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GroupAddAreaWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
