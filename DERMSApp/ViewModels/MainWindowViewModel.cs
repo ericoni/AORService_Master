@@ -116,6 +116,8 @@ namespace DERMSApp.ViewModels
 		/// </summary>
 		public ICommand ButtonLoginOnClick { get; set; }
 
+		public ICommand ShowAORManagementCommand { get; private set; }
+
 		/// <summary>
 		/// The Show Network property. 
 		/// Changes if the Network Table and Tree View needs to be shown.
@@ -165,12 +167,13 @@ namespace DERMSApp.ViewModels
 
 			FirstViewCommand = new RelayCommand(() => ExecuteFirstViewCommand());
             SecondViewCommand = new RelayCommand(() => ExecuteSecondViewCommand());
-            //ConnectToCalculationEngine();
-            //ShowNetwork = Visibility.Visible;
-            //ShowApplyDelta = Visibility.Collapsed;
+			ShowAORManagementCommand = new RelayCommand(() => ExecuteShowAORManagementCommand());
+			//ConnectToCalculationEngine();
+			//ShowNetwork = Visibility.Visible;
+			//ShowApplyDelta = Visibility.Collapsed;
 
 
-            CacheReceiver cacheReceiver = CacheReceiver.Instance;
+			CacheReceiver cacheReceiver = CacheReceiver.Instance;
 
             int tryCounter = 0;
 
@@ -231,6 +234,11 @@ namespace DERMSApp.ViewModels
             //ShowNetwork = Visibility.Visible;
             //ShowApplyDelta = Visibility.Collapsed;
         }
+
+		private void ExecuteShowAORManagementCommand()
+		{
+
+		}
 
 		public string TextBoxUsernameText
 		{

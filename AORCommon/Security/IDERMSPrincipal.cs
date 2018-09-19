@@ -38,5 +38,10 @@ namespace AORCommon.Security
 		/// <param name="specifiedPermissionFilter"></param>
 		/// <returns></returns>
 		List<string> GetAORGroups(List<string> specifiedPermissions);//, AreaPermissionFilter specifiedPermissionFilter = AreaPermissionFilter.Or);
+
+		/// <summary>
+		/// Represents logged in user
+		/// </summary>
+		string Username { get; set; }
 	}
 }
