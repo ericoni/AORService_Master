@@ -21,28 +21,40 @@
 				<RowDefinition Height="*"></RowDefinition>
 			</Grid.RowDefinitions>
 
-            <ListBox Grid.Row="0" Grid.Column="0" ItemsSource="{Binding AORViewerList}" SelectedItem="{Binding SelectedElement}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding DisplayedImage}" HorizontalAlignment="Left"
-                              Width="35" ></Image>
-                            <TextBlock Text="{Binding Name}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+			<ListBox Grid.Row="0" Grid.Column="0" ItemsSource="{Binding AORViewerList}" SelectedItem="{Binding SelectedElement}">
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<StackPanel Orientation="Horizontal">
+							<Image Source="{Binding DisplayedImage}" HorizontalAlignment="Left"
+							  Width="35" ></Image>
+							<TextBlock Text="{Binding Name}" />
+						</StackPanel>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
 
-            <DataGrid Grid.Column="1"  Visibility="{Binding IsPermissionsSelected}" ItemsSource="{Binding PermissionList}" 
+			<DataGrid Grid.Column="1"  Visibility="{Binding IsPermissionsSelected}" ItemsSource="{Binding PermissionList}" SelectedItem="{Binding SelectedPermission}"
 					  CanUserAddRows="False" GridLinesVisibility="Vertical" AutoGenerateColumns="False">
+				<DataGrid.ContextMenu>
+					<ContextMenu>
+						<MenuItem Header="Properties" Command="{Binding PermissionPropertiesCommand}"  />
+						<MenuItem Header="Delete" Command="{Binding PermissionDeleteCommand}" />
+					</ContextMenu>
+				</DataGrid.ContextMenu>
 				<DataGrid.Columns>
 					<DataGridTextColumn Header="Name" Binding="{Binding Name}" />
 					<DataGridTextColumn Header="Description" Binding="{Binding Description}" />
 				</DataGrid.Columns>
 			</DataGrid>
 
-			<DataGrid Grid.Column="1" Visibility="{Binding IsAuthoritiesSelected}" ItemsSource="{Binding DNAList}" 
+			<DataGrid Grid.Column="1" Visibility="{Binding IsAuthoritiesSelected}" ItemsSource="{Binding DNAList}" SelectedItem="{Binding SelectedDNA}"
 					  CanUserAddRows="False" GridLinesVisibility="Vertical" AutoGenerateColumns="False">
+				<DataGrid.ContextMenu>
+					<ContextMenu>
+						<MenuItem Header="Properties" Command="{Binding DNAPropertiesCommand}"  />
+						<MenuItem Header="Delete" Command="{Binding DNADeleteCommand}" />
+					</ContextMenu>
+				</DataGrid.ContextMenu>
 				<DataGrid.Columns>
 					<DataGridTextColumn Header="Name" Binding="{Binding Name}" />
 					<DataGridTextColumn Header="Description" Binding="{Binding Description}" />

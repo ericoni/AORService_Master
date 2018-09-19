@@ -243,17 +243,6 @@ namespace ActiveAORCache
 			}
 		}
 
-		public List<Permission> GetPermissionsForArea(long areaId) 
-		{
-			using (var access = new AccessDB())
-			{
-				var query = access.Permissions.Where(d => d.DNAs.Any(a => a.DNAId == areaId));
-				var result = query.ToList();
-
-				return result;
-			}
-		}
-
 		public List<AORCachedGroup> GetAORGroupsForArea(int areaId)
 		{
 			using (var access = new AccessDB())
@@ -297,6 +286,86 @@ namespace ActiveAORCache
 				var c = query.ToList();
 
 				return c;
+			}
+		}
+
+		public List<string> GetUsernamesForDNA(string name)
+		{
+			using (var access = new AccessDB())
+			{
+				var dna = access.DNAs.Where(u => u.Name.Equals(name)).FirstOrDefault();
+
+				var query = access.Users.Where(d => d.DNAs.Any(a => a.DNAId == dna.DNAId));
+				var result = query.ToList();
+
+				List<string> returnList = new List<string>(result.Count);
+
+				foreach (var r in result)
+				{
+					returnList.Add(r.Username);
+				}
+
+				return returnList;
+			}
+		}
+
+		public List<string> GetUsernamesForArea(string name)
+		{
+			using (var access = new AccessDB())
+			{
+				var area = access.Areas.Where(u => u.Name.Equals(name)).FirstOrDefault();
+
+				var query = access.Users.Where(d => d.Areas.Any(a => a.AreaId == area.AreaId));
+				var result = query.ToList();
+
+				List<string> returnList = new List<string>(result.Count);
+
+				foreach (var r in result)
+				{
+					returnList.Add(r.Username);
+				}
+
+				return returnList;
+			}
+		}
+
+		public List<string> GetPermissionsForArea(string name)
+		{
+			using (var access = new AccessDB())
+			{
+				var area = access.Areas.Where(u => u.Name.Equals(name)).FirstOrDefault();
+
+				var query = access.Permissions.Where(d => d.Areas.Any(a => a.AreaId == area.AreaId));
+				var result = query.ToList();
+
+				List<string> returnList = new List<string>(result.Count);
+
+				foreach (var r in result)
+				{
+					returnList.Add(r.Name);
+				}
+
+				return returnList;
+			}
+		}
+
+		public List<string> GetGroupsForArea(string name)
+		{
+			using (var access = new AccessDB())
+			{
+				var area = access.Areas.Where(u => u.Name.Equals(name)).FirstOrDefault();
+
+				var query = access.Groups.Where(d => d.Areas.Any(a => a.AreaId == area.AreaId));
+				var result = query.ToList();
+
+				List<string> returnList = new List<string>(result.Count);
+
+				foreach (var r in result)
+				{
+					returnList.Add(r.Name);
+				}
+
+				return returnList;
 			}
 		}
 	}

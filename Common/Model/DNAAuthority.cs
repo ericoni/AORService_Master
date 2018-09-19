@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -22,11 +23,8 @@ namespace FTN.Common.Model
 		public string Name { get; set; }
 		[XmlAttribute]
 		public string Description { get; set; }
-		//public Permission PermissionList { get; set; }   
-		//public DNAAuthority(Permission permissionList)
-		//{
-		//	this.PermissionList = permissionList;
-		//}
+		[XmlIgnore]
+		public List<User> Users { get; set; } // ubaceno samo zbog EF many to many
 		public DNAAuthority() { }
 
 		public DNAAuthority(string name, List<Permission> permissionList)

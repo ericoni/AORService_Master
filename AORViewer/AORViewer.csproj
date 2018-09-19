@@ -102,6 +102,9 @@
     <Compile Include="Views\AreaPropertiesWindow.xaml.cs">
       <DependentUpon>AreaPropertiesWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\DNAPropertyWindow.xaml.cs">
+      <DependentUpon>DNAPropertyWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\GroupAddAreaWindow.xaml.cs">
       <DependentUpon>GroupAddAreaWindow.xaml</DependentUpon>
     </Compile>
@@ -113,6 +116,9 @@
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PermissionPropertyWindow.xaml.cs">
+      <DependentUpon>PermissionPropertyWindow.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +163,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\DNAPropertyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\GroupAddAreaWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -170,6 +180,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PermissionPropertyWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -198,6 +212,9 @@
   <ItemGroup>
     <Resource Include="Images\Authority.JPG" />
     <Resource Include="Images\Permission.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\user.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

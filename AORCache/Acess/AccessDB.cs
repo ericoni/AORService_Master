@@ -66,6 +66,16 @@ namespace AORC.Acess
 					k.ToTable("AreasUsersCombined");
 				});
 
+			modelBuilder.Entity<User>()
+				.HasMany(u => u.DNAs)
+				.WithMany(a => a.Users)
+				.Map(k =>
+				{
+					k.MapLeftKey("UserId");
+					k.MapRightKey("DNAId");
+					k.ToTable("UsersDNACombined");
+				});
+
 			base.OnModelCreating(modelBuilder);
 		}
 	}

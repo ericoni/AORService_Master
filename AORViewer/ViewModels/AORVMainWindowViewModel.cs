@@ -29,14 +29,26 @@ namespace AORViewer.ViewModels
 		private AORViewerCommProxy aorViewCommProxy;
 		private AORCachedArea selectedArea;
 		private AORCachedGroup selectedGroup;
+		private DNAAuthority selectedDna;
+		private List<string> dnaUsernames;
+		private List<string> areaUsernames;
+		private List<string> areaPermissions;
+		private List<string> areaGroups;
+		private Permission selectedPermisssion;
+
 		#endregion Fields
 		#region Commands
 		public ICommand AORAreaPropertiesCommand { get; private set; }
 		public ICommand AORAreaDeleteCommand { get; private set; }
-		public ICommand AORAreaGetUsersCommand { get; private set; } 
+		public ICommand AORAreaGetUsersCommand { get; private set; }
 		public ICommand AORGroupPropertiesCommand { get; private set; }
 		public ICommand AORGroupDeleteCommand { get; private set; }
 		public ICommand AORGroupGetAreasCommand { get; private set; }
+		public ICommand DNAPropertiesCommand { get; private set; }
+		public ICommand DNADeleteCommand { get; private set; }
+		public ICommand PermissionPropertiesCommand { get; private set; }
+		public ICommand PermissionDeleteCommand { get; private set; }
+
 
 		#endregion Commands
 
@@ -57,6 +69,12 @@ namespace AORViewer.ViewModels
 			AORGroupDeleteCommand = new RelayCommand(() => ExecuteGroupDeleteCommand());
 			AORGroupGetAreasCommand = new RelayCommand(() => ExecuteGroupGetAreasCommand());
 
+			DNAPropertiesCommand = new RelayCommand(() => ExecuteDNAPropertiesCommand());
+			DNADeleteCommand = new RelayCommand(() => ExecuteDNADeleteCommand());
+
+			PermissionPropertiesCommand = new RelayCommand(() => ExecutePermissionPropertiesCommand());
+			PermissionDeleteCommand = new RelayCommand(() => ExecutePermissionDeleteCommand());
+
 			try
 			{
 				aorViewCommProxy = new AORViewerCommProxy();
@@ -74,9 +92,6 @@ namespace AORViewer.ViewModels
 
 				users = aorViewCommProxy.Proxy.GetAllUsers();
 				Users = users;
-
-				//var dnaSpecial = aorViewCommProxy.Proxy.GetPermissionsForArea(4); // u stvari je DNA prosledjen
-				//int c = 5;
 			}
 			catch (Exception ex)
 			{
@@ -84,7 +99,7 @@ namespace AORViewer.ViewModels
 			}
 		}
 
-	
+
 		public List<LBModelBase> AORViewerList
 		{
 			get
@@ -188,6 +203,7 @@ namespace AORViewer.ViewModels
 			OnPropertyChanged("IsAORGroupsSelected");
 		}
 
+		#region Visibility For Perms/DNAs/Authorities
 		public Visibility IsPermissionsSelected
 		{
 			get
@@ -212,7 +228,8 @@ namespace AORViewer.ViewModels
 
 		public Visibility IsAORAreasSelected
 		{
-			get {
+			get
+			{
 				if (SelectedElement != null)
 				{
 					return SelectedElement.Name.Equals(LBType.AOR_Areas.ToString()) ? Visibility.Visible : Visibility.Collapsed;
@@ -232,10 +249,18 @@ namespace AORViewer.ViewModels
 					return Visibility.Collapsed;
 			}
 		}
+		#endregion
+
+		#region Command Execution
 		private void ExecuteAreaPropertiesCommand()
 		{
-			//aorViewCommProxy.Proxy.GetPermissionsForArea(555);
-			//AreaPropertiesWindow areaPropWindow = new AreaPropertiesWindow(selectedArea);
+			var usernames = aorViewCommProxy.Proxy.GetUsernamesForArea(SelectedArea.Name);
+			AreaUsernames = usernames;
+
+			AreaGroups = aorViewCommProxy.Proxy.GetGroupsForArea(SelectedArea.Name);
+
+			AreaPermissions = aorViewCommProxy.Proxy.GetPermissionsForArea(SelectedArea.Name);
+
 			AreaPropertiesWindow areaPropWindow = new AreaPropertiesWindow(this);
 			areaPropWindow.ShowDialog();
 		}
@@ -265,6 +290,30 @@ namespace AORViewer.ViewModels
 			groupAddAreaWindow.ShowDialog();
 		}
 
+		private void ExecuteDNAPropertiesCommand()
+		{
+			var usernames = aorViewCommProxy.Proxy.GetUsernamesForDNA(SelectedDNA.Name);
+			DNAUsernames = usernames;
+
+			DNAPropertyWindow dnaPropWidow = new DNAPropertyWindow(this);
+			dnaPropWidow.ShowDialog();
+		}
+		private void ExecuteDNADeleteCommand()
+		{
+
+		}
+
+		private void ExecutePermissionPropertiesCommand()
+		{
+			PermissionPropertyWindow permPropWindow = new PermissionPropertyWindow(this);
+			permPropWindow.ShowDialog();
+		}
+		private void ExecutePermissionDeleteCommand()
+		{
+
+		}
+		#endregion Command Execution
+
 		public AORCachedArea SelectedArea
 		{
 			get { return selectedArea; }
@@ -282,6 +331,77 @@ namespace AORViewer.ViewModels
 			{
 				selectedGroup = value;
 				OnPropertyChanged("SelectedGroup");
+			}
+		}
+
+		public DNAAuthority SelectedDNA
+		{
+			get { return selectedDna; }
+			set
+			{
+				selectedDna = value;
+				OnPropertyChanged("SelectedDNA");
+			}
+		}
+
+		public List<string> DNAUsernames
+		{
+			get { return dnaUsernames; }
+			set
+			{
+				dnaUsernames = value;
+				OnPropertyChanged("DNAUsernames");
+			}
+		}
+
+		#region ForAreaProperties fill
+		public List<string> AreaUsernames
+		{
+			get { return areaUsernames; }
+			set
+			{
+				areaUsernames = value;
+				OnPropertyChanged("AreaUsernames");
+			}
+		}
+
+		public List<string> AreaPermissions
+		{
+			get { return areaPermissions; }
+			set
+			{
+				areaPermissions = value;
+				OnPropertyChanged("AreaPermissions");
+			}
+		}
+
+		public List<string> AreaGroups
+		{
+			get { return areaGroups; }
+			set
+			{
+				areaGroups = value;
+				OnPropertyChanged("AreaGroups");
+			}
+		}
+
+		#endregion ForAreaProperties fill
+
+		public Permission SelectedPermission
+		{
+			get { return selectedPermisssion; }
+			set
+			{
+				selectedPermisssion = value;
+				OnPropertyChanged("SelectedPermission");
+			}
+		}
+
+		public string DisplayedUserImage
+		{
+			get
+			{
+				return @"..\..\..\Images\user.png";
 			}
 		}
 	}

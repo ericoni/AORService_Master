@@ -48,9 +48,22 @@ namespace AORManagementProxy
 			this.Channel.SerializeDNAs();
 		}
 
-		public List<Permission> GetPermissionsForArea(long areaId)
+		public List<string> GetPermissionsForArea(string name)
 		{
-			return this.Channel.GetPermissionsForArea(areaId);
+			return this.Channel.GetPermissionsForArea(name);
+		}
+
+		public List<string> GetUsernamesForDNA(string name)
+		{
+			return this.Channel.GetUsernamesForDNA(name);
+		}
+		public List<string> GetUsernamesForArea(string name)
+		{
+			return this.Channel.GetUsernamesForArea(name);
+		}
+		public List<string> GetGroupsForArea(string name)
+		{
+			return this.Channel.GetGroupsForArea(name);
 		}
 	}
 }

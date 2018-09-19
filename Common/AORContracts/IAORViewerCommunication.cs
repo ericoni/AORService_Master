@@ -26,6 +26,12 @@ namespace FTN.Common.AORContract
 		[OperationContract]
 		List<User> GetAllUsers();
 		[OperationContract]
-		List<Permission> GetPermissionsForArea(long areaId);
+		List<string> GetPermissionsForArea(string name);
+		[OperationContract]
+		List<string> GetUsernamesForDNA(string name);
+		[OperationContract]
+		List<string> GetUsernamesForArea(string name);
+		[OperationContract]
+		List<string> GetGroupsForArea(string name);
 	}
 }

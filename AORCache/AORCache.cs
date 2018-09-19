@@ -51,9 +51,21 @@ namespace ActiveAORCache
 			return AORCacheModel.GetAllUsers();
 		}
 
-		public List<Permission> GetPermissionsForArea(long areaId)
+		public List<string> GetPermissionsForArea(string name)
 		{
-			return AORCacheModel.GetPermissionsForArea(areaId);
+			return AORCacheModel.GetPermissionsForArea(name);
+		}
+		public List<string> GetUsernamesForDNA(string name)
+		{
+			return AORCacheModel.GetUsernamesForDNA(name);
+		}
+		public List<string> GetUsernamesForArea(string name)
+		{
+			return AORCacheModel.GetUsernamesForArea(name);
+		}
+		public List<string> GetGroupsForArea(string name)
+		{
+			return AORCacheModel.GetGroupsForArea(name);
 		}
 	}
 }

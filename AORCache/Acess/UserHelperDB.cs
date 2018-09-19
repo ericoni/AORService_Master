@@ -32,7 +32,7 @@ namespace AORC.Acess
 		public UserHelperDB() 
 		{
 			rdAdapter = new RDAdapter();
-			aorGroups = rdAdapter.GetAORGroupsWithSmInfo(); // aorGroups with sm info
+			aorGroups = rdAdapter.GetAORGroupsWithSmInfo();
 
 			using (var access = new AccessDB())
 			{
@@ -75,17 +75,25 @@ namespace AORC.Acess
 
 					AORCachedArea area1 = new AORCachedArea("West-Area", "", new List<Permission> { p1, p2, p3, p4 }, aorGroups); // dodati im usera naknadno
 					AORCachedArea area2 = new AORCachedArea("East-Area", "", new List<Permission> { p1, p2, p3, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1]});
-
+					AORCachedArea area3 = new AORCachedArea("South-Area", "", new List<Permission> { p1, p2, p3, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1] });
+					AORCachedArea area4 = new AORCachedArea("North-Area", "", new List<Permission> { p1, p2, p3, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3]});
 					#region Users
 
-					User u1 = new User("a1", "a", new List<DNAAuthority>() { dna1, dna4, dna6 }, new List<AORCachedArea>() { area1, area2 });
-					User u2 = new User("a2", "a", new List<DNAAuthority>() { dna2, dna4, dna6 }, new List<AORCachedArea>() { area1 }); 
+					User u1 = new User("marko.markovic", "a", new List<DNAAuthority>() { dna1, dna4, dna6 }, new List<AORCachedArea>() { area1, area2 });
+					User u2 = new User("petar.petrovic", "a", new List<DNAAuthority>() { dna2, dna4, dna6 }, new List<AORCachedArea>() { area1 });
+					User u3 = new User("zika.joksimovic", "a", new List<DNAAuthority>() { dna2, dna3, dna4, dna5, dna6 }, new List<AORCachedArea>() { area1, area2, area3 });
+
+					u1.DNAs = new List<DNAAuthority>() { dna3, dna4 };
+					u2.DNAs = new List<DNAAuthority>() { dna4, dna5, dna6 };
 
 					access.Users.Add(u1);
 					access.Users.Add(u2);
+					access.Users.Add(u3);
 
 					access.Areas.Add(area1);
 					access.Areas.Add(area2);
+					access.Areas.Add(area3);
+					access.Areas.Add(area4);
 
 					int j = access.SaveChanges();
 					if (j <= 0)

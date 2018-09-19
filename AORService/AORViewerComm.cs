@@ -57,9 +57,22 @@ namespace AORService
 		{
 			return aorCache.GetAllUsers();
 		}
-		public List<Permission> GetPermissionsForArea(long areaId)
+		public List<string> GetPermissionsForArea(string name)
 		{
-			return aorCache.GetPermissionsForArea(areaId);
+			return aorCache.GetPermissionsForArea(name);
+		}
+		public List<string> GetUsernamesForDNA(string name)
+		{
+			return aorCache.GetUsernamesForDNA(name);
+		}
+
+		public List<string> GetUsernamesForArea(string name)
+		{
+			return aorCache.GetUsernamesForArea(name);
+		}
+		public List<string> GetGroupsForArea(string name)
+		{
+			return aorCache.GetGroupsForArea(name);
 		}
 	}
 }
