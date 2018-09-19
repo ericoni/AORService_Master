@@ -31,9 +31,19 @@
 						</StackPanel>
 					</DataTemplate>
 				</ListBox.ItemTemplate>
+				<ListBox.ContextMenu>
+					<ContextMenu>
+						<MenuItem Header="Update AORs" Visibility="{Binding Path=DataContext.IsAORGroupsOrAreasSelected, ElementName=MainAppGrid}"/>
+						<Separator />
+						<MenuItem Header="Add new" Command="{Binding AddNewAreaCommand}" /> <!--srediti context menu da fino prikazuje, radi samo za new area-->
+						<Separator />
+						<MenuItem Header="Export data" />
+						<MenuItem Header="Import data"/>
+					</ContextMenu>
+				</ListBox.ContextMenu>
 			</ListBox>
 
-			<DataGrid Grid.Column="1"  Visibility="{Binding IsPermissionsSelected}" ItemsSource="{Binding PermissionList}" SelectedItem="{Binding SelectedPermission}"
+				<DataGrid Grid.Column="1"  Visibility="{Binding IsPermissionsSelected}" ItemsSource="{Binding PermissionList}" SelectedItem="{Binding SelectedPermission}"
 					  CanUserAddRows="False" GridLinesVisibility="Vertical" AutoGenerateColumns="False">
 				<DataGrid.ContextMenu>
 					<ContextMenu>

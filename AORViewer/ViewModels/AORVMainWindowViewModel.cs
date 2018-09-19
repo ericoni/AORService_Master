@@ -41,6 +41,7 @@ namespace AORViewer.ViewModels
 		public ICommand AORAreaPropertiesCommand { get; private set; }
 		public ICommand AORAreaDeleteCommand { get; private set; }
 		public ICommand AORAreaGetUsersCommand { get; private set; }
+		public ICommand AddNewAreaCommand { get; private set; }
 		public ICommand AORGroupPropertiesCommand { get; private set; }
 		public ICommand AORGroupDeleteCommand { get; private set; }
 		public ICommand AORGroupGetAreasCommand { get; private set; }
@@ -64,6 +65,7 @@ namespace AORViewer.ViewModels
 			AORAreaPropertiesCommand = new RelayCommand(() => ExecuteAreaPropertiesCommand());
 			AORAreaDeleteCommand = new RelayCommand(() => ExecuteAreaDeleteCommand());
 			AORAreaGetUsersCommand = new RelayCommand(() => ExecuteAreaGetUsersCommand());
+			AddNewAreaCommand = new RelayCommand(() => ExecuteAddNewAreaCommand());
 
 			AORGroupPropertiesCommand = new RelayCommand(() => ExecuteGroupPropertiesCommand());
 			AORGroupDeleteCommand = new RelayCommand(() => ExecuteGroupDeleteCommand());
@@ -249,6 +251,16 @@ namespace AORViewer.ViewModels
 					return Visibility.Collapsed;
 			}
 		}
+		public Visibility IsAORGroupsOrAreasSelected
+		{
+			get
+			{
+				if (SelectedElement != null)
+					return SelectedElement.Name.Equals(LBType.AOR_Groups.ToString()) || SelectedElement.Name.Equals(LBType.AOR_Areas.ToString()) ? Visibility.Visible : Visibility.Collapsed;
+				else
+					return Visibility.Collapsed;
+			}
+		}
 		#endregion
 
 		#region Command Execution
@@ -274,6 +286,13 @@ namespace AORViewer.ViewModels
 			AreaAddUserWindow areaAddUserWindow = new AreaAddUserWindow(this);
 			areaAddUserWindow.ShowDialog();
 		}
+
+		private void ExecuteAddNewAreaCommand()
+		{
+			AreaAddNewWindow areaAddNewWindow = new AreaAddNewWindow(this);
+			areaAddNewWindow.ShowDialog();
+		}
+
 		private void ExecuteGroupPropertiesCommand()
 		{
 			GroupPropertiesWindow groupPropWindow = new GroupPropertiesWindow(this);

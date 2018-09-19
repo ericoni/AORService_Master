@@ -1,0 +1,25 @@
+﻿<Window x:Class="AORViewer.Views.AreaAddNewWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:local="clr-namespace:AORViewer.Views"
+		mc:Ignorable="d"
+		Title="Add New AOR Area" Height="450" Width="380" ResizeMode="NoResize">
+	<Grid>
+		<Grid Background="#FFE5E5E5" Name="GeneralGrid">
+			<Label Content="Name" HorizontalAlignment="Left" Margin="10,21,0,0" VerticalAlignment="Top"/>
+			<TextBox  HorizontalAlignment="Left" Height="84" Margin="10,207,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="281"/>
+			<Label Content="Description" HorizontalAlignment="Left" Margin="10,176,0,0" VerticalAlignment="Top"/>
+			<ListBox HorizontalAlignment="Left" Height="80" Margin="10,79,0,0" VerticalAlignment="Top" Width="248">
+			</ListBox>
+			<Label Content="Permissions" HorizontalAlignment="Left" Margin="10,48,0,0" VerticalAlignment="Top"/>
+			<Button Content="Add" HorizontalAlignment="Left" Margin="263,79,0,0" VerticalAlignment="Top" Width="75"/>
+			<Button Content="Remove" HorizontalAlignment="Left" Margin="263,130,0,0" VerticalAlignment="Top" Width="75"/>
+			<TextBox HorizontalAlignment="Left" Height="23" Margin="69,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="189"/>
+
+			<Button  Content="OK" HorizontalAlignment="Left" Margin="183,373,0,0" VerticalAlignment="Top" Width="75"/>
+			<Button  Content="Cancel" HorizontalAlignment="Left" Margin="263,373,0,0" VerticalAlignment="Top" Width="75"/>
+		</Grid>
+	</Grid>
+</Window>

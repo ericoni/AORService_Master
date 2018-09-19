@@ -96,6 +96,9 @@
     <Compile Include="ViewModels\ObsoleteFiles\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\ObsoleteFiles\ViewModelLocator.cs" />
+    <Compile Include="Views\AreaAddNewWindow.xaml.cs">
+      <DependentUpon>AreaAddNewWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AreaAddUserWindow.xaml.cs">
       <DependentUpon>AreaAddUserWindow.xaml</DependentUpon>
     </Compile>
@@ -155,6 +158,10 @@
     <Folder Include="Theme\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\AreaAddNewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AreaAddUserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
