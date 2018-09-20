@@ -59,6 +59,7 @@
     <Compile Include="Helpers\AORHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecurePasswordManager.cs" />
+    <Compile Include="Security\DERMSPrincipal.cs" />
     <Compile Include="Security\IDERMSPrincipal.cs" />
   </ItemGroup>
   <ItemGroup />
