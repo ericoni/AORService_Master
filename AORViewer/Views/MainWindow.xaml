@@ -83,6 +83,8 @@
 				</DataGrid.ContextMenu>
 				<DataGrid.Columns>
 					<DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+					
+					<DataGridTextColumn Header="Permissions" Binding="{Binding GetPermsInOneLine}"/>
 				</DataGrid.Columns>
 			</DataGrid>
 

@@ -34,11 +34,34 @@ namespace FTN.Common.AORCachedModel
 		public List<Permission> Permissions { get; set; }
 		[DataMember]
 		public List<User> Users { get; set; }  // ubaceno samo zbog EF many to many
+		//[DataMember] // sa ovim puca
+		[NotMapped]
+		public string GetPermsInOneLine {
+			get
+			{
+				string tempString = string.Empty;
+
+				foreach (var item in Permissions)
+				{
+					tempString += item.Name + ",";
+				}
+
+				tempString = tempString.Remove(tempString.Length - 1);
+
+				return tempString;
+			}
+
+			set
+			{
+				GetPermsInOneLine = value;
+			}
+		}
 
 		public AORCachedArea()
 		{
 			this.Users = new List<User>();
 			this.Mrid = Guid.NewGuid().ToString();
+			this.Permissions = new List<Permission>();
 		}
 		public AORCachedArea(List<Permission> perms)// vrati se, obrisi cst
 		{

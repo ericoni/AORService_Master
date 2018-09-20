@@ -33,6 +33,7 @@ namespace AORViewer.ViewModels
 		private List<string> dnaUsernames;
 		private List<string> areaUsernames;
 		private List<string> areaPermissions;
+		private string areaPermissionsOneLine = string.Empty;
 		private List<string> areaGroups;
 		private Permission selectedPermisssion;
 
@@ -91,6 +92,15 @@ namespace AORViewer.ViewModels
 
 				var areas = aorViewCommProxy.Proxy.GetAORAreas();
 				AORAreas = areas;
+
+				foreach (var item in areas)
+				{
+					var perms = aorViewCommProxy.Proxy.GetPermissionsForArea(item.Name);
+					foreach (var p in perms)
+					{
+						item.Permissions.Add(new Permission(p));
+					}
+				}
 
 				users = aorViewCommProxy.Proxy.GetAllUsers();
 				Users = users;
@@ -273,6 +283,17 @@ namespace AORViewer.ViewModels
 
 			AreaPermissions = aorViewCommProxy.Proxy.GetPermissionsForArea(SelectedArea.Name);
 
+			//string tempString = string.Empty;
+
+			//foreach (var item in aorViewCommProxy.Proxy.GetPermissionsForArea(SelectedArea.Name))
+			//{
+			//	tempString += item + ",";
+			//}
+
+			//tempString = tempString.Remove(tempString.Length - 1);
+
+			//AreaPermissionsInOneLine = tempString; // budz za dobijanje ispisa svih perms u AOR areas
+
 			AreaPropertiesWindow areaPropWindow = new AreaPropertiesWindow(this);
 			areaPropWindow.ShowDialog();
 		}
@@ -391,6 +412,16 @@ namespace AORViewer.ViewModels
 			{
 				areaPermissions = value;
 				OnPropertyChanged("AreaPermissions");
+			}
+		}
+
+		public string AreaPermissionsInOneLine
+		{
+			get { return areaPermissionsOneLine; }
+			set
+			{
+				areaPermissionsOneLine = value;
+				OnPropertyChanged("AreaPermissionsInOneLine");
 			}
 		}
 
