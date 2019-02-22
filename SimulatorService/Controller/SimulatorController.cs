@@ -96,7 +96,7 @@ namespace ModBusSimulatorService.Controller
         /// </summary>
         public void StartSimulator()
         {
-            //SimulatorForAnalogPoints(); //vrati se
+            SimulatorForAnalogPoints(); //vrati se, ne znam zasto je zakomentarisan
         }
 
         /// <summary>

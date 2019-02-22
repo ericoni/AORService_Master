@@ -130,7 +130,7 @@ namespace WeatherForecastService
 				}
 
 				Thread.Sleep(60 * 60 * 1000);
-            }
+			}
 		}
 
 		private void ForecastWeatherJob(List<Substation> substations)
@@ -155,7 +155,7 @@ namespace WeatherForecastService
 				}
 
 				Thread.Sleep(2 * 60 * 60 * 1000);
-            }
+			}
 		}
 
 		/// <summary>
@@ -196,17 +196,17 @@ namespace WeatherForecastService
 					{
 						lock (lockCW)
 						{
-                            WeatherInfo info = null;
-                            currentWeather.TryGetValue(substation.GlobalId, out info);
+							WeatherInfo info = null;
+							currentWeather.TryGetValue(substation.GlobalId, out info);
 
-                            if (info == null)
-                            {
-                                info = GetCurrentWeatherDataByLatLon(substation.Latitude, substation.Longitude);
+							if (info == null)
+							{
+								info = GetCurrentWeatherDataByLatLon(substation.Latitude, substation.Longitude);
 
-                                currentWeather.Add(substation.GlobalId, info);
-                            }
+								currentWeather.Add(substation.GlobalId, info);
+							}
 
-                            temp.Add(info);
+							temp.Add(info);
 						}
 					}
 
@@ -226,20 +226,20 @@ namespace WeatherForecastService
 					// Prolazi se kroz substation-e i za svaki se trazi vremenska prognoza
 					foreach (Substation substation in substations)
 					{
-                        lock (lockCW)
-                        {
-                            WeatherInfo info = null;
-                            currentWeather.TryGetValue(substation.GlobalId, out info);
+						lock (lockCW)
+						{
+							WeatherInfo info = null;
+							currentWeather.TryGetValue(substation.GlobalId, out info);
 
-                            if (info == null)
-                            {
-                                info = GetCurrentWeatherDataByLatLon(substation.Latitude, substation.Longitude);
+							if (info == null)
+							{
+								info = GetCurrentWeatherDataByLatLon(substation.Latitude, substation.Longitude);
 
-                                currentWeather.Add(substation.GlobalId, info);
-                            }
-                            temp.Add(info);
+								currentWeather.Add(substation.GlobalId, info);
+							}
+							temp.Add(info);
 
-                        }
+						}
 					}
 
 					// Racuna se prosecna vremenska prognoza za region i vraca se kao povratna vrednost
@@ -256,16 +256,16 @@ namespace WeatherForecastService
 
 					lock (lockCW)
 					{
-                        weatherInfoRetVal = null;
-                        currentWeather.TryGetValue(tempSubstation.GlobalId, out weatherInfoRetVal);
+						weatherInfoRetVal = null;
+						currentWeather.TryGetValue(tempSubstation.GlobalId, out weatherInfoRetVal);
 
-                        if (weatherInfoRetVal == null)
-                        {
-                            weatherInfoRetVal = GetCurrentWeatherDataByLatLon(tempSubstation.Latitude, tempSubstation.Longitude);
+						if (weatherInfoRetVal == null)
+						{
+							weatherInfoRetVal = GetCurrentWeatherDataByLatLon(tempSubstation.Latitude, tempSubstation.Longitude);
 
-                            currentWeather.Add(tempSubstation.GlobalId, weatherInfoRetVal);
-                        }
-                    }
+							currentWeather.Add(tempSubstation.GlobalId, weatherInfoRetVal);
+						}
+					}
 
 					break;
 
@@ -276,17 +276,17 @@ namespace WeatherForecastService
 
 					lock (lockCW)
 					{
-                        weatherInfoRetVal = null;
-                        currentWeather.TryGetValue(sm.EquipmentContainer, out weatherInfoRetVal);
+						weatherInfoRetVal = null;
+						currentWeather.TryGetValue(sm.EquipmentContainer, out weatherInfoRetVal);
 
-                        if (weatherInfoRetVal == null)
-                        {
-                            tempSubstation = RdAdapter.GetSubstation(sm.EquipmentContainer);
-                            weatherInfoRetVal = GetCurrentWeatherDataByLatLon(tempSubstation.Latitude, tempSubstation.Longitude);
+						if (weatherInfoRetVal == null)
+						{
+							tempSubstation = RdAdapter.GetSubstation(sm.EquipmentContainer);
+							weatherInfoRetVal = GetCurrentWeatherDataByLatLon(tempSubstation.Latitude, tempSubstation.Longitude);
 
-                            currentWeather.Add(tempSubstation.GlobalId, weatherInfoRetVal);
-                        }
-                    }
+							currentWeather.Add(tempSubstation.GlobalId, weatherInfoRetVal);
+						}
+					}
 
 					break;
 			}
@@ -301,23 +301,23 @@ namespace WeatherForecastService
 		/// <param name="lon"></param>
 		public WeatherInfo GetCurrentWeatherDataByLatLon(float lat, float lon)
 		{
-			//WeatherInfo weatherInfo = null;
+			WeatherInfo weatherInfo = null;
 
-			//string url = string.Format("https://api.darksky.net/forecast/{0}/{1},{2}?units=si&exclude=flags,alerts,minutely,hourly", appId, lat, lon);
-			//using (WebClient client = new WebClient())
-			//{
+			string url = string.Format("https://api.darksky.net/forecast/{0}/{1},{2}?units=si&exclude=flags,alerts,minutely,hourly", appId, lat, lon);
+			using (WebClient client = new WebClient())
+			{
 
-			//    string json = client.DownloadString(url);
-			//    weatherInfo = (new JavaScriptSerializer()).Deserialize<WeatherInfo>(json);
-			//}
+				string json = client.DownloadString(url);
+				weatherInfo = (new JavaScriptSerializer()).Deserialize<WeatherInfo>(json);
+			}
 
-			//weatherInfo.Currently.Time = UnixTimeStampToDateTime(weatherInfo.Currently.Time).Ticks;
-			//weatherInfo.Daily.Data.FirstOrDefault().Time = UnixTimeStampToDateTime(weatherInfo.Daily.Data.FirstOrDefault().Time).Ticks;
-			//weatherInfo.Daily.Data.FirstOrDefault().SunriseTime = UnixTimeStampToDateTime(weatherInfo.Daily.Data.FirstOrDefault().SunriseTime).Ticks;
-			//weatherInfo.Daily.Data.FirstOrDefault().SunsetTime = UnixTimeStampToDateTime(weatherInfo.Daily.Data.FirstOrDefault().SunsetTime).Ticks;
+			weatherInfo.Currently.Time = UnixTimeStampToDateTime(weatherInfo.Currently.Time).Ticks;
+			weatherInfo.Daily.Data.FirstOrDefault().Time = UnixTimeStampToDateTime(weatherInfo.Daily.Data.FirstOrDefault().Time).Ticks;
+			weatherInfo.Daily.Data.FirstOrDefault().SunriseTime = UnixTimeStampToDateTime(weatherInfo.Daily.Data.FirstOrDefault().SunriseTime).Ticks;
+			weatherInfo.Daily.Data.FirstOrDefault().SunsetTime = UnixTimeStampToDateTime(weatherInfo.Daily.Data.FirstOrDefault().SunsetTime).Ticks;
 
-			//return weatherInfo; //vrati se ovamo
-			return new WeatherInfo();
+			return weatherInfo; //vrati se ovamo
+			//return new WeatherInfo();
 		}
 
 		public WeatherInfo Get7DayPerHourForecastByGid(long gid)
@@ -351,18 +351,18 @@ namespace WeatherForecastService
 					{
 						lock (lockFW)
 						{
-                            WeatherInfo info = null;
-                            forecastWeather.TryGetValue(substation.GlobalId, out info);
+							WeatherInfo info = null;
+							forecastWeather.TryGetValue(substation.GlobalId, out info);
 
-                            if (info == null)
-                            {
-                                info = Get7DayPerHourForecastByLatLon(substation.Latitude, substation.Longitude);
+							if (info == null)
+							{
+								info = Get7DayPerHourForecastByLatLon(substation.Latitude, substation.Longitude);
 
-                                forecastWeather.Add(substation.GlobalId, info);
-                            }
+								forecastWeather.Add(substation.GlobalId, info);
+							}
 
-                            temp.Add(info);
-                        }
+							temp.Add(info);
+						}
 					}
 
 					// Prolazi se 168 puta i za svaki substation za svaki sat se radi proracun prosecne prognoze
@@ -388,17 +388,17 @@ namespace WeatherForecastService
 					{
 						lock (lockFW)
 						{
-                            WeatherInfo info = null;
-                            forecastWeather.TryGetValue(substation.GlobalId, out info);
+							WeatherInfo info = null;
+							forecastWeather.TryGetValue(substation.GlobalId, out info);
 
-                            if (info == null)
-                            {
-                                info = Get7DayPerHourForecastByLatLon(substation.Latitude, substation.Longitude);
+							if (info == null)
+							{
+								info = Get7DayPerHourForecastByLatLon(substation.Latitude, substation.Longitude);
 
-                                forecastWeather.Add(substation.GlobalId, info);
-                            }
-                            temp.Add(info);
-                        }
+								forecastWeather.Add(substation.GlobalId, info);
+							}
+							temp.Add(info);
+						}
 					}
 
 					// Prolazi se 168 puta i za svaki substation za svaki sat se radi proracun prosecne prognoze
@@ -422,16 +422,16 @@ namespace WeatherForecastService
 
 					lock (lockFW)
 					{
-                        weatherInfoRetVal = null;
-                        forecastWeather.TryGetValue(tempSubstation.GlobalId, out weatherInfoRetVal);
+						weatherInfoRetVal = null;
+						forecastWeather.TryGetValue(tempSubstation.GlobalId, out weatherInfoRetVal);
 
-                        if (weatherInfoRetVal == null)
-                        {
-                            weatherInfoRetVal = Get7DayPerHourForecastByLatLon(tempSubstation.Latitude, tempSubstation.Longitude);
+						if (weatherInfoRetVal == null)
+						{
+							weatherInfoRetVal = Get7DayPerHourForecastByLatLon(tempSubstation.Latitude, tempSubstation.Longitude);
 
-                            forecastWeather.Add(tempSubstation.GlobalId, weatherInfoRetVal);
-                        }
-                    }
+							forecastWeather.Add(tempSubstation.GlobalId, weatherInfoRetVal);
+						}
+					}
 
 					break;
 
@@ -442,17 +442,17 @@ namespace WeatherForecastService
 
 					lock (lockFW)
 					{
-                        weatherInfoRetVal = null;
-                        forecastWeather.TryGetValue(sm.EquipmentContainer, out weatherInfoRetVal);
+						weatherInfoRetVal = null;
+						forecastWeather.TryGetValue(sm.EquipmentContainer, out weatherInfoRetVal);
 
-                        if (weatherInfoRetVal == null)
-                        {
-                            tempSubstation = RdAdapter.GetSubstation(sm.EquipmentContainer);
-                            weatherInfoRetVal = Get7DayPerHourForecastByLatLon(tempSubstation.Latitude, tempSubstation.Longitude);
+						if (weatherInfoRetVal == null)
+						{
+							tempSubstation = RdAdapter.GetSubstation(sm.EquipmentContainer);
+							weatherInfoRetVal = Get7DayPerHourForecastByLatLon(tempSubstation.Latitude, tempSubstation.Longitude);
 
-                            forecastWeather.Add(tempSubstation.GlobalId, weatherInfoRetVal);
-                        }
-                    }
+							forecastWeather.Add(tempSubstation.GlobalId, weatherInfoRetVal);
+						}
+					}
 
 					break;
 			}
@@ -462,23 +462,23 @@ namespace WeatherForecastService
 
 		public WeatherInfo Get7DayPerHourForecastByLatLon(float lat, float lon)
 		{
-            //WeatherInfo weatherInfo = null;
+			WeatherInfo weatherInfo = null;
 
-            //string url = string.Format("https://api.darksky.net/forecast/{0}/{1},{2}?extend=hourly&units=si&exclude=flags,alerts,minutely,currently", appId, lat, lon);
-            //using (WebClient client = new WebClient())
-            //{
+			string url = string.Format("https://api.darksky.net/forecast/{0}/{1},{2}?extend=hourly&units=si&exclude=flags,alerts,minutely,currently", appId, lat, lon);
+			using (WebClient client = new WebClient())
+			{
 
-            //    string json = client.DownloadString(url);
-            //    weatherInfo = (new JavaScriptSerializer()).Deserialize<WeatherInfo>(json);
-            //}
+				string json = client.DownloadString(url);
+				weatherInfo = (new JavaScriptSerializer()).Deserialize<WeatherInfo>(json);
+			}
 
-            //foreach (Data data in weatherInfo.Hourly.Data)
-            //{
-            //    data.Time = UnixTimeStampToDateTime(data.Time).Ticks;
-            //}
+			foreach (Data data in weatherInfo.Hourly.Data)
+			{
+				data.Time = UnixTimeStampToDateTime(data.Time).Ticks;
+			}
 
-            //return weatherInfo; //vrati se ovamo
-			return new WeatherInfo();
+			return weatherInfo; //vrati se ovamo
+								//return new WeatherInfo();
 		}
 
 		/// <summary>

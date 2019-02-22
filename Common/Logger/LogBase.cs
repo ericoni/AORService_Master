@@ -37,7 +37,7 @@ namespace FTN.Common.Logger
 
     public class FileLogger : LogBase
     {
-        public string folderPath = @"\Logs";
+        public string folderPath = @"DERMSdirt\Logs";
         public string fileName = "IDGLog.txt";
         public override void Log(LogService service, string message)
         {

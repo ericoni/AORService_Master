@@ -63,8 +63,6 @@ namespace SCADAService
 		{
 			adapter = new RDAdapter();
 			analogValues = adapter.GetAnalogValues();
-			//int a = 5; // vrati se
-			//a++;
 		}
 
 		/// <summary>

@@ -221,7 +221,7 @@ namespace ActiveAORCache
 		{
 			//return aorAreas.Select(u => u.Mrid.Equals(mrid)).ToList().Count > 0;
 			//return aorAreas.Select(u => u.id)
-			return false;  // vrati se
+			return false;  // vrati se, za sta se ovo koristi?!
 		}
 
 		private bool AORGroupExists(string mrid)

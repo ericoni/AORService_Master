@@ -105,15 +105,15 @@ namespace CalculationEngService
 
 		public void CalculatePerHour()
 		{
-			//while (true) //vrati se
-			//{
-			//    lock (CalculationEngineModel.Instance.Lock2PC)
-			//    {
-			//        CalculateForecastForDers();
-			//    }
+			while (true) //vrati se
+			{
+				lock (CalculationEngineModel.Instance.Lock2PC)
+				{
+					CalculateForecastForDers();
+				}
 
-			//    CalculationEngineModel.Instance.TwoPhaseCommitSemaptore.WaitOne(1000 * 60 * 60 * 2);
-			//}
+				CalculationEngineModel.Instance.TwoPhaseCommitSemaptore.WaitOne(1000 * 60 * 60 * 2);
+			}
 		}
 
 		/// <summary>
