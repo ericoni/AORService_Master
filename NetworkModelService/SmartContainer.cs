@@ -282,7 +282,7 @@ namespace FTN.Services.NetworkModelService
                 lock (Lock2PC)
                 {
                     Prepare(delta);
-                    LogHelper.Log(LogTarget.File, LogService.NMSSmartContainer, " INFO - SmartContainer.cs - Prepare is finished without error.");
+                    LogHelper.Log(LogTarget.File, LogService.NMSSmartContainer, " INFO - SmartContainer.cs - Prepare finished successfully.");
                 }
             }
             catch (Exception ex)
@@ -291,7 +291,7 @@ namespace FTN.Services.NetworkModelService
                 {
                     LogHelper.Log(LogTarget.File, LogService.NMSSmartContainer, " ERROR - SmartContainer.cs - Prepare is finished with error: " + ex.Message);
                     Rollback();
-                    LogHelper.Log(LogTarget.File, LogService.NMSSmartContainer, " INFO - SmartContainer.cs - Rollback is finished without error.");
+                    LogHelper.Log(LogTarget.File, LogService.NMSSmartContainer, " INFO - SmartContainer.cs - Rollback finished successfully.");
                 }
                 throw ex;
             }
@@ -302,11 +302,11 @@ namespace FTN.Services.NetworkModelService
                 {
                     LogHelper.Log(LogTarget.File, LogService.NMSSmartContainer, " ERROR - SmartContainer.cs - Prepare subscribers is finished with error.");
                     Rollback();
-                    LogHelper.Log(LogTarget.File, LogService.NMSSmartContainer, " INFO - SmartContainer.cs - Rollback is finished without error.");
+                    LogHelper.Log(LogTarget.File, LogService.NMSSmartContainer, " INFO - SmartContainer.cs - Rollback finished successfully.");
                 }
 
                 NotifySubscribersRoleback();
-                LogHelper.Log(LogTarget.File, LogService.NMSSmartContainer, " INFO - SmartContainer.cs - Rollback subscribers is finished without error.");
+                LogHelper.Log(LogTarget.File, LogService.NMSSmartContainer, " INFO - SmartContainer.cs - Rollback subscribers finished successfully.");
 
                 return false;
             }
@@ -314,7 +314,7 @@ namespace FTN.Services.NetworkModelService
             lock (Lock2PC)
             {
                 Commit();
-                LogHelper.Log(LogTarget.File, LogService.NMSSmartContainer, " INFO - SmartContainer.cs - Commit is finished without error.");
+                LogHelper.Log(LogTarget.File, LogService.NMSSmartContainer, " INFO - SmartContainer.cs - Commit is finished successfully.");
             }
         
             NotifySubscribersCommit();
@@ -324,7 +324,7 @@ namespace FTN.Services.NetworkModelService
                 Notify();
             }).Start(); 
 
-            LogHelper.Log(LogTarget.File, LogService.NMSSmartContainer, " INFO - SmartContainer.cs - Commit subscribers is finished without error.");
+            LogHelper.Log(LogTarget.File, LogService.NMSSmartContainer, " INFO - SmartContainer.cs - Commit subscribers is finished successfully.");
 
             return true;
         }

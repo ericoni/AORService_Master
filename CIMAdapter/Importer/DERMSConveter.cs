@@ -330,16 +330,16 @@
 					rd.AddProperty(new Property(ModelCode.AOR_GROUP_COVERED, cimAORGroup.IsCovered));
 				}
 
-				if (cimAORGroup.AOR_AGAggregatorHasValue)
-				{
-					long gid = importHelper.GetMappedGID(cimAORGroup.AOR_AGAggregator.ID);
-					if (gid < 0)
-					{
-						report.Report.Append("WARNING: Convert ").Append(cimAORGroup.GetType().ToString()).Append(" rdfID = \"").Append(cimAORGroup.ID);
-						report.Report.Append("\" - Failed to set reference to AORGroup: rdfID \"").Append(cimAORGroup.AOR_AGAggregator.ID).AppendLine(" \" is not mapped to GID!");
-					}
-					rd.AddProperty(new Property(ModelCode.AOR_GROUP_AGGREGATOR, gid));
-				}
+				//if (cimAORGroup.AOR_AGAggregatorHasValue) // TODO: delete this
+				//{
+				//	long gid = importHelper.GetMappedGID(cimAORGroup.AOR_AGAggregator.ID);
+				//	if (gid < 0)
+				//	{
+				//		report.Report.Append("WARNING: Convert ").Append(cimAORGroup.GetType().ToString()).Append(" rdfID = \"").Append(cimAORGroup.ID);
+				//		report.Report.Append("\" - Failed to set reference to AORGroup: rdfID \"").Append(cimAORGroup.AOR_AGAggregator.ID).AppendLine(" \" is not mapped to GID!");
+				//	}
+				//	rd.AddProperty(new Property(ModelCode.AOR_GROUP_AGGREGATOR, gid));
+				//}
 			}
 		}
 

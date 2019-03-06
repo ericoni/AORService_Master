@@ -316,8 +316,7 @@ namespace WeatherForecastService
 			weatherInfo.Daily.Data.FirstOrDefault().SunriseTime = UnixTimeStampToDateTime(weatherInfo.Daily.Data.FirstOrDefault().SunriseTime).Ticks;
 			weatherInfo.Daily.Data.FirstOrDefault().SunsetTime = UnixTimeStampToDateTime(weatherInfo.Daily.Data.FirstOrDefault().SunsetTime).Ticks;
 
-			return weatherInfo; //vrati se ovamo
-			//return new WeatherInfo();
+			return weatherInfo; 
 		}
 
 		public WeatherInfo Get7DayPerHourForecastByGid(long gid)
@@ -477,8 +476,7 @@ namespace WeatherForecastService
 				data.Time = UnixTimeStampToDateTime(data.Time).Ticks;
 			}
 
-			return weatherInfo; //vrati se ovamo
-								//return new WeatherInfo();
+			return weatherInfo;
 		}
 
 		/// <summary>

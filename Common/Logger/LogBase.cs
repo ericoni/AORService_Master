@@ -46,9 +46,17 @@ namespace FTN.Common.Logger
                 // Determine whether the directory exists.
                 if (!Directory.Exists(folderPath))
                 {
-                    // Try to create the directory.
-                    DirectoryInfo di = Directory.CreateDirectory(folderPath);
-                }              
+					// Try to create the directory.
+					try
+					{
+						DirectoryInfo di = Directory.CreateDirectory(folderPath);
+					}
+					catch (Exception e)
+					{
+						throw e;
+					}
+				}    
+				          
                 using (StreamWriter streamWriter = new StreamWriter(folderPath+ "\\"+ service.ToString() + fileName, true))
                 {
                     streamWriter.WriteLine(DateTime.Now.ToString() + " " + message);

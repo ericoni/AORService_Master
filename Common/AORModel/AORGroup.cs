@@ -30,8 +30,8 @@ namespace FTN.Common.AORModel
 			get { return id; }
 			set { id = value; }
 		}
-		[DataMember]
-		public long AORAGAggregator { get; set; }
+		//[DataMember]
+		//public long AORAGAggregator { get; set; }
 		[DataMember]
 		public bool IsCovered { get; set; }
 		//[DataMember]
@@ -59,7 +59,7 @@ namespace FTN.Common.AORModel
 		{
 			switch (property)
 			{
-				case ModelCode.AOR_GROUP_AGGREGATOR:
+				//case ModelCode.AOR_GROUP_AGGREGATOR: // TODO: delete this
 				case ModelCode.AOR_GROUP_COVERED:
 				//case ModelCode.AOR_GROUP_SUBSTATIONS:
 				case ModelCode.AOR_GROUP_SYNCMACHINES:
@@ -73,9 +73,9 @@ namespace FTN.Common.AORModel
 		{
 			switch (property.Id)
 			{
-				case ModelCode.AOR_GROUP_AGGREGATOR:
-					property.SetValue(AORAGAggregator);
-					break;
+				//case ModelCode.AOR_GROUP_AGGREGATOR:
+				//	property.SetValue(AORAGAggregator);
+				//	break;
 
 				case ModelCode.AOR_GROUP_COVERED:
 					property.SetValue(IsCovered);
@@ -99,9 +99,9 @@ namespace FTN.Common.AORModel
 		{
 			switch (property.Id)
 			{
-				case ModelCode.AOR_GROUP_AGGREGATOR:
-					AORAGAggregator = property.AsReference();
-					break;
+				//case ModelCode.AOR_GROUP_AGGREGATOR:
+				//	AORAGAggregator = property.AsReference();
+				//	break;
 				case ModelCode.AOR_GROUP_COVERED:
 					IsCovered = property.AsBool();
 					break;
@@ -137,11 +137,11 @@ namespace FTN.Common.AORModel
 				references[ModelCode.AOR_GROUP_SYNCMACHINES] = SynchronousMachines.GetRange(0, SynchronousMachines.Count);
 			}
 
-			if (AORAGAggregator != 0 && (refType != TypeOfReference.Reference || refType != TypeOfReference.Both))
-			{
-				references[ModelCode.AOR_GROUP_AGGREGATOR] = new List<long>();
-				references[ModelCode.AOR_GROUP_AGGREGATOR].Add(AORAGAggregator);
-			}
+			//if (AORAGAggregator != 0 && (refType != TypeOfReference.Reference || refType != TypeOfReference.Both))
+			//{
+			//	references[ModelCode.AOR_GROUP_AGGREGATOR] = new List<long>();
+			//	references[ModelCode.AOR_GROUP_AGGREGATOR].Add(AORAGAggregator);
+			//}
 
 			base.GetReferences(references, refType);
 		}

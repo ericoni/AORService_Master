@@ -138,15 +138,18 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
 		private ResourceDescription CreateGeographicalRegionResourceDescription(DERMS.GeographicalRegion cimRegion)
 		{
 			ResourceDescription rd = null;
-			if (cimRegion != null)
-			{
-				long gid = ModelCodeHelper.CreateGlobalId(0, (short)DMSType.REGION, importHelper.CheckOutIndexForDMSType(DMSType.REGION));
-				rd = new ResourceDescription(gid);
-				importHelper.DefineIDMapping(cimRegion.ID, gid);
 
-				////populate ResourceDescription
-				DERMSConveter.PopulateGeographicalRegionProperties(cimRegion, rd);
+			if (cimRegion == null)
+			{
+				throw new ArgumentNullException("Exception: CimRegion is null!");
 			}
+
+			long gid = ModelCodeHelper.CreateGlobalId(0, (short)DMSType.REGION, importHelper.CheckOutIndexForDMSType(DMSType.REGION));
+			rd = new ResourceDescription(gid);
+			importHelper.DefineIDMapping(cimRegion.ID, gid);
+
+			////populate ResourceDescription
+			DERMSConveter.PopulateGeographicalRegionProperties(cimRegion, rd);
 			return rd;
 		}
 

@@ -74,7 +74,7 @@
   <ItemGroup>
     <Reference Include="DERMSCIMProfile_Labs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Resources\DERMSCIMProfile_Labs.dll</HintPath>
+      <HintPath>..\Resources\dllZaMaster\DERMSCIMProfile_Labs.dll</HintPath>
     </Reference>
     <Reference Include="PowerTransformerCIMProfile_Labs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
