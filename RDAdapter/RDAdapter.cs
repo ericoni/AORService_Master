@@ -21,26 +21,28 @@ namespace Adapter
 		private ModelResourcesDesc modelResourcesDesc = new ModelResourcesDesc();
 
 		// Broj pokusaja uspostavljanja komunikacije
-		private const int maxTry = 10;
+		private const int maxTry = 20;
 
 		// Spavanje do narednog pokusaja
-		private const int sleepTime = 3000;
+		private const int sleepTime = 2500;
 
 		public RDAdapter()
 		{
+			List<long> aorList = new List<long>();
+			var groups = GetAORGroups();
+			foreach (var item in groups) {
+				aorList.Add(item.GlobalId);
+			}
+
+			var a  = GetSyncMachinesForAreaGroupGid(aorList);
 			//var smId = 34359738372;
 			//var a = GetSyncMachinesForAreaGroupGid(smId);
 			//var gWithSmInfo = GetAORGroupsWithSmInfo(34359738372);
 		}
-		/*    34359738369 gid za group
+
+		/*    34359738369 gid za group    
    
-			 34359738370
-   
-				34359738371
-   
-					 34359738372
-   
-					 34359738373*/
+			 34359738370,	34359738371,	 34359738372, */
 
 		private NetworkModelGDAProxy GdaQueryProxy
 		{
@@ -54,7 +56,7 @@ namespace Adapter
 					{
 						if (tryCounter.Equals(maxTry))
 						{
-							throw new Exception("RAAdapter: Connection error.");
+							throw new Exception("RAAdapter: Connection error (number of retries reached).");
 						}
 
 						try
@@ -68,7 +70,7 @@ namespace Adapter
 						{
 							tryCounter++;
 							Thread.Sleep(sleepTime);
-							CommonTrace.WriteTrace(CommonTrace.TraceError, "Failed to open GDAProxyChannel + " + ex.StackTrace);
+							CommonTrace.WriteTrace(CommonTrace.TraceError, "Failed to open GDAProxyChannel in RDAdapter+ " + ex.StackTrace);
 						}
 					}
 				}
@@ -283,7 +285,6 @@ namespace Adapter
 
 			return resultIds;
 		}
-
 		public List<Substation> GetSubstationsForSubRegion(long subregionGid)
 		{
 			List<Substation> resultIds = new List<Substation>();
@@ -858,40 +859,44 @@ namespace Adapter
 			return resultIds;
 		}
 
-		public List<SynchronousMachine> GetSyncMachinesForAreaGroupGid(long areaGid)
+		public List<SynchronousMachine> GetSyncMachinesForAreaGroupGid(List<long> areaGids)
 		{
-			List<SynchronousMachine> resultIds = new List<SynchronousMachine>();
-
 			int numberOfResources = 500;
+			int iteratorId = 0;
+			int resourcesLeft = 0;
 			Association association = new Association(ModelCode.AOR_GROUP_SYNCMACHINES, 0, false);
+			List<SynchronousMachine> resultIds = new List<SynchronousMachine>();
 
 			try
 			{
 				List<ModelCode> properties = modelResourcesDesc.GetAllPropertyIds(ModelCode.SYNCMACHINE);
 
-				int iteratorId = GdaQueryProxy.GetRelatedValues(areaGid, properties, association);
-				int resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
-
-				while (resourcesLeft > 0)
+				foreach (var areaGid in areaGids)
 				{
-					List<ResourceDescription> rds = GdaQueryProxy.IteratorNext(numberOfResources, iteratorId);
-
-					foreach (ResourceDescription rd in rds)
-					{
-						SynchronousMachine tempSM = new SynchronousMachine(rd.Id);
-						resultIds.Add(tempSM.ConvertFromRD(rd));
-					}
-
+					iteratorId = GdaQueryProxy.GetRelatedValues(areaGid, properties, association);
 					resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
-				}
 
-				GdaQueryProxy.IteratorClose(iteratorId);
+					while (resourcesLeft > 0)
+					{
+						List<ResourceDescription> rds = GdaQueryProxy.IteratorNext(numberOfResources, iteratorId);
+
+						foreach (ResourceDescription rd in rds)
+						{
+							SynchronousMachine tempSM = new SynchronousMachine(rd.Id);
+							resultIds.Add(tempSM.ConvertFromRD(rd));
+						}
+
+						resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
+					}
+					//TODO: da li moze samo na kraju da se zatvori ili ovako?
+					GdaQueryProxy.IteratorClose(iteratorId);
+				}
 
 				CommonTrace.WriteTrace(CommonTrace.TraceError, "Getting extent values method (GetSyncMachinesForAreaGid) successfully finished.");
 			}
 			catch (Exception e)
 			{
-				string message = string.Format("Getting related values method  failed for sourceGlobalId = {0} and association (propertyId = {1}, type = {2}). Reason: {3}", areaGid, association.PropertyId, association.Type, e.Message);
+				string message = string.Format("Getting related values method  failed for sourceGlobalId = {0} and association (propertyId = {1}, type = {2}). Reason: {3}", "missing due testing", association.PropertyId, association.Type, e.Message);
 				Console.WriteLine(message);
 				CommonTrace.WriteTrace(CommonTrace.TraceError, message);
 			}
@@ -955,7 +960,6 @@ namespace Adapter
 
 			return resultIds;
 		}
-
 
 		#endregion
 	}

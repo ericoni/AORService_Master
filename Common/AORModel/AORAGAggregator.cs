@@ -96,9 +96,9 @@ namespace FTN.Common.AORModel
 					AORAreas.Add(globalId);
 					break;
 
-				case ModelCode.AOR_GROUP_AGGREGATOR:
-					AORGroups.Add(globalId);
-					break;
+				//case ModelCode.AOR_GROUP_AGGREGATOR:
+				//	AORGroups.Add(globalId);
+				//	break;
 
 				default:
 					base.AddReference(referenceId, globalId);
@@ -123,18 +123,18 @@ namespace FTN.Common.AORModel
 
 					break;
 
-				case ModelCode.AOR_GROUP_AGGREGATOR:
+				//case ModelCode.AOR_GROUP_AGGREGATOR:
 
-					if (AORGroups.Contains(globalId))
-					{
-						AORGroups.Remove(globalId);
-					}
-					else
-					{
-						CommonTrace.WriteTrace(CommonTrace.TraceWarning, "Entity (GID = 0x{0:x16}) doesn't contain reference 0x{1:x16}.", this.GlobalId, globalId);
-					}
+				//	if (AORGroups.Contains(globalId))
+				//	{
+				//		AORGroups.Remove(globalId);
+				//	}
+				//	else
+				//	{
+				//		CommonTrace.WriteTrace(CommonTrace.TraceWarning, "Entity (GID = 0x{0:x16}) doesn't contain reference 0x{1:x16}.", this.GlobalId, globalId);
+				//	}
 
-					break;
+				//	break;
 
 				default:
 					base.RemoveReference(referenceId, globalId);

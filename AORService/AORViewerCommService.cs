@@ -14,18 +14,15 @@ namespace AORService
 		NetTcpBinding binding = null;
 		AORViewerComm aorViewerComm = null;
 
-		string address = "net.tcp://localhost:10066/IAORViewerCommunication"; // provjeriti da li je port ok
+		string address = "net.tcp://localhost:10066/IAORViewerCommunication";
 
 		public AORViewerCommService()
 		{
 			binding = new NetTcpBinding();
 			aorViewerComm = new AORViewerComm();
-			InitializeHosts();
-		}
-		private void InitializeHosts()
-		{
 			host = new ServiceHost(typeof(AORViewerComm));
 		}
+		
 		public void Dispose()
 		{
 			CloseHosts();
@@ -81,7 +78,5 @@ namespace AORService
 			string message = "AORViewerCommService is closed.";
 			Console.WriteLine("\n\n{0}", message);
 		}
-
-
 	}
 }

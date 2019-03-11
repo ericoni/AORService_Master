@@ -1,4 +1,5 @@
 ﻿using ActiveAORCache;
+using Adapter;
 using AORService;
 using System;
 using System.Collections.Generic;
@@ -12,27 +13,36 @@ namespace AORService
 	{
 		static void Main(string[] args)
 		{
-			string message = "Starting AOR LoginService...\nStarting AOR LoginService...\n";
-			Console.WriteLine("\n{0}\n", message);
-			Console.WriteLine("************************************************************************Starting services", message);
+			//string message = "Starting AOR LoginService...\nStarting AOR LoginService...\n";
+			//Console.WriteLine("\n{0}\n", message);
+			//Console.WriteLine("************************************************************************Starting services", message);
 
-			AORLoginService aorLoginService = new AORLoginService();
-			AORViewerCommService aorViewerCommService = new AORViewerCommService();
+			//AORLoginService aorLoginService = new AORLoginService();
+			//AORViewerCommService aorViewerCommService = new AORViewerCommService();
+
+			//try
+			//{
+			//	aorLoginService.Start();
+			//	Console.WriteLine("AORService has been started.");
+
+			//	aorViewerCommService.Start();
+			//	Console.WriteLine("AORViewerCommunication server has been started.");
+			//}
+			//catch (Exception ex)
+			//{
+			//	Console.WriteLine(string.Format("{0}, StackTrace: {1}", ex.Message, ex.StackTrace));
+			//	Console.WriteLine("AORServices startup failed.");
+			//}
+
 
 			try
 			{
-				aorLoginService.Start();
-				Console.WriteLine("AORService has been started.");
-
-				aorViewerCommService.Start();
-				Console.WriteLine("AORViewerCommunication server has been started.");
+				RDAdapter rdAdapter = new RDAdapter();
 			}
-			catch (Exception ex)
+			catch (Exception e)
 			{
-				Console.WriteLine(string.Format("{0}, StackTrace: {1}", ex.Message, ex.StackTrace));
-				Console.WriteLine("AORServices startup failed.");
+				throw e;
 			}
-
 			Console.Read();
 		}
 	}
