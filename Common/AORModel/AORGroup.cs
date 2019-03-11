@@ -10,11 +10,14 @@ using System.Threading.Tasks;
 
 namespace FTN.Common.AORModel
 {
+	/// <summary>
+	/// NMS model AORGroup. 
+	/// Pay attention, there exists AORCachedGroup too.
+	/// </summary>
 	[Serializable]
 	[DataContract]
 	public class AORGroup : IdentifiedObject
 	{
-		private int id;
 		private long gid = 0;
 		//private List<long> substations = new List<long>();
 		private List<long> synchronousMachines = new List<long>();
@@ -23,13 +26,6 @@ namespace FTN.Common.AORModel
 		{
 		}
 
-		[Key]
-		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int Id
-		{
-			get { return id; }
-			set { id = value; }
-		}
 		//[DataMember]
 		//public long AORAGAggregator { get; set; }
 		[DataMember]
@@ -223,7 +219,7 @@ namespace FTN.Common.AORModel
 				{
 					switch (property.Id)
 					{
-						//case ModelCode.AOR_GROUP_SUBSTATIONS:
+						//case ModelCode.AOR_GROUP_SUBSTATIONS: // TODO: vrati se ovde, provjeriti zasto je zakomentarisano
 						case ModelCode.AOR_GROUP_SYNCMACHINES:
 							continue;
 					}

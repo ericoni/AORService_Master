@@ -10,6 +10,9 @@ using FTN.Common.AORCachedModel;
 
 namespace FTN.Common.AORContract
 {
+	/// <summary>
+	/// Relationship between AOR Viewer app and AOR Service
+	/// </summary>
 	[ServiceContract]
 	public interface IAORViewerCommunication
 	{

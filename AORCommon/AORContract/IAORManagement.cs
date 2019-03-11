@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace AORCommon.AORContract
 {
+	/// <summary>
+	/// Relationship between AOR service and DERMS app
+	/// </summary>
 	[ServiceContract]
 	public interface IAORManagement
 	{

@@ -14,7 +14,10 @@ using AORC.Acess;
 
 namespace AORService
 {
-	public class AORLogin : IAORManagement // veza DERMS app i servisa, a drugi je za vezu izmedju AORViewera i servisa
+	/// <summary>
+	/// TODO: AOR login trenutno poziva UserHelper DB
+	/// </summary>
+	public class AORLogin : IAORManagement
 	{
 		private UserHelperDB userHelper;
 		/// <summary>
@@ -52,8 +55,6 @@ namespace AORService
 			try
 			{
 				userHelper = new UserHelperDB();
-				
-
 			}
 			catch (Exception e)
 			{

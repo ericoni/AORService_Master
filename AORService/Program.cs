@@ -13,36 +13,35 @@ namespace AORService
 	{
 		static void Main(string[] args)
 		{
-			//string message = "Starting AOR LoginService...\nStarting AOR LoginService...\n";
-			//Console.WriteLine("\n{0}\n", message);
-			//Console.WriteLine("************************************************************************Starting services", message);
+			string message = "Starting AOR LoginService...\nStarting AOR LoginService...\n";
+			Console.WriteLine("\n{0}\n", message);
+			Console.WriteLine("************************************************************************Starting services", message);
 
-			//AORLoginService aorLoginService = new AORLoginService();
-			//AORViewerCommService aorViewerCommService = new AORViewerCommService();
-
-			//try
-			//{
-			//	aorLoginService.Start();
-			//	Console.WriteLine("AORService has been started.");
-
-			//	aorViewerCommService.Start();
-			//	Console.WriteLine("AORViewerCommunication server has been started.");
-			//}
-			//catch (Exception ex)
-			//{
-			//	Console.WriteLine(string.Format("{0}, StackTrace: {1}", ex.Message, ex.StackTrace));
-			//	Console.WriteLine("AORServices startup failed.");
-			//}
-
+			AORLoginService aorLoginService = new AORLoginService(); // ovo trigeruje upis u bazu (poziva UserHelpberDB);
+			AORViewerCommService aorViewerCommService = new AORViewerCommService();
 
 			try
 			{
-				RDAdapter rdAdapter = new RDAdapter();
+				aorLoginService.Start();
+				Console.WriteLine("AORService has been started.");
+
+				aorViewerCommService.Start();
+				Console.WriteLine("AORViewerCommunication server has been started.");
 			}
-			catch (Exception e)
+			catch (Exception ex)
 			{
-				throw e;
+				Console.WriteLine(string.Format("{0}, StackTrace: {1}", ex.Message, ex.StackTrace));
+				Console.WriteLine("AORServices startup failed.");
 			}
+
+			//try
+			//{
+			//	RDAdapter rdAdapter = new RDAdapter();
+			//}
+			//catch (Exception e)
+			//{
+			//	throw e;
+			//}
 			Console.Read();
 		}
 	}

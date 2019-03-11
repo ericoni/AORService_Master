@@ -99,6 +99,7 @@
     <Compile Include="AORCachedModel\AORCachedEntity.cs" />
     <Compile Include="AORCachedModel\AORCachedGroup.cs" />
     <Compile Include="AORCachedModel\AreasGroupsCombined.cs" />
+    <Compile Include="AORHelpers\NMSModelAORConverter.cs" />
     <Compile Include="AORContracts\IAORGDAContract.cs" />
     <Compile Include="AORContracts\IAORViewerCommunication.cs" />
     <Compile Include="AORModel\AORAGAggregator.cs" />

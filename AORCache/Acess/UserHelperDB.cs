@@ -4,6 +4,8 @@ using System.Linq;
 using FTN.Common.Model;
 using Adapter;
 using FTN.Common.AORCachedModel;
+using FTN.Common.AORHelper;
+using FTN.Services.NetworkModelService.DataModel.Wires;
 
 namespace AORC.Acess
 {
@@ -12,6 +14,7 @@ namespace AORC.Acess
 		private static IUserHelperDB myDB;
 		private RDAdapter rdAdapter = null;
 		private List<AORCachedGroup> aorGroups = null;
+		private List<SynchronousMachine> syncMachines = null;
 
 		public static IUserHelperDB Instance
 		{
@@ -32,7 +35,6 @@ namespace AORC.Acess
 		public UserHelperDB() 
 		{
 			rdAdapter = new RDAdapter();
-			aorGroups = rdAdapter.GetAORGroupsWithSmInfo();
 
 			using (var access = new AccessDB())
 			{
@@ -73,6 +75,18 @@ namespace AORC.Acess
 						throw new Exception("Failed to save DNAs in UserHelperDB");
 					#endregion DNAs
 
+					#region AOR Groups
+					aorGroups = NMSModelAORConverter.ConvertAORGroupsFromNMS(rdAdapter.GetAORGroups());
+
+					foreach (var group in aorGroups)
+					{
+						syncMachines = rdAdapter.GetSyncMachinesForAreaGroupGid(new List<long>() { group.GidFromNms });
+						group.SynchronousMachines.AddRange(syncMachines);
+					}
+					#endregion
+
+					access.Groups.AddRange(aorGroups);
+
 					AORCachedArea area1 = new AORCachedArea("West-Area", "", new List<Permission> { p1, p2, p3, p4 }, aorGroups);
 					AORCachedArea area2 = new AORCachedArea("East-Area", "", new List<Permission> { p1, p3, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1]});
 					AORCachedArea area3 = new AORCachedArea("South-Area", "", new List<Permission> { p2, p3, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1] });
@@ -81,6 +95,7 @@ namespace AORC.Acess
 					AORCachedArea area6 = new AORCachedArea("North-Area-HighVoltage", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
 					AORCachedArea area7 = new AORCachedArea("East-Area-Wind", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
 					AORCachedArea area8 = new AORCachedArea("East-Area-LowVoltage", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
+					
 					#region Users
 
 					User u1 = new User("marko.markovic", "a", new List<DNAAuthority>() { dna1, dna4, dna6 }, new List<AORCachedArea>() { area1, area2 });
@@ -107,7 +122,7 @@ namespace AORC.Acess
 					if (j <= 0)
 						throw new Exception("Failed to save user and area changes!");
 
-					access.Groups.AddRange(aorGroups);
+					//access.Groups.AddRange(aorGroups);
 
 					j = access.SaveChanges();
 					if (j <= 0)

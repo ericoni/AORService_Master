@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace AORService
 {
+	/// <summary>
+	/// Service class made for communication with AOR Viewer application.
+	/// </summary>
 	class AORViewerCommService : IDisposable
 	{
 		ServiceHost host = null;

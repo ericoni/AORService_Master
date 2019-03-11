@@ -33,7 +33,7 @@ namespace AORC.Acess
 					{
 						m.MapLeftKey("PermissionId");
 						m.MapRightKey("DNAId");
-						m.ToTable("DNAPerms");
+						m.ToTable("DNAPermsCombined");
 					});
 
 			modelBuilder.Entity<AORCachedArea>()
