@@ -28,13 +28,13 @@ namespace Adapter
 
 		public RDAdapter()
 		{
-		
+			var testic = GetAORAreas();
 		}
 
-		 /*   //var smId = 34359738372;
-			//var a = GetSyncMachinesForAreaGroupGid(smId);
-			//var gWithSmInfo = GetAORGroupsWithSmInfo(34359738372);
-			34359738369 gid za group   34359738370,	34359738371,	 34359738372, */
+		/*   //var smId = 34359738372;
+		   //var a = GetSyncMachinesForAreaGroupGid(smId);
+		   //var gWithSmInfo = GetAORGroupsWithSmInfo(34359738372);
+		   34359738369 gid za group   34359738370,	34359738371,	 34359738372, */
 
 		private NetworkModelGDAProxy GdaQueryProxy
 		{
@@ -392,6 +392,11 @@ namespace Adapter
 			return resultIds;
 		}
 
+		/// <summary>
+		/// GetAllSyncronousMachines (getAllSM) synonym.
+		/// 
+		/// </summary>
+		/// <returns></returns>
 		public List<SynchronousMachine> GetAllDERs()
 		{
 			int iteratorId = 0;
@@ -724,7 +729,7 @@ namespace Adapter
 			return aorAreaValues;
 		}
 
-		public List<AORGroup> GetAORGroups() 
+		public List<AORGroup> GetAORGroups()
 		{
 			int iteratorId = 0;
 			List<long> ids = new List<long>();
@@ -851,6 +856,12 @@ namespace Adapter
 			return resultIds;
 		}
 
+		/// <summary>
+		/// Get all SynchronousMachines (DERs) by List of AreaGids.
+		/// </summary>
+		/// <param name="areaGids"></param>
+		/// <returns></returns>
+
 		public List<SynchronousMachine> GetSyncMachinesForAreaGroupGid(List<long> areaGids)
 		{
 			int numberOfResources = 500;
@@ -952,7 +963,100 @@ namespace Adapter
 
 			return resultIds;
 		}
-	
-		#endregion
+
+		public List<SynchronousMachine> GetAllDERsWithFullInfo()//GetSubstationsForSubRegion(long subregionGid) // TODO: TBD
+		{
+			List<SynchronousMachine> resultIds = new List<SynchronousMachine>();
+
+			//int numberOfResources = 500;
+			//Association association = new Association(ModelCode.SYNCMACHINE_AORGROUP, 0, false); // new Association(ModelCode.SUBREGION_SUBSTATIONS, 0, false);
+
+			//try
+			//{
+			//	List<ModelCode> properties = modelResourcesDesc.GetAllPropertyIds(ModelCode.AOR_GROUP_SYNCMACHINES);   //(ModelCode.SUBSTATION);
+
+			//	int iteratorId = GdaQueryProxy.GetRelatedValues(subregionGid, properties, association);
+			//	int resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
+
+			//	while (resourcesLeft > 0)
+			//	{
+			//		List<ResourceDescription> rds = GdaQueryProxy.IteratorNext(numberOfResources, iteratorId);
+
+			//		foreach (ResourceDescription rd in rds)
+			//		{
+			//			SynchronousMachine substation = new SynchronousMachine(rd.Id);
+			//			resultIds.Add(substation.ConvertFromRD(rd));
+			//		}
+
+			//		resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
+			//	}
+
+			//	GdaQueryProxy.IteratorClose(iteratorId);
+
+			//	CommonTrace.WriteTrace(CommonTrace.TraceError, "Getting extent values method successfully finished.");
+			//}
+			//catch (Exception e)
+			//{
+			//	string message = string.Format("Getting related values method  failed for sourceGlobalId = {0} and association (propertyId = {1}, type = {2}). Reason: {3}", subregionGid, association.PropertyId, association.Type, e.Message);
+			//	Console.WriteLine(message);
+			//	CommonTrace.WriteTrace(CommonTrace.TraceError, message);
+			//}
+
+			return resultIds;
+		}
+
+		//[Obsolete("Mislim da se moze obrisati! ")]
+		//public List<SynchronousMachine> GetAORGroupsWithSmInfoNovaaaaaa() // GetSubstationsForSubRegion(long subregionGid)
+		//{
+		//	List<SynchronousMachine> resultIds = new List<SynchronousMachine>();
+		//	var aorGroups = GetAORGroups();
+		//	var subs = GetAllSubstation();
+		//	var smGid = subs[0].GlobalId;
+		//	CommonTrace.WriteTrace(CommonTrace.TraceInfo, "zolander" + smGid.ToString());
+
+		//	int numberOfResources = 500;
+		//	Association association = new Association(ModelCode.AOR_GROUP_SYNCMACHINES, 0, false); // new Association(ModelCode.SUBREGION_SUBSTATIONS, 0, false);
+
+		//	try
+		//	{
+		//		List<ModelCode> properties = modelResourcesDesc.GetAllPropertyIds(ModelCode.SYNCMACHINE); //modelResourcesDesc.GetAllPropertyIds(ModelCode.SUBSTATION);
+
+		//		foreach (var group in aorGroups)
+		//		{
+		//			int iteratorId = GdaQueryProxy.GetRelatedValues(group.GlobalId, properties, association);
+		//			int resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
+
+		//			while (resourcesLeft > 0)
+		//			{
+		//				List<ResourceDescription> rds = GdaQueryProxy.IteratorNext(numberOfResources, iteratorId);
+
+		//				foreach (ResourceDescription rd in rds)
+		//				{
+		//					SynchronousMachine substation = new SynchronousMachine(rd.Id);
+		//					resultIds.Add(substation.ConvertFromRD(rd));
+		//				}
+
+		//				resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
+		//			}
+
+		//			GdaQueryProxy.IteratorClose(iteratorId); 
+		//		}
+
+		//		CommonTrace.WriteTrace(CommonTrace.TraceError, "Getting extent values method successfully finished.");
+		//	}
+		//	catch (Exception e)
+		//	{
+		//		string message = string.Format("Getting related values method  failed for sourceGlobalId = {0} and association (propertyId = {1}, type = {2}). Reason: {3}", "missing id", association.PropertyId, association.Type, e.Message);
+		//		Console.WriteLine(message);
+		//		CommonTrace.WriteTrace(CommonTrace.TraceError, message);
+		//	}
+
+		//	return resultIds;
+		//}
+
+
+
 	}
+
+	#endregion
 }

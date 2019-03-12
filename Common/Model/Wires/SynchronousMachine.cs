@@ -14,26 +14,18 @@ namespace FTN.Services.NetworkModelService.DataModel.Wires
 	[Serializable]
 	public class SynchronousMachine : RotatingMachine
 	{
-		private int id;
 		private float baseQ;
 		private float minQ;
 		private float maxQ;
 		private float minP;
 		private float maxP;
 		private long aorGroup = 0;
-		private List<long> measurements = new List<long>();
+		private List<long> measurements = null;
 
 		public SynchronousMachine(long globalId)
 			: base(globalId)
 		{
-		}
-
-		[Key]
-		[DatabaseGenerated(DatabaseGeneratedOption.Identity)] 
-		public int Id
-		{
-			get { return id; }
-			set { id = value; }
+			Measurements = new List<long>();
 		}
 
 		[DataMember]

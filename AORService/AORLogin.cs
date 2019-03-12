@@ -59,6 +59,7 @@ namespace AORService
 			catch (Exception e)
 			{
 				Trace.Write(e.StackTrace);
+				throw e;
 			}
 		}
 

@@ -12,7 +12,6 @@ namespace FTN.Services.NetworkModelService.DataModel.Core
 			: base(globalId) { }
 
 		private long subRegion;
-		//private long aorGroup;
 		private float latitude;
 		private float longitude;
 
@@ -22,12 +21,7 @@ namespace FTN.Services.NetworkModelService.DataModel.Core
 			set { this.subRegion = value; }
 		}
 
-		//public long AORGroup
-		//{
-		//	get { return this.aorGroup; }
-		//	set { this.aorGroup = value; }
-		//}
-
+	
 		public float Latitude
 		{
 			get { return this.latitude; }
@@ -47,7 +41,6 @@ namespace FTN.Services.NetworkModelService.DataModel.Core
 				Substation x = (Substation)obj;
 				return ((x.SubRegion == this.SubRegion) && 
 					x.Longitude == this.Longitude &&
-				//	x.aorGroup == this.aorGroup && 
 					x.Latitude == this.Latitude);
 			}
 			else
@@ -70,7 +63,6 @@ namespace FTN.Services.NetworkModelService.DataModel.Core
 			((Substation)copy).subRegion = this.subRegion;
 			((Substation)copy).latitude = this.latitude;
 			((Substation)copy).longitude = this.longitude;
-			//((Substation)copy).aorGroup = this.aorGroup;
 			return base.DeepCopy(copy);
 		}
 

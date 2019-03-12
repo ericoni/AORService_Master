@@ -4,8 +4,8 @@ using System.Linq;
 using FTN.Common.Model;
 using Adapter;
 using FTN.Common.AORCachedModel;
-using FTN.Common.AORHelper;
 using FTN.Services.NetworkModelService.DataModel.Wires;
+using FTN.Common.AORHelpers;
 
 namespace AORC.Acess
 {
@@ -75,59 +75,73 @@ namespace AORC.Acess
 						throw new Exception("Failed to save DNAs in UserHelperDB");
 					#endregion DNAs
 
-					#region AOR Groups
-					aorGroups = NMSModelAORConverter.ConvertAORGroupsFromNMS(rdAdapter.GetAORGroups());
+					var syncMashines = rdAdapter.GetAllDERs();
+					access.SyncMachines.AddRange(syncMachines);
 
-					foreach (var group in aorGroups)
-					{
-						syncMachines = rdAdapter.GetSyncMachinesForAreaGroupGid(new List<long>() { group.GidFromNms });
-						group.SynchronousMachines.AddRange(syncMachines);
-					}
-					#endregion
+					k = access.SaveChanges();
 
-					access.Groups.AddRange(aorGroups);
+					if (k <= 0)
+						throw new Exception("Failed to save syncMachines.");
 
-					AORCachedArea area1 = new AORCachedArea("West-Area", "", new List<Permission> { p1, p2, p3, p4 }, aorGroups);
-					AORCachedArea area2 = new AORCachedArea("East-Area", "", new List<Permission> { p1, p3, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1]});
-					AORCachedArea area3 = new AORCachedArea("South-Area", "", new List<Permission> { p2, p3, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1] });
-					AORCachedArea area4 = new AORCachedArea("North-Area", "", new List<Permission> { p1, p2, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3]});
-					AORCachedArea area5 = new AORCachedArea("North-Area2", "", new List<Permission> { p5, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3] });
-					AORCachedArea area6 = new AORCachedArea("North-Area-HighVoltage", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
-					AORCachedArea area7 = new AORCachedArea("East-Area-Wind", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
-					AORCachedArea area8 = new AORCachedArea("East-Area-LowVoltage", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
-					
-					#region Users
+					//#region AOR Groups
+					//aorGroups = NMSModelAORConverter.ConvertAORGroupsFromNMS(rdAdapter.GetAORGroups());
 
-					User u1 = new User("marko.markovic", "a", new List<DNAAuthority>() { dna1, dna4, dna6 }, new List<AORCachedArea>() { area1, area2 });
-					User u2 = new User("petar.petrovic", "a", new List<DNAAuthority>() { dna2, dna4, dna6 }, new List<AORCachedArea>() { area1 });
-					User u3 = new User("zika.joksimovic", "a", new List<DNAAuthority>() { dna2, dna3, dna4, dna5, dna6 }, new List<AORCachedArea>() { area1, area2, area3, area8 });
-
-					u1.DNAs = new List<DNAAuthority>() { dna3, dna4 };
-					u2.DNAs = new List<DNAAuthority>() { dna4, dna5, dna6 };
-
-					access.Users.Add(u1);
-					access.Users.Add(u2);
-					access.Users.Add(u3);
-
-					access.Areas.Add(area1);
-					access.Areas.Add(area2);
-					access.Areas.Add(area8);
-					access.Areas.Add(area5);
-					access.Areas.Add(area4);
-					access.Areas.Add(area7);
-					access.Areas.Add(area3);
-					access.Areas.Add(area6);
-
-					int j = access.SaveChanges();
-					if (j <= 0)
-						throw new Exception("Failed to save user and area changes!");
+					//foreach (var group in aorGroups)
+					//{
+					//	syncMachines = rdAdapter.GetSyncMachinesForAreaGroupGid(new List<long>() { group.GidFromNms });
+					//	group.SynchronousMachines.AddRange(syncMachines);
+					//}
 
 					//access.Groups.AddRange(aorGroups);
 
-					j = access.SaveChanges();
-					if (j <= 0)
-						throw new Exception("Failed to save aorGroups!");
-					#endregion
+					//k = access.SaveChanges();
+
+					//if (k <= 0)
+					//	throw new Exception("Failed to save aor groups.");
+
+					//#endregion
+
+					//AORCachedArea area1 = new AORCachedArea("West-Area", "", new List<Permission> { p1, p2, p3, p4 }, aorGroups);
+					//AORCachedArea area2 = new AORCachedArea("East-Area", "", new List<Permission> { p1, p3, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1]});
+					//AORCachedArea area3 = new AORCachedArea("South-Area", "", new List<Permission> { p2, p3, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1] });
+					//AORCachedArea area4 = new AORCachedArea("North-Area", "", new List<Permission> { p1, p2, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3]});
+					//AORCachedArea area5 = new AORCachedArea("North-Area2", "", new List<Permission> { p5, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3] });
+					//AORCachedArea area6 = new AORCachedArea("North-Area-HighVoltage", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
+					//AORCachedArea area7 = new AORCachedArea("East-Area-Wind", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
+					//AORCachedArea area8 = new AORCachedArea("East-Area-LowVoltage", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
+
+					//#region Users
+
+					//User u1 = new User("marko.markovic", "a", new List<DNAAuthority>() { dna1, dna4, dna6 }, new List<AORCachedArea>() { area1, area2 });
+					//User u2 = new User("petar.petrovic", "a", new List<DNAAuthority>() { dna2, dna4, dna6 }, new List<AORCachedArea>() { area1 });
+					//User u3 = new User("zika.joksimovic", "a", new List<DNAAuthority>() { dna2, dna3, dna4, dna5, dna6 }, new List<AORCachedArea>() { area1, area2, area3, area8 });
+
+					//u1.DNAs = new List<DNAAuthority>() { dna3, dna4 };
+					//u2.DNAs = new List<DNAAuthority>() { dna4, dna5, dna6 };
+
+					//access.Users.Add(u1);
+					//access.Users.Add(u2);
+					//access.Users.Add(u3);
+
+					//access.Areas.Add(area1);
+					//access.Areas.Add(area2);
+					//access.Areas.Add(area8);
+					//access.Areas.Add(area5);
+					//access.Areas.Add(area4);
+					//access.Areas.Add(area7);
+					//access.Areas.Add(area3);
+					//access.Areas.Add(area6);
+
+					//int j = access.SaveChanges();
+					//if (j <= 0)
+					//	throw new Exception("Failed to save user and area changes!");
+
+					//access.Groups.AddRange(aorGroups);
+
+					//j = access.SaveChanges();
+					//if (j <= 0)
+					//	throw new Exception("Failed to save aorGroups!");
+					//#endregion
 				}
 			}
 		}

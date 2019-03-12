@@ -1,4 +1,5 @@
 ﻿using FTN.Common;
+using FTN.Common.AORModel;
 using FTN.Services.NetworkModelService.DataModel.Core;
 using FTN.Services.NetworkModelService.DataModel.Wires;
 using System;
@@ -29,8 +30,10 @@ namespace FTN.ServiceContracts
 
 		[OperationContract]
 		List<SynchronousMachine> GetDERs(long gid);
+		[OperationContract]
+		List<SynchronousMachine> GetAllDERsWithFullInfo();
 
-        [OperationContract]
+		[OperationContract]
         List<long> GetAnalogValuesGidForGidAndPowerType(long gid, PowerType powerType);
 
         [OperationContract]
