@@ -15,8 +15,6 @@ namespace FTN.Common.AORCachedModel
 	[KnownType(typeof(User))]
 	public class AORCachedArea : AORCachedEntity
 	{
-		//[Key]
-		//public string AreaName { get; set; }
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int AreaId { get; set; }
@@ -33,7 +31,7 @@ namespace FTN.Common.AORCachedModel
 		[DataMember]
 		public List<Permission> Permissions { get; set; }
 		[DataMember]
-		public List<User> Users { get; set; }  // ubaceno samo zbog EF many to many
+		public List<User> Users { get; set; }  // ubaceno samo zbog EF many to many, mada mislim da ovako jednostavno mora xD
 		//[DataMember] // sa ovim puca
 		[NotMapped]
 		public string GetPermsInOneLine {
@@ -62,11 +60,6 @@ namespace FTN.Common.AORCachedModel
 			this.Users = new List<User>();
 			this.Mrid = Guid.NewGuid().ToString();
 			this.Permissions = new List<Permission>();
-		}
-		public AORCachedArea(List<Permission> perms)// vrati se, obrisi cst
-		{
-			this.Permissions = perms;
-			this.Mrid = Guid.NewGuid().ToString();
 		}
 		public AORCachedArea(List<Permission> perms, List<User> users)
 		{

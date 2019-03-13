@@ -37,6 +37,7 @@ namespace AORC.Acess
 		public UserHelperDB() 
 		{
 			rdAdapter = new RDAdapter();
+			aorGroups = new List<AORCachedGroup>();
 
 			using (var access = new AccessDB())
 			{
@@ -68,8 +69,8 @@ namespace AORC.Acess
 					DNAAuthority dna4 = new DNAAuthority("DNA_Viewer", "Required for a user to access the SCADA system.  Provides non-interactive access to data according to AOR.", new List<Permission>() { p3, p5, p7, p8 });
 					DNAAuthority dna5 = new DNAAuthority("DNA_DMSAdmin", new List<Permission>() { p3, p5, p7 });
 					DNAAuthority dna6 = new DNAAuthority("DNA_Operator", new List<Permission>() { p1, p2, p8 });
-					IList<DNAAuthority> dnaAuthorities = new List<DNAAuthority>() { dna1, dna2, dna3, dna4, dna5, dna6 };
-					access.DNAs.AddRange(dnaAuthorities);
+
+					access.DNAs.AddRange(new List<DNAAuthority>() { dna1, dna2, dna3, dna4, dna5, dna6 });
 
 					int l = access.SaveChanges();
 
@@ -88,9 +89,10 @@ namespace AORC.Acess
 
 						aorGroup = NMSModelAORConverter.ConvertAORGroupFromNMS(nmsGroup);
 						aorGroup.SynchronousMachines = aorSyncMachines;
-						access.Groups.Add(aorGroup);
+						aorGroups.Add(aorGroup);
 					}
 
+					access.Groups.AddRange(aorGroups);
 					k = access.SaveChanges();
 
 					if (k <= 0)
@@ -98,47 +100,36 @@ namespace AORC.Acess
 
 					#endregion
 
-					//AORCachedArea area1 = new AORCachedArea("West-Area", "", new List<Permission> { p1, p2, p3, p4 }, aorGroups);
-					//AORCachedArea area2 = new AORCachedArea("East-Area", "", new List<Permission> { p1, p3, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1]});
-					//AORCachedArea area3 = new AORCachedArea("South-Area", "", new List<Permission> { p2, p3, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1] });
-					//AORCachedArea area4 = new AORCachedArea("North-Area", "", new List<Permission> { p1, p2, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3]});
-					//AORCachedArea area5 = new AORCachedArea("North-Area2", "", new List<Permission> { p5, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3] });
-					//AORCachedArea area6 = new AORCachedArea("North-Area-HighVoltage", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
-					//AORCachedArea area7 = new AORCachedArea("East-Area-Wind", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
-					//AORCachedArea area8 = new AORCachedArea("East-Area-LowVoltage", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
+					AORCachedArea area1 = new AORCachedArea("West-Area", "", new List<Permission> { p1, p2, p3, p4 }, new List<AORCachedGroup>(aorGroups)); // for some reason, aorGroup[0] get's id 7 (mozda zato sto prva nema u sebi masinu?)
+					AORCachedArea area2 = new AORCachedArea("East-Area", "", new List<Permission> { p1, p3, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1] });
+					AORCachedArea area3 = new AORCachedArea("South-Area", "", new List<Permission> { p2, p3, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[5] });
+					AORCachedArea area4 = new AORCachedArea("North-Area", "", new List<Permission> { p1, p2, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3] });
+					AORCachedArea area5 = new AORCachedArea("North-Area2", "", new List<Permission> { p5, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3] });
+					AORCachedArea area6 = new AORCachedArea("North-Area-HighVoltage", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
+					AORCachedArea area7 = new AORCachedArea("East-Area-Wind", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
+					AORCachedArea area8 = new AORCachedArea("East-Area-LowVoltage", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
+					AORCachedArea area9 = new AORCachedArea("East-Area-HighVoltage", "", new List<Permission> { p1, p7, p8 }, new List<AORCachedGroup>() { aorGroups[0] });
 
-					//#region Users
+					//List<AORCachedArea> aorAreas = new List<AORCachedArea>(9) {  area1, area2, area3, area4, area5, area6, area7, area8, area9 };
 
-					//User u1 = new User("marko.markovic", "a", new List<DNAAuthority>() { dna1, dna4, dna6 }, new List<AORCachedArea>() { area1, area2 });
-					//User u2 = new User("petar.petrovic", "a", new List<DNAAuthority>() { dna2, dna4, dna6 }, new List<AORCachedArea>() { area1 });
-					//User u3 = new User("zika.joksimovic", "a", new List<DNAAuthority>() { dna2, dna3, dna4, dna5, dna6 }, new List<AORCachedArea>() { area1, area2, area3, area8 });
+					#region Users
 
-					//u1.DNAs = new List<DNAAuthority>() { dna3, dna4 };
-					//u2.DNAs = new List<DNAAuthority>() { dna4, dna5, dna6 };
+					User u1 = new User("marko.markovic", "a", new List<DNAAuthority>() { dna1, dna4, dna6 }, new List<AORCachedArea>() { area1, area2 });
+					User u2 = new User("petar.petrovic", "a", new List<DNAAuthority>() { dna2, dna4, dna6 }, new List<AORCachedArea>() { area3 });
+					User u3 = new User("zika.joksimovic", "a", new List<DNAAuthority>() { dna2, dna3, dna4, dna5, dna6 }, new List<AORCachedArea>() { area1, area2, area3, area8 });
 
-					//access.Users.Add(u1);
-					//access.Users.Add(u2);
-					//access.Users.Add(u3);
+					u1.DNAs = new List<DNAAuthority>() { dna3, dna4 };
+					u2.DNAs = new List<DNAAuthority>() { dna4, dna5, dna6 };
 
-					//access.Areas.Add(area1);
-					//access.Areas.Add(area2);
-					//access.Areas.Add(area8);
-					//access.Areas.Add(area5);
-					//access.Areas.Add(area4);
-					//access.Areas.Add(area7);
-					//access.Areas.Add(area3);
-					//access.Areas.Add(area6);
+					access.Users.AddRange(new List<User>() { u1, u2, u3 });
 
-					//int j = access.SaveChanges();
-					//if (j <= 0)
-					//	throw new Exception("Failed to save user and area changes!");
+					access.Areas.AddRange(new List<AORCachedArea>(9) { area1, area2, area3, area4, area5, area6, area7, area8, area9 });
 
-					//access.Groups.AddRange(aorGroups);
+					k = access.SaveChanges();
+					if (k <= 0)
+						throw new Exception("Failed to save user and area changes!");
 
-					//j = access.SaveChanges();
-					//if (j <= 0)
-					//	throw new Exception("Failed to save aorGroups!");
-					//#endregion
+					#endregion
 				}
 			}
 		}
