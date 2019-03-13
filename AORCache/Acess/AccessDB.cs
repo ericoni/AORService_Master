@@ -15,13 +15,11 @@ namespace AORC.Acess
 		public AccessDB() : base("UsersDB") { }
 
 		public DbSet<User> Users { get; set; }
-
 		public DbSet<DNAAuthority> DNAs { get; set; }
-
 		public DbSet<Permission> Permissions { get; set; }
 		public DbSet<AORCachedGroup> Groups { get; set; }
 		public DbSet<AORCachedArea> Areas { get; set; }
-		public DbSet<SynchronousMachine> SyncMachines { get; set; }
+		public DbSet<AORCachedSyncMachine> SynchronousMachines { get; set; }
 		//public DbSet<AreasGroupsCombined> AreasGroupsCombined { get; set; } //vrati se ovde
 		
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)

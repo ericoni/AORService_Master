@@ -3,9 +3,6 @@ using FTN.Common.AORModel;
 using FTN.Services.NetworkModelService.DataModel.Wires;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FTN.Common.AORHelpers
 {
@@ -24,14 +21,19 @@ namespace FTN.Common.AORHelpers
 			return convertedItems;
 		}
 
-		public static List<AORCachedSynchonousMachine> ConvertSyncMachinesFromNMS(List<SynchronousMachine> nmsSyncMachines)
+		public static AORCachedGroup ConvertAORGroupFromNMS(AORGroup nmsAorGroup)
 		{
-			List<AORCachedSynchonousMachine> convertedItems = new List<AORCachedSynchonousMachine>(nmsSyncMachines.Count);
-			AORCachedSynchonousMachine cachedSyncMachine = null;
+			return new AORCachedGroup(nmsAorGroup.Name, nmsAorGroup.GlobalId);
+		}
+
+		public static List<AORCachedSyncMachine> ConvertSyncMachinesFromNMS(List<SynchronousMachine> nmsSyncMachines)
+		{
+			List<AORCachedSyncMachine> convertedItems = new List<AORCachedSyncMachine>(nmsSyncMachines.Count);
+			AORCachedSyncMachine cachedSyncMachine = null;
 
 			foreach (var nmsSMachine in nmsSyncMachines)
 			{
-				//cachedSyncMachine = new AORCachedSynchonousMachine(nmsSMachine.GlobalId, nmsSMachine.MaxQ, nmsSMachine.MaxP, nmsSMachine.); // TODO: sredi posle dobavljanja full SM info
+				cachedSyncMachine = new AORCachedSyncMachine(nmsSMachine.GlobalId, nmsSMachine.MaxQ, nmsSMachine.MaxP);
 				convertedItems.Add(cachedSyncMachine);
 			}
 			return convertedItems;

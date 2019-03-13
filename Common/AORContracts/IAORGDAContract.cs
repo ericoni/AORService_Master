@@ -13,12 +13,6 @@ namespace FTN.Common.AORContract
 	public interface IAORGDAContract
 	{
 		[OperationContract]
-		List<AORArea> GetAORAreas();
-		[OperationContract]
 		List<SynchronousMachine> GetSyncMachinesForAreaGroupGid(List<long> areaGids);
-		[OperationContract]
-		List<AORGroup> GetGroupsForAgr(long groupGid);
-		[OperationContract]
-		List<AORArea> GetAreasForAgr(long areaGid);
 	}
 }

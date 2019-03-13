@@ -28,7 +28,6 @@ namespace Adapter
 
 		public RDAdapter()
 		{
-			var testic = GetAORAreas();
 		}
 
 		/*   //var smId = 34359738372;
@@ -684,50 +683,8 @@ namespace Adapter
 			return aorAggregatorValues;
 		}
 
-		public List<AORArea> GetAORAreas()
-		{
-			int iteratorId = 0;
-			List<long> ids = new List<long>();
-			List<AORArea> aorAreaValues = new List<AORArea>();
-
-			try
-			{
-				int numberOfResources = 500;
-				int resourcesLeft = 0;
-
-				List<ModelCode> properties = modelResourcesDesc.GetAllPropertyIds(ModelCode.AOR_AREA);
-
-				iteratorId = GdaQueryProxy.GetExtentValues(ModelCode.AOR_AREA, properties);
-				resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
-
-				while (resourcesLeft > 0)
-				{
-					List<ResourceDescription> rds = GdaQueryProxy.IteratorNext(numberOfResources, iteratorId);
-
-					for (int i = 0; i < rds.Count; i++)
-					{
-						var rg = GdaQueryProxy.GetValues(rds[i].Id, properties);
-						AORArea aorAreaValue = new AORArea(rds[i].Id);
-						aorAreaValues.Add(aorAreaValue.ConvertFromRD(rg));
-					}
-
-					resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
-				}
-
-				GdaQueryProxy.IteratorClose(iteratorId);
-
-				CommonTrace.WriteTrace(CommonTrace.TraceError, "Getting extent values method successfully finished. (GetAORAreas)");
-
-			}
-			catch (Exception e)
-			{
-				string message = string.Format("Getting extent values method failed for {0}.\n\t{1}", ModelCode.AOR_AREA, e.Message);
-				Console.WriteLine(message);
-				CommonTrace.WriteTrace(CommonTrace.TraceError, message);
-			}
-
-			return aorAreaValues;
-		}
+	
+		//}
 
 		public List<AORGroup> GetAORGroups()
 		{
@@ -772,88 +729,6 @@ namespace Adapter
 			}
 
 			return aorAORGroupValues;
-		}
-
-		public List<AORGroup> GetGroupsForAgr(long groupGid)
-		{
-			List<AORGroup> resultIds = new List<AORGroup>();
-
-			int numberOfResources = 500;
-			Association association = new Association(ModelCode.AOR_AGAGGREGATOR_AORGROUPS, 0, false);
-
-			try
-			{
-				List<ModelCode> properties = modelResourcesDesc.GetAllPropertyIds(ModelCode.AOR_GROUP);
-
-				int iteratorId = GdaQueryProxy.GetRelatedValues(groupGid, properties, association);
-				int resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
-
-				while (resourcesLeft > 0)
-				{
-					List<ResourceDescription> rds = GdaQueryProxy.IteratorNext(numberOfResources, iteratorId);
-
-					foreach (ResourceDescription rd in rds)
-					{
-						AORGroup tempGroup = new AORGroup(rd.Id);
-						resultIds.Add(tempGroup.ConvertFromRD(rd));
-					}
-
-					resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
-				}
-
-				GdaQueryProxy.IteratorClose(iteratorId);
-
-				CommonTrace.WriteTrace(CommonTrace.TraceError, "Getting extent values method successfully finished.");
-			}
-			catch (Exception e)
-			{
-				string message = string.Format("Getting related values method  failed for sourceGlobalId = {0} and association (propertyId = {1}, type = {2}). Reason: {3}", groupGid, association.PropertyId, association.Type, e.Message);
-				Console.WriteLine(message);
-				CommonTrace.WriteTrace(CommonTrace.TraceError, message);
-			}
-
-			return resultIds;
-		}
-
-		public List<AORArea> GetAreasForAgr(long areaGid)
-		{
-			List<AORArea> resultIds = new List<AORArea>();
-
-			int numberOfResources = 500;
-			Association association = new Association(ModelCode.AOR_AGAGGREGATOR_AORAREAS, 0, false);
-
-			try
-			{
-				List<ModelCode> properties = modelResourcesDesc.GetAllPropertyIds(ModelCode.AOR_AREA);
-
-				int iteratorId = GdaQueryProxy.GetRelatedValues(areaGid, properties, association);
-				int resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
-
-				while (resourcesLeft > 0)
-				{
-					List<ResourceDescription> rds = GdaQueryProxy.IteratorNext(numberOfResources, iteratorId);
-
-					foreach (ResourceDescription rd in rds)
-					{
-						AORArea tempArea = new AORArea(rd.Id);
-						resultIds.Add(tempArea.ConvertFromRD(rd));
-					}
-
-					resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
-				}
-
-				GdaQueryProxy.IteratorClose(iteratorId);
-
-				CommonTrace.WriteTrace(CommonTrace.TraceError, "Getting extent values method successfully finished.");
-			}
-			catch (Exception e)
-			{
-				string message = string.Format("Getting related values method  failed for sourceGlobalId = {0} and association (propertyId = {1}, type = {2}). Reason: {3}", areaGid, association.PropertyId, association.Type, e.Message);
-				Console.WriteLine(message);
-				CommonTrace.WriteTrace(CommonTrace.TraceError, message);
-			}
-
-			return resultIds;
 		}
 
 		/// <summary>
@@ -917,145 +792,53 @@ namespace Adapter
 		[Obsolete("Don' use this")]
 		public List<AORCachedGroup> GetAORGroupsWithSmInfo()
 		{
-			int iteratorId = 0;
-			int resourcesLeft = 0;
-			int numberOfResources = 500;
-			Association association = new Association(ModelCode.AOR_GROUP_SYNCMACHINES, 0, false);
-			List<AORGroup> aorGroups = GetAORGroups();
-			List<AORCachedGroup> resultIds = new List<AORCachedGroup>(aorGroups.Count);
-			List<SynchronousMachine> syncMachines = null;
-
-			try
-			{
-				List<ModelCode> properties = modelResourcesDesc.GetAllPropertyIds(ModelCode.SYNCMACHINE);
-
-				foreach (var aorGroup in aorGroups)
-				{
-					iteratorId = GdaQueryProxy.GetRelatedValues(aorGroup.GlobalId, properties, association);
-					resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
-					syncMachines = new List<SynchronousMachine>(aorGroup.SynchronousMachines.Count);
-
-					while (resourcesLeft > 0)
-					{
-						List<ResourceDescription> rds = GdaQueryProxy.IteratorNext(numberOfResources, iteratorId);
-
-						foreach (ResourceDescription rd in rds)
-						{
-							SynchronousMachine tempSM = new SynchronousMachine(rd.Id);
-							syncMachines.Add(tempSM.ConvertFromRD(rd));
-						}
-
-						resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
-					}
-					resultIds.Add(new AORCachedGroup(aorGroup.Name, syncMachines));
-				}
-
-				GdaQueryProxy.IteratorClose(iteratorId);
-
-				CommonTrace.WriteTrace(CommonTrace.TraceError, "Getting extent values method (GetAORGroupsWithSmInfo) successfully finished.");
-			}
-			catch (Exception e)
-			{
-				string message = string.Format("Getting related values method  failed for sourceGlobalId = {0} and association (propertyId = {1}, type = {2}). Reason: {3}", "gid is missing", association.PropertyId, association.Type, e.Message);
-				Console.WriteLine(message);
-				CommonTrace.WriteTrace(CommonTrace.TraceError, message);
-			}
-
-			return resultIds;
-		}
-
-		public List<SynchronousMachine> GetAllDERsWithFullInfo()//GetSubstationsForSubRegion(long subregionGid) // TODO: TBD
-		{
-			List<SynchronousMachine> resultIds = new List<SynchronousMachine>();
-
+			//int iteratorId = 0;
+			//int resourcesLeft = 0;
 			//int numberOfResources = 500;
-			//Association association = new Association(ModelCode.SYNCMACHINE_AORGROUP, 0, false); // new Association(ModelCode.SUBREGION_SUBSTATIONS, 0, false);
+			//Association association = new Association(ModelCode.AOR_GROUP_SYNCMACHINES, 0, false);
+			//List<AORGroup> aorGroups = GetAORGroups();
+			//List<AORCachedGroup> resultIds = new List<AORCachedGroup>(aorGroups.Count);
+			//List<SynchronousMachine> syncMachines = null;
 
 			//try
 			//{
-			//	List<ModelCode> properties = modelResourcesDesc.GetAllPropertyIds(ModelCode.AOR_GROUP_SYNCMACHINES);   //(ModelCode.SUBSTATION);
+			//	List<ModelCode> properties = modelResourcesDesc.GetAllPropertyIds(ModelCode.SYNCMACHINE);
 
-			//	int iteratorId = GdaQueryProxy.GetRelatedValues(subregionGid, properties, association);
-			//	int resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
-
-			//	while (resourcesLeft > 0)
+			//	foreach (var aorGroup in aorGroups)
 			//	{
-			//		List<ResourceDescription> rds = GdaQueryProxy.IteratorNext(numberOfResources, iteratorId);
-
-			//		foreach (ResourceDescription rd in rds)
-			//		{
-			//			SynchronousMachine substation = new SynchronousMachine(rd.Id);
-			//			resultIds.Add(substation.ConvertFromRD(rd));
-			//		}
-
+			//		iteratorId = GdaQueryProxy.GetRelatedValues(aorGroup.GlobalId, properties, association);
 			//		resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
+			//		syncMachines = new List<SynchronousMachine>(aorGroup.SynchronousMachines.Count);
+
+			//		while (resourcesLeft > 0)
+			//		{
+			//			List<ResourceDescription> rds = GdaQueryProxy.IteratorNext(numberOfResources, iteratorId);
+
+			//			foreach (ResourceDescription rd in rds)
+			//			{
+			//				SynchronousMachine tempSM = new SynchronousMachine(rd.Id);
+			//				syncMachines.Add(tempSM.ConvertFromRD(rd));
+			//			}
+
+			//			resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
+			//		}
+			//		resultIds.Add(new AORCachedGroup(aorGroup.Name, syncMachines));
 			//	}
 
 			//	GdaQueryProxy.IteratorClose(iteratorId);
 
-			//	CommonTrace.WriteTrace(CommonTrace.TraceError, "Getting extent values method successfully finished.");
+			//	CommonTrace.WriteTrace(CommonTrace.TraceError, "Getting extent values method (GetAORGroupsWithSmInfo) successfully finished.");
 			//}
 			//catch (Exception e)
 			//{
-			//	string message = string.Format("Getting related values method  failed for sourceGlobalId = {0} and association (propertyId = {1}, type = {2}). Reason: {3}", subregionGid, association.PropertyId, association.Type, e.Message);
+			//	string message = string.Format("Getting related values method  failed for sourceGlobalId = {0} and association (propertyId = {1}, type = {2}). Reason: {3}", "gid is missing", association.PropertyId, association.Type, e.Message);
 			//	Console.WriteLine(message);
 			//	CommonTrace.WriteTrace(CommonTrace.TraceError, message);
 			//}
 
-			return resultIds;
+			//return resultIds;
+			return new List<AORCachedGroup>();
 		}
-
-		//[Obsolete("Mislim da se moze obrisati! ")]
-		//public List<SynchronousMachine> GetAORGroupsWithSmInfoNovaaaaaa() // GetSubstationsForSubRegion(long subregionGid)
-		//{
-		//	List<SynchronousMachine> resultIds = new List<SynchronousMachine>();
-		//	var aorGroups = GetAORGroups();
-		//	var subs = GetAllSubstation();
-		//	var smGid = subs[0].GlobalId;
-		//	CommonTrace.WriteTrace(CommonTrace.TraceInfo, "zolander" + smGid.ToString());
-
-		//	int numberOfResources = 500;
-		//	Association association = new Association(ModelCode.AOR_GROUP_SYNCMACHINES, 0, false); // new Association(ModelCode.SUBREGION_SUBSTATIONS, 0, false);
-
-		//	try
-		//	{
-		//		List<ModelCode> properties = modelResourcesDesc.GetAllPropertyIds(ModelCode.SYNCMACHINE); //modelResourcesDesc.GetAllPropertyIds(ModelCode.SUBSTATION);
-
-		//		foreach (var group in aorGroups)
-		//		{
-		//			int iteratorId = GdaQueryProxy.GetRelatedValues(group.GlobalId, properties, association);
-		//			int resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
-
-		//			while (resourcesLeft > 0)
-		//			{
-		//				List<ResourceDescription> rds = GdaQueryProxy.IteratorNext(numberOfResources, iteratorId);
-
-		//				foreach (ResourceDescription rd in rds)
-		//				{
-		//					SynchronousMachine substation = new SynchronousMachine(rd.Id);
-		//					resultIds.Add(substation.ConvertFromRD(rd));
-		//				}
-
-		//				resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
-		//			}
-
-		//			GdaQueryProxy.IteratorClose(iteratorId); 
-		//		}
-
-		//		CommonTrace.WriteTrace(CommonTrace.TraceError, "Getting extent values method successfully finished.");
-		//	}
-		//	catch (Exception e)
-		//	{
-		//		string message = string.Format("Getting related values method  failed for sourceGlobalId = {0} and association (propertyId = {1}, type = {2}). Reason: {3}", "missing id", association.PropertyId, association.Type, e.Message);
-		//		Console.WriteLine(message);
-		//		CommonTrace.WriteTrace(CommonTrace.TraceError, message);
-		//	}
-
-		//	return resultIds;
-		//}
-
-
-
 	}
 
 	#endregion

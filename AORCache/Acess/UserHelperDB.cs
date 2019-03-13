@@ -6,6 +6,7 @@ using Adapter;
 using FTN.Common.AORCachedModel;
 using FTN.Services.NetworkModelService.DataModel.Wires;
 using FTN.Common.AORHelpers;
+using FTN.Common.AORModel;
 
 namespace AORC.Acess
 {
@@ -13,6 +14,7 @@ namespace AORC.Acess
 	{
 		private static IUserHelperDB myDB;
 		private RDAdapter rdAdapter = null;
+		private AORCachedGroup aorGroup = null;
 		private List<AORCachedGroup> aorGroups = null;
 		private List<SynchronousMachine> syncMachines = null;
 
@@ -75,31 +77,26 @@ namespace AORC.Acess
 						throw new Exception("Failed to save DNAs in UserHelperDB");
 					#endregion DNAs
 
-					var syncMashines = rdAdapter.GetAllDERs();
-					access.SyncMachines.AddRange(syncMachines);
+					#region AOR Groups
+					var nmsAorGroups = rdAdapter.GetAORGroups();
+
+					foreach (var nmsGroup in nmsAorGroups)
+					{
+						syncMachines = rdAdapter.GetSyncMachinesForAreaGroupGid(new List<long>() { nmsGroup.GlobalId });
+
+						var aorSyncMachines = NMSModelAORConverter.ConvertSyncMachinesFromNMS(syncMachines);
+
+						aorGroup = NMSModelAORConverter.ConvertAORGroupFromNMS(nmsGroup);
+						aorGroup.SynchronousMachines = aorSyncMachines;
+						access.Groups.Add(aorGroup);
+					}
 
 					k = access.SaveChanges();
 
 					if (k <= 0)
-						throw new Exception("Failed to save syncMachines.");
+						throw new Exception("Failed to save AOR groups.");
 
-					//#region AOR Groups
-					//aorGroups = NMSModelAORConverter.ConvertAORGroupsFromNMS(rdAdapter.GetAORGroups());
-
-					//foreach (var group in aorGroups)
-					//{
-					//	syncMachines = rdAdapter.GetSyncMachinesForAreaGroupGid(new List<long>() { group.GidFromNms });
-					//	group.SynchronousMachines.AddRange(syncMachines);
-					//}
-
-					//access.Groups.AddRange(aorGroups);
-
-					//k = access.SaveChanges();
-
-					//if (k <= 0)
-					//	throw new Exception("Failed to save aor groups.");
-
-					//#endregion
+					#endregion
 
 					//AORCachedArea area1 = new AORCachedArea("West-Area", "", new List<Permission> { p1, p2, p3, p4 }, aorGroups);
 					//AORCachedArea area2 = new AORCachedArea("East-Area", "", new List<Permission> { p1, p3, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1]});

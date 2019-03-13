@@ -9,19 +9,17 @@ using System.Threading.Tasks;
 
 namespace FTN.Common.AORCachedModel
 {
-	public class AORCachedSynchonousMachine : AORCachedEntity
+	public class AORCachedSyncMachine : AORCachedEntity
 	{
 		private int id;
 		private float maxQ;
 		private float maxP;
-		private AORCachedGroup aorGroup;
 
-		public AORCachedSynchonousMachine(long gidFromNms, float maxQ, float maxP, AORCachedGroup aorGroup)
+		public AORCachedSyncMachine(long gidFromNms, float maxQ, float maxP)
 		{
 			this.GidFromNms = gidFromNms;
 			this.MaxQ = maxQ;
 			this.MaxP = maxP;
-			this.AORGroup = aorGroup;
 		}
 
 		[Key]
@@ -33,22 +31,8 @@ namespace FTN.Common.AORCachedModel
 		}
 
 		[DataMember]
-		[NotMapped]
 		public long GidFromNms { get; set; }
-
-		[DataMember]
-		public AORCachedGroup AORGroup
-		{
-			get
-			{
-				return aorGroup;
-			}
-			set
-			{
-				aorGroup = value;
-			}
-		}
-
+	
 		[DataMember]
 		public float MaxQ
 		{

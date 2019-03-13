@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace FTN.Common.AORCachedModel
 {
 	/// <summary>
-	/// Already contains "Name" in parrent class. This entity will be put in the DB. 
+	/// Already contains "Name" in parent class. This entity will be put in the DB (not NMS entity).
 	/// </summary>
 	[Serializable]
 	[DataContract]
@@ -21,7 +21,7 @@ namespace FTN.Common.AORCachedModel
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int GroupId { get; set; }
 		[DataMember]
-		public List<SynchronousMachine> SynchronousMachines { get; set; }
+		public List<AORCachedSyncMachine> SynchronousMachines { get; set; }
 		[DataMember]
 		public List<AORCachedArea> Areas { get; set; }
 		[DataMember]
@@ -31,18 +31,12 @@ namespace FTN.Common.AORCachedModel
 		public long GidFromNms { get; set; }
 		public AORCachedGroup()
 		{
-			SynchronousMachines = new List<SynchronousMachine>();
+			SynchronousMachines = new List<AORCachedSyncMachine>();
 			Areas = new List<AORCachedArea>();
 		}
-		public AORCachedGroup(string name, List<SynchronousMachine> sms) : base(name) // TODO: vrati se da obrises ovaj
+		public AORCachedGroup(string name, List<AORCachedSyncMachine> syncMachines, List<AORCachedArea> areas) : base(name)
 		{
-			this.SynchronousMachines = sms;
-			this.Mrid = Guid.NewGuid().ToString();
-		}
-
-		public AORCachedGroup(string name, List<SynchronousMachine> sms, List<AORCachedArea> areas) : base(name)
-		{
-			this.SynchronousMachines = sms;
+			this.SynchronousMachines = syncMachines;
 			this.Areas = areas;
 			this.Mrid = Guid.NewGuid().ToString();
 		}
