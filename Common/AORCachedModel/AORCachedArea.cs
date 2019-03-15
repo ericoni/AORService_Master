@@ -54,20 +54,15 @@ namespace FTN.Common.AORCachedModel
 				GetPermsInOneLine = value;
 			}
 		}
-
-		public AORCachedArea()
-		{
-			this.Users = new List<User>();
-			this.Mrid = Guid.NewGuid().ToString();
-			this.Permissions = new List<Permission>();
-		}
-		public AORCachedArea(List<Permission> perms, List<User> users)
-		{
-			this.Permissions = perms;
-			this.Users = users;
-			this.Mrid = Guid.NewGuid().ToString();
-		}
 		public AORCachedArea(string name, string description, List<Permission> perms, List<AORCachedGroup> groups) : base(description, false)
+		{
+			this.Name = name;
+			this.Permissions = perms;
+			this.Groups = groups;
+			this.Mrid = Guid.NewGuid().ToString();
+		}
+
+		public AORCachedArea(string name, string description, List<Permission> perms, List<AORCachedGroup> groups, List<AORCachedArea> areas) : base(description, false)
 		{
 			this.Name = name;
 			this.Permissions = perms;

@@ -109,6 +109,8 @@ namespace AORC.Acess
 					AORCachedArea area7 = new AORCachedArea("East-Area-Wind", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
 					AORCachedArea area8 = new AORCachedArea("East-Area-LowVoltage", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
 					AORCachedArea area9 = new AORCachedArea("East-Area-HighVoltage", "", new List<Permission> { p1, p7, p8 }, new List<AORCachedGroup>() { aorGroups[0] });
+					AORCachedArea area10 = new AORCachedArea("Central-Area-HighVoltage", "", new List<Permission> { p1, p2, p3, p7, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1], aorGroups[5], aorGroups[6] });
+					AORCachedArea area11 = new AORCachedArea("Central-Area-LowVoltage", "", new List<Permission> { p1, p2, p5, p7 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1], aorGroups[4], aorGroups[6] });
 
 					//List<AORCachedArea> aorAreas = new List<AORCachedArea>(9) {  area1, area2, area3, area4, area5, area6, area7, area8, area9 };
 
@@ -122,8 +124,7 @@ namespace AORC.Acess
 					u2.DNAs = new List<DNAAuthority>() { dna4, dna5, dna6 };
 
 					access.Users.AddRange(new List<User>() { u1, u2, u3 });
-
-					access.Areas.AddRange(new List<AORCachedArea>(9) { area1, area2, area3, area4, area5, area6, area7, area8, area9 });
+					access.Areas.AddRange(new List<AORCachedArea>(11) { area1, area2, area3, area4, area5, area6, area7, area8, area9, area10, area11 });
 
 					k = access.SaveChanges();
 					if (k <= 0)

@@ -34,24 +34,6 @@ namespace AORService
 				Console.WriteLine("AORServices startup failed.");
 			}
 
-			//try
-			//{
-			//	RDAdapter rdAdapter = new RDAdapter();
-			//	var groups= rdAdapter.GetAORGroups();
-			//	List<long> listaLonga = new List<long>();
-
-			//	foreach (var gr in groups)
-			//	{
-			//		listaLonga.Add(gr.GlobalId);
-			//	}
-
-			//	var prvi = rdAdapter.GetSyncMachinesForAreaGroupGid(listaLonga);
-			//}
-			//catch (Exception)
-			//{
-			//	throw;
-			//}
-
 			Console.Read();
 		}
 	}
