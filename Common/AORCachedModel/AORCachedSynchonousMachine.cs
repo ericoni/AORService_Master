@@ -15,6 +15,8 @@ namespace FTN.Common.AORCachedModel
 		private float maxQ;
 		private float maxP;
 
+		public AORCachedSyncMachine() { }
+
 		public AORCachedSyncMachine(long gidFromNms, float maxQ, float maxP)
 		{
 			this.GidFromNms = gidFromNms;

@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using FTN.Common.Model;
 using FTN.Common.AORModel;
-using ActiveAORCache;
 using System.ServiceModel;
 using FTN.Common.AORCachedModel;
+using ActiveAORCache;
 
 namespace AORService
 {

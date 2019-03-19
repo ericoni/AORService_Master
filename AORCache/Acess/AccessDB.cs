@@ -12,7 +12,7 @@ namespace AORC.Acess
 {
 	public class AccessDB : DbContext
 	{
-		public AccessDB() : base("UsersDB") { }
+		public AccessDB() : base("UsersDBhahahah") { }
 
 		public DbSet<User> Users { get; set; }
 		public DbSet<DNAAuthority> DNAs { get; set; }

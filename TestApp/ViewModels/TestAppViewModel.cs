@@ -1,4 +1,5 @@
-﻿using AORViewer.Model;
+﻿using ActiveAORCache.Helpers;
+using AORViewer.Model;
 using AORViewer.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -15,13 +16,17 @@ namespace TestApp.ViewModels
 
         public TestAppViewModel()
         {
-            aorViewerTempList = new List<LBModelBase>(4)
-            { new LBModelBase(LBType.Permissions.ToString(), "Neki opis", @"..\..\..\Images\moreAM.jpg"),
-                new LBModelBase(LBType.AOR_Groups.ToString(), "AOR GRUPE",@"..\..\..\Images\moreAM.jpg"),
-                new LBModelBase(LBType.AOR_Areas.ToString(), "ARea",@"..\..\..\Images\moreAM.jpg"),
-                new LBModelBase(LBType.DNA_Authorities.ToString(), "Dna nesto", @"..\..\..\Images\moreAM.jpg")};
-            AORViewerList = aorViewerTempList;
-        }
+			//AORCacheConfigurations.GetAORGroupsForArea("West-Area");
+
+			AORCacheConfigurations.GetPermissionsForArea("West-Area");
+
+			//aorViewerTempList = new List<LBModelBase>(4)  /// TODO odkomentarisi
+			//{ new LBModelBase(LBType.Permissions.ToString(), "Neki opis", @"..\..\..\Images\moreAM.jpg"),
+			//    new LBModelBase(LBType.AOR_Groups.ToString(), "AOR GRUPE",@"..\..\..\Images\moreAM.jpg"),
+			//    new LBModelBase(LBType.AOR_Areas.ToString(), "ARea",@"..\..\..\Images\moreAM.jpg"),
+			//    new LBModelBase(LBType.DNA_Authorities.ToString(), "Dna nesto", @"..\..\..\Images\moreAM.jpg")};
+			//AORViewerList = aorViewerTempList;
+		}
 
         public List<LBModelBase> AORViewerList
         {

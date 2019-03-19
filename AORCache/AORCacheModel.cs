@@ -53,6 +53,12 @@ namespace ActiveAORCache
 		#endregion
 		public AORCacheModel()
 		{
+			//InitializeAORCacheWithAORData(); //TODO srediti inicijalizaciju
+		}
+
+
+		private void InitializeAORCacheWithAORData()
+		{
 			aorAreas = GetModelAORAreas();
 
 			aorGroupsModel = GetModelAORGroup();

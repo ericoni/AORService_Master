@@ -3,7 +3,7 @@
 	enum AORAction
 	{
 		Group,
-		Arena
+		Area
 	}
 
 	enum AORType

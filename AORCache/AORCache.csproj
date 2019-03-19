@@ -68,6 +68,7 @@
     <Compile Include="AORCache.cs" />
     <Compile Include="AORCacheModel.cs" />
     <Compile Include="Defines.cs" />
+    <Compile Include="Helpers\AORCacheConfigurations.cs" />
     <Compile Include="IAORCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

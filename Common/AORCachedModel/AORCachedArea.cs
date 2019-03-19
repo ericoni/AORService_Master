@@ -54,6 +54,15 @@ namespace FTN.Common.AORCachedModel
 				GetPermsInOneLine = value;
 			}
 		}
+
+		public AORCachedArea()
+		{
+			this.Areas = new List<AORCachedArea>();
+			this.Groups = new List<AORCachedGroup>();
+			this.Permissions = new List<Permission>();
+			this.Users = new List<User>();
+		}
+
 		public AORCachedArea(string name, string description, List<Permission> perms, List<AORCachedGroup> groups) : base(description, false)
 		{
 			this.Name = name;

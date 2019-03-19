@@ -34,15 +34,37 @@ namespace AORC.Acess
 			}
 		}
 
-		public UserHelperDB() 
+		public UserHelperDB()
+		{
+			InitializeAORCacheDB();
+		}
+
+		public bool UserAuthentication(string username, string password)
+		{
+			using (var access = new AccessDB())
+			{
+				var myUser = access.Users.Where(u => u.Username.Equals(username)).ToList();
+
+				//return myUser[0].Password.Equals(SecurePasswordManager.Hash(password));
+				return myUser[0].Password.Equals(password);
+				/* 
+					 int i = access.SaveChanges();
+
+				if (i > 0)
+					return true;
+				return false;*/
+			}
+		}
+
+		private void InitializeAORCacheDB()
 		{
 			rdAdapter = new RDAdapter();
 			aorGroups = new List<AORCachedGroup>();
 
 			using (var access = new AccessDB())
 			{
-				if (access.Users.Count() == 0)
-				{
+				//if (access.Users.Count() == 0)
+				//{
 					#region perms
 					Permission p1 = new Permission("DNA_PermissionControlSCADA", "Permission to issue commands towards SCADA system.");
 					Permission p2 = new Permission("DNA_PermissionUpdateNetworkModel", "Permission to apply delta (model changes)- update current network model within their assigned AOR");
@@ -131,25 +153,10 @@ namespace AORC.Acess
 						throw new Exception("Failed to save user and area changes!");
 
 					#endregion
-				}
+				//}
 			}
 		}
 
-		public bool UserAuthentication(string username, string password)
-		{
-			using (var access = new AccessDB())
-			{
-				var myUser = access.Users.Where(u => u.Username.Equals(username)).ToList();
-
-				//return myUser[0].Password.Equals(SecurePasswordManager.Hash(password));
-				return myUser[0].Password.Equals(password);
-				/* 
-					 int i = access.SaveChanges();
-
-				if (i > 0)
-					return true;
-				return false;*/
-			}
-		}
+	
 	}
 }

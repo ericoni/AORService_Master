@@ -32,16 +32,16 @@ namespace AORCommon.Security
 		bool PermissionChecks { get; set; }
 
 		/// <summary>
+		/// Represents logged in user
+		/// </summary>
+		string Username { get; set; }
+
+		/// <summary>
 		/// Gets a list of AOR groups with supplied permissions that the principal is a member of. Filter specifies if AND or OR condition is forced for supplied AOR permissions
 		/// </summary>
 		/// <param name="specifiedPermissions"></param>
 		/// <param name="specifiedPermissionFilter"></param>
 		/// <returns></returns>
 		List<string> GetAORGroups(List<string> specifiedPermissions);//, AreaPermissionFilter specifiedPermissionFilter = AreaPermissionFilter.Or);
-
-		/// <summary>
-		/// Represents logged in user
-		/// </summary>
-		string Username { get; set; }
 	}
 }
