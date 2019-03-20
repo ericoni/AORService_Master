@@ -71,9 +71,9 @@ namespace FTN.Services.NetworkModelService.Database.Access
 
 					access.Deltas.Add(deltaItem);
 				}
-				catch (Exception e )
+				catch
 				{
-					throw e;
+					throw;
 				}
 				
 				int i = access.SaveChanges();

@@ -51,9 +51,9 @@ namespace FTN.Common.Logger
 					{
 						DirectoryInfo di = Directory.CreateDirectory(folderPath);
 					}
-					catch (Exception e)
+					catch 
 					{
-						throw e;
+						throw;
 					}
 				}    
 				          
