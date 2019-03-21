@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AORManagementProxy;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -8,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace AORManagementProxyNS
 {
-	public class AORManagementProxy
+	public class AOREventAlarmProxy // TODO temp bice samo za evente
 	{
+		private AOREventAlarmChannel proxy;
 		private const int maxTries = 10;
 		private const int sleepTime = 3000;
-		private AORManagementChannel proxy;
 
-		public AORManagementProxy()
+		public AOREventAlarmProxy()
 		{
 			OpenChannel();
 		}
@@ -26,11 +27,11 @@ namespace AORManagementProxyNS
 			while (true)
 			{
 				if (tryCounter == maxTries)
-					throw new Exception("AORManagementProxy: Connection error.");
+					throw new Exception("AOREventAlarmProxy: Connection error.");
 
 				try
 				{
-					proxy = new AORManagementChannel();
+					proxy = new AOREventAlarmChannel();
 					proxy.Open();
 					break;
 				}
@@ -38,12 +39,12 @@ namespace AORManagementProxyNS
 				{
 					tryCounter++;
 					Thread.Sleep(sleepTime);
-					Trace.Write("Exception trace is:" + e.StackTrace);
+					Trace.Write("Exception trace :" + e.StackTrace);
 				}
 			}
 		}
 
-		public AORManagementChannel Proxy
+		public AOREventAlarmChannel Proxy
 		{
 			get
 			{

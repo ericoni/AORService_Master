@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{497DAC3E-CC92-430C-A178-9505A1789832}</ProjectGuid>
+    <ProjectGuid>{0B3B179C-C005-46DE-B5F3-E20C0D785099}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AORManagementProxy</RootNamespace>
-    <AssemblyName>AORManagementProxy</AssemblyName>
+    <RootNamespace>EventAlarmProxy</RootNamespace>
+    <AssemblyName>EventAlarmProxy</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -29,14 +29,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <PlatformTarget>x64</PlatformTarget>
-    <OutputPath>bin\x64\Debug\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <PlatformTarget>x64</PlatformTarget>
-    <OutputPath>bin\x64\Release\</OutputPath>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -49,27 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AOREventAlarmChannel.cs" />
-    <Compile Include="AOREventAlarmProxy.cs" />
-    <Compile Include="AORManagementChannel.cs" />
-    <Compile Include="AORManagementProxy.cs" />
-    <Compile Include="AORViewerCommChannel.cs" />
-    <Compile Include="AORViewerCommProxy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AORCommon\AORCommon.csproj">
-      <Project>{8D3521E8-89E2-4E7C-B469-E1FDBD06A479}</Project>
-      <Name>AORCommon</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AORService\AORService.csproj">
-      <Project>{C3E86C79-41DA-4583-8058-B905957C4696}</Project>
-      <Name>AORService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{892CBE15-9ED7-4540-81FA-0EAABA592138}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -14,26 +14,26 @@ namespace CalculationEngine.Interfaces
 	[ServiceContract]
 	public interface ICEDistribution
 	{
-        [OperationContract]
+		[OperationContract]
 		Setpoint NominalPowerDistribution(long gid, float demandedValue, PowerType powerType, List<AnalogValue> anaValues);
 
-        [OperationContract]
-        Setpoint AvailableReserveDistribution(long gid, float demandedValue, PowerType powerType, List<AnalogValue> anaValues);
+		[OperationContract]
+		Setpoint AvailableReserveDistribution(long gid, float demandedValue, PowerType powerType, List<AnalogValue> anaValues);
 
-        [OperationContract]
-        float GetAvailablePower(long gid, float demandedValue, List<AnalogValue> anaValues, PowerType powerType);
+		[OperationContract]
+		float GetAvailablePower(long gid, float demandedValue, List<AnalogValue> anaValues, PowerType powerType);
 
-        [OperationContract]
-        bool DistributePowerClient(Command command);
+		[OperationContract]
+		bool DistributePowerClient(Command command);
 
-        [OperationContract]
-        bool CommandExists(long gid, PowerType powerType);
+		[OperationContract]
+		bool CommandExists(long gid, PowerType powerType);
 
 		[OperationContract]
 		bool CancelCommand(long gid, PowerType powerType);
 
-        [OperationContract]
-        SortedDictionary<long, float> GetApplaiedCommands(long gid, PowerType powerType);
+		[OperationContract]
+		SortedDictionary<long, float> GetApplaiedCommands(long gid, PowerType powerType);
 
 	}
 }

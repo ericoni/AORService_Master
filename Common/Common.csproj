@@ -116,6 +116,8 @@
     <Compile Include="CalculationEngine\Service\ICalculateHourlyForecast.cs" />
     <Compile Include="CalculationEngine\Service\ICEDistribution.cs" />
     <Compile Include="CalculationEngine\Service\IForecastService.cs" />
+    <Compile Include="EventAlarm\IAlarm.cs" />
+    <Compile Include="EventAlarm\IEvent.cs" />
     <Compile Include="Model\DNAAuthority.cs" />
     <Compile Include="Model\Permission.cs" />
     <Compile Include="Model\User.cs" />

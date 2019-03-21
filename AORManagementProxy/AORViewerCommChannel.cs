@@ -10,7 +10,7 @@ using FTN.Common.Model;
 using FTN.Common.AORModel;
 using FTN.Common.AORCachedModel;
 
-namespace AORManagementProxy
+namespace AORManagementProxyNS
 {
 	public class AORViewerCommChannel : ClientBase<IAORViewerCommunication>, IAORViewerCommunication
 	{
