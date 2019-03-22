@@ -10,7 +10,7 @@ namespace EventAlarmServiceNS
 {
 	[ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
 
-	public class EventAlarmCollector : IEvent
+	public class EventAlarmCollector : IAlarm, IEvent
 	{
 		/// <summary>
 		/// Lock object
@@ -46,9 +46,15 @@ namespace EventAlarmServiceNS
 			}
 		}
 
-		public string Test()
+		public void Test()
 		{
-			return "ovo je test stringcina";
+			int a = 5;
+		}
+
+		public void TestEvent()
+		{
+			int a = 5;
+			int b = 6;
 		}
 	}
 }

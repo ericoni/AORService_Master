@@ -79,6 +79,10 @@
       <Project>{F2AE1113-EFC9-4C01-AA5D-5CB477BDDA01}</Project>
       <Name>RDAdapter</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WeatherForecastProxy\WeatherForecastProxy.csproj">
+      <Project>{ED550235-5762-4581-9543-9DFB8BBD9649}</Project>
+      <Name>WeatherForecastProxy</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

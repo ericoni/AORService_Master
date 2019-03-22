@@ -12,6 +12,6 @@ namespace FTN.Common.EventAlarm
 	public interface IEvent
 	{
 		[OperationContract]
-		string Test();
+		void TestEvent();
 	}
 }

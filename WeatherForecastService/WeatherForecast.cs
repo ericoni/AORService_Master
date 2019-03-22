@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
+using WeatherForecastProxyNS;
 
 namespace WeatherForecastService
 {
@@ -103,6 +104,9 @@ namespace WeatherForecastService
 
 			Thread currentThread = new Thread(() => CurrentWeatherJob(substations));
 			Thread forecastThread = new Thread(() => ForecastWeatherJob(substations));
+
+			//WeatherForecastEventChannel wForecastChannel = new WeatherForecastEventChannel(); //TODO obrisi posle testiranja
+			//wForecastChannel.TestEvent();
 
 			forecastThread.Start();
 			currentThread.Start();

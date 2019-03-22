@@ -10,8 +10,7 @@ namespace FTN.Common.EventAlarm
 	[ServiceContract]
 	public interface IAlarm
 	{
-
 		[OperationContract]
-		void Nesto();
+		void Test();
 	}
 }

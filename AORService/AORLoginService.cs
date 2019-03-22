@@ -24,6 +24,9 @@ namespace AORService
 			aorLogin = AORLogin.Instance;
 			binding = new NetTcpBinding();
 
+			eventProxy = new AOREventAlarmChannel();
+			eventProxy.Test();
+
 			InitializeHosts();
 		}
 		private void InitializeHosts()

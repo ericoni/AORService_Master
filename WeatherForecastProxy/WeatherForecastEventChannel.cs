@@ -6,18 +6,20 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AORManagementProxyNS
+namespace WeatherForecastProxyNS
 {
-	public class AOREventAlarmChannel : ClientBase<IAlarm>, IAlarm // TODO dodati i za evente
+	public class WeatherForecastEventChannel : ClientBase<IEvent>, IEvent
 	{
-		public AOREventAlarmChannel()
+		public WeatherForecastEventChannel()
 			: base("EventAlarmEndpoint")
-		{
-		}
+		{ }
 
-		public void Test()
+		public void TestEvent()
 		{
-			this.Channel.Test();
+			this.Channel.TestEvent();
 		}
 	}
 }
+
+
+
