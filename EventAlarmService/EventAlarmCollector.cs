@@ -46,10 +46,9 @@ namespace EventAlarmServiceNS
 			}
 		}
 
-		public void Test()
+		public string Test()
 		{
-			int test = 5;
-			int testic = 6;
+			return "ovo je test stringcina";
 		}
 	}
 }

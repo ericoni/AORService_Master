@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using AORViewer.Model;
 using FTN.Common.Model;
-using AORManagementProxy;
-using FTN.Common.AORModel;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using FTN.Common.AORCachedModel;
 using AORViewer.Views;
+using AORManagementProxyNS;
 
 namespace AORViewer.ViewModels
 {

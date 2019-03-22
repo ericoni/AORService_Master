@@ -1,5 +1,4 @@
-﻿using AORManagement;
-using DERMSApp.Views;
+﻿using DERMSApp.Views;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System;

@@ -13,7 +13,6 @@ using SmartCacheLibrary.Interfaces;
 using System.ServiceModel;
 using FTN.Services.NetworkModelService.DataModel.Meas;
 using DERMSApp.Model;
-using AORManagement;
 
 namespace DERMSApp.ViewModels
 {

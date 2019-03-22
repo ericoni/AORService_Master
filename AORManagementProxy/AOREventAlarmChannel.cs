@@ -14,9 +14,10 @@ namespace AORManagementProxyNS
 			: base("EventAlarmEndpoint")
 		{
 		}
-		public void Test()
+
+		public string Test()
 		{
-			this.Channel.Test();
+			return this.Channel.Test();
 		}
 	}
 }

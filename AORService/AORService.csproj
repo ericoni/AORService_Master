@@ -98,6 +98,10 @@
       <Project>{8D3521E8-89E2-4E7C-B469-E1FDBD06A479}</Project>
       <Name>AORCommon</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AORManagementProxy\AORManagementProxy.csproj">
+      <Project>{497dac3e-cc92-430c-a178-9505a1789832}</Project>
+      <Name>AORManagementProxy</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{892CBE15-9ED7-4540-81FA-0EAABA592138}</Project>
       <Name>Common</Name>

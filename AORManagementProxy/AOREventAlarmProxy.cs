@@ -1,5 +1,4 @@
-﻿using AORManagementProxy;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AORManagementProxyNS
 {
-	public class AOREventAlarmProxy // TODO temp bice samo za evente
+	public class AOREventAlarmProxy // TODO dodati i za alarme
 	{
 		private AOREventAlarmChannel proxy;
 		private const int maxTries = 10;

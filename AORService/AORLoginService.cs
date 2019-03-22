@@ -16,14 +16,13 @@ namespace AORService
 		AORLogin aorLogin = null;
 		ServiceHost host = null;
 		NetTcpBinding binding = null;
-		AORManagementProxy
+		AOREventAlarmChannel eventProxy = null;
 		string address = "net.tcp://localhost:10038/IAORManagement";  
 
 		public AORLoginService()
 		{
 			aorLogin = AORLogin.Instance;
 			binding = new NetTcpBinding();
-			//TODO vrati se ovamo 21.3.2019
 
 			InitializeHosts();
 		}

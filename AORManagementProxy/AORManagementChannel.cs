@@ -9,7 +9,7 @@ using System.Security;
 using FTN.Common.AORContract;
 using FTN.Common.Model;
 
-namespace AORManagement
+namespace AORManagementProxyNS
 {
 	public class AORManagementChannel : ClientBase<IAORManagement>, IAORManagement
 	{

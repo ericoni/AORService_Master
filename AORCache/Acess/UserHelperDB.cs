@@ -7,9 +7,13 @@ using FTN.Common.AORCachedModel;
 using FTN.Services.NetworkModelService.DataModel.Wires;
 using FTN.Common.AORHelpers;
 using FTN.Common.AORModel;
+using System.Diagnostics;
 
 namespace AORC.Acess
 {
+	/// <summary>
+	/// Made for DB population.
+	/// </summary>
 	public class UserHelperDB : IUserHelperDB
 	{
 		private static IUserHelperDB myDB;
@@ -63,8 +67,12 @@ namespace AORC.Acess
 
 			using (var access = new AccessDB())
 			{
-				//if (access.Users.Count() == 0)
-				//{
+				if (access.Users.Count() != 0)
+				{
+					Trace.Write("Skipping db fill (db is populated.");
+					return;
+				}
+
 					#region perms
 					Permission p1 = new Permission("DNA_PermissionControlSCADA", "Permission to issue commands towards SCADA system.");
 					Permission p2 = new Permission("DNA_PermissionUpdateNetworkModel", "Permission to apply delta (model changes)- update current network model within their assigned AOR");
@@ -134,7 +142,6 @@ namespace AORC.Acess
 					AORCachedArea area10 = new AORCachedArea("Central-Area-HighVoltage", "", new List<Permission> { p1, p2, p3, p7, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1], aorGroups[5], aorGroups[6] });
 					AORCachedArea area11 = new AORCachedArea("Central-Area-LowVoltage", "", new List<Permission> { p1, p2, p5, p7 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1], aorGroups[4], aorGroups[6] });
 
-					//List<AORCachedArea> aorAreas = new List<AORCachedArea>(9) {  area1, area2, area3, area4, area5, area6, area7, area8, area9 };
 
 					#region Users
 
@@ -153,10 +160,7 @@ namespace AORC.Acess
 						throw new Exception("Failed to save user and area changes!");
 
 					#endregion
-				//}
 			}
 		}
-
-	
 	}
 }
