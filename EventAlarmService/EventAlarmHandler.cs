@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace EventAlarmService
 {
+    /// <summary>
+    /// Service class used to implement alarm ack or event deletion.
+    /// </summary>
 	[ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
 	public class EventAlarmHandler // TODO left to be done
 	{
@@ -63,6 +66,5 @@ namespace EventAlarmService
 			proxy = factory.CreateChannel();
 			proxy.TestEventDistribution();
 		}
-
 	}
 }
