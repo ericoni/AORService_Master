@@ -55,6 +55,8 @@
   <ItemGroup>
     <Compile Include="EventAlarmCollector.cs" />
     <Compile Include="EventAlarmCollectorService.cs" />
+    <Compile Include="EventAlarmHandler.cs" />
+    <Compile Include="EventAlarmHandlerService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

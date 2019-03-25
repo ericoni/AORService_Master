@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace FTN.Common.EventAlarm
 {
 	[ServiceContract]
-	public interface IEvent
+	public interface IEventDistributionCallback
 	{
 		[OperationContract]
-		void TestEvent();
+		void Refresh();
 	}
 }

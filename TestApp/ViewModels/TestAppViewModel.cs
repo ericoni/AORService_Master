@@ -1,15 +1,17 @@
 ﻿using ActiveAORCache.Helpers;
 using AORViewer.Model;
 using AORViewer.ViewModels;
+using FTN.Common.EventAlarm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace TestApp.ViewModels
 {
-    public class TestAppViewModel : ViewModelBase
+    public class TestAppViewModel : ViewModelBase, IEventDistributionCallback
     {
         private List<LBModelBase> aorViewerList;
         private List<LBModelBase> aorViewerTempList;
@@ -42,11 +44,16 @@ namespace TestApp.ViewModels
             }
         }
 
-        //public string DisplayedImage
-        //{
-        //    get { return @"C:\Users\Dragan\Pictures\DebaSomiJa.jpg"; }
-        //    //C:\Users\Dragan\Pictures
-        //    //C:\Users\Public\Pictures\Sample Pictures\Chrysanthemum.jpg
-        //}
-    }
+		public void Refresh()
+		{
+			MessageBox.Show("Refresh received.");
+		}
+
+		//public string DisplayedImage
+		//{
+		//    get { return @"C:\Users\Dragan\Pictures\DebaSomiJa.jpg"; }
+		//    //C:\Users\Dragan\Pictures
+		//    //C:\Users\Public\Pictures\Sample Pictures\Chrysanthemum.jpg
+		//}
+	}
 }
