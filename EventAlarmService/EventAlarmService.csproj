@@ -56,9 +56,10 @@
     <Compile Include="EventAlarmCollector.cs" />
     <Compile Include="EventAlarmCollectorService.cs" />
     <Compile Include="EventAlarmHandler.cs" />
-    <Compile Include="EventAlarmHandlerService.cs" />
+    <Compile Include="Subscriptions\EventAlarmSubscriptionService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Subscriptions\EventAlarmSubscriptionHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -69,5 +70,6 @@
       <Name>Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

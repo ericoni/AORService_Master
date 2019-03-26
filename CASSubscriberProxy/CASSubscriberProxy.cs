@@ -16,7 +16,7 @@ namespace CASSubscriberProxyNS
         /// </summary>
         private IControlActiveSettingsSubscriber proxy = null;
 
-        private object instance = null;
+        private object callbackInstance = null;
 
         // Broj pokusaja uspostavljanja komunikacije
         private const int maxTry = 10;
@@ -27,16 +27,16 @@ namespace CASSubscriberProxyNS
         /// <summary>
         /// Constructor
         /// </summary>
-        public CASSubscriberProxy(object instance)
+        public CASSubscriberProxy(object callbackInstance)
         {
-            this.instance = instance;
+            this.callbackInstance = callbackInstance;
             OpenChannel();
         }
 
         private void OpenChannel()
         {
             DuplexChannelFactory<IControlActiveSettingsSubscriber> factory = new DuplexChannelFactory<IControlActiveSettingsSubscriber>(
-              new InstanceContext(instance),
+              new InstanceContext(callbackInstance),
               new NetTcpBinding(),
               new EndpointAddress("net.tcp://localhost:10012/IControlActiveSettingsSubscriber"));
 

@@ -116,6 +116,8 @@
     <Compile Include="CalculationEngine\Service\ICalculateHourlyForecast.cs" />
     <Compile Include="CalculationEngine\Service\ICEDistribution.cs" />
     <Compile Include="CalculationEngine\Service\IForecastService.cs" />
+    <Compile Include="EventAlarm\EventSubscription\IEventSubscription.cs" />
+    <Compile Include="EventAlarm\EventSubscription\IEventSubscriptionCallback.cs" />
     <Compile Include="EventAlarm\IAlarm.cs" />
     <Compile Include="EventAlarm\IEvent.cs" />
     <Compile Include="EventAlarm\IEventDistributionCallback.cs" />

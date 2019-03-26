@@ -1,4 +1,5 @@
-﻿using EventAlarmServiceNS;
+﻿using EventAlarmService.Subscriptions;
+using EventAlarmServiceNS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,9 @@ namespace EventAlarmService
 				Console.WriteLine("\n{0}\n", message);
 				EventAlarmCollectorService eventAlarmService = new EventAlarmCollectorService();
 				eventAlarmService.Start();
+
+				EventAlarmSubscriptionService eventAlarmSubService = new EventAlarmSubscriptionService();
+				eventAlarmSubService.Start();
 
 				Console.WriteLine("Press <Enter> to stop the service.");
 				Console.ReadKey();

@@ -24,9 +24,6 @@ namespace EventAlarmService
 		/// </summary>
 		private static object syncRoot = new Object();
 
-		DuplexChannelFactory<IEventDistribution> factory = null;
-		IEventDistribution proxy = null;
-
 		/// <summary>
 		/// Singleton method
 		/// </summary>
@@ -49,22 +46,6 @@ namespace EventAlarmService
 
 		public EventAlarmHandler()
 		{
-			ConnectToTest();
-		}
-
-		public void Refresh()
-		{
-			int a = 5555;
-		}
-
-		private void ConnectToTest()
-		{
-			factory = new DuplexChannelFactory<IEventDistribution>(
-			  new InstanceContext(this),
-			  new NetTcpBinding(),
-			  new EndpointAddress("net.tcp://localhost:10045/IEventDistribution"));
-			proxy = factory.CreateChannel();
-			proxy.TestEventDistribution();
 		}
 	}
 }
