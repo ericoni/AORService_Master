@@ -14,12 +14,12 @@ namespace EventAlarmService.Subscriptions
 	/// 
 	[ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
 
-	public class EventAlarmSubscriptionHandler : IEventSubscription
+	public class EventAlarmSubscription : IEventSubscription
 	{
 		/// <summary>
 		/// Singleton instance.
 		/// </summary>
-		private static volatile EventAlarmSubscriptionHandler instance;
+		private static volatile EventAlarmSubscription instance;
 		/// <summary>
 		/// Objekat za lock
 		/// </summary>
@@ -27,7 +27,7 @@ namespace EventAlarmService.Subscriptions
 		/// <summary>
 		/// Singleton method
 		/// </summary>
-		public static EventAlarmSubscriptionHandler Instance
+		public static EventAlarmSubscription Instance
 		{
 			get
 			{
@@ -36,14 +36,14 @@ namespace EventAlarmService.Subscriptions
 					lock (syncRoot)
 					{
 						if (instance == null)
-							instance = new EventAlarmSubscriptionHandler();
+							instance = new EventAlarmSubscription();
 					}
 				}
 
 				return instance;
 			}
 		}
-		public EventAlarmSubscriptionHandler() { }
+		public EventAlarmSubscription() { }
 
 		public void SubscribeToAORAreas(HashSet<long> areas)
 		{

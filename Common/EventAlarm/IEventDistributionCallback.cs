@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace FTN.Common.EventAlarm
 {
-	[ServiceContract]
 	public interface IEventDistributionCallback
 	{
 		[OperationContract]

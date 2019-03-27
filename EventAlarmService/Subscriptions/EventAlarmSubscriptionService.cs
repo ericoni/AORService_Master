@@ -17,11 +17,11 @@ namespace EventAlarmService.Subscriptions
 		NetTcpBinding binding = null;
 		string address = "net.tcp://localhost:10046/IEventSubscription";
 
-		EventAlarmSubscriptionHandler eventAlarmSubscriptionHandler = null;
+		EventAlarmSubscription eventAlarmSubscriptionHandler = null;
 
 		public EventAlarmSubscriptionService()
 		{
-			eventAlarmSubscriptionHandler = EventAlarmSubscriptionHandler.Instance;
+			eventAlarmSubscriptionHandler = EventAlarmSubscription.Instance;
 			binding = new NetTcpBinding();
 			InitializeHosts();
 		}

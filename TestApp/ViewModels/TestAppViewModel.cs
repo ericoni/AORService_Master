@@ -21,7 +21,7 @@ namespace TestApp.ViewModels
 
         public TestAppViewModel()
         {
-			AORCacheConfigurations.GetPermissionsForArea("West-Area");
+			//AORCacheConfigurations.GetPermissionsForArea("West-Area");
 			EventSubscriberCallback eventSubscriberCallback = EventSubscriberCallback.Instance;
 			int coutner = 0;
 

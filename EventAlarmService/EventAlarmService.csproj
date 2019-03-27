@@ -59,7 +59,7 @@
     <Compile Include="Subscriptions\EventAlarmSubscriptionService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Subscriptions\EventAlarmSubscriptionHandler.cs" />
+    <Compile Include="Subscriptions\EventAlarmSubscription.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
