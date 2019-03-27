@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace FTN.Common.SCADA.Services
 {
+	/// <summary>
+	/// Callback contract for  <seealso cref="ISCADASubscriber"/>
+	/// </summary>
 	[ServiceContract]
 	public interface ISCADAForwarding
 	{

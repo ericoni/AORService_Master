@@ -73,7 +73,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\EventSubscriberCallback.cs" />
+    <Compile Include="Models\EventAlarmSubscription.cs" />
     <Compile Include="ViewModels\AORManipulationWin.cs" />
     <Compile Include="ViewModels\TestAppViewModel.cs" />
     <Page Include="MainWindow.xaml">
@@ -138,6 +138,7 @@
   <ItemGroup>
     <Resource Include="Images\moreAM.jpg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

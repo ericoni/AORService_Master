@@ -1,4 +1,5 @@
-﻿using EventAlarmService.Subscriptions;
+﻿using EventAlarmProxyNS;
+using EventAlarmService.Subscriptions;
 using EventAlarmServiceNS;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,10 @@ namespace EventAlarmService
 
 				EventAlarmSubscriptionService eventAlarmSubService = new EventAlarmSubscriptionService();
 				eventAlarmSubService.Start();
+
+				//EventSubscriberCallback eventSubCallback = new EventSubscriberCallback();
+				//EventSubscriberProxy eventSubProxy = new EventSubscriberProxy(eventSubCallback);
+				//eventSubProxy.SubscribeToAORAreas(new HashSet<long>());
 
 				Console.WriteLine("Press <Enter> to stop the service.");
 				Console.ReadKey();

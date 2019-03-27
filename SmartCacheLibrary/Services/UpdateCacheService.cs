@@ -8,6 +8,9 @@ using FTN.Services.NetworkModelService.DataModel.Meas;
 
 namespace SmartCacheLibrary.Services
 {
+	/// <summary>
+	/// Used in Calculation engine as a service.
+	/// </summary>
     public class UpdateCacheService : IDisposable
     {
 

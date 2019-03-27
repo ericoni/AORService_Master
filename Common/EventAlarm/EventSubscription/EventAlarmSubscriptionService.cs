@@ -1,12 +1,11 @@
-﻿using FTN.Common.EventAlarm.EventSubscription;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EventAlarmService.Subscriptions
+namespace FTN.Common.EventAlarm.EventSubscription
 {
 	/// <summary>
 	/// Alarm ack or event deletion.

@@ -6,12 +6,11 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EventAlarmService.Subscriptions
+namespace TestApp.Models
 {
 	/// <summary>
-	/// Handle subscriptions for event, alarm service.
+	/// Service class. Handles subscriptions for event, alarm service. 
 	/// </summary>
-	/// 
 	[ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
 
 	public class EventAlarmSubscription : IEventSubscription
@@ -48,8 +47,15 @@ namespace EventAlarmService.Subscriptions
 		public void SubscribeToAORAreas(HashSet<long> areas)
 		{
 			IEventSubscriptionCallback subscriptionCallback =  OperationContext.Current.GetCallbackChannel<IEventSubscriptionCallback>();
-			subscriptionCallback.NotifyUser();
-			int a = 5;
+
+			try
+			{
+				subscriptionCallback.NotifyUser();
+			}
+			catch (Exception)
+			{
+				throw;
+			}
 		}
 
 		public void UnsubscribeFromAORAreas()

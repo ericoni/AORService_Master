@@ -6,6 +6,9 @@ using System.Text;
 
 namespace FTN.Common.Services
 {
+	/// <summary>
+	/// Callback interface of <seealso cref="INMSSubscriber"/>.
+	/// </summary>
 	[ServiceContract]
 	public interface ITwoPhaseCommit
 	{

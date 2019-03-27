@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace FTN.Common.CE.Services
 {
+	/// <summary>
+	/// Callback for <seealso cref="IControlActiveSettingsSubscriber"/>
+	/// </summary>
 	[ServiceContract]
 	public interface IControlActiveSettingsCallback
 	{

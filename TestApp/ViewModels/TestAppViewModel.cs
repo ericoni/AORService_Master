@@ -6,10 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using TestApp.Models;
 
 namespace TestApp.ViewModels
 {
@@ -17,19 +14,16 @@ namespace TestApp.ViewModels
     {
         private List<LBModelBase> aorViewerList;
         private List<LBModelBase> aorViewerTempList;
-		private EventSubscriberCallback eventSubscriberCallback;
+		//private EventSubscriberCallback eventSubscriberCallback;
 
         public TestAppViewModel()
         {
-			//AORCacheConfigurations.GetPermissionsForArea("West-Area");
-			EventSubscriberCallback eventSubscriberCallback = EventSubscriberCallback.Instance;
-			int coutner = 0;
+		/*	EventSubscriberCallback eventSubscriberCallback = EventSubscriberCallback.Instance;
+			int counter = 0;
 
 			while (true)
 			{
 				Thread.Sleep(3000);
-				if (coutner++ == 5)
-					break;
 
 				try
 				{
@@ -37,9 +31,10 @@ namespace TestApp.ViewModels
 				}
 				catch (Exception)
 				{
-					throw;
+					if(counter++ == 5)
+						throw;
 				} 
-			}
+			} */
 
 			//aorViewerTempList = new List<LBModelBase>(4)  /// TODO odkomentarisi
 			//{ new LBModelBase(LBType.Permissions.ToString(), "Neki opis", @"..\..\..\Images\moreAM.jpg"),

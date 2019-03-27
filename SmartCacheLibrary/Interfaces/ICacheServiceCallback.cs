@@ -8,7 +8,7 @@ namespace SmartCacheLibrary.Interfaces
 {
     public interface ICacheServiceCallback
     {
-        [OperationContract(IsOneWay = true)]
+        [OperationContract(IsOneWay = true)] // Govori da li je neblokirajuci poziv, kada se odradi poziv
         void NotifyUserOfCache(string userName, /*string cache*/Cache cache);
 
     }

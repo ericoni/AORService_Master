@@ -17,6 +17,9 @@ using System.Diagnostics;
 
 namespace CalculationEngService
 {
+	/// <summary>
+	/// Implementing <see cref="ISCADAForwarding"/> callback interface.
+	/// </summary>
     public class SCADADataColector : ISCADAForwarding
     {
         TSDBProxy proxyTSDB = null;

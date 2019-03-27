@@ -1,18 +1,23 @@
-﻿using FTN.Common;
-using FTN.Common.SCADA.Services;
+﻿using FTN.Common.EventAlarm.EventSubscription;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
+using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
-namespace SCADASubscriberProxyNS
+namespace EventAlarmProxyNS
 {
-	public class SCADASubscriberProxy
+	/// <summary>
+	/// Proxy which opens duplex channel for communicating with Eventing system.
+	/// </summary>
+	public class EventSubscriberProxy
 	{
 		/// <summary>
-		/// Channel for Scada pub/sub
+		/// Channel for Events pub/sub
 		/// </summary>
-		private ISCADASubscriber proxy = null;
+		private IEventSubscription proxy = null;
 
 		private object callbackInstance = null;
 
@@ -25,7 +30,7 @@ namespace SCADASubscriberProxyNS
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		public SCADASubscriberProxy(object callbackInstance)
+		public EventSubscriberProxy(object callbackInstance)
 		{
 			this.callbackInstance = callbackInstance;
 			OpenChannel();
@@ -36,10 +41,10 @@ namespace SCADASubscriberProxyNS
 		/// </summary>
 		private void OpenChannel()
 		{
-			DuplexChannelFactory<ISCADASubscriber> factory = new DuplexChannelFactory<ISCADASubscriber>(
+			DuplexChannelFactory<IEventSubscription> factory = new DuplexChannelFactory<IEventSubscription>(
 			  new InstanceContext(callbackInstance),
 			  new NetTcpBinding(),
-			  new EndpointAddress("net.tcp://localhost:10011/ISCADASubscriber"));
+			  new EndpointAddress("net.tcp://localhost:10046/IEventSubscription"));
 
 			try
 			{
@@ -51,11 +56,7 @@ namespace SCADASubscriberProxyNS
 			}
 		}
 
-		/// <summary>
-		/// Subscribe to the desired type
-		/// </summary>
-		/// <param name="topics"> List of DMSTypes </param>
-		public void Subscribed(List<DMSType> topics)
+		public void SubscribeToAORAreas(HashSet<long> areas) //todo refactor these methods
 		{
 			int tryCounter = 0;
 
@@ -63,12 +64,12 @@ namespace SCADASubscriberProxyNS
 			{
 				if (tryCounter.Equals(maxTry))
 				{
-					throw new Exception("SCADASubscriberProxy: Connection error.");
+					throw new Exception("EventSubscriberProxy: Connection error.");
 				}
 
 				try
 				{
-					proxy.Subscribed(topics);
+					proxy.SubscribeToAORAreas(new HashSet<long>());
 					break;
 				}
 				catch (Exception)
@@ -80,11 +81,7 @@ namespace SCADASubscriberProxyNS
 			}
 		}
 
-		/// <summary>
-		/// Unsubscribe
-		/// </summary>
-		/// <param name="topics"> List of DMS Types </param>
-		public void Unsubscribed(List<DMSType> topics)
+		public void UnsubscribeFromAORAreas()
 		{
 			int tryCounter = 0;
 
@@ -92,12 +89,12 @@ namespace SCADASubscriberProxyNS
 			{
 				if (tryCounter.Equals(maxTry))
 				{
-					throw new Exception("SCADASubscriberProxy: Connection error.");
+					throw new Exception("EventSubscriberProxy: Connection error.");
 				}
 
 				try
 				{
-					proxy.Unsubscribed(topics);
+					proxy.UnsubscribeFromAORAreas();
 					break;
 				}
 				catch (Exception)
