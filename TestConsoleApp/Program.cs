@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ActiveAORCache.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,8 @@ namespace TestConsoleApp
     {
         static void Main(string[] args)
         {
-        }
+			AORCacheConfigurations.GetAORAreasForUsername("marko.markovic");
+
+		}
     }
 }

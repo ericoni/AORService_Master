@@ -58,6 +58,8 @@
     <Compile Include="EventAlarmHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Subscriptions\EventAlarmSubscription.cs" />
+    <Compile Include="Subscriptions\EventAlarmSubscriptionService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -72,8 +74,6 @@
       <Name>EventAlarmProxy</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Subscriptions\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

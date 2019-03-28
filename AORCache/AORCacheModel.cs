@@ -56,11 +56,8 @@ namespace ActiveAORCache
 			//InitializeAORCacheWithAORData(); //TODO srediti inicijalizaciju
 		}
 
-
 		private void InitializeAORCacheWithAORData()
 		{
-			aorAreas = GetModelAORAreas();
-
 			aorGroupsModel = GetModelAORGroup();
 		}
 
@@ -136,16 +133,16 @@ namespace ActiveAORCache
 		private void MakeCopy()
 		{
 			aorGroupsCopy = new List<AORGroup>(aorGroups.Count);
-			aorAreasCopy = new List<AORCachedArea>(aorAreas.Count);
+			//aorAreasCopy = new List<AORCachedArea>(aorAreas.Count);
 
 			foreach (var group in aorGroups)
 			{
 				aorGroupsCopy.Add(group);
 			}
-			foreach (var area in aorAreas)
-			{
-				aorAreasCopy.Add(area);
-			}
+			//foreach (var area in aorAreas)
+			//{
+			//	aorAreasCopy.Add(area);
+			//}
 		}
 
 		private void InsertEntities(List<ResourceDescription> rds)
@@ -213,7 +210,7 @@ namespace ActiveAORCache
 			switch (type)
 			{
 				case DMSType.AOR_AREA:
-					return AORAreaExists(mrid);
+					break;
 				case DMSType.AOR_GROUP:
 					return AORGroupExists(mrid);
 				default:
@@ -223,13 +220,6 @@ namespace ActiveAORCache
 			return false;
 		}
 
-		private bool AORAreaExists(string mrid)
-		{
-			//return aorAreas.Select(u => u.Mrid.Equals(mrid)).ToList().Count > 0;
-			//return aorAreas.Select(u => u.id)
-			return false;  // vrati se, za sta se ovo koristi?!
-		}
-
 		private bool AORGroupExists(string mrid)
 		{
 			return aorGroups.Select(u => u.Mrid.Equals(mrid)).ToList().Count > 0;
@@ -237,6 +227,8 @@ namespace ActiveAORCache
 
 
 		#endregion Distributed Transaction
+
+		//todo pobrisati ove metode sve, i ocisitti model
 
 		public List<Permission> GetPermissionsForDNAs(long areaId)  //vrati se ovde jer vadim perms za DNA, iako pise par. areaID
 		{
@@ -254,17 +246,6 @@ namespace ActiveAORCache
 			using (var access = new AccessDB())
 			{
 				var query = access.Groups.Where(g => g.Areas.Any(a => a.AreaId == areaId));
-				var result = query.ToList();
-
-				return result;
-			}
-		}
-
-		public List<AORCachedArea> GetModelAORAreas() //access.Areas.Where(a => a.Groups.Any(d => d.GroupId == 4)); // ovo radi okej
-		{
-			using (var access = new AccessDB())
-			{
-				var query = access.Areas;
 				var result = query.ToList();
 
 				return result;

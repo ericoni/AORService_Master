@@ -1,11 +1,11 @@
-﻿using AORCommon.AORContract;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using AORManagementProxyNS;
+using FTN.Common.AORContract;
 
 namespace AORService
 { 

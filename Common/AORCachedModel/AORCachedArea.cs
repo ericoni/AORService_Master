@@ -31,7 +31,7 @@ namespace FTN.Common.AORCachedModel
 		[DataMember]
 		public List<Permission> Permissions { get; set; }
 		[DataMember]
-		public List<User> Users { get; set; }  // ubaceno samo zbog EF many to many, mada mislim da ovako jednostavno mora xD
+		public List<User> Users { get; set; }
 		//[DataMember] // sa ovim puca
 		[NotMapped]
 		public string GetPermsInOneLine {

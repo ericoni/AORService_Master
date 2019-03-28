@@ -18,7 +18,7 @@ namespace AORService
 			Console.WriteLine("************************************************************************Starting services", message);
 
 			AORLoginService aorLoginService = new AORLoginService(); // ovo trigeruje upis u bazu (poziva UserHelpberDB);
-			AORViewerCommService aorViewerCommService = new AORViewerCommService();
+			AORViewerCommService aorViewerCommService = new AORViewerCommService();// ovo instancira kes
 
 			try
 			{

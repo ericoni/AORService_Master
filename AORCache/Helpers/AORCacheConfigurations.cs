@@ -50,5 +50,24 @@ namespace ActiveAORCache.Helpers
 
 			return usersPermissions;
 		}
+
+		public static List<string> GetAORAreasForUsername(string username)
+		{
+			List<string> areas = new List<string>(25);
+
+			using (var access = new AccessDB())
+			{
+				var user = access.Users.Include("Areas").Where(u => u.Username.Equals(username)).ToList();
+
+				foreach (var area in user[0].Areas)
+				{
+					areas.Add(area.Name);
+				}
+
+				Debug.Assert(user == null, "Nulcina je u GetAORAreasForUsername ");
+			}
+
+			return areas;
+		}
 	}
 }

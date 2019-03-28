@@ -1,6 +1,7 @@
 ﻿using ActiveAORCache.Helpers;
 using AORViewer.Model;
 using AORViewer.ViewModels;
+using EventAlarmProxyNS;
 using FTN.Common.EventAlarm;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Windows;
 
 namespace TestApp.ViewModels
 {
-    public class TestAppViewModel : ViewModelBase, IEventDistributionCallback
+    public class TestAppViewModel : ViewModelBase
     {
         private List<LBModelBase> aorViewerList;
         private List<LBModelBase> aorViewerTempList;
@@ -18,23 +19,27 @@ namespace TestApp.ViewModels
 
         public TestAppViewModel()
         {
-		/*	EventSubscriberCallback eventSubscriberCallback = EventSubscriberCallback.Instance;
-			int counter = 0;
+			EventSubscriberCallback eventSubCallback = new EventSubscriberCallback();
+			EventSubscriberProxy eventSubProxy = new EventSubscriberProxy(eventSubCallback);
+			eventSubProxy.SubscribeToAORAreas(new HashSet<long>());
 
-			while (true)
-			{
-				Thread.Sleep(3000);
+			/*	EventSubscriberCallback eventSubscriberCallback = EventSubscriberCallback.Instance;
+				int counter = 0;
 
-				try
+				while (true)
 				{
-					eventSubscriberCallback.ConnectToTest();
-				}
-				catch (Exception)
-				{
-					if(counter++ == 5)
-						throw;
-				} 
-			} */
+					Thread.Sleep(3000);
+
+					try
+					{
+						eventSubscriberCallback.ConnectToTest();
+					}
+					catch (Exception)
+					{
+						if(counter++ == 5)
+							throw;
+					} 
+				} */
 
 			//aorViewerTempList = new List<LBModelBase>(4)  /// TODO odkomentarisi
 			//{ new LBModelBase(LBType.Permissions.ToString(), "Neki opis", @"..\..\..\Images\moreAM.jpg"),

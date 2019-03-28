@@ -73,7 +73,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\EventAlarmSubscription.cs" />
     <Compile Include="ViewModels\AORManipulationWin.cs" />
     <Compile Include="ViewModels\TestAppViewModel.cs" />
     <Page Include="MainWindow.xaml">
@@ -129,6 +128,10 @@
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{892CBE15-9ED7-4540-81FA-0EAABA592138}</Project>
       <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EventAlarmProxy\EventAlarmProxy.csproj">
+      <Project>{0B3B179C-C005-46DE-B5F3-E20C0D785099}</Project>
+      <Name>EventAlarmProxy</Name>
     </ProjectReference>
     <ProjectReference Include="..\RDAdapter\RDAdapter.csproj">
       <Project>{F2AE1113-EFC9-4C01-AA5D-5CB477BDDA01}</Project>

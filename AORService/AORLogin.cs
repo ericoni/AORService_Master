@@ -1,5 +1,4 @@
-﻿using AORCommon.AORContract;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security;
@@ -63,10 +62,21 @@ namespace AORService
 			}
 		}
 
+		#region IAORManagement
+
 		public bool Login(string username, string password)
 		{
 			return userHelper.UserAuthentication(username, password);
 		}
+
+		public List<string> GetAORAreasForUsername(string username)
+		{
+			throw new NotImplementedException();
+		}
+
+		#endregion
+
+		#region Private methods
 
 		private String SecureStringToString(SecureString value)
 		{
@@ -86,5 +96,7 @@ namespace AORService
 				Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
 			}
 		}
+
+		#endregion
 	}
 }

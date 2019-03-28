@@ -5,8 +5,9 @@ using System.Security;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using FTN.Common.AORCachedModel;
 
-namespace AORCommon.AORContract
+namespace FTN.Common.AORContract
 {
 	/// <summary>
 	/// Relationship between AOR service and DERMS app
@@ -16,5 +17,7 @@ namespace AORCommon.AORContract
 	{
 		[OperationContract]
 		bool Login(string username, string password);
+		[OperationContract]
+		List<string> GetAORAreasForUsername(string username);
 	}
 }

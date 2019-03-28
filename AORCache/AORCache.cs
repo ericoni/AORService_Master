@@ -23,8 +23,6 @@ namespace ActiveAORCache
 		{
 			AORCacheModel = AORCacheModel.Instance;
 			var a = AORCacheModel.GetNewAORAreas();
-			int c = 5;
-			c++;
 		}
 
 		public void SynchronizeAORConfig()
@@ -35,12 +33,7 @@ namespace ActiveAORCache
 		public void Dispose()
 		{
 		}
-
-		public List<AORCachedArea> GetAORAreas()
-		{
-			return AORCacheModel.GetModelAORAreas();
-		}
-
+		
 		public List<AORCachedGroup> GetAORGroups()
 		{
 			return AORCacheModel.GetModelAORGroups();
@@ -66,6 +59,11 @@ namespace ActiveAORCache
 		public List<string> GetGroupsForArea(string name)
 		{
 			return AORCacheModel.GetGroupsForArea(name);
+		}
+
+		public List<string> GetAORAreasForUsername(string username)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

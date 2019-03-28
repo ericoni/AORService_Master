@@ -6,7 +6,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestApp.Models
+namespace EventAlarmService.Subscriptions
 {
 	/// <summary>
 	/// Service class. Handles subscriptions for event, alarm service. 

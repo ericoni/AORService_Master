@@ -99,6 +99,7 @@
     <Compile Include="AORCachedModel\AORCachedEntity.cs" />
     <Compile Include="AORCachedModel\AORCachedGroup.cs" />
     <Compile Include="AORCachedModel\AORCachedSynchonousMachine.cs" />
+    <Compile Include="AORContracts\IAORManagement.cs" />
     <Compile Include="AORHelpers\NMSModelAORConverter.cs" />
     <Compile Include="AORContracts\IAORGDAContract.cs" />
     <Compile Include="AORContracts\IAORViewerCommunication.cs" />
@@ -116,8 +117,7 @@
     <Compile Include="CalculationEngine\Service\ICalculateHourlyForecast.cs" />
     <Compile Include="CalculationEngine\Service\ICEDistribution.cs" />
     <Compile Include="CalculationEngine\Service\IForecastService.cs" />
-    <Compile Include="EventAlarm\EventSubscription\EventAlarmSubscriptionService.cs" />
-    <Compile Include="EventAlarm\EventSubscription\EventSubscriberCallback.cs" />
+    <Compile Include="EventAlarm\EventSubscriberCallback.cs" />
     <Compile Include="EventAlarm\EventSubscription\IEventSubscription.cs" />
     <Compile Include="EventAlarm\EventSubscription\IEventSubscriptionCallback.cs" />
     <Compile Include="EventAlarm\IAlarm.cs" />
