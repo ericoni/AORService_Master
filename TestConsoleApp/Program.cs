@@ -9,9 +9,10 @@ namespace TestConsoleApp
 {
     class Program
     {
-        static void Main(string[] args)
-        {
-			AORCacheConfigurations.GetAORAreasForUsername("marko.markovic");
+		static void Main(string[] args)
+		{
+			//AORCacheConfigurations.GetAORAreasForUsername("marko.markovic");
+			AORCacheConfigurations.SelectAreaForView("West-Area", true);
 
 		}
     }

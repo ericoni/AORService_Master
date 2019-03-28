@@ -69,5 +69,10 @@ namespace AORService
 		{
 			return aorCache.GetGroupsForArea(name);
 		}
+
+		public List<AORCachedArea> GetAORAreas() //todo vrati se
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
