@@ -73,6 +73,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\AORModel.cs" />
     <Compile Include="ViewModels\AORManipulationWin.cs" />
     <Compile Include="ViewModels\TestAppViewModel.cs" />
     <Compile Include="Views\AORManagementWindow.xaml.cs">
@@ -135,6 +136,10 @@
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{892CBE15-9ED7-4540-81FA-0EAABA592138}</Project>
       <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DERMSApp\DERMSApp.csproj">
+      <Project>{89A857EE-32DC-4A3B-9B21-90471D2F8BAD}</Project>
+      <Name>DERMSApp</Name>
     </ProjectReference>
     <ProjectReference Include="..\EventAlarmProxy\EventAlarmProxy.csproj">
       <Project>{0B3B179C-C005-46DE-B5F3-E20C0D785099}</Project>

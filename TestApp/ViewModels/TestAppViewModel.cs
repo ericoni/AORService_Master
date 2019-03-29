@@ -19,9 +19,9 @@ namespace TestApp.ViewModels
 
         public TestAppViewModel()
         {
-			EventSubscriberCallback eventSubCallback = new EventSubscriberCallback();
-			EventSubscriberProxy eventSubProxy = new EventSubscriberProxy(eventSubCallback);
-			eventSubProxy.SubscribeToAORAreas(new HashSet<long>());
+			//EventSubscriberCallback eventSubCallback = new EventSubscriberCallback();
+			//EventSubscriberProxy eventSubProxy = new EventSubscriberProxy(eventSubCallback);
+			//eventSubProxy.SubscribeToAORAreas(new HashSet<long>());
 
 			/*	EventSubscriberCallback eventSubscriberCallback = EventSubscriberCallback.Instance;
 				int counter = 0;
@@ -41,12 +41,12 @@ namespace TestApp.ViewModels
 					} 
 				} */
 
-			//aorViewerTempList = new List<LBModelBase>(4)  /// TODO odkomentarisi
-			//{ new LBModelBase(LBType.Permissions.ToString(), "Neki opis", @"..\..\..\Images\moreAM.jpg"),
-			//    new LBModelBase(LBType.AOR_Groups.ToString(), "AOR GRUPE",@"..\..\..\Images\moreAM.jpg"),
-			//    new LBModelBase(LBType.AOR_Areas.ToString(), "ARea",@"..\..\..\Images\moreAM.jpg"),
-			//    new LBModelBase(LBType.DNA_Authorities.ToString(), "Dna nesto", @"..\..\..\Images\moreAM.jpg")};
-			//AORViewerList = aorViewerTempList;
+			aorViewerTempList = new List<LBModelBase>(4)  /// TODO odkomentarisi
+			{ new LBModelBase(LBType.Permissions.ToString(), "Neki opis", @"..\..\..\Images\moreAM.jpg"),
+				new LBModelBase(LBType.AOR_Groups.ToString(), "AOR GRUPE",@"..\..\..\Images\moreAM.jpg"),
+				new LBModelBase(LBType.AOR_Areas.ToString(), "ARea",@"..\..\..\Images\moreAM.jpg"),
+				new LBModelBase(LBType.DNA_Authorities.ToString(), "Dna nesto", @"..\..\..\Images\moreAM.jpg")};
+			AORViewerList = aorViewerTempList;
 		}
 
 		public List<LBModelBase> AORViewerList

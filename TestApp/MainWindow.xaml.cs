@@ -23,15 +23,14 @@ namespace TestApp
         public MainWindow()
         {
             InitializeComponent();
-            try
-            {
-                this.DataContext = new TestApp.ViewModels.TestAppViewModel();
+			try
+			{
+				this.DataContext = new TestApp.ViewModels.AORManipulationWin();
+			}
+			catch (Exception e)
+			{
 
-            }
-            catch (Exception e)
-            {
-
-            }
+			}
         }
     }
 }
