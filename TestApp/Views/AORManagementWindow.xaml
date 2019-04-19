@@ -7,11 +7,30 @@
 			 mc:Ignorable="d" 
 			 d:DesignHeight="300" d:DesignWidth="300">
 	<Grid>
-		<Grid>
-			<ListBox ItemsSource="{Binding Areas}" HorizontalAlignment="Left" Height="140" VerticalAlignment="Top" Width="242">
-				
-			</ListBox>
+			<ScrollViewer  Margin="20"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
+				<ItemsControl ItemsSource="{Binding Areas}" UseLayoutRounding="True">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+						<StackPanel> 
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto" SharedSizeGroup="gr2"/>
+									<ColumnDefinition Width="Auto" SharedSizeGroup="gr3"/>
+									<ColumnDefinition Width="Auto" SharedSizeGroup="gr4"/>
+								</Grid.ColumnDefinitions>
+								<Border Grid.Column="0" Background="Bisque">
+									<TextBlock Text="{Binding Name}"  HorizontalAlignment="Center" />
+								</Border>
+								<CheckBox  Grid.Column="1" VerticalAlignment="Center"  Content="Select for control" HorizontalAlignment="Center"/>
+								<CheckBox  Grid.Column="2" VerticalAlignment="Center"  Content="Select for view" HorizontalAlignment="Center"/>
 
-		</Grid>
+							</Grid>
+						</StackPanel>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+			</ScrollViewer>
+
+		
 	</Grid>
 </UserControl>
