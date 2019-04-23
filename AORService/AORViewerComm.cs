@@ -70,9 +70,9 @@ namespace AORService
 			return aorCache.GetGroupsForArea(name);
 		}
 
-		public List<AORCachedArea> GetAORAreas() //todo vrati se
+		public HashSet<AORCachedArea> GetAORAreas()
 		{
-			throw new NotImplementedException();
+			return aorCache.GetAORAreas();
 		}
 	}
 }

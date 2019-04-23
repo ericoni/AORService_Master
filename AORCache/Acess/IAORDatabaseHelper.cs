@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AORC.Acess
 {
-	public interface IUserHelperDB
+	public interface IAORDatabaseHelper
 	{
 	 bool UserAuthentication(string username, string password);
 	}

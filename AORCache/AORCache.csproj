@@ -63,8 +63,8 @@
   <ItemGroup>
     <Compile Include="Acess\AccessDB.cs" />
     <Compile Include="Acess\Configuration.cs" />
-    <Compile Include="Acess\IUserHelperDB.cs" />
-    <Compile Include="Acess\UserHelperDB.cs" />
+    <Compile Include="Acess\IAORDatabaseHelper.cs" />
+    <Compile Include="Acess\AORDatabaseHelper.cs" />
     <Compile Include="AORCache.cs" />
     <Compile Include="AORCacheModel.cs" />
     <Compile Include="Defines.cs" />

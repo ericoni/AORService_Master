@@ -25,7 +25,7 @@ namespace TestApp
             InitializeComponent();
 			try
 			{
-				this.DataContext = new TestApp.ViewModels.AORManipulationWin();
+				this.DataContext = new TestApp.ViewModels.AORManipulationWinVM();
 			}
 			catch (Exception e)
 			{

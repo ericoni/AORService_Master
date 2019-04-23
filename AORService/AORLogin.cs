@@ -14,11 +14,11 @@ using AORC.Acess;
 namespace AORService
 {
 	/// <summary>
-	/// TODO: AOR login trenutno poziva UserHelper DB
+	/// TODO: AOR login trenutno poziva aorDatabaseHelper DB
 	/// </summary>
 	public class AORLogin : IAORManagement
 	{
-		private UserHelperDB userHelper;
+		private AORDatabaseHelper aorDatabaseHelper;
 		/// <summary>
 		/// Singleton instance
 		/// </summary>
@@ -53,7 +53,7 @@ namespace AORService
 		{
 			try
 			{
-				userHelper = new UserHelperDB();
+				aorDatabaseHelper = new AORDatabaseHelper();
 			}
 			catch (Exception e)
 			{
@@ -66,7 +66,7 @@ namespace AORService
 
 		public bool Login(string username, string password)
 		{
-			return userHelper.UserAuthentication(username, password);
+			return aorDatabaseHelper.UserAuthentication(username, password);
 		}
 
 		public List<string> GetAORAreasForUsername(string username)

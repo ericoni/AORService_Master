@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace AORManagementProxyNS
 {
-	public class AORViewerCommProxy
+	public class AORCacheAccessProxy
 	{
 		private const int maxTries = 10;
 		private const int sleepTime = 3000;
-		private AORViewerCommChannel proxy;
+		private AORCacheAccessChannel proxy;
 
-		public AORViewerCommProxy()
+		public AORCacheAccessProxy()
 		{
 			OpenChannel();
 		}
@@ -26,11 +26,11 @@ namespace AORManagementProxyNS
 			while (true)
 			{
 				if (tryCounter == maxTries)
-					throw new Exception("AORViewerCommProxy: Connection error.");
+					throw new Exception("AORCacheAccessProxy: Connection error.");
 
 				try
 				{
-					proxy = new AORViewerCommChannel();
+					proxy = new AORCacheAccessChannel();
 					proxy.Open();
 					break;
 				}
@@ -43,7 +43,7 @@ namespace AORManagementProxyNS
 			}
 		}
 
-		public AORViewerCommChannel Proxy
+		public AORCacheAccessChannel Proxy
 		{
 			get
 			{

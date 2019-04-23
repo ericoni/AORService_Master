@@ -19,10 +19,10 @@ namespace AORViewer.ViewModels
 		private LBModelBase selectedElement;
 		private List<Permission> permissionList;
 		private List<DNAAuthority> dnaList;
-		private List<AORCachedArea> aorAreas;
+		private HashSet<AORCachedArea> aorAreas;
 		private List<AORCachedGroup> aorGroups;
 		private List<User> users;
-		private AORViewerCommProxy aorViewCommProxy;
+		private AORCacheAccessProxy aorViewCommProxy;
 		private AORCachedArea selectedArea;
 		private AORCachedGroup selectedGroup;
 		private DNAAuthority selectedDna;
@@ -76,7 +76,7 @@ namespace AORViewer.ViewModels
 
 			try
 			{
-				aorViewCommProxy = new AORViewerCommProxy();
+				aorViewCommProxy = new AORCacheAccessProxy();
 				var pList = aorViewCommProxy.Proxy.GetAllPermissions();
 				PermissionList = pList;
 
@@ -136,7 +136,7 @@ namespace AORViewer.ViewModels
 			}
 		}
 
-		public List<AORCachedArea> AORAreas
+		public HashSet<AORCachedArea> AORAreas
 		{
 			get
 			{

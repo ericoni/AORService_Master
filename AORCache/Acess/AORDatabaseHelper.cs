@@ -14,20 +14,20 @@ namespace AORC.Acess
 	/// <summary>
 	/// Made for DB population.
 	/// </summary>
-	public class UserHelperDB : IUserHelperDB
+	public class AORDatabaseHelper : IAORDatabaseHelper
 	{
-		private static IUserHelperDB myDB;
+		private static IAORDatabaseHelper myDB;
 		private RDAdapter rdAdapter = null;
 		private AORCachedGroup aorGroup = null;
 		private List<AORCachedGroup> aorGroups = null;
 		private List<SynchronousMachine> syncMachines = null;
 
-		public static IUserHelperDB Instance
+		public static IAORDatabaseHelper Instance
 		{
 			get
 			{
 				if (myDB == null)
-					myDB = new UserHelperDB();
+					myDB = new AORDatabaseHelper();
 
 				return myDB;
 			}
@@ -38,7 +38,7 @@ namespace AORC.Acess
 			}
 		}
 
-		public UserHelperDB()
+		public AORDatabaseHelper()
 		{
 			InitializeAORCacheDB();
 		}

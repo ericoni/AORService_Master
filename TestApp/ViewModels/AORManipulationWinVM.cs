@@ -6,17 +6,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TestApp.Model;
+using System.Windows.Media;
+using AORManagementProxyNS;
 
 namespace TestApp.ViewModels
 {
-	public class AORManipulationWin : ViewModelBase
+	public class AORManipulationWinVM : ViewModelBase
 	{
-		ObservableCollection<AORModel> areas;
-		public AORManipulationWin()
+		ObservableCollection<AORModel> areas = null;
+		AORCacheAccessChannel aorCacheProxy = null;
+
+		public AORManipulationWinVM()
 		{
 			areas = new ObservableCollection<AORModel>() { new AORModel("a"), new AORModel("bbbbbbbbbbbbbbb"), new AORModel("cccc") };
 			Areas = areas;
-			//aorModel.AORAreas = new List<string>(3) { "prva", "druga", "treca" };
+			aorCacheProxy = new AORCacheAccessChannel();
+
+			var cacheAreas = aorCacheProxy.GetAORAreas();
 		}
 
 		public ObservableCollection<AORModel> Areas

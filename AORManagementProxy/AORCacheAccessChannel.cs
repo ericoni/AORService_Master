@@ -12,9 +12,9 @@ using FTN.Common.AORCachedModel;
 
 namespace AORManagementProxyNS
 {
-	public class AORViewerCommChannel : ClientBase<IAORViewerCommunication>, IAORViewerCommunication
+	public class AORCacheAccessChannel : ClientBase<IAORViewerCommunication>, IAORViewerCommunication
 	{
-		public AORViewerCommChannel()
+		public AORCacheAccessChannel()
 			: base("AORViewerCommEndpoint")
 		{
 		}
@@ -29,7 +29,7 @@ namespace AORManagementProxyNS
 			return this.Channel.GetAllDNAs();
 		}
 
-		public List<AORCachedArea> GetAORAreas()
+		public HashSet<AORCachedArea> GetAORAreas()
 		{
 			return this.Channel.GetAORAreas();
 		}

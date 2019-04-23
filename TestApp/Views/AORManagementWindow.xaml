@@ -3,34 +3,33 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:conv="clr-namespace:TestApp.Converter"
 			 xmlns:local="clr-namespace:TestApp.Views"
 			 mc:Ignorable="d" 
-			 d:DesignHeight="300" d:DesignWidth="300">
+			 d:DesignHeight="700" d:DesignWidth="800">
+	<UserControl.Resources>
+		<BooleanToVisibilityConverter x:Key="BoolToVis" />
+		<conv:ConvertUsersCoveringAreaToBackground x:Key="ConvertUsersCoveringAreaToBackground"/>
+		<conv:ConvertUsersCoveringAreaToText x:Key="ConvertUsersCoveringAreaToText"/>
+	</UserControl.Resources>
 	<Grid>
-			<ScrollViewer  Margin="20"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
-				<ItemsControl ItemsSource="{Binding Areas}" UseLayoutRounding="True">
-					<ItemsControl.ItemTemplate>
-						<DataTemplate>
-						<StackPanel> 
-							<Grid>
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="Auto" SharedSizeGroup="gr2"/>
-									<ColumnDefinition Width="Auto" SharedSizeGroup="gr3"/>
-									<ColumnDefinition Width="Auto" SharedSizeGroup="gr4"/>
-								</Grid.ColumnDefinitions>
-								<Border Grid.Column="0" Background="Bisque">
-									<TextBlock Text="{Binding Name}"  HorizontalAlignment="Center" />
-								</Border>
-								<CheckBox  Grid.Column="1" VerticalAlignment="Center"  Content="Select for control" HorizontalAlignment="Center"/>
-								<CheckBox  Grid.Column="2" VerticalAlignment="Center"  Content="Select for view" HorizontalAlignment="Center"/>
-
-							</Grid>
+		<ScrollViewer  Margin="30"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Background="Wheat" >
+			<ItemsControl  ItemsSource="{Binding Areas}" UseLayoutRounding="True">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<StackPanel Orientation="Horizontal" Margin="7">
+							<TextBlock Text="{Binding Name}" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="NoWrap"  Width="80" />
+							<CheckBox Content="Controling" Width="80" Margin="30,10"/>
+							<CheckBox Content="Viewing" Width="80" Margin="30,10"/>
+							<TextBlock Text="testiraeeeeeje" Visibility="{Binding Path=IsCovered, Converter={StaticResource BoolToVis}}" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="NoWrap"  Width="150" />
+							<Border Background="{Binding UsersCoveringArea.Count, Converter={StaticResource ConvertUsersCoveringAreaToBackground}}" Width="50">
+								<TextBlock Text="{Binding UsersCoveringArea.Count, Converter={StaticResource ConvertUsersCoveringAreaToText}}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							</Border>
 						</StackPanel>
-						</DataTemplate>
-					</ItemsControl.ItemTemplate>
-				</ItemsControl>
-			</ScrollViewer>
-
-		
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+				
+			</ItemsControl>
+		</ScrollViewer>
 	</Grid>
 </UserControl>

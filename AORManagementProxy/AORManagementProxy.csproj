@@ -53,8 +53,8 @@
     <Compile Include="AOREventAlarmProxy.cs" />
     <Compile Include="AORManagementChannel.cs" />
     <Compile Include="AORManagementProxy.cs" />
-    <Compile Include="AORViewerCommChannel.cs" />
-    <Compile Include="AORViewerCommProxy.cs" />
+    <Compile Include="AORCacheAccessChannel.cs" />
+    <Compile Include="AORCacheAccessProxy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -11,13 +11,17 @@ namespace AORService
 {
 	class Program
 	{
+		/// <summary>
+		/// Requires NMS to be alive when starting this service.
+		/// </summary>
+		/// <param name="args"></param>
 		static void Main(string[] args)
 		{
 			string message = "Starting AOR LoginService...\nStarting AOR LoginService...\n";
 			Console.WriteLine("\n{0}\n", message);
 			Console.WriteLine("************************************************************************Starting services", message);
 
-			AORLoginService aorLoginService = new AORLoginService(); // ovo trigeruje upis u bazu (poziva UserHelpberDB);
+			AORLoginService aorLoginService = new AORLoginService(); // ovo trigeruje upis u bazu (poziva AORDatabaseHelper - ex UserHelperDB);
 			AORViewerCommService aorViewerCommService = new AORViewerCommService();// ovo instancira kes
 
 			try

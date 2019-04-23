@@ -65,5 +65,10 @@ namespace ActiveAORCache
 		{
 			throw new NotImplementedException();
 		}
+
+		public HashSet<AORCachedArea> GetAORAreas()
+		{
+			return AORCacheModel.GetAORAreas();
+		}
 	}
 }

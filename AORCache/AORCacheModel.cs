@@ -355,6 +355,15 @@ namespace ActiveAORCache
 				return returnList;
 			}
 		}
+
+		public HashSet<AORCachedArea> GetAORAreas()
+		{
+			using (var access = new AccessDB())
+			{
+				var areas = access.Areas.ToArray();
+				return new HashSet<AORCachedArea>(areas);
+			}
+		}
 	}
 }
 

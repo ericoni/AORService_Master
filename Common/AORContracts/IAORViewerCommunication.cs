@@ -23,7 +23,7 @@ namespace FTN.Common.AORContract
 		[OperationContract]
 		List<DNAAuthority> GetAllDNAs();
 		[OperationContract]
-		List<AORCachedArea> GetAORAreas();
+		HashSet<AORCachedArea> GetAORAreas();
 		[OperationContract]
 		List<AORCachedGroup> GetAORGroups();
 		[OperationContract]
@@ -36,5 +36,7 @@ namespace FTN.Common.AORContract
 		List<string> GetUsernamesForArea(string name);
 		[OperationContract]
 		List<string> GetGroupsForArea(string name);
+		//[OperationContract]
+		//HashSet<AORCachedArea> GetAORGroup(); // to do vrati se mozda ce biti potrebno kasnije 
 	}
 }
