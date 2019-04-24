@@ -544,6 +544,12 @@ namespace DERMSApp.ViewModels
 		{
 			DateTime dateTime;
 
+			if (commands == null)
+			{
+				CommonTrace.WriteTrace(true,"Commands are null in GenerationForocastViewModel");
+				return;
+			}
+
 			Commands = commands;
 
 			using (XmlWriter writer = XmlWriter.Create(fileName))

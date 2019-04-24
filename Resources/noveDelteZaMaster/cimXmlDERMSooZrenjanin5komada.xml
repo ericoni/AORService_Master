@@ -392,6 +392,81 @@
 		<cim:IdentifiedObject.name>VetroGenerator-01-Surcin</cim:IdentifiedObject.name>
 	</cim:SynchronousMachine>
 	
+	<cim:SynchronousMachine rdf:ID="sm_12"> <!-- ubaciti neke realnije vrijednosti za SUN  generatore TO DO -->
+		<cim:SynchronousMachine.AORGroup rdf:resource="#group_3"/>
+		<cim:SynchronousMachine.baseQ>200 </cim:SynchronousMachine.baseQ>
+		<cim:SynchronousMachine.maxP>550</cim:SynchronousMachine.maxP>
+		<cim:SynchronousMachine.maxQ>90</cim:SynchronousMachine.maxQ>
+		<cim:SynchronousMachine.minP>-90</cim:SynchronousMachine.minP>
+		<cim:SynchronousMachine.minQ>-10</cim:SynchronousMachine.minQ>
+		<cim:RotatingMachine.DERFlexibilityP> 90</cim:RotatingMachine.DERFlexibilityP>
+		<cim:RotatingMachine.DERFlexibilityQ> 10</cim:RotatingMachine.DERFlexibilityQ>
+		<cim:RotatingMachine.fuelType>wind</cim:RotatingMachine.fuelType>
+		<cim:RotatingMachine.nominalP> 550</cim:RotatingMachine.nominalP>
+		<cim:RotatingMachine.nominalQ>90 </cim:RotatingMachine.nominalQ>
+		<cim:RotatingMachine.ratedS> 666</cim:RotatingMachine.ratedS>
+		<cim:Equipment.EquipmentContainer rdf:resource="#sub_1"/>
+		<cim:Equipment.normallyInService> true</cim:Equipment.normallyInService>
+		<cim:IdentifiedObject.mRID>sm_12</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>VetroGenerator-01-NemamPojma1 </cim:IdentifiedObject.name>
+	</cim:SynchronousMachine>
+	
+	<cim:SynchronousMachine rdf:ID="sm_13">
+		<cim:SynchronousMachine.AORGroup rdf:resource="#group_3"/>
+		<cim:SynchronousMachine.baseQ>200 </cim:SynchronousMachine.baseQ>
+		<cim:SynchronousMachine.maxP>550</cim:SynchronousMachine.maxP>
+		<cim:SynchronousMachine.maxQ>90</cim:SynchronousMachine.maxQ>
+		<cim:SynchronousMachine.minP>-90</cim:SynchronousMachine.minP>
+		<cim:SynchronousMachine.minQ>-10</cim:SynchronousMachine.minQ>
+		<cim:RotatingMachine.DERFlexibilityP> 90</cim:RotatingMachine.DERFlexibilityP>
+		<cim:RotatingMachine.DERFlexibilityQ> 10</cim:RotatingMachine.DERFlexibilityQ>
+		<cim:RotatingMachine.fuelType>wind</cim:RotatingMachine.fuelType>
+		<cim:RotatingMachine.nominalP> 550</cim:RotatingMachine.nominalP>
+		<cim:RotatingMachine.nominalQ>90 </cim:RotatingMachine.nominalQ>
+		<cim:RotatingMachine.ratedS> 666</cim:RotatingMachine.ratedS>
+		<cim:Equipment.EquipmentContainer rdf:resource="#sub_2"/>
+		<cim:Equipment.normallyInService> true</cim:Equipment.normallyInService>
+		<cim:IdentifiedObject.mRID>sm_13</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>SolarniGenerator-01-NemamPojma2 </cim:IdentifiedObject.name>
+	</cim:SynchronousMachine>
+	
+	<cim:SynchronousMachine rdf:ID="sm_14">
+		<cim:SynchronousMachine.AORGroup rdf:resource="#group_7"/>
+		<cim:SynchronousMachine.baseQ>200 </cim:SynchronousMachine.baseQ>
+		<cim:SynchronousMachine.maxP>550</cim:SynchronousMachine.maxP>
+		<cim:SynchronousMachine.maxQ>90</cim:SynchronousMachine.maxQ>
+		<cim:SynchronousMachine.minP>-90</cim:SynchronousMachine.minP>
+		<cim:SynchronousMachine.minQ>-10</cim:SynchronousMachine.minQ>
+		<cim:RotatingMachine.DERFlexibilityP> 90</cim:RotatingMachine.DERFlexibilityP>
+		<cim:RotatingMachine.DERFlexibilityQ> 10</cim:RotatingMachine.DERFlexibilityQ>
+		<cim:RotatingMachine.fuelType>sun</cim:RotatingMachine.fuelType>
+		<cim:RotatingMachine.nominalP> 550</cim:RotatingMachine.nominalP>
+		<cim:RotatingMachine.nominalQ>90 </cim:RotatingMachine.nominalQ>
+		<cim:RotatingMachine.ratedS> 666</cim:RotatingMachine.ratedS>
+		<cim:Equipment.EquipmentContainer rdf:resource="#sub_666"/>
+		<cim:Equipment.normallyInService> true</cim:Equipment.normallyInService>
+		<cim:IdentifiedObject.mRID>sm_14</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>SolarniGenerator-01-NemamPojma3 </cim:IdentifiedObject.name>
+	</cim:SynchronousMachine>
+	
+	<cim:SynchronousMachine rdf:ID="sm_15">
+		<cim:SynchronousMachine.AORGroup rdf:resource="#group_7"/>
+		<cim:SynchronousMachine.baseQ>200 </cim:SynchronousMachine.baseQ>
+		<cim:SynchronousMachine.maxP>550</cim:SynchronousMachine.maxP>
+		<cim:SynchronousMachine.maxQ>90</cim:SynchronousMachine.maxQ>
+		<cim:SynchronousMachine.minP>-90</cim:SynchronousMachine.minP>
+		<cim:SynchronousMachine.minQ>-10</cim:SynchronousMachine.minQ>
+		<cim:RotatingMachine.DERFlexibilityP> 90</cim:RotatingMachine.DERFlexibilityP>
+		<cim:RotatingMachine.DERFlexibilityQ> 10</cim:RotatingMachine.DERFlexibilityQ>
+		<cim:RotatingMachine.fuelType>sun</cim:RotatingMachine.fuelType>
+		<cim:RotatingMachine.nominalP> 550</cim:RotatingMachine.nominalP>
+		<cim:RotatingMachine.nominalQ>90 </cim:RotatingMachine.nominalQ>
+		<cim:RotatingMachine.ratedS> 666</cim:RotatingMachine.ratedS>
+		<cim:Equipment.EquipmentContainer rdf:resource="#sub_666"/>
+		<cim:Equipment.normallyInService> true</cim:Equipment.normallyInService>
+		<cim:IdentifiedObject.mRID>sm_15</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name>SolarniGenerator-02-NemamPojma4 </cim:IdentifiedObject.name>
+	</cim:SynchronousMachine>
 	<!-- AnalogValue -->
 	<cim:AnalogValue rdf:ID="analog_11">
 		<cim:AnalogValue.value> 0</cim:AnalogValue.value>
@@ -542,6 +617,66 @@
 		<cim:MeasurementValue.timeStamp>2017-11-11T10:35:42-5:00 </cim:MeasurementValue.timeStamp>
 		<cim:IdentifiedObject.mRID>analog_82 </cim:IdentifiedObject.mRID>
 		<cim:IdentifiedObject.name> analog_82</cim:IdentifiedObject.name>
+	</cim:AnalogValue>
+	
+	<cim:AnalogValue rdf:ID="analog_141">  <!-- NOvi signali -->
+		<cim:AnalogValue.value> 0</cim:AnalogValue.value>
+		<cim:MeasurementValue.address> 40</cim:MeasurementValue.address>
+		<cim:MeasurementValue.powerType> Active  </cim:MeasurementValue.powerType>
+		<cim:MeasurementValue.SynchronousMachine rdf:resource="#sm_12"/>
+		<cim:MeasurementValue.timeStamp>2017-11-11T10:35:42-5:00 </cim:MeasurementValue.timeStamp>
+		<cim:IdentifiedObject.mRID>analog_141 </cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name> analog_141</cim:IdentifiedObject.name>
+	</cim:AnalogValue>
+
+	<cim:AnalogValue rdf:ID="analog_142">
+		<cim:AnalogValue.value> 0</cim:AnalogValue.value>
+		<cim:MeasurementValue.address> 42</cim:MeasurementValue.address>
+		<cim:MeasurementValue.powerType> Reactive  </cim:MeasurementValue.powerType>
+		<cim:MeasurementValue.SynchronousMachine rdf:resource="#sm_12"/>
+		<cim:MeasurementValue.timeStamp>2017-11-11T10:35:42-5:00 </cim:MeasurementValue.timeStamp>
+		<cim:IdentifiedObject.mRID>analog_142 </cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name> analog_142</cim:IdentifiedObject.name>
+	</cim:AnalogValue>
+	
+	<cim:AnalogValue rdf:ID="analog_151">  <!-- NOvi signali 2-->
+		<cim:AnalogValue.value> 0</cim:AnalogValue.value>
+		<cim:MeasurementValue.address> 44</cim:MeasurementValue.address>
+		<cim:MeasurementValue.powerType> Active  </cim:MeasurementValue.powerType>
+		<cim:MeasurementValue.SynchronousMachine rdf:resource="#sm_13"/>
+		<cim:MeasurementValue.timeStamp>2017-11-11T10:35:42-5:00 </cim:MeasurementValue.timeStamp>
+		<cim:IdentifiedObject.mRID>analog_151 </cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name> analog_151</cim:IdentifiedObject.name>
+	</cim:AnalogValue>
+
+	<cim:AnalogValue rdf:ID="analog_152">
+		<cim:AnalogValue.value> 0</cim:AnalogValue.value>
+		<cim:MeasurementValue.address> 46</cim:MeasurementValue.address>
+		<cim:MeasurementValue.powerType> Reactive  </cim:MeasurementValue.powerType>
+		<cim:MeasurementValue.SynchronousMachine rdf:resource="#sm_13"/>
+		<cim:MeasurementValue.timeStamp>2017-11-11T10:35:42-5:00 </cim:MeasurementValue.timeStamp>
+		<cim:IdentifiedObject.mRID>analog_152 </cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name> analog_152</cim:IdentifiedObject.name>
+	</cim:AnalogValue>
+	
+	<cim:AnalogValue rdf:ID="analog_161">  
+		<cim:AnalogValue.value> 0</cim:AnalogValue.value>
+		<cim:MeasurementValue.address> 48</cim:MeasurementValue.address>
+		<cim:MeasurementValue.powerType> Active  </cim:MeasurementValue.powerType>
+		<cim:MeasurementValue.SynchronousMachine rdf:resource="#sm_14"/>
+		<cim:MeasurementValue.timeStamp>2017-11-11T10:34:42-5:00 </cim:MeasurementValue.timeStamp>
+		<cim:IdentifiedObject.mRID>analog_161 </cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name> analog_161</cim:IdentifiedObject.name>
+	</cim:AnalogValue>
+	
+	<cim:AnalogValue rdf:ID="analog_171">  
+		<cim:AnalogValue.value> 0</cim:AnalogValue.value>
+		<cim:MeasurementValue.address> 50</cim:MeasurementValue.address>
+		<cim:MeasurementValue.powerType> Active  </cim:MeasurementValue.powerType>
+		<cim:MeasurementValue.SynchronousMachine rdf:resource="#sm_15"/>
+		<cim:MeasurementValue.timeStamp>2017-11-11T10:34:42-5:00 </cim:MeasurementValue.timeStamp>
+		<cim:IdentifiedObject.mRID>analog_171 </cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.name> analog_171</cim:IdentifiedObject.name>
 	</cim:AnalogValue>
 	
 	<!-- AOR Section -->

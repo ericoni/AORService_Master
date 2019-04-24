@@ -27,6 +27,7 @@ namespace DERMSApp.ViewModels
 			catch (Exception e)
 			{
 				Trace.Write("Stupid exception in constructor" + e.StackTrace);
+				throw e;
 			}
           
         }
