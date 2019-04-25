@@ -32,7 +32,9 @@ namespace TestApp.Model
 		public AORModel(AORCachedArea area)
 		{
 			this.Name = area.Name;
-			this.IsCovered = true;
+			this.IsCovered = false;
+			this.usersCoveringArea = new HashSet<string>();
+			this.usersCoveringArea.Add("aaa"); // to do sredi kako treba
 		}
 
 		public string Name

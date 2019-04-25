@@ -16,7 +16,7 @@ namespace AORService
 		AORLogin aorLogin = null;
 		ServiceHost host = null;
 		NetTcpBinding binding = null;
-		AOREventAlarmChannel eventProxy = null;
+		//AOREventAlarmChannel eventProxy = null; // to do odkomentarisi
 		string address = "net.tcp://localhost:10038/IAORManagement";  
 
 		public AORLoginService()
@@ -24,8 +24,8 @@ namespace AORService
 			aorLogin = AORLogin.Instance;
 			binding = new NetTcpBinding();
 
-			eventProxy = new AOREventAlarmChannel();
-			eventProxy.Test();
+			//eventProxy = new AOREventAlarmChannel();
+			//eventProxy.Test();
 
 			InitializeHosts();
 		}

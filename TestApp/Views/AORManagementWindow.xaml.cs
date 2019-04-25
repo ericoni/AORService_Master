@@ -29,7 +29,7 @@ namespace TestApp.Views
 			}
 			catch (Exception e)
 			{
-
+				throw e;
 			}
 		}
 	}

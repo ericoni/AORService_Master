@@ -8,34 +8,54 @@ using System.Threading.Tasks;
 using TestApp.Model;
 using System.Windows.Media;
 using AORManagementProxyNS;
+using FTN.Common.AORCachedModel;
+using System.Diagnostics;
 
 namespace TestApp.ViewModels
 {
 	public class AORManipulationWinVM : ViewModelBase
 	{
-		ObservableCollection<AORModel> areas = null;
 		AORCacheAccessChannel aorCacheProxy = null;
+		ObservableCollection<AORModel> obervableAreas = null;
 
 		public AORManipulationWinVM()
 		{
-			areas = new ObservableCollection<AORModel>() { new AORModel("a"), new AORModel("bbbbbbbbbbbbbbb"), new AORModel("cccc") };
-			Areas = areas;
-			aorCacheProxy = new AORCacheAccessChannel();
-
-			var cacheAreas = aorCacheProxy.GetAORAreas();
+			FetchAndShowAORAreas();
 		}
 
+		private void FetchAndShowAORAreas()
+		{
+			aorCacheProxy = new AORCacheAccessChannel();
+			HashSet<AORCachedArea> cachedAreas;
+
+			try
+			{
+				cachedAreas = aorCacheProxy.GetAORAreas();
+			}
+			catch 
+			{
+				cachedAreas = new HashSet<AORCachedArea>() { new AORCachedArea() { Name = "prva" }, new AORCachedArea() { Name = "druga" } };
+				Trace.Write("FetchAndShowAORAreas exception!");
+			}
+
+			obervableAreas = new ObservableCollection<AORModel>();
+
+			foreach (var area in cachedAreas)
+			{
+				obervableAreas.Add(new AORModel(area));
+			}
+		}
 		public ObservableCollection<AORModel> Areas
 		{
 			get
 			{
-				return areas;
+				return obervableAreas;
 			}
 			set
 			{
 				//if (areas != value)
 				//{
-					areas = value;
+					obervableAreas = value;
 					OnPropertyChanged("Areas");
 				//}
 			}

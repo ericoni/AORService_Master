@@ -15,22 +15,22 @@ using System.Windows.Shapes;
 
 namespace TestApp
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
-            InitializeComponent();
+	/// <summary>
+	/// Interaction logic for MainWindow.xaml
+	/// </summary>
+	public partial class MainWindow : Window
+	{
+		public MainWindow()
+		{
+			InitializeComponent();
 			try
 			{
 				this.DataContext = new TestApp.ViewModels.AORManipulationWinVM();
 			}
 			catch (Exception e)
 			{
-
+				throw e;
 			}
-        }
-    }
+		}
+	}
 }
