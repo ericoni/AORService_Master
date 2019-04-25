@@ -16,7 +16,7 @@ namespace TestApp.ViewModels
 	public class AORManipulationWinVM : ViewModelBase
 	{
 		AORCacheAccessChannel aorCacheProxy = null;
-		ObservableCollection<AORModel> obervableAreas = null;
+		ObservableCollection<AORModel> observableAreas = null;
 
 		public AORManipulationWinVM()
 		{
@@ -34,28 +34,29 @@ namespace TestApp.ViewModels
 			}
 			catch 
 			{
-				cachedAreas = new HashSet<AORCachedArea>() { new AORCachedArea() { Name = "prva" }, new AORCachedArea() { Name = "druga" } };
+				cachedAreas = new HashSet<AORCachedArea>() { new AORCachedArea() { Name = "prvaTest" }, new AORCachedArea() { Name = "drugaTest" } };
 				Trace.Write("FetchAndShowAORAreas exception!");
 			}
 
-			obervableAreas = new ObservableCollection<AORModel>();
+			observableAreas = new ObservableCollection<AORModel>();
 
 			foreach (var area in cachedAreas)
 			{
-				obervableAreas.Add(new AORModel(area));
+				observableAreas.Add(new AORModel(area));
 			}
+			observableAreas[0].UsersCoveringArea = new HashSet<string>();
 		}
 		public ObservableCollection<AORModel> Areas
 		{
 			get
 			{
-				return obervableAreas;
+				return observableAreas;
 			}
 			set
 			{
 				//if (areas != value)
 				//{
-					obervableAreas = value;
+					observableAreas = value;
 					OnPropertyChanged("Areas");
 				//}
 			}

@@ -12,19 +12,18 @@ namespace TestApp.Converter
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			if (value == null)
+			if (value == null || (int)value <= 0)
 			{
 				return "Uncovered";
-			}
-
-			if ((int)value > 0)
-			{
-				return "Covered";
 			}
 			else
 			{
-				return "Uncovered";
+				return "Covered";
 			}
+			//else
+			//{
+			//	return "Uncovered";
+			//}
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

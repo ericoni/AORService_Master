@@ -22,8 +22,8 @@
 							<CheckBox Content="Controling" Width="80" Margin="30,10"/>
 							<CheckBox Content="Viewing" Width="80" Margin="30,10"/>
 							<TextBlock Text="testiraeeeeeje" Visibility="{Binding Path=IsCovered, Converter={StaticResource BoolToVis}}" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="NoWrap"  Width="150" />
-							<Border Background="{Binding UsersCoveringArea.Count, Converter={StaticResource ConvertUsersCoveringAreaToBackground}}" Width="50">
-								<TextBlock Text="{Binding UsersCoveringArea.Count, Converter={StaticResource ConvertUsersCoveringAreaToText}}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							<Border Background="{Binding UsersCoveringArea.Count, Converter={StaticResource ConvertUsersCoveringAreaToBackground}}" Width="60" Height="20">
+								<TextBlock Text="{Binding UsersCoveringArea.Count, Converter={StaticResource ConvertUsersCoveringAreaToText}}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="15"/>
 							</Border>
 						</StackPanel>
 					</DataTemplate>

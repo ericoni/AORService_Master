@@ -11,14 +11,14 @@ using System.Windows;
 
 namespace TestApp.ViewModels
 {
-    public class TestAppViewModel : ViewModelBase
-    {
-        private List<LBModelBase> aorViewerList;
-        private List<LBModelBase> aorViewerTempList;
+	public class TestAppViewModel : ViewModelBase
+	{
+		private List<LBModelBase> aorViewerList;
+		private List<LBModelBase> aorViewerTempList;
 		//private EventSubscriberCallback eventSubscriberCallback;
 
-        public TestAppViewModel()
-        {
+		public TestAppViewModel()
+		{
 			//EventSubscriberCallback eventSubCallback = new EventSubscriberCallback();
 			//EventSubscriberProxy eventSubProxy = new EventSubscriberProxy(eventSubCallback);
 			//eventSubProxy.SubscribeToAORAreas(new HashSet<long>());
@@ -50,18 +50,18 @@ namespace TestApp.ViewModels
 		}
 
 		public List<LBModelBase> AORViewerList
-        {
-            get
-            {
-                return aorViewerList;
-            }
+		{
+			get
+			{
+				return aorViewerList;
+			}
 
-            set
-            {
-                aorViewerList = value;
-                OnPropertyChanged("AORViewerList");
-            }
-        }
+			set
+			{
+				aorViewerList = value;
+				OnPropertyChanged("AORViewerList");
+			}
+		}
 
 		public void Refresh()
 		{
