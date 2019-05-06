@@ -8,6 +8,6 @@ namespace AORC.Acess
 {
 	public interface IAORDatabaseHelper
 	{
-	 bool UserAuthentication(string username, string password);
+	 bool LoginUserAndSetPrincipal(string username, string password);
 	}
 }

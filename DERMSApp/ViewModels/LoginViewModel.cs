@@ -1,4 +1,5 @@
-﻿using DERMSApp.Views;
+﻿using AORManagementProxyNS;
+using DERMSApp.Views;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
@@ -18,7 +19,7 @@ namespace DERMSApp.ViewModels
 	{
 		private string textBoxUsername = string.Empty;
 		private string textBoxPassword = string.Empty; // vratiti se za implementaciju secure string-a ili nesto sa sertifikatima
-		//private AORManagementProxy aorManagementProxy = null; //vrati se
+		private AORManagementProxy aorManagementProxy = null; //vrati se
 		private bool isUserAuthenticated = false;
 		/// <summary>
 		/// The current view.
@@ -29,8 +30,8 @@ namespace DERMSApp.ViewModels
 		public LoginViewModel()
 		{
 			InitGUIElements();
-			//aorManagementProxy = new AORManagementProxy();
-			//ButtonLoginOnClick = new RelayCommand(() => ButtonLoginOnClickExecute(), () => true);
+			aorManagementProxy = new AORManagementProxy();
+			ButtonLoginOnClick = new RelayCommand(() => ButtonLoginOnClickExecute(), () => true);
 		}
 
 		private void InitGUIElements()
@@ -38,20 +39,20 @@ namespace DERMSApp.ViewModels
 			
 		}
 
-		//public bool ButtonLoginOnClickExecute() //vrati se
-		//{
-		//	if (aorManagementProxy.Proxy.Login(TextBoxUsernameText, TextBoxPasswordText))
-		//	{
-		//		IsUserAuthenticated = true;
+		public bool ButtonLoginOnClickExecute() //vrati se
+		{
+			if (aorManagementProxy.Proxy.Login(TextBoxUsernameText, TextBoxPasswordText))
+			{
+				IsUserAuthenticated = true;
 
-		//		return true;
-		//	}
-		//	else
-		//	{
-		//		IsUserAuthenticated = false;
-		//		return false;
-		//	}
-		//}
+				return true;
+			}
+			else
+			{
+				IsUserAuthenticated = false;
+				return false;
+			}
+		}
 
 		public string TextBoxUsernameText
 		{

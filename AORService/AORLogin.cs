@@ -66,7 +66,7 @@ namespace AORService
 
 		public bool Login(string username, string password)
 		{
-			return aorDatabaseHelper.UserAuthentication(username, password);
+			return aorDatabaseHelper.LoginUserAndSetPrincipal(username, password);
 		}
 
 		public List<string> GetAORAreasForUsername(string username)

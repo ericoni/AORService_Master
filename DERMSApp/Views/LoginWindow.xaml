@@ -13,14 +13,15 @@
 		</Grid.RowDefinitions>
 
 		<Grid Grid.Row="1" Grid.Column="0">
-			<TextBox Text="{Binding TextBoxUsernameText}" HorizontalAlignment="Left" Height="20" Margin="147,86,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
-			<TextBox Text="{Binding TextBoxPasswordText}" HorizontalAlignment="Left" Height="20" Margin="147,127,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
 			<!--<PasswordBox PasswordChanged="PasswordBox_PasswordChanged" HorizontalAlignment="Left" Margin="147,127,0,0" VerticalAlignment="Top" Width="120" />-->
-			<Label  Content="Username" HorizontalAlignment="Left" Margin="81,80,0,0" VerticalAlignment="Top" />
-			<Label  Content="Password" HorizontalAlignment="Left" Margin="81,119,0,0" VerticalAlignment="Top" />
-			<Button Content="Login" HorizontalAlignment="Left" Margin="172,163,0,0" VerticalAlignment="Top" Width="75" />
+			<StackPanel Width="250" Orientation="Vertical" Margin="70">
+				<Label  Content="Username" HorizontalAlignment="Left"  VerticalAlignment="Top" />
+				<TextBox Text="{Binding TextBoxUsernameText}" HorizontalAlignment="Left" Height="20"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
+				<Label  Content="Password" HorizontalAlignment="Left"  VerticalAlignment="Top" />
+				<TextBox Text="{Binding TextBoxPasswordText}" HorizontalAlignment="Left" Height="20"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
+				<Button Content="Login" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Margin="20" />
+			</StackPanel>
 			<!--<Button Command="{Binding ButtonLoginOnClick}" Content="Login" HorizontalAlignment="Left" Margin="172,163,0,0" VerticalAlignment="Top" Width="75" />-->
-
 		</Grid>
 	</Grid>
 </UserControl>

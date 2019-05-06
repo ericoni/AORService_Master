@@ -43,7 +43,7 @@ namespace AORC.Acess
 			InitializeAORCacheDB();
 		}
 
-		public bool UserAuthentication(string username, string password)
+		public bool LoginUserAndSetPrincipal(string username, string password)
 		{
 			using (var access = new AccessDB())
 			{
