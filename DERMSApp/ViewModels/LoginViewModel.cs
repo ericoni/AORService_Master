@@ -39,7 +39,7 @@ namespace DERMSApp.ViewModels
 			
 		}
 
-		public bool ButtonLoginOnClickExecute() //vrati se
+		public bool ButtonLoginOnClickExecute() //to do vratiti se
 		{
 			if (aorManagementProxy.Proxy.Login(TextBoxUsernameText, TextBoxPasswordText))
 			{

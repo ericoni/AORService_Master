@@ -157,7 +157,7 @@ namespace DERMSApp.ViewModels
 		/// </summary>
 		public MainWindowViewModel()
 		{
-			CurrentViewModel = MainWindowViewModel._tabularViewModel; // bio je tabular //vratiti ga posle na logovanje i obrisati ovu liniju ispod
+			CurrentViewModel = MainWindowViewModel._loginViewModel; // bio je tabular //vratiti ga posle na logovanje i obrisati ovu liniju ispod
 			DataTemplatesVisibility = true; // da li je ovo firstView, secondView?
 			LoginGridVisibility = false; 
 

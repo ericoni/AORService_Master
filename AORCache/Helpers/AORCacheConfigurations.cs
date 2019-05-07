@@ -9,6 +9,9 @@ using System.Data.Entity;
 
 namespace ActiveAORCache.Helpers
 {
+	/// <summary>
+	/// Method used to access AOR cache
+	/// </summary>
 	public class AORCacheConfigurations
 	{
 		public static Dictionary<string, List<string>> GetAORGroupsForArea(string areaName)

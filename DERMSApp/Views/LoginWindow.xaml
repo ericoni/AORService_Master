@@ -19,9 +19,9 @@
 				<TextBox Text="{Binding TextBoxUsernameText}" HorizontalAlignment="Left" Height="20"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
 				<Label  Content="Password" HorizontalAlignment="Left"  VerticalAlignment="Top" />
 				<TextBox Text="{Binding TextBoxPasswordText}" HorizontalAlignment="Left" Height="20"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
-				<Button Content="Login" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Margin="20" />
+				<!--<Button Content="Login" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Margin="20" />-->
+				<Button Command="{Binding ButtonLoginOnClick}" Margin="20" Content="Login" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" />
 			</StackPanel>
-			<!--<Button Command="{Binding ButtonLoginOnClick}" Content="Login" HorizontalAlignment="Left" Margin="172,163,0,0" VerticalAlignment="Top" Width="75" />-->
 		</Grid>
 	</Grid>
 </UserControl>

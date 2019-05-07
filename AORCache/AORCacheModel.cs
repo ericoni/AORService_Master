@@ -81,7 +81,7 @@ namespace ActiveAORCache
 			}
 		}
 
-		#region Two Phase Commit
+		#region ITwoPhaseCommit
 		public bool Prepare(Delta delta)
 		{
 			lock (lock2PC)
@@ -228,7 +228,7 @@ namespace ActiveAORCache
 
 		#endregion Distributed Transaction
 
-		//todo pobrisati ove metode sve, i ocisitti model
+		//todo pobrisati ove stare metode sve, i ocisitti model
 
 		public List<Permission> GetPermissionsForDNAs(long areaId)  //vrati se ovde jer vadim perms za DNA, iako pise par. areaID
 		{

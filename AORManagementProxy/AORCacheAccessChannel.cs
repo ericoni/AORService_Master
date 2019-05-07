@@ -47,15 +47,13 @@ namespace AORManagementProxyNS
 		{
 			this.Channel.SerializeDNAs();
 		}
-
-		public List<string> GetPermissionsForArea(string name)
-		{
-			return this.Channel.GetPermissionsForArea(name);
-		}
-
 		public List<string> GetUsernamesForDNA(string name)
 		{
 			return this.Channel.GetUsernamesForDNA(name);
+		}
+		public List<string> GetPermissionsForArea(string name)
+		{
+			return this.Channel.GetPermissionsForArea(name);
 		}
 		public List<string> GetUsernamesForArea(string name)
 		{
@@ -64,6 +62,11 @@ namespace AORManagementProxyNS
 		public List<string> GetGroupsForArea(string name)
 		{
 			return this.Channel.GetGroupsForArea(name);
+		}
+
+		public List<string> GetAORAreasForUser(string username)
+		{
+			return this.Channel.GetAORAreasForUser(username);
 		}
 	}
 }

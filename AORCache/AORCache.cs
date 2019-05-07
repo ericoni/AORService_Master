@@ -61,11 +61,6 @@ namespace ActiveAORCache
 			return AORCacheModel.GetGroupsForArea(name);
 		}
 
-		public List<string> GetAORAreasForUsername(string username)
-		{
-			throw new NotImplementedException();
-		}
-
 		public HashSet<AORCachedArea> GetAORAreas()
 		{
 			return AORCacheModel.GetAORAreas();

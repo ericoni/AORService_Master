@@ -17,10 +17,10 @@ namespace AORManagementProxyNS
 		{
 		}
 
-		public List<string> GetAORAreasForUsername(string username)
-		{
-			return this.Channel.GetAORAreasForUsername(username);
-		}
+		//public List<string> GetAORAreasForUsername(string username) // to do ubaciti ovde ili u neki zajednici interfejs za pristupanje kesu
+		//{
+		//	return this.Channel.GetAORAreasForUsername(username);
+		//}
 
 		public bool Login(string username, string password)
 		{

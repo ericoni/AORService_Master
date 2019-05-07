@@ -15,17 +15,13 @@ namespace AORService
 	[ServiceBehavior(IncludeExceptionDetailInFaults = true)]
 	public class AORViewerComm : IAORViewerCommunication
 	{
-		private AORCache aorCache = null;
-
-		/// <summary>
-		/// Helper class used for XML (de)serialization
-		/// </summary>
+		//private AORCache aorCache = null;
 		private AORXmlHelper aorXmlHelper;
 
 		public AORViewerComm()
 		{
 			aorXmlHelper = new AORXmlHelper();
-			aorCache = new AORCache();
+			//aorCache = new AORCache();
 		}
 
 		public List<Permission> GetAllPermissions()
@@ -43,36 +39,75 @@ namespace AORService
 			return aorXmlHelper.ReadDNAFromXml();
 		}
 
-		public List<AORCachedGroup> GetAORGroups()
+		//public List<AORCachedGroup> GetAORGroups()
+		//{
+		//	return aorCache.GetAORGroups();
+		//}
+
+		//public List<User> GetAllUsers()
+		//{
+		//	return aorCache.GetAllUsers();
+		//}
+	
+		//public List<string> GetUsernamesForDNA(string name)
+		//{
+		//	return aorCache.GetUsernamesForDNA(name);
+		//}
+		//public HashSet<AORCachedArea> GetAORAreas()
+		//{
+		//	return aorCache.GetAORAreas();
+		//}
+		//public List<string> GetUsernamesForArea(string name)
+		//{
+		//	return aorCache.GetUsernamesForArea(name);
+		//}
+		//public List<string> GetGroupsForArea(string name)
+		//{
+		//	return aorCache.GetGroupsForArea(name);
+		//}
+		//public List<string> GetPermissionsForArea(string name)
+		//{
+		//	return aorCache.GetPermissionsForArea(name);
+		//}
+
+		public List<string> GetAORAreasForUser(string username)
 		{
-			return aorCache.GetAORGroups();
+			throw new NotImplementedException();
 		}
 
-		public List<User> GetAllUsers()
-		{
-			return aorCache.GetAllUsers();
-		}
-		public List<string> GetPermissionsForArea(string name)
-		{
-			return aorCache.GetPermissionsForArea(name);
-		}
 		public List<string> GetUsernamesForDNA(string name)
 		{
-			return aorCache.GetUsernamesForDNA(name);
-		}
-
-		public List<string> GetUsernamesForArea(string name)
-		{
-			return aorCache.GetUsernamesForArea(name);
-		}
-		public List<string> GetGroupsForArea(string name)
-		{
-			return aorCache.GetGroupsForArea(name);
+			throw new NotImplementedException();
 		}
 
 		public HashSet<AORCachedArea> GetAORAreas()
 		{
-			return aorCache.GetAORAreas();
+			throw new NotImplementedException();
+		}
+
+		public List<AORCachedGroup> GetAORGroups()
+		{
+			throw new NotImplementedException();
+		}
+
+		public List<User> GetAllUsers()
+		{
+			throw new NotImplementedException();
+		}
+
+		public List<string> GetPermissionsForArea(string name)
+		{
+			throw new NotImplementedException();
+		}
+
+		public List<string> GetUsernamesForArea(string name)
+		{
+			throw new NotImplementedException();
+		}
+
+		public List<string> GetGroupsForArea(string name)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

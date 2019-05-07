@@ -490,6 +490,11 @@ namespace WeatherForecastService
 		/// <returns></returns>
 		private Data CalculateAverageData(List<Data> datas)
 		{
+			if (datas == null)
+			{
+				throw new ArgumentNullException("CalculateAverageData method argument 'datas' is null.");
+			}
+
 			// Povratna vrednost metode
 			Data average = new Data();
 

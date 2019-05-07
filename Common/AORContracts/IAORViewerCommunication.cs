@@ -11,13 +11,15 @@ using FTN.Common.AORCachedModel;
 namespace FTN.Common.AORContract
 {
 	/// <summary>
-	/// Relationship between AOR Viewer app and AOR Service
+	/// Relationship between AOR Viewer app and AOR Service, SHOULD BE  treba napraviti da se preko jednog te istog proxy-a pristupa AOR cache-u.
 	/// </summary>
 	[ServiceContract]
 	public interface IAORViewerCommunication
 	{
 		[OperationContract]
 		List<Permission> GetAllPermissions();
+		[OperationContract]
+		List<string> GetUsernamesForDNA(string name);
 		[OperationContract]
 		void SerializeDNAs();
 		[OperationContract]
@@ -31,11 +33,11 @@ namespace FTN.Common.AORContract
 		[OperationContract]
 		List<string> GetPermissionsForArea(string name);
 		[OperationContract]
-		List<string> GetUsernamesForDNA(string name);
-		[OperationContract]
 		List<string> GetUsernamesForArea(string name);
 		[OperationContract]
 		List<string> GetGroupsForArea(string name);
+		[OperationContract]
+		List<string> GetAORAreasForUser(string username);
 		//[OperationContract]
 		//HashSet<AORCachedArea> GetAORGroup(); // to do vrati se mozda ce biti potrebno kasnije 
 	}

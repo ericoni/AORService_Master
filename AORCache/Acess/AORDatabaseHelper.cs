@@ -111,6 +111,12 @@ namespace AORC.Acess
 				#region AOR Groups
 				var nmsAorGroups = rdAdapter.GetAORGroups();
 
+				if (nmsAorGroups == null)
+				{
+					Trace.Write("NMS AOR groups are null, you need to populate NMS database first.");
+					return;
+				}
+
 				foreach (var nmsGroup in nmsAorGroups)
 				{
 					syncMachines = rdAdapter.GetSyncMachinesForAreaGroupGid(new List<long>() { nmsGroup.GlobalId });

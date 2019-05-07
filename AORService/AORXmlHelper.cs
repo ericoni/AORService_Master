@@ -11,6 +11,9 @@ using AORViewer.Model;
 
 namespace AORService
 {
+	/// <summary>
+	/// Helper class used for XML (de)serialization
+	/// </summary>
 	public class AORXmlHelper
 	{
 		public bool CreateXml(bool isDnaSerialization) 

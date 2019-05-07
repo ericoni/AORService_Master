@@ -12,6 +12,5 @@ namespace ActiveAORCache
 	{
 		void SynchronizeAORConfig();
 		List<AORCachedGroup> GetAORGroups();
-		List<string> GetAORAreasForUsername(string username);
 	}
 }

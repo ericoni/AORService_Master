@@ -17,7 +17,7 @@ namespace FTN.Common.AORContract
 	{
 		[OperationContract]
 		bool Login(string username, string password);
-		[OperationContract]
-		List<string> GetAORAreasForUsername(string username);
+		//[OperationContract]
+		//List<string> GetAORAreasForUsername(string username); // to do voo bi trebalo premjestiti, da ima jedinstven pristup cache-u
 	}
 }

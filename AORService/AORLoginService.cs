@@ -10,6 +10,7 @@ using System.IdentityModel.Policy;
 using System.IdentityModel.Claims;
 using System.ServiceModel.Description;
 using System.Security.Principal;
+using ActiveAORCache.Helpers;
 
 namespace AORService
 { 
@@ -123,6 +124,8 @@ namespace AORService
 				IList<IIdentity> identities = obj as IList<IIdentity>;
 				if (obj == null || identities.Count <= 0)
 					return false;
+
+				//AORCacheConfigurations.GetAORAreasForUsername
 
 				context.Properties["Principal"] = new CustomPrincipal(identities[0], "perica", new string[] { "a", "b" });
 				return true;
