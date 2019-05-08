@@ -16,17 +16,17 @@ namespace AORService
 { 
 	// [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
 
-	public class AORLoginService : IDisposable
+	public class AORManagementService : IDisposable
 	{
-		AORLogin aorLogin = null;
+		AORManagement aorLogin = null;
 		ServiceHost host = null;
 		NetTcpBinding binding = null;
 		//AOREventAlarmChannel eventProxy = null; // to do odkomentarisi
 		string address = "net.tcp://localhost:10038/IAORManagement";  
 
-		public AORLoginService()
+		public AORManagementService()
 		{
-			aorLogin = AORLogin.Instance;
+			aorLogin = AORManagement.Instance;
 			binding = new NetTcpBinding();
 
 			//eventProxy = new AOREventAlarmChannel();
@@ -36,7 +36,7 @@ namespace AORService
 		}
 		private void InitializeHosts()
 		{
-			host = new ServiceHost(typeof(AORLogin));
+			host = new ServiceHost(typeof(AORManagement));
 		}
 		public void Dispose()
 		{

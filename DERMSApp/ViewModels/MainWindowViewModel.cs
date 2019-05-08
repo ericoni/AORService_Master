@@ -13,6 +13,7 @@ using SmartCacheLibrary.Interfaces;
 using System.ServiceModel;
 using FTN.Services.NetworkModelService.DataModel.Meas;
 using DERMSApp.Model;
+using AORManagementProxyNS;
 
 namespace DERMSApp.ViewModels
 {
@@ -39,7 +40,7 @@ namespace DERMSApp.ViewModels
 		/// <summary>
 		/// Proxy for AOR Management
 		/// </summary>
-		//private AORManagementProxy aorManagementProxy = null;
+		private AORManagementProxy aorManagementProxy = null;
 		/// <summary>
 		/// The current view.
 		/// </summary>
@@ -54,7 +55,7 @@ namespace DERMSApp.ViewModels
 		/// <summary>
 		/// Static instance of one of the ViewModels.
 		/// </summary>
-		readonly static LoginViewModel _loginViewModel = new LoginViewModel();
+		//readonly static LoginViewModel _loginViewModel = new LoginViewModel(); // to do mislim da cu ovo izbacititi skroz, jer se ne koristi ovaj VM nego je sve u main vm
 
 		/// <summary>
 		/// Static instance of one of the ViewModels.
@@ -157,12 +158,12 @@ namespace DERMSApp.ViewModels
 		/// </summary>
 		public MainWindowViewModel()
 		{
-			CurrentViewModel = MainWindowViewModel._loginViewModel; // bio je tabular //vratiti ga posle na logovanje i obrisati ovu liniju ispod
-			DataTemplatesVisibility = true; // da li je ovo firstView, secondView?
-			LoginGridVisibility = false; 
+			CurrentViewModel = MainWindowViewModel._tabularViewModel; // bio je tabular //vratiti ga posle na logovanje i obrisati ovu liniju ispod
+			DataTemplatesVisibility = false; // da li je ovo firstView, secondView?
+			LoginGridVisibility = true;
 
-			//aorManagementProxy = new AORManagementProxy(); // vrati se AOR
-			//ButtonLoginOnClick = new RelayCommand(() => ButtonLoginOnClickExecute(), () => true);
+			aorManagementProxy = new AORManagementProxy(); // vrati se AOR
+			ButtonLoginOnClick = new RelayCommand(() => ButtonLoginOnClickExecute(), () => true);
 
 			FirstViewCommand = new RelayCommand(() => ExecuteFirstViewCommand());
 			SecondViewCommand = new RelayCommand(() => ExecuteSecondViewCommand());
@@ -196,22 +197,22 @@ namespace DERMSApp.ViewModels
 			}
 		}
 
-		//public bool ButtonLoginOnClickExecute()
-		//{
-		//	if (aorManagementProxy.Proxy.Login(TextBoxUsernameText, TextBoxPasswordText))
-		//	{
-		//		IsUserAuthenticated = true;
-		//		LoginGridVisibility = false;
-		//		CurrentViewModel = _tabularViewModel;
-		//		DataTemplatesVisibility = true; // ostavitii ovako ili se vratiti i probati sa onim event djavolima
-		//		return true;
-		//	}
-		//	else
-		//	{
-		//		IsUserAuthenticated = false;
-		//		return false;
-		//	}
-		//}
+		public bool ButtonLoginOnClickExecute()
+		{
+			if (aorManagementProxy.Proxy.Login(TextBoxUsernameText, TextBoxPasswordText))
+			{
+				IsUserAuthenticated = true;
+				LoginGridVisibility = false;
+				CurrentViewModel = _tabularViewModel;
+				DataTemplatesVisibility = true; // ostavitii ovako ili se vratiti i probati sa onim event djavolima, sta je datatemplates jbt
+				return true;
+			}
+			else
+			{
+				IsUserAuthenticated = false;
+				return false;
+			}
+		}
 
 		/// <summary>
 		/// Set the CurrentViewModel to 'FirstViewModel'

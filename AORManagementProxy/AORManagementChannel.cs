@@ -10,10 +10,13 @@ using FTN.Common.Model;
 
 namespace AORManagementProxyNS
 {
+	/// <summary>
+	/// Logovanje korisnika i AOR management prozor
+	/// </summary>
 	public class AORManagementChannel : ClientBase<IAORManagement>, IAORManagement
 	{
 		public AORManagementChannel()
-			: base("AORViewerComm") // vrati se da sredis ovo
+			: base("AORManagement") // 8.5.19' dodat iskoristen je jedan ednpoint za login i za setovanje koji od dodjeljnih AOR-a hocu da koristim!
 		{
 		}
 

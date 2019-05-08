@@ -15,6 +15,7 @@ using System.Windows.Input;
 
 namespace DERMSApp.ViewModels
 {
+	[Obsolete("Don't use this", true)]
 	public class LoginViewModel : ViewModelBase
 	{
 		private string textBoxUsername = string.Empty;

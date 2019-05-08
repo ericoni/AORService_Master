@@ -14,15 +14,15 @@ using AORC.Acess;
 namespace AORService
 {
 	/// <summary>
-	/// TODO: AOR login trenutno poziva aorDatabaseHelper DB
+	/// TODO: AOR login trenutno poziva aorDatabaseHelper DB, po konstruktoru
 	/// </summary>
-	public class AORLogin : IAORManagement
+	public class AORManagement : IAORManagement
 	{
 		private AORDatabaseHelper aorDatabaseHelper;
 		/// <summary>
 		/// Singleton instance
 		/// </summary>
-		private static volatile AORLogin instance;
+		private static volatile AORManagement instance;
 
 		/// <summary>
 		/// Lock object
@@ -32,7 +32,7 @@ namespace AORService
 		/// <summary>
 		/// Singleton method
 		/// </summary>
-		public static AORLogin Instance
+		public static AORManagement Instance
 		{
 			get
 			{
@@ -41,7 +41,7 @@ namespace AORService
 					lock (syncRoot)
 					{
 						if (instance == null)
-							instance = new AORLogin();
+							instance = new AORManagement();
 					}
 				}
 
@@ -49,7 +49,7 @@ namespace AORService
 			}
 		}
 
-		public AORLogin()
+		public AORManagement()
 		{
 			try
 			{

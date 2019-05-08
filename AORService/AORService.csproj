@@ -77,8 +77,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AORLogin.cs" />
-    <Compile Include="AORLoginService.cs" />
+    <Compile Include="AORManagement.cs" />
+    <Compile Include="AORManagementService.cs" />
     <Compile Include="AORViewerCommService.cs" />
     <Compile Include="AORViewerComm.cs" />
     <Compile Include="AORXmlHelper.cs" />

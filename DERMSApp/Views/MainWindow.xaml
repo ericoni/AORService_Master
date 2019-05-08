@@ -66,11 +66,14 @@
 				<viewModels:DeltaViewModel/>
 			</-->
 		</DockPanel>
-		<Grid Grid.Row="1" Visibility="{Binding Path=LoginGridVisibility, Converter={StaticResource BooleanToVisibilityConverter} }">
-			<TextBox Height="30"  TextWrapping="Wrap" Text="{Binding TextBoxUsernameText}" Width="120" Margin="325,130,347,369"/>
-			<TextBox Height="30" TextWrapping="Wrap" Text="{Binding TextBoxPasswordText}" Width="120" Margin="325,198,347,301"/>
-			<Button x:Name="button" Command="{Binding ButtonLoginOnClick}" Content="Login" HorizontalAlignment="Left" Margin="346,273,0,0" VerticalAlignment="Top" Width="75"/>
-
+		<Grid Grid.Row="1" Visibility="{Binding Path=LoginGridVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"  >
+			<StackPanel HorizontalAlignment="Center" Margin="100">
+				<Label Content="Username" FontSize="10"/>
+				<TextBox Height="30"  TextWrapping="Wrap" Text="{Binding TextBoxUsernameText}"  Width="120" />
+				<Label Content="Password" FontSize="10"/>
+				<TextBox Height="30" TextWrapping="Wrap" Text="{Binding TextBoxPasswordText}"  Width="120" />
+				<Button Command="{Binding ButtonLoginOnClick}" Content="Login" Width="75"/>
+			</StackPanel>
 		</Grid>
 	</Grid>
 </Window>

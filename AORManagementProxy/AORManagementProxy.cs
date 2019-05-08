@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace AORManagementProxyNS
 {
+	/// <summary>
+	/// Logivanje korisnika i AOR management prozor.
+	/// </summary>
 	public class AORManagementProxy
 	{
 		private const int maxTries = 5;
@@ -25,9 +28,6 @@ namespace AORManagementProxyNS
 
 			while (true)
 			{
-				if (tryCounter == maxTries)
-					throw new Exception("AORManagementProxy: Connection error - max retries has been reached.");
-
 				try
 				{
 					proxy = new AORManagementChannel();
@@ -37,6 +37,10 @@ namespace AORManagementProxyNS
 				catch (Exception e)
 				{
 					tryCounter++;
+
+					if (tryCounter == maxTries)
+						throw e;
+
 					Thread.Sleep(sleepTime);
 					Trace.Write("Exception trace is:" + e.StackTrace);
 				}
