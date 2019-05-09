@@ -7,54 +7,54 @@ using System.Threading.Tasks;
 
 namespace WeatherForecastProxyNS
 {
-    public class WeatherForecastProxy
-    {
-        // Broj pokusaja uspostavljanja komunikacije
-        private const int maxTry = 5;
+	public class WeatherForecastProxy
+	{
+		// Broj pokusaja uspostavljanja komunikacije
+		private const int maxTry = 5;
 
-        // Spavanje do narednog pokusaja
-        private const int sleepTime = 3000;
+		// Spavanje do narednog pokusaja
+		private const int sleepTime = 3000;
 
-        WeatherForecastChannel proxy;
+		WeatherForecastChannel proxy;
 
-        public WeatherForecastProxy()
-        {
-            OpenChannel();
-        }
+		public WeatherForecastProxy()
+		{
+			OpenChannel();
+		}
 
-        private void OpenChannel()
-        {
-            int tryCounter = 0;
+		private void OpenChannel()
+		{
+			int tryCounter = 0;
 
-            while (true)
-            {
-                if (tryCounter.Equals(maxTry))
-                {
-                    throw new Exception("WeatherForecastProxy: Connection error.");
-                }
+			while (true)
+			{
+				try
+				{
+					proxy = new WeatherForecastChannel();
+					proxy.Open();
 
-                try
-                {
-                    proxy = new WeatherForecastChannel();
-                    proxy.Open();
+					break;
+				}
+				catch (Exception)
+				{
+					tryCounter++;
 
-                    break;
-                }
-                catch (Exception)
-                {
-                    tryCounter++;
-                    Thread.Sleep(sleepTime);
-                }
-            }
-        }
+					if (tryCounter.Equals(maxTry))
+					{
+						throw;
+					}
+					Thread.Sleep(sleepTime);
+				}
+			}
+		}
 
-        public WeatherForecastChannel Proxy
-        {
-            get
-            {
-                return proxy;
-            }
-        }
-    }
+		public WeatherForecastChannel Proxy
+		{
+			get
+			{
+				return proxy;
+			}
+		}
+	}
 }
 

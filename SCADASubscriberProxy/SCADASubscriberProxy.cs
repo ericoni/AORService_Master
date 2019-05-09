@@ -61,11 +61,6 @@ namespace SCADASubscriberProxyNS
 
 			while (true)
 			{
-				if (tryCounter.Equals(maxTry))
-				{
-					throw new Exception("SCADASubscriberProxy: Connection error.");
-				}
-
 				try
 				{
 					proxy.Subscribed(topics);
@@ -74,6 +69,12 @@ namespace SCADASubscriberProxyNS
 				catch (Exception)
 				{
 					tryCounter++;
+
+					if (tryCounter.Equals(maxTry))
+					{
+						throw;
+					}
+
 					Thread.Sleep(sleepTime);
 					OpenChannel();
 				}

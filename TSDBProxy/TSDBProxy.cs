@@ -21,11 +21,6 @@ namespace TSDBProxyNS
 
 			while (true)
 			{
-				if (tryCounter.Equals(maxTry))
-				{
-					throw new Exception("TSDBProxy: Connection error.");
-				}
-
 				try
 				{
 					Proxy = new TSDBChannel();
@@ -35,6 +30,12 @@ namespace TSDBProxyNS
 				}
 				catch (Exception)
 				{
+
+					if (tryCounter.Equals(maxTry))
+					{
+						throw;
+					}
+
 					tryCounter++;
 					Thread.Sleep(sleepTime);
 				}

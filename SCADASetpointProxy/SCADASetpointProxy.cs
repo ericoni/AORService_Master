@@ -28,11 +28,6 @@ namespace SCADAReceivingProxyNS
 
             while (true)
             {
-                if (tryCounter.Equals(maxTry))
-                {
-                    throw new Exception("SCADASetpointProxy: Connection error.");
-                }
-
                 try
                 {
                     proxy = new SCADASetpointChannel();
@@ -43,7 +38,13 @@ namespace SCADAReceivingProxyNS
                 catch (Exception)
                 {
                     tryCounter++;
-                    Thread.Sleep(sleepTime);
+
+					if (tryCounter.Equals(maxTry))
+					{
+						throw;
+					}
+
+					Thread.Sleep(sleepTime);
                 }
             }
         }

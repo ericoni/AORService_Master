@@ -45,11 +45,7 @@ namespace Adapter
 
 					while (true)
 					{
-						if (tryCounter.Equals(maxTry))
-						{
-							throw new Exception("RAAdapter: Connection error (number of retries reached).");
-						}
-
+						
 						try
 						{
 							gdaQueryProxy = new NetworkModelGDAProxy("NetworkModelGDAEndpoint");
@@ -60,6 +56,12 @@ namespace Adapter
 						catch (Exception ex)
 						{
 							tryCounter++;
+
+							if (tryCounter.Equals(maxTry))
+							{
+								throw ex;
+							}
+
 							Thread.Sleep(sleepTime);
 							CommonTrace.WriteTrace(CommonTrace.TraceError, "Failed to open GDAProxyChannel in RDAdapter+ " + ex.StackTrace);
 						}

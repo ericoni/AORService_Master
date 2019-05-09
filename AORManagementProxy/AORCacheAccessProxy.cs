@@ -25,9 +25,6 @@ namespace AORManagementProxyNS
 
 			while (true)
 			{
-				if (tryCounter == maxTries)
-					throw new Exception("AORCacheAccessProxy: Connection error.");
-
 				try
 				{
 					proxy = new AORCacheAccessChannel();
@@ -37,6 +34,10 @@ namespace AORManagementProxyNS
 				catch (Exception e)
 				{
 					tryCounter++;
+
+					if (tryCounter == maxTries)
+						throw e;
+
 					Thread.Sleep(sleepTime);
 					Trace.Write("Exception trace :" + e.StackTrace);
 				}

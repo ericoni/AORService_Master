@@ -7,58 +7,59 @@ using System.Threading.Tasks;
 
 namespace CEDistributionProxy
 {
-    public class ICEDistributionProxy
-    {
-        // Broj pokusaja uspostavljanja komunikacije
-        private const int maxTry = 5;
+	public class ICEDistributionProxy
+	{
+		// Broj pokusaja uspostavljanja komunikacije
+		private const int maxTry = 5;
 
-        // Spavanje do narednog pokusaja
-        private const int sleepTime = 3000;
+		// Spavanje do narednog pokusaja
+		private const int sleepTime = 3000;
 
-        CEDistributionChannel proxy;
+		CEDistributionChannel proxy;
 
-        public ICEDistributionProxy()
-        {
-            OpenChannel();
-        }
+		public ICEDistributionProxy()
+		{
+			OpenChannel();
+		}
 
-        private void OpenChannel()
-        {
-            int tryCounter = 0;
+		private void OpenChannel()
+		{
+			int tryCounter = 0;
 
-            while (true)
-            {
-                if (tryCounter.Equals(maxTry))
-                {
-                    throw new Exception("CEDistributionProxy: Connection error.");
-                }
+			while (true)
+			{
+				try
+				{
+					proxy = new CEDistributionChannel();
+					proxy.Open();
 
-                try
-                {
-                    proxy = new CEDistributionChannel();
-                    proxy.Open();
+					break;
+				}
+				catch (Exception)
+				{
+					tryCounter++;
 
-                    break;
-                }
-                catch (Exception)
-                {
-                    tryCounter++;
-                    Thread.Sleep(sleepTime);
-                }
-            }
-        }
+					if (tryCounter.Equals(maxTry))
+					{
+						throw;
+					}
 
-        public CEDistributionChannel Proxy
-        {
-            get
-            {
-                if (proxy.State != System.ServiceModel.CommunicationState.Opened)
-                {
-                    OpenChannel();
-                }
+					Thread.Sleep(sleepTime);
+				}
+			}
+		}
 
-                return proxy;
-            }
-        }
-    }
+		public CEDistributionChannel Proxy
+		{
+			get
+			{
+				if (proxy.State != System.ServiceModel.CommunicationState.Opened)
+				{
+					OpenChannel();
+				}
+
+				return proxy;
+			}
+		}
+	}
 }

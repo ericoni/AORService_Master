@@ -62,11 +62,6 @@ namespace EventAlarmProxyNS
 
 			while (true)
 			{
-				if (tryCounter.Equals(maxTry))
-				{
-					throw new Exception("EventSubscriberProxy: Connection error.");
-				}
-
 				try
 				{
 					proxy.SubscribeToAORAreas(new HashSet<long>());
@@ -75,6 +70,12 @@ namespace EventAlarmProxyNS
 				catch (Exception)
 				{
 					tryCounter++;
+
+					if (tryCounter.Equals(maxTry))
+					{
+						throw;
+					}
+
 					Thread.Sleep(sleepTime);
 					OpenChannel();
 				}
@@ -87,11 +88,6 @@ namespace EventAlarmProxyNS
 
 			while (true)
 			{
-				if (tryCounter.Equals(maxTry))
-				{
-					throw new Exception("EventSubscriberProxy: Connection error.");
-				}
-
 				try
 				{
 					proxy.UnsubscribeFromAORAreas();
@@ -100,8 +96,14 @@ namespace EventAlarmProxyNS
 				catch (Exception)
 				{
 					tryCounter++;
+
+					if (tryCounter.Equals(maxTry))
+					{
+						throw;
+					}
+
 					Thread.Sleep(sleepTime);
-					OpenChannel();
+					//OpenChannel(); // to do je li ovo copy paste ?
 				}
 			}
 		}

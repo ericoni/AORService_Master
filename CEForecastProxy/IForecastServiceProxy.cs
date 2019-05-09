@@ -28,11 +28,6 @@ namespace CEForecastProxy
 
             while (true)
             {
-                if (tryCounter.Equals(maxTry))
-                {
-                    throw new Exception("CEDistributionProxy: Connection error.");
-                }
-
                 try
                 {
                     proxy = new CEForecastChannel();
@@ -43,7 +38,13 @@ namespace CEForecastProxy
                 catch (Exception)
                 {
                     tryCounter++;
-                    Thread.Sleep(sleepTime);
+
+					if (tryCounter.Equals(maxTry))
+					{
+						throw;
+					}
+
+					Thread.Sleep(sleepTime);
                 }
             }
         }

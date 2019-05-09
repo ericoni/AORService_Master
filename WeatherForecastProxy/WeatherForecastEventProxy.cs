@@ -28,11 +28,6 @@ namespace WeatherForecastProxyNS
 
 			while (true)
 			{
-				if (tryCounter.Equals(maxTry))
-				{
-					throw new Exception("WeatherForecastEventProxy: Connection error.");
-				}
-
 				try
 				{
 					proxy = new WeatherForecastEventChannel();
@@ -43,6 +38,12 @@ namespace WeatherForecastProxyNS
 				catch (Exception)
 				{
 					tryCounter++;
+
+					if (tryCounter.Equals(maxTry))
+					{
+						throw;
+					}
+
 					Thread.Sleep(sleepTime);
 				}
 			}

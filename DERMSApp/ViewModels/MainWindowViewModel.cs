@@ -179,11 +179,6 @@ namespace DERMSApp.ViewModels
 
 			while (true)
 			{
-				if (tryCounter.Equals(maxTry))
-				{
-					throw new Exception("CEDistributionProxy: Connection error.");
-				}
-
 				try
 				{
 					cacheReceiver.ConnectToCalculationEngine();
@@ -192,6 +187,12 @@ namespace DERMSApp.ViewModels
 				catch (Exception)
 				{
 					tryCounter++;
+
+					if (tryCounter.Equals(maxTry))
+					{
+						throw;
+					}
+
 					Thread.Sleep(3000);
 				}
 			}

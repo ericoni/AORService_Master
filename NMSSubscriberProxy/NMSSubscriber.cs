@@ -10,106 +10,107 @@ using System.Threading.Tasks;
 
 namespace NMSSub
 {
-    public class NMSSubscriber
-    {
-        /// <summary>
-        /// Channel for NMS pub/sub
-        /// </summary>
-        private INMSSubscriber proxy = null;
+	public class NMSSubscriber
+	{
+		/// <summary>
+		/// Channel for NMS pub/sub
+		/// </summary>
+		private INMSSubscriber proxy = null;
 
-        private object instance = null;
+		private object instance = null;
 
-        // Broj pokusaja uspostavljanja komunikacije
-        private const int maxTry = 10;
+		// Broj pokusaja uspostavljanja komunikacije
+		private const int maxTry = 10;
 
-        // Spavanje do narednog pokusaja
-        private const int sleepTime = 5000;
+		// Spavanje do narednog pokusaja
+		private const int sleepTime = 5000;
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        public NMSSubscriber(object instance)
-        {
-            this.instance = instance;
-            OpenChannel();
-        }
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		public NMSSubscriber(object instance)
+		{
+			this.instance = instance;
+			OpenChannel();
+		}
 
-        /// <summary>
-        /// This method is opening channel to the NMS
-        /// </summary>
-        private void OpenChannel()
-        {
-            DuplexChannelFactory<INMSSubscriber> factory = new DuplexChannelFactory<INMSSubscriber>(
-              new InstanceContext(instance),
-              new NetTcpBinding(),
-              new EndpointAddress("net.tcp://localhost:10010/INMSSubscriber"));
+		/// <summary>
+		/// This method is opening channel to the NMS
+		/// </summary>
+		private void OpenChannel()
+		{
+			DuplexChannelFactory<INMSSubscriber> factory = new DuplexChannelFactory<INMSSubscriber>(
+			  new InstanceContext(instance),
+			  new NetTcpBinding(),
+			  new EndpointAddress("net.tcp://localhost:10010/INMSSubscriber"));
 
-            try
-            {
-                proxy = factory.CreateChannel();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
+			try
+			{
+				proxy = factory.CreateChannel();
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+		}
 
-        /// <summary>
-        /// Subscribe to the desired type
-        /// </summary>
-        /// <param name="topics"> List of DMSTypes </param>
-        public void Subscribed(List<DMSType> topics)
-        {
-            int tryCounter = 0;
+		/// <summary>
+		/// Subscribe to the desired type
+		/// </summary>
+		/// <param name="topics"> List of DMSTypes </param>
+		public void Subscribed(List<DMSType> topics)
+		{
+			int tryCounter = 0;
 
-            while (true)
-            {
-                if (tryCounter.Equals(maxTry))
-                {
-                    throw new Exception("TSDBProxy: Connection error.");
-                }
+			while (true)
+			{
+				try
+				{
+					proxy.Subscribed(topics);
+					break;
+				}
+				catch (Exception)
+				{
+					tryCounter++;
 
-                try
-                {
-                    proxy.Subscribed(topics);
-                    break;
-                }
-                catch (Exception)
-                {
-                    tryCounter++;
-                    Thread.Sleep(sleepTime);
-                    OpenChannel();
-                }
-            }
-        }
+					if (tryCounter.Equals(maxTry))
+					{
+						throw;
+					}
 
-        /// <summary>
-        /// Unsubscribe
-        /// </summary>
-        /// <param name="topics"> List of DMS Types </param>
-        public void Unsubscribed(List<DMSType> topics)
-        {
-            int tryCounter = 0;
+					Thread.Sleep(sleepTime);
+					OpenChannel();
+				}
+			}
+		}
 
-            while (true)
-            {
-                if (tryCounter.Equals(maxTry))
-                {
-                    throw new Exception("TSDBProxy: Connection error.");
-                }
+		/// <summary>
+		/// Unsubscribe
+		/// </summary>
+		/// <param name="topics"> List of DMS Types </param>
+		public void Unsubscribed(List<DMSType> topics)
+		{
+			int tryCounter = 0;
 
-                try
-                {
-                    proxy.Unsubscribed(topics);
-                    break;
-                }
-                catch (Exception)
-                {
-                    tryCounter++;
-                    Thread.Sleep(sleepTime);
-                    OpenChannel();
-                }
-            }
-        }
-    }
+			while (true)
+			{
+				if (tryCounter.Equals(maxTry))
+				{
+					throw new Exception("TSDBProxy: Connection error.");
+				}
+
+				try
+				{
+					proxy.Unsubscribed(topics);
+					break;
+				}
+				catch (Exception)
+				{
+					tryCounter++;
+					Thread.Sleep(sleepTime);
+					OpenChannel();
+				}
+			}
+		}
+	}
 }

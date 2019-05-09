@@ -49,9 +49,17 @@ namespace AORC.Acess
 			{
 				var myUser = access.Users.Where(u => u.Username.Equals(username)).ToList();
 
-				//return myUser[0].Password.Equals(SecurePasswordManager.Hash(password));
-				return myUser[0].Password.Equals(password);
+				if (myUser.Count == 0)
+				{
+					return false;
+				}
+				else
+				{
+					return myUser[0].Password.Equals(password);
+				}
 				/* 
+				//return myUser[0].Password.Equals(SecurePasswordManager.Hash(password));
+				 * 
 					 int i = access.SaveChanges();
 
 				if (i > 0)
