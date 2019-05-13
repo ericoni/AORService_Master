@@ -15,6 +15,12 @@ using ActiveAORCache.Helpers;
 namespace AORService
 { 
 	// [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
+	/// <summary>
+	/// Naci ulogu AOR management service (  radi  AOR management win i setovanje principala (login) ? )
+	/// Sredi imena servisa i kontrakata.
+	/// 
+	/// Ovaj se igra sa kontekstom i evaluate.
+	/// </summary>
 
 	public class AORManagementService : IDisposable
 	{
@@ -22,12 +28,14 @@ namespace AORService
 		ServiceHost host = null;
 		NetTcpBinding binding = null;
 		//AOREventAlarmChannel eventProxy = null; // to do odkomentarisi
+		AORCacheAccessChannel aorCacheProxy = null;
 		string address = "net.tcp://localhost:10038/IAORManagement";  
 
 		public AORManagementService()
 		{
 			aorLogin = AORManagement.Instance;
 			binding = new NetTcpBinding();
+			aorCacheProxy = new AORCacheAccessChannel();
 
 			//eventProxy = new AOREventAlarmChannel();
 			//eventProxy.Test();
