@@ -28,14 +28,12 @@ namespace AORService
 		ServiceHost host = null;
 		NetTcpBinding binding = null;
 		//AOREventAlarmChannel eventProxy = null; // to do odkomentarisi
-		AORCacheAccessChannel aorCacheProxy = null;
 		string address = "net.tcp://localhost:10038/IAORManagement";  
 
 		public AORManagementService()
 		{
 			aorLogin = AORManagement.Instance;
 			binding = new NetTcpBinding();
-			aorCacheProxy = new AORCacheAccessChannel();
 
 			//eventProxy = new AOREventAlarmChannel();
 			//eventProxy.Test();
@@ -133,9 +131,9 @@ namespace AORService
 				if (obj == null || identities.Count <= 0)
 					return false;
 
-				//AORCacheConfigurations.GetAORAreasForUsername
+				var areas = AORCacheConfigurations.GetAORAreasForUsername("marko.markovic");
 
-				context.Properties["Principal"] = new CustomPrincipal(identities[0], "perica", new string[] { "a", "b" });
+				context.Properties["Principal"] = new CustomPrincipal(identities[0], "perica", areas);
 				return true;
 			}
 		}
@@ -144,13 +142,13 @@ namespace AORService
 		{
 			IIdentity identity;
 			string username = string.Empty;
-			string[] roles;
+			string[] areas;
 
 			public CustomPrincipal(IIdentity identity, string username, string[] roles)
 			{
 				this.identity = identity;
 				this.username = username;
-				this.roles = roles;
+				this.areas = roles;
 			}
 
 			public IIdentity Identity
@@ -164,10 +162,10 @@ namespace AORService
 				set { this.username = value; }
 			}
 
-			public string[] Roles
+			public string[] Areas
 			{
-				get { return this.roles; }
-				set { this.roles = value; }
+				get { return this.areas; }
+				set { this.areas = value; }
 			}
 
 			public bool IsInRole(string role)
