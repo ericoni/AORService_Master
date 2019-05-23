@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace TestConsoleApp
 {
-    class Program
-    {
+	class Program
+	{
 		static void Main(string[] args)
 		{
 			//AORCacheConfigurations.GetAORAreasForUsername("marko.markovic");
 			AORCacheConfigurations.SelectAreaForView("West-Area", true);
 
 		}
-    }
+	}
 }
