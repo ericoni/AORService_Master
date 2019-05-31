@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using FTN.Common.Model;
+using FTN.Common.AORCachedModel;
 
 namespace ActiveAORCache.Helpers
 {
@@ -30,11 +32,19 @@ namespace ActiveAORCache.Helpers
 
 		public static List<string> GetPermissionsForArea(string areaName)
 		{
-			List<string> areaPermissions = new List<string>();
+			List<string> areaPermissions = new List<string>(10);
+			AORCachedArea area = null;
 
 			using (var access = new AccessDB())
 			{
-				var area = access.Areas.Include("Permissions").Where(a => a.Name.Equals(areaName)).FirstOrDefault();
+				try
+				{
+					area = access.Areas.Include("Permissions").Where(a => a.Name.Equals(areaName)).FirstOrDefault();
+				}
+				catch (Exception e)
+				{
+					throw;
+				}
 
 				Debug.Assert(area == null, "Nulcina je u GetPermissionsForArea ");
 			}
@@ -57,13 +67,23 @@ namespace ActiveAORCache.Helpers
 		public static string[] GetAORAreasForUsername(string username)
 		{
 			string[] areas;
+			List<User> user = null;
 
 			using (var access = new AccessDB())
 			{
-				var user = access.Users.Include("Areas").Where(u => u.Username.Equals(username)).ToList();
+				try
+				{
+					user = access.Users.Include("Areas").Where(u => u.Username.Equals(username)).ToList();
+				}
+				catch (Exception e)
+				{
+					throw;
+				}
 
-				if (user == null)
+				if (user.Count == 0)
+				{
 					return new string[1] { "None" };
+				}
 
 				areas = new string[user[0].Areas.Count];
 
@@ -100,7 +120,15 @@ namespace ActiveAORCache.Helpers
 				if (areaName == string.Empty)
 					return;
 
-				var area = access.Areas.Where(a => a.Name.Equals(areaName)).ToList()[0];
+				var areaQuery = access.Areas.Where(a => a.Name.Equals(areaName)).ToList();
+
+				if (areaQuery.Count == 0)
+				{
+					Trace.WriteLine(" areaQuery is empty.");
+					return;
+				}
+
+				var area = areaQuery[0];
 				area.IsViewable = isSelectedForView;
 
 				int i = access.SaveChanges();

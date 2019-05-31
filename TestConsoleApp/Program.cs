@@ -11,9 +11,9 @@ namespace TestConsoleApp
 	{
 		static void Main(string[] args)
 		{
-			//AORCacheConfigurations.GetAORAreasForUsername("marko.markovic");
-			AORCacheConfigurations.SelectAreaForView("West-Area", true);
-
+			var a = AORCacheConfigurations.GetAORAreasForUsername("marko.markovic");
+			//AORCacheConfigurations.SelectAreaForView("West-Area", true);
+			var c = AORCacheConfigurations.GetPermissionsForArea("West-Area");
 		}
 	}
 }
