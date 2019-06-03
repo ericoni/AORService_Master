@@ -30,16 +30,34 @@ namespace ActiveAORCache.Helpers
 			return aorGroupsForArea;
 		}
 
-		public static List<string> GetPermissionsForArea(string areaName)
+		public static List<string> GetPermissionsForArea(string areaName) //vrati se ovde
 		{
 			List<string> areaPermissions = new List<string>(10);
 			AORCachedArea area = null;
 
+
+			List<User> listUsera = new List<User>(12);
+			List<string> listaStringova = new List<string>(10);
+
+			//using (var access = new AccessDB())
+			//{
+			//	try
+			//	{
+			//		area = access.Areas.Include("Permissions").Where(a => a.Name.Equals(areaName)).FirstOrDefault();
+			//	}
+			//	catch (Exception e)
+			//	{
+			//		throw;
+			//	}
+
+			//	Debug.Assert(area == null, "Nulcina je u GetPermissionsForArea ");
+			//}
+			//return areaPermissions;
 			using (var access = new AccessDB())
 			{
 				try
 				{
-					area = access.Areas.Include("Permissions").Where(a => a.Name.Equals(areaName)).FirstOrDefault();
+					listUsera = access.Users.ToList();
 				}
 				catch (Exception e)
 				{
@@ -48,7 +66,13 @@ namespace ActiveAORCache.Helpers
 
 				Debug.Assert(area == null, "Nulcina je u GetPermissionsForArea ");
 			}
-			return areaPermissions;
+
+			foreach (var i in listUsera)
+			{
+				listaStringova.Add(i.Username);
+			}
+
+			return listaStringova;
 		}
 
 		public static List<string> GetPermissionsForUser(string username)

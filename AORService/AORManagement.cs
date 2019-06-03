@@ -10,6 +10,7 @@ using FTN.Common.AORContract;
 using FTN.Common.Model;
 using ActiveAORCache;
 using AORC.Acess;
+using ActiveAORCache.Helpers;
 
 namespace AORService
 {
@@ -54,6 +55,7 @@ namespace AORService
 			try
 			{
 				aorDatabaseHelper = new AORDatabaseHelper();
+				var c = AORCacheConfigurations.GetPermissionsForArea("West-Area");
 			}
 			catch (Exception e)
 			{
