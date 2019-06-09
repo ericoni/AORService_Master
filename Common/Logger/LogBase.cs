@@ -26,7 +26,9 @@ namespace FTN.Common.Logger
 		CalculationEngineForecast,
 		SCADADataCollector,
 		CalculateHourlyForecast,
-		AORCache2PC
+		AORCache2PC,
+        AORManagement,
+        WeatherForecastService
     }
 
     public abstract class LogBase

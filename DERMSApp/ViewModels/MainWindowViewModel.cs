@@ -55,11 +55,6 @@ namespace DERMSApp.ViewModels
 		/// <summary>
 		/// Static instance of one of the ViewModels.
 		/// </summary>
-		//readonly static LoginViewModel _loginViewModel = new LoginViewModel(); // to do mislim da cu ovo izbacititi skroz, jer se ne koristi ovaj VM nego je sve u main vm
-
-		/// <summary>
-		/// Static instance of one of the ViewModels.
-		/// </summary>
 		readonly static DeltaViewModel _deltaViewModel = new DeltaViewModel();
 
 		/// <summary>
@@ -159,10 +154,10 @@ namespace DERMSApp.ViewModels
 		public MainWindowViewModel()
 		{
 			CurrentViewModel = MainWindowViewModel._tabularViewModel; // bio je tabular //vratiti ga posle na logovanje i obrisati ovu liniju ispod
-			DataTemplatesVisibility = false; // da li je ovo firstView, secondView?
+			DataTemplatesVisibility = false; // ovo je sve ono sto nije login
 			LoginGridVisibility = true;
 
-			aorManagementProxy = new AORManagementProxy(); // vrati se AOR
+			aorManagementProxy = new AORManagementProxy(); // vrati se AOR temp samo
 			ButtonLoginOnClick = new RelayCommand(() => ButtonLoginOnClickExecute(), () => true);
 
 			FirstViewCommand = new RelayCommand(() => ExecuteFirstViewCommand());
@@ -171,7 +166,6 @@ namespace DERMSApp.ViewModels
 			//ConnectToCalculationEngine();
 			//ShowNetwork = Visibility.Visible; //bio koment
 			//ShowApplyDelta = Visibility.Collapsed;
-
 
 			CacheReceiver cacheReceiver = CacheReceiver.Instance;
 
@@ -200,6 +194,11 @@ namespace DERMSApp.ViewModels
 
 		public bool ButtonLoginOnClickExecute()
 		{
+            if (aorManagementProxy.Proxy == null)
+            {
+                return false;
+            }
+
 			if (aorManagementProxy.Proxy.Login(TextBoxUsernameText, TextBoxPasswordText))
 			{
 				IsUserAuthenticated = true;

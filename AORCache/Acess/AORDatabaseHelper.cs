@@ -8,6 +8,7 @@ using FTN.Services.NetworkModelService.DataModel.Wires;
 using FTN.Common.AORHelpers;
 using FTN.Common.AORModel;
 using System.Diagnostics;
+using FTN.Common.Logger;
 
 namespace AORC.Acess
 {
@@ -75,14 +76,23 @@ namespace AORC.Acess
 
 			using (var access = new AccessDB())
 			{
-				if (access.Users.Count() != 0)
-				{
-					Trace.Write("Skipping db fill (db is populated.");
-					return;
-				}
+                if (access.Users.Count() != 0) //temp
+                {
+                    string message = "Skipping user database fill (db is already populated.";
+                    Trace.Write(message);
+                    LogHelper.Log(LogTarget.Database, LogService.AORManagement, message);
+                    return;
+                }
 
-				#region Permissions
-				Permission p1 = new Permission("DNA_PermissionControlSCADA", "Permission to issue commands towards SCADA system.");
+                else
+                {
+                    string message = "Database is empty. InitializeAORCacheDB will proceed.";
+                    Trace.Write(message);
+                    LogHelper.Log(LogTarget.Database, LogService.AORManagement, message);
+                }
+
+                #region Permissions
+                Permission p1 = new Permission("DNA_PermissionControlSCADA", "Permission to issue commands towards SCADA system.");
 				Permission p2 = new Permission("DNA_PermissionUpdateNetworkModel", "Permission to apply delta (model changes)- update current network model within their assigned AOR");
 				Permission p3 = new Permission("DNA_PermissionViewSystem", "Permission to view content of AORViewer");
 				Permission p4 = new Permission("DNA_PermissionSystemAdministration", "Permission to view system settings in AORViewer");

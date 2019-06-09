@@ -154,6 +154,17 @@ namespace FTN.Common.WeatherForecast.Model
 
 		}
 
-
+        public Data(int dummyNumber)
+        {
+            this.CloudCover = 0;
+            this.Humidity = 0;
+            this.Pressure = 0;
+            this.Summary = "0";
+            this.SunriseTime = 0;
+            this.SunsetTime = 0;
+            this.Temperature = 0;
+            this.Visibility = 0;
+            this.WindSpeed = 0;
+        }
 	}
 }

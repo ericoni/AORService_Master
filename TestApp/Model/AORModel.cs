@@ -34,7 +34,7 @@ namespace TestApp.Model
 			this.Name = area.Name;
 			this.IsCovered = false;
 			this.usersCoveringArea = new HashSet<string>();
-			this.usersCoveringArea.Add("aaa"); // to do sredi kako treba
+			//this.usersCoveringArea.Add("aaa"); // to do sredi kako treba
 		}
 
 		public string Name

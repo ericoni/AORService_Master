@@ -11,8 +11,9 @@ namespace TestConsoleApp
 	{
 		static void Main(string[] args)
 		{
-			var a = AORCacheConfigurations.GetAORAreasForUsername("marko.markovic");//kada se ovo izbaci, ono staro punjenje DB radi
-			//AORCacheConfigurations.SelectAreaForView("West-Area", true);
+			var a = AORCacheConfigurations.GetAORAreasForUsername("marko.markovic");//ovako radi normalno
+           // AORCacheConfigurations.SelectAreaForView("West-Area", false);
+
 			//var c = AORCacheConfigurations.GetPermissionsForArea("West-Area");
 		}
 	}
