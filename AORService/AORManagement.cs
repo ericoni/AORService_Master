@@ -29,7 +29,7 @@ namespace AORService
 		/// Lock object
 		/// </summary>
 		private static object syncRoot = new Object();
-        int numberOfCalls = 0;
+		int numberOfCalls = 0;
 
 		/// <summary>
 		/// Singleton method
@@ -56,9 +56,9 @@ namespace AORService
 			try
 			{
 				aorDatabaseHelper = new AORDatabaseHelper();
-                aorDatabaseHelper = null;
-                numberOfCalls++;
-			   // var c = AORCacheConfigurations.GetPermissionsForArea("West-Area"); //to do ovo kad se ubaci pravi probleme
+				aorDatabaseHelper = null;
+				numberOfCalls++;
+				//var c = AORCacheConfigurations.GetPermissionsForArea("West-Area"); //to do ovo kad se ubaci pravi probleme
 			}
 			catch (Exception e)
 			{

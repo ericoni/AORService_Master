@@ -19,10 +19,10 @@ namespace CASSubscriberProxyNS
 		private object instance = null;
 
 		// Broj pokusaja uspostavljanja komunikacije
-		private const int maxTry = 10;
+		private const int maxTry = 7;
 
 		// Spavanje do narednog pokusaja
-		private const int sleepTime = 3000;
+		private const int sleepTime = 2500;
 
 		/// <summary>
 		/// Constructor

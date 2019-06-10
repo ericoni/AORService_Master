@@ -55,20 +55,20 @@ namespace ActiveAORCache.Helpers
 			//return areaPermissions;
 			using (var access = new AccessDB())
 			{
-                try
-                {
-                    //listUsera = access.Users.ToList();
-                    var areas = access.Areas.ToList();
-                }
-                catch (Exception e)
-                {
-                    throw;
-                }
+				try
+				{
+					//listUsera = access.Users.ToList();
+					var areas = access.Areas.ToList();
+				}
+				catch (Exception e)
+				{
+					throw;
+				}
 
-                Debug.Assert(area == null, "Nulcina je u GetPermissionsForArea ");
-            }
+				Debug.Assert(area == null, "Nulcina je u GetPermissionsForArea ");
+			}
 
-            foreach (var i in listUsera)
+			foreach (var i in listUsera)
 			{
 				listaStringova.Add(i.Username);
 			}

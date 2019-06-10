@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace AORC.Acess
 {
-    /// <summary>
-    /// Ovo se automatski poziva kada se odradi novo instanciranje accessDb-a.
-    /// </summary>
+	/// <summary>
+	/// Ovo se automatski poziva kada se odradi novo instanciranje accessDb-a.
+	/// </summary>
 	class Configuration : DbMigrationsConfiguration<AccessDB>
 	{
 		public Configuration() 
@@ -17,9 +17,9 @@ namespace AORC.Acess
 			AutomaticMigrationsEnabled = true;
 			AutomaticMigrationDataLossAllowed = true;
 			ContextKey = "UsersDatabase6";
-			AppDomain.CurrentDomain.SetData("DataDirectory", System.IO.Directory.GetCurrentDirectory());
-            //System.IO.Directory.GetCurrentDirectory())
-            //D:\\mrtvaBaza
-        }
-    }
+			AppDomain.CurrentDomain.SetData("DataDirectory", "D:\\mrtvaBaza");
+			//System.IO.Directory.GetCurrentDirectory())
+			//
+		}
+	}
 }
