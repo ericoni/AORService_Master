@@ -11,19 +11,21 @@ using FTN.Common.Model;
 using ActiveAORCache;
 using AORC.Acess;
 using ActiveAORCache.Helpers;
+using System.ServiceModel;
 
 namespace AORService
 {
 	/// <summary>
 	/// TODO: AOR login trenutno poziva aorDatabaseHelper DB, po konstruktoru
 	/// </summary>
+	[ServiceBehavior(IncludeExceptionDetailInFaults = true)]
 	public class AORManagement : IAORManagement
 	{
-		private AORDatabaseHelper aorDatabaseHelper;
-		/// <summary>
-		/// Singleton instance
-		/// </summary>
-		private static volatile AORManagement instance;
+		private AORDatabaseHelper aorDatabaseHelper = null;
+		///// <summary>
+		///// Singleton instance
+		///// </summary>
+		//private static volatile AORManagement instance;
 
 		/// <summary>
 		/// Lock object
@@ -34,22 +36,22 @@ namespace AORService
 		/// <summary>
 		/// Singleton method
 		/// </summary>
-		public static AORManagement Instance
-		{
-			get
-			{
-				if (instance == null)
-				{
-					lock (syncRoot)
-					{
-						if (instance == null)
-							instance = new AORManagement();
-					}
-				}
+		//public static AORManagement Instance
+		//{
+		//	get
+		//	{
+		//		if (instance == null)
+		//		{
+		//			lock (syncRoot)
+		//			{
+		//				if (instance == null)
+		//					instance = new AORManagement();
+		//			}
+		//		}
 
-				return instance;
-			}
-		}
+		//		return instance;
+		//	}
+		//}
 
 		public AORManagement()
 		{
@@ -57,8 +59,7 @@ namespace AORService
 			{
 				aorDatabaseHelper = new AORDatabaseHelper();
 				aorDatabaseHelper = null;
-				numberOfCalls++;
-				//var c = AORCacheConfigurations.GetPermissionsForArea("West-Area"); //to do ovo kad se ubaci pravi probleme
+				//var c = AORCacheConfigurations.GetPermissionsForArea("West-Area"); //to do problem je kad postoji zajedno sa new AORDatabaseHelper() u bloku. Zasto?
 			}
 			catch (Exception e)
 			{

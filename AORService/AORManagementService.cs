@@ -24,17 +24,16 @@ namespace AORService
 
 	public class AORManagementService : IDisposable
 	{
-		AORManagement aorLogin = null;
 		ServiceHost host = null;
 		NetTcpBinding binding = null;
+		AORManagement aorManagement = null;
 		//AOREventAlarmChannel eventProxy = null; // to do odkomentarisi
 		string address = "net.tcp://localhost:10038/IAORManagement";  
 
 		public AORManagementService()
 		{
-			aorLogin = AORManagement.Instance;
 			binding = new NetTcpBinding();
-
+			aorManagement = new AORManagement();
 			//eventProxy = new AOREventAlarmChannel();
 			//eventProxy.Test();
 
@@ -121,18 +120,18 @@ namespace AORService
 				get { return ClaimSet.System; }
 			}
 
-            public bool Evaluate(EvaluationContext context, ref object state)
-            {
-                object obj;
-                if (!context.Properties.TryGetValue("Identities", out obj))
-                    return false;
+			public bool Evaluate(EvaluationContext context, ref object state)
+			{
+				object obj;
+				if (!context.Properties.TryGetValue("Identities", out obj))
+					return false;
 
-                IList<IIdentity> identities = obj as IList<IIdentity>;
-                if (obj == null || identities.Count <= 0)
-                    return false;
+				IList<IIdentity> identities = obj as IList<IIdentity>;
+				if (obj == null || identities.Count <= 0)
+					return false;
 
-                //var areas = AORCacheConfigurations.GetAORAreasForUsername("marko.markovic"); //to do cache
-                var areas = new string[1] { "greskaUevaluate" };
+				var areas = AORCacheConfigurations.GetAORAreasForUsername("marko.markovic"); //to do cache
+				//var areas = new string[1] { "greskaUevaluate" };
 
 				context.Properties["Principal"] = new CustomPrincipal(identities[0], "perica", areas);
 				return true;

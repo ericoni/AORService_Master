@@ -16,10 +16,10 @@ namespace AORC.Acess
 		{
 			AutomaticMigrationsEnabled = true;
 			AutomaticMigrationDataLossAllowed = true;
-			ContextKey = "UsersDatabase6";
-			AppDomain.CurrentDomain.SetData("DataDirectory", "D:\\mrtvaBaza");
+			ContextKey = "UsersDatabase7";
+			AppDomain.CurrentDomain.SetData("DataDirectory", System.IO.Directory.GetCurrentDirectory());
 			//System.IO.Directory.GetCurrentDirectory())
-			//
+			// "D:\\mrtvaBaza"
 		}
 	}
 }

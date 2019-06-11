@@ -57,8 +57,8 @@ namespace ActiveAORCache.Helpers
 			{
 				try
 				{
-					//listUsera = access.Users.ToList();
-					var areas = access.Areas.ToList();
+					listUsera = access.Users.ToList();
+					//var areas = access.Areas.ToList();
 				}
 				catch (Exception e)
 				{

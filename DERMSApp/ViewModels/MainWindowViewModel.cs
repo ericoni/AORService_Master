@@ -154,8 +154,8 @@ namespace DERMSApp.ViewModels
 		public MainWindowViewModel()
 		{
 			CurrentViewModel = MainWindowViewModel._tabularViewModel; // bio je tabular //vratiti ga posle na logovanje i obrisati ovu liniju ispod
-			DataTemplatesVisibility = true; // ovo je sve ono sto nije login
-			LoginGridVisibility = false;
+			DataTemplatesVisibility = false; // ovo je sve ono sto nije login
+			LoginGridVisibility = true;
 
 			aorManagementProxy = new AORManagementProxy(); // vrati se AOR temp samo
 			ButtonLoginOnClick = new RelayCommand(() => ButtonLoginOnClickExecute(), () => true);
