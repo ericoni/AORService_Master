@@ -52,6 +52,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -71,6 +72,10 @@
     <ProjectReference Include="..\AORCache\AORCache.csproj">
       <Project>{063FF0F1-A9BC-4CF2-8858-3B936292F39C}</Project>
       <Name>AORCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AORManagementProxy\AORManagementProxy.csproj">
+      <Project>{497DAC3E-CC92-430C-A178-9505A1789832}</Project>
+      <Name>AORManagementProxy</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -16,49 +16,18 @@ using System.ServiceModel;
 namespace AORService
 {
 	/// <summary>
-	/// TODO: AOR login trenutno poziva aorDatabaseHelper DB, po konstruktoru
+	/// TODO: AOR login trenutno poziva aorDatabaseHelper DB, po konstruktoru, ovaj bi trebao da handle logovanje-ako se dobro sjecam
 	/// </summary>
 	[ServiceBehavior(IncludeExceptionDetailInFaults = true)]
 	public class AORManagement : IAORManagement
 	{
 		private AORDatabaseHelper aorDatabaseHelper = null;
-		///// <summary>
-		///// Singleton instance
-		///// </summary>
-		//private static volatile AORManagement instance;
-
-		/// <summary>
-		/// Lock object
-		/// </summary>
-		private static object syncRoot = new Object();
-		int numberOfCalls = 0;
-
-		/// <summary>
-		/// Singleton method
-		/// </summary>
-		//public static AORManagement Instance
-		//{
-		//	get
-		//	{
-		//		if (instance == null)
-		//		{
-		//			lock (syncRoot)
-		//			{
-		//				if (instance == null)
-		//					instance = new AORManagement();
-		//			}
-		//		}
-
-		//		return instance;
-		//	}
-		//}
 
 		public AORManagement()
 		{
 			try
 			{
 				aorDatabaseHelper = new AORDatabaseHelper();
-				aorDatabaseHelper = null;
 				//var c = AORCacheConfigurations.GetPermissionsForArea("West-Area"); //to do problem je kad postoji zajedno sa new AORDatabaseHelper() u bloku. Zasto?
 			}
 			catch (Exception e)

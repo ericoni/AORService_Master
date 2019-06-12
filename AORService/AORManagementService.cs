@@ -17,9 +17,9 @@ namespace AORService
 	// [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
 	/// <summary>
 	/// Naci ulogu AOR management service (  radi  AOR management win i setovanje principala (login) ? )
-	/// Sredi imena servisa i kontrakata.
+	/// Sredi ime servisa i kontrakata.
 	/// 
-	/// Ovaj se igra sa kontekstom i evaluate.
+	/// Ovaj radi context i evaluate.
 	/// </summary>
 
 	public class AORManagementService : IDisposable
@@ -131,7 +131,6 @@ namespace AORService
 					return false;
 
 				var areas = AORCacheConfigurations.GetAORAreasForUsername("marko.markovic"); //to do cache
-				//var areas = new string[1] { "greskaUevaluate" };
 
 				context.Properties["Principal"] = new CustomPrincipal(identities[0], "perica", areas);
 				return true;
