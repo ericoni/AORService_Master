@@ -28,7 +28,6 @@ namespace AORService
 			try
 			{
 				aorDatabaseHelper = new AORDatabaseHelper();
-				//var c = AORCacheConfigurations.GetPermissionsForArea("West-Area"); //to do problem je kad postoji zajedno sa new AORDatabaseHelper() u bloku. Zasto?
 			}
 			catch (Exception e)
 			{
@@ -41,12 +40,7 @@ namespace AORService
 
 		public bool Login(string username, string password)
 		{
-			return aorDatabaseHelper.LoginUserAndSetPrincipal(username, password);
-		}
-
-		public List<string> GetAORAreasForUsername(string username)
-		{
-			throw new NotImplementedException();
+			return aorDatabaseHelper.LoginUser(username, password);
 		}
 
 		#endregion
@@ -72,6 +66,8 @@ namespace AORService
 			}
 		}
 
-		#endregion
-	}
+     
+
+        #endregion
+    }
 }

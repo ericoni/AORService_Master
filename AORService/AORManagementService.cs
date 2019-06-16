@@ -106,35 +106,58 @@ namespace AORService
 			Console.WriteLine("\n\n{0}", message);
 		}
 
-		class CustomAuthorizationPolicy : IAuthorizationPolicy
-		{
-			string id = Guid.NewGuid().ToString();
+        class CustomAuthorizationPolicy : IAuthorizationPolicy
+        {
+            string id = Guid.NewGuid().ToString();
 
-			public string Id
-			{
-				get { return this.id; }
-			}
+            public string Id
+            {
+                get { return this.id; }
+            }
 
-			public ClaimSet Issuer
-			{
-				get { return ClaimSet.System; }
-			}
+            public ClaimSet Issuer
+            {
+                get { return ClaimSet.System; }
+            }
 
-			public bool Evaluate(EvaluationContext context, ref object state)
-			{
-				object obj;
-				if (!context.Properties.TryGetValue("Identities", out obj))
-					return false;
+            public bool Evaluate(EvaluationContext context, ref object state)
+            {
+                object obj;
+                if (!context.Properties.TryGetValue("Identities", out obj))
+                    return false;
 
-				IList<IIdentity> identities = obj as IList<IIdentity>;
-				if (obj == null || identities.Count <= 0)
-					return false;
+                IList<IIdentity> identities = obj as IList<IIdentity>;
+                if (obj == null || identities.Count <= 0)
+                    return false;
 
-				var areas = AORCacheConfigurations.GetAORAreasForUsername("marko.markovic"); //to do cache
+                String name = identities[0].Name;
+                int backslashLastIndex = name.LastIndexOf('\\');
 
-				context.Properties["Principal"] = new CustomPrincipal(identities[0], "perica", areas);
-				return true;
-			}
+                string[] assignedAreas = AORCacheConfigurations.GetAORAreasForUsername(name.Substring(backslashLastIndex + 1));
+
+                context.Properties["Principal"] = new CustomPrincipal(identities[0], "perica", assignedAreas);
+
+                return EvaluationResult(assignedAreas);
+            }
+
+            private bool EvaluationResult(string[] assignedAreas)
+            {
+                int assignedAreasCount = assignedAreas.Count();
+                if (assignedAreasCount == 0 || assignedAreas == null)
+                {
+                    throw new ArgumentException("EvaluationResult throwed an exception.");
+                }
+
+                if (assignedAreasCount == 1)//only default area has been assigned
+                {
+                    if (assignedAreas[0].Equals("None"))
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
 		}
 
 		class CustomPrincipal : IMyPrincipal

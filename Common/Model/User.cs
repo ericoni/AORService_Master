@@ -30,7 +30,6 @@ namespace FTN.Common.Model
 			this.Password = password;
 			this.DNAs = dnas;
 			this.Areas = areas;
-			this.DNAs = new List<DNAAuthority>();
 			//this.ControlAreas = controlAreas;
 			//this.ViewAreas = viewAreas;
 		}

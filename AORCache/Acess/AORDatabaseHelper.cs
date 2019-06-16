@@ -13,7 +13,7 @@ using FTN.Common.Logger;
 namespace AORC.Acess
 {
 	/// <summary>
-	/// Made for DB population.
+	/// Made for DB population. Kobajagi ce ovo biti malo sigurnija varijanta, da ne radim dodjelu AOR area iz static neke klase.
 	/// </summary>
 	public class AORDatabaseHelper : IAORDatabaseHelper
 	{
@@ -44,7 +44,7 @@ namespace AORC.Acess
 			InitializeAORCacheDB();
 		}
 
-		public bool LoginUserAndSetPrincipal(string username, string password)
+		public bool LoginUser(string username, string password)
 		{
 			using (var access = new AccessDB())
 			{
@@ -173,11 +173,13 @@ namespace AORC.Acess
 					User u1 = new User("marko.markovic", "a", new List<DNAAuthority>() { dna1, dna4, dna6 }, new List<AORCachedArea>() { area1, area2 });
 					User u2 = new User("petar.petrovic", "a", new List<DNAAuthority>() { dna2, dna4, dna6 }, new List<AORCachedArea>() { area3 });
 					User u3 = new User("zika.joksimovic", "a", new List<DNAAuthority>() { dna2, dna3, dna4, dna5, dna6 }, new List<AORCachedArea>() { area1, area2, area3, area8 });
+                    User u4 = new User("state", "a", new List<DNAAuthority>() { dna1, dna2, dna3, dna4, dna5, dna6 }, new List<AORCachedArea>() { area1, area2, area3, area7, area8 });
+                    User u5 = new User("testUsername", "a", new List<DNAAuthority>() { dna1, dna2, dna3 }, new List<AORCachedArea>() { area1, area2, area3, area7 });
 
-					u1.DNAs = new List<DNAAuthority>() { dna3, dna4 };
-					u2.DNAs = new List<DNAAuthority>() { dna4, dna5, dna6 };
+                    //u1.DNAs = new List<DNAAuthority>() { dna3, dna4 }; //zasto je ovo ubaceno, a ne preko cst?
+                    //u2.DNAs = new List<DNAAuthority>() { dna4, dna5, dna6 };
 
-					access.Users.AddRange(new List<User>() { u1, u2, u3 });
+                    access.Users.AddRange(new List<User>() { u1, u2, u3, u4, u5 });
 					access.Areas.AddRange(new List<AORCachedArea>(11) { area1, area2, area3, area4, area5, area6, area7, area8, area9, area10, area11 });
 
 					k = access.SaveChanges();
