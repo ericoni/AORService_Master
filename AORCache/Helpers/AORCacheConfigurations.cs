@@ -35,30 +35,20 @@ namespace ActiveAORCache.Helpers
 			List<string> areaPermissions = new List<string>(10);
 			AORCachedArea area = null;
 
-
 			List<User> listUsera = new List<User>(12);
 			List<string> listaStringova = new List<string>(10);
 
-			//using (var access = new AccessDB())
-			//{
-			//	try
-			//	{
-			//		area = access.Areas.Include("Permissions").Where(a => a.Name.Equals(areaName)).FirstOrDefault();
-			//	}
-			//	catch (Exception e)
-			//	{
-			//		throw;
-			//	}
-
-			//	Debug.Assert(area == null, "Nulcina je u GetPermissionsForArea ");
-			//}
-			//return areaPermissions;
 			using (var access = new AccessDB())
 			{
 				try
 				{
-					listUsera = access.Users.ToList();
-					//var areas = access.Areas.ToList();
+					area = access.Areas.Include("Permissions").Where(a => a.Name.Equals(areaName)).FirstOrDefault();
+
+					var test1 = access.Areas.Include("Permissions").ToList();
+					var test2 = access.Areas.ToList();
+					//var user = access.Users.Include(x => x.DNAs.Select(y => y.PermissionList)).Where(u => u.Username.Equals(username)).ToList();
+
+					//var testic = access.Areas.Include(x => x.Permissions.Select(a => a.)
 				}
 				catch (Exception e)
 				{
@@ -67,13 +57,28 @@ namespace ActiveAORCache.Helpers
 
 				Debug.Assert(area == null, "Nulcina je u GetPermissionsForArea ");
 			}
+			return areaPermissions;
+			//using (var access = new AccessDB())
+			//{
+			//	try
+			//	{
+			//		listUsera = access.Users.ToList();
+			//		//var areas = access.Areas.ToList();
+			//	}
+			//	catch (Exception e)
+			//	{
+			//		throw;
+			//	}
 
-			foreach (var i in listUsera)
-			{
-				listaStringova.Add(i.Username);
-			}
+			//	Debug.Assert(area == null, "Nulcina je u GetPermissionsForArea ");
+			//}
 
-			return listaStringova;
+			//foreach (var i in listUsera)
+			//{
+			//	listaStringova.Add(i.Username);
+			//}
+
+			//return listaStringova;
 		}
 
 		public static List<string> GetPermissionsForUser(string username)

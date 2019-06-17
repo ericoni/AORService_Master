@@ -16,9 +16,10 @@ namespace TestConsoleApp
 
 			// AORCacheConfigurations.SelectAreaForView("West-Area", false);
 
-			//var c = AORCacheConfigurations.GetPermissionsForArea("West-Area");
-			AORManagementProxy aorManagementProxy = new AORManagementProxy();
-			aorManagementProxy.Proxy.Login("marko.markovic", "a");
+			var c = AORCacheConfigurations.GetPermissionsForArea("West-Area");
+
+			//AORManagementProxy aorManagementProxy = new AORManagementProxy();
+			//aorManagementProxy.Proxy.Login("marko.markovic", "a");
 		}
 	}
 }

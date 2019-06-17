@@ -66,8 +66,8 @@ namespace AORService
 			}
 		}
 
-     
+	 
 
-        #endregion
-    }
+		#endregion
+	}
 }
