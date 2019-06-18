@@ -28,6 +28,8 @@ namespace AORService
 			try
 			{
 				aorDatabaseHelper = new AORDatabaseHelper();
+				//var c = AORCacheConfigurations.GetPermissionsForArea("West-Area");
+				var d = AORCacheConfigurations.GetPermissionsForAreas(new List<string>() { "West-Area", "East-Area" });
 			}
 			catch (Exception e)
 			{

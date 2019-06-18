@@ -10,7 +10,7 @@ namespace TestConsoleApp
 {
 	class Program
 	{
-		static void Main(string[] args)
+		static void Main(string[] args) //ima neka fora s ovim, on kreira svoju novu bazu "UsersDatabase7xxxxx" umjesto da koristi istu.
 		{
 			//var a = AORCacheConfigurations.GetAORAreasForUsername("marko.markovic");//ovako radi normalno
 
