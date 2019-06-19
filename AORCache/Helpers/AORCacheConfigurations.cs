@@ -47,7 +47,6 @@ namespace ActiveAORCache.Helpers
 			return areaPermissions;
 		}
 
-
 		public static Dictionary<string, List<string>> GetPermissionsForAreas(List<string> demandedAreaNames)
 		{
 			List<string> areaPermissions = new List<string>(10);
@@ -76,18 +75,26 @@ namespace ActiveAORCache.Helpers
 			return returnValue;
 		}
 
+        public static HashSet<string> GetPermissionsForUser(string username)
+        {
+            HashSet<string> permissions = new HashSet<string>();
 
-		public static List<string> GetPermissionsForUser(string username)
-		{
-			List<string> usersPermissions = new List<string>();
+            using (var access = new AccessDB())
+            {
+                var user = access.Users.Include(x => x.DNAs.Select(y => y.PermissionList)).Where(u => u.Username.Equals(username)).ToList();
 
-			using (var access = new AccessDB())
-			{
-				var user = access.Users.Include(x => x.DNAs.Select(y => y.PermissionList)).Where(u => u.Username.Equals(username)).ToList();
-				Debug.Assert(user == null, "Nulcina je u GetPermissionsForArea ");
+                Debug.Assert(user == null || user.Count == 0, "Nulcina je u GetPermissionsForArea ");
+
+                foreach (var dna in user[0].DNAs)
+                {
+                    foreach (var permission in dna.PermissionList)
+                    {
+                        permissions.Add(permission.Name);
+                    }
+                }
+				
 			}
-
-			return usersPermissions;
+			return permissions;
 		}
 
 		public static string[] GetAORAreasForUsername(string username)

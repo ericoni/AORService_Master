@@ -28,9 +28,10 @@ namespace AORService
 			try
 			{
 				aorDatabaseHelper = new AORDatabaseHelper();
-				//var c = AORCacheConfigurations.GetPermissionsForArea("West-Area");
-				var d = AORCacheConfigurations.GetPermissionsForAreas(new List<string>() { "West-Area", "East-Area" });
-			}
+                //var c = AORCacheConfigurations.GetPermissionsForArea("West-Area");
+                //var d = AORCacheConfigurations.GetPermissionsForAreas(new List<string>() { "West-Area", "East-Area" });
+                var f = AORCacheConfigurations.GetPermissionsForUser("state");
+            }
 			catch (Exception e)
 			{
 				Trace.Write(e.StackTrace);

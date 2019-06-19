@@ -98,8 +98,10 @@ namespace AORC.Acess
 					Permission p6 = new Permission("DNA_PermissionSecurityAdministration", "Permission to edit security content of AORViewer");
 					Permission p7 = new Permission("DNA_PermissionViewAdministration", "Permission to edit security content of AORViewer");
 					Permission p8 = new Permission("DNA_PermissionViewSCADA", "Permission to view content operating under SCADA system.");
+                    Permission p9 = new Permission("DNA_PermissionViewSCADA_HV", "Permission to view high voltage content operating under SCADA system.");
+                    Permission p10 = new Permission("DNA_PermissionViewSCADA_LV", "Permission to view low voltage content operating under SCADA system.");
 
-					IList<Permission> perms = new List<Permission>() { p1, p2, p3, p4, p5, p6, p7, p8 };
+                    IList<Permission> perms = new List<Permission>() { p1, p2, p3, p4, p5, p6, p7, p8, p9, p10 };
 					access.Permissions.AddRange(perms);
 
 					int k = access.SaveChanges();
@@ -115,8 +117,10 @@ namespace AORC.Acess
 					DNAAuthority dna4 = new DNAAuthority("DNA_Viewer", "Required for a user to access the SCADA system.  Provides non-interactive access to data according to AOR.", new List<Permission>() { p3, p5, p7, p8 });
 					DNAAuthority dna5 = new DNAAuthority("DNA_DMSAdmin", new List<Permission>() { p3, p5, p7 });
 					DNAAuthority dna6 = new DNAAuthority("DNA_Operator", new List<Permission>() { p1, p2, p8 });
+                    DNAAuthority dna7 = new DNAAuthority("DNA_Operator_HV", new List<Permission>() { p9 });
+                    DNAAuthority dna8 = new DNAAuthority("DNA_Operator_LV", new List<Permission>() { p10 });
 
-					access.DNAs.AddRange(new List<DNAAuthority>() { dna1, dna2, dna3, dna4, dna5, dna6 });
+                    access.DNAs.AddRange(new List<DNAAuthority>() { dna1, dna2, dna3, dna4, dna5, dna6, dna7, dna8 });
 
 					int l = access.SaveChanges();
 
@@ -173,7 +177,7 @@ namespace AORC.Acess
 					User u1 = new User("marko.markovic", "a", new List<DNAAuthority>() { dna1, dna4, dna6 }, new List<AORCachedArea>() { area1, area2 });
 					User u2 = new User("petar.petrovic", "a", new List<DNAAuthority>() { dna2, dna4, dna6 }, new List<AORCachedArea>() { area3 });
 					User u3 = new User("zika.joksimovic", "a", new List<DNAAuthority>() { dna2, dna3, dna4, dna5, dna6 }, new List<AORCachedArea>() { area1, area2, area3, area8 });
-					User u4 = new User("state", "a", new List<DNAAuthority>() { dna1, dna2, dna3, dna4, dna5, dna6 }, new List<AORCachedArea>() { area1, area2, area3, area7, area8 });
+					User u4 = new User("state", "a", new List<DNAAuthority>() { dna1, dna2, dna3, dna4, dna5, dna6, dna7 }, new List<AORCachedArea>() { area1, area2, area3, area7, area8 });
 					User u5 = new User("testUsername", "a", new List<DNAAuthority>() { dna1, dna2, dna3 }, new List<AORCachedArea>() { area1, area2, area3, area7 });
 
 					//u1.DNAs = new List<DNAAuthority>() { dna3, dna4 }; //zasto je ovo ubaceno, a ne preko cst?
