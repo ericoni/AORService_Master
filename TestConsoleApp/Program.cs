@@ -1,4 +1,5 @@
 ﻿using ActiveAORCache.Helpers;
+using Adapter;
 using AORManagementProxyNS;
 using System;
 using System.Collections.Generic;
@@ -20,10 +21,8 @@ namespace TestConsoleApp
 
             //AORManagementProxy aorManagementProxy = new AORManagementProxy();
             //aorManagementProxy.Proxy.Login("marko.markovic", "a");
-            HashSet<string> test = new HashSet<string>();
-            test.Add("a");
-            test.Add("b");
-            test.Add("b");
+            RDAdapter rdAdapter = new RDAdapter();
+            var a = rdAdapter.GetSyncMachinesByGids(new List<long>() { 12884901889 });
         }
 	}
 }

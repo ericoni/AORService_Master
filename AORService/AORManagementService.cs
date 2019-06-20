@@ -135,7 +135,7 @@ namespace AORService
 
 				string[] assignedAreas = AORCacheConfigurations.GetAORAreasForUsername(name.Substring(backslashLastIndex + 1));
 
-				context.Properties["Principal"] = new CustomPrincipal(identities[0], "perica", assignedAreas);
+                context.Properties["Principal"] = new CustomPrincipal(identities[0], "perica", assignedAreas);
 
 				return EvaluationResult(assignedAreas);
 			}
