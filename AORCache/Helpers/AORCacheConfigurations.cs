@@ -12,22 +12,77 @@ using FTN.Common.AORCachedModel;
 namespace ActiveAORCache.Helpers
 {
 	/// <summary>
-	/// Method used to access AOR cache
+	/// Method used to access AOR cache. Method validation has to be improved.
 	/// </summary>
 	public class AORCacheConfigurations
 	{
-		public static Dictionary<string, List<string>> GetAORGroupsForArea(string areaName)
+
+		public static List<long> GetSyncMachineGidsForAORGroup(string aorGroup)
 		{
-			Dictionary<string, List<string>> aorGroupsForArea = new Dictionary<string, List<string>>();
+			List<long> syncMachines = new List<long>();
+
+			using (var access = new AccessDB())
+			{
+				var group = access.Groups.Include("SynchronousMachines").Where(g => g.Name.Equals(aorGroup)).FirstOrDefault();
+
+				if (group == null)
+				{
+					Trace.WriteLine("ERROR : Failed to find group in GetSyncMachineGidsForAORGroup method");
+					return new List<long>(1) { -1 };
+				}
+
+				foreach (var sm in group.SynchronousMachines)
+				{
+					syncMachines.Add(sm.GidFromNms);
+				}
+			}
+			return syncMachines;
+		}
+
+		public static List<string> GetAORGroupsForArea(string areaName)
+		{
+			List<string> aorGroupsForArea = new List<string>();
 
 			using (var access = new AccessDB())
 			{
 				var area = access.Areas.Include("Groups").Where(a => a.Name.Equals(areaName)).FirstOrDefault();
-				var areas = access.Areas.Include("Groups").ToList();
 
-				Debug.Assert(area == null, "Nulcina je GetAORGroupsForArea");
+				foreach (var group in area.Groups)
+				{
+					aorGroupsForArea.Add(group.Name);
+				}
+
+				Debug.Assert(area == null, "Null in GetAORGroupsForArea()");
 			}
 			return aorGroupsForArea;
+		}
+
+		/// <summary>
+		/// Expecting valid area names on the input. 
+		/// </summary>
+		/// <param name="areaNames"></param>
+		/// <returns></returns>
+		public static Dictionary<string, List<string>> GetAORGroupsForAreasUnsafe(List<string> areaNames)
+		{
+			Dictionary<string, List<string>> aorGroupsForAreas = new Dictionary<string, List<string>>();
+			List<string> tempGroups = null;
+
+			using (var access = new AccessDB())
+			{
+				foreach (var areaName in areaNames)
+				{
+					var area = access.Areas.Include("Groups").Where(a => a.Name.Equals(areaName)).FirstOrDefault();
+
+					tempGroups = new List<string>(area.Groups.Count);
+
+					foreach (var group in area.Groups)
+					{
+						tempGroups.Add(group.Name);
+					}
+					aorGroupsForAreas.Add(areaName, tempGroups);
+				}
+			}
+			return aorGroupsForAreas;
 		}
 
 		public static List<string> GetPermissionsForArea(string areaName) 
@@ -75,23 +130,23 @@ namespace ActiveAORCache.Helpers
 			return returnValue;
 		}
 
-        public static HashSet<string> GetPermissionsForUser(string username)
-        {
-            HashSet<string> permissions = new HashSet<string>();
+		public static HashSet<string> GetPermissionsForUser(string username)
+		{
+			HashSet<string> permissions = new HashSet<string>();
 
-            using (var access = new AccessDB())
-            {
-                var user = access.Users.Include(x => x.DNAs.Select(y => y.PermissionList)).Where(u => u.Username.Equals(username)).ToList();
+			using (var access = new AccessDB())
+			{
+				var user = access.Users.Include(x => x.DNAs.Select(y => y.PermissionList)).Where(u => u.Username.Equals(username)).ToList();
 
-                Debug.Assert(user == null || user.Count == 0, "Nulcina je u GetPermissionsForArea ");
+				Debug.Assert(user == null || user.Count == 0, "Null in GetPermissionsForUser ");
 
-                foreach (var dna in user[0].DNAs)
-                {
-                    foreach (var permission in dna.PermissionList)
-                    {
-                        permissions.Add(permission.Name);
-                    }
-                }
+				foreach (var dna in user[0].DNAs)
+				{
+					foreach (var permission in dna.PermissionList)
+					{
+						permissions.Add(permission.Name);
+					}
+				}
 				
 			}
 			return permissions;
@@ -142,7 +197,7 @@ namespace ActiveAORCache.Helpers
 				int i = access.SaveChanges();
 
 				if (i <= 0)
-					Trace.WriteLine("Failed to save state in SelectAreaForControl method");
+					Trace.WriteLine("ERROR: Failed to save state in SelectAreaForControl method");
 			}
 		}
 	
@@ -157,7 +212,7 @@ namespace ActiveAORCache.Helpers
 
 				if (areaQuery.Count == 0)
 				{
-					Trace.WriteLine(" areaQuery is empty.");
+					Trace.WriteLine("ERROR: areaQuery in SelectAreaForView is empty.");
 					return;
 				}
 
@@ -167,7 +222,7 @@ namespace ActiveAORCache.Helpers
 				int i = access.SaveChanges();
 
 				if (i <= 0)
-					Trace.WriteLine("Failed to save state in SelectAreaForView method");
+					Trace.WriteLine("ERROR: Failed to save state in SelectAreaForView method");
 			}
 		}
 	}

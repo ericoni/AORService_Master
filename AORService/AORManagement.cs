@@ -28,10 +28,14 @@ namespace AORService
 			try
 			{
 				aorDatabaseHelper = new AORDatabaseHelper();
-                //var c = AORCacheConfigurations.GetPermissionsForArea("West-Area");
-                //var d = AORCacheConfigurations.GetPermissionsForAreas(new List<string>() { "West-Area", "East-Area" });
-                var f = AORCacheConfigurations.GetPermissionsForUser("state");
-            }
+				//var c = AORCacheConfigurations.GetPermissionsForArea("West-Area");
+				//var d = AORCacheConfigurations.GetPermissionsForAreas(new List<string>() { "West-Area", "East-Area" });
+				//var f = AORCacheConfigurations.GetPermissionsForUser("state");
+				//var g = AORCacheConfigurations.GetAORGroupsForArea("West-Area");
+				//var h = AORCacheConfigurations.GetAORGroupsForAreasUnsafe(new List<string>() { "West-Area", "East-Area" });
+				var j = AORCacheConfigurations.GetSyncMachineGidsForAORGroup("group_2");
+
+			}
 			catch (Exception e)
 			{
 				Trace.Write(e.StackTrace);
