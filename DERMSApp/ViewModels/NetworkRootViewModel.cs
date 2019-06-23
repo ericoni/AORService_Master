@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using AORManagementProxyNS;
 
 namespace DERMSApp.ViewModels
 {
@@ -47,6 +48,9 @@ namespace DERMSApp.ViewModels
         {
             EventSystem.Publish<long>(-1);
             _ders.Clear();
+
+            // to do ubaciti aor proxy
+
 			foreach(SynchronousMachine der in rdAdapter.GetAllDERs())
 			{
                 TableSMItem item = new TableSMItem();

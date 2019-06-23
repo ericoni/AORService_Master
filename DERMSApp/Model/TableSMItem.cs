@@ -22,7 +22,8 @@ namespace DERMSApp.Model
         private float _qIncrease;
         private float _qDecrease;
 		private DateTime _timestamp;
-		private RDAdapter rdAdapter = new RDAdapter();
+        //private RDAdapter rdAdapter = new RDAdapter();
+        private string aorGroup;
         private SynchronousMachine der;
 
         public TableSMItem()
@@ -47,10 +48,16 @@ namespace DERMSApp.Model
 			}
 		}
 
-		public long Gid
+        public long Gid
+        {
+            get { return gid; }
+            set { gid = value; }
+        }
+
+        public string AorGroup
 		{
-			get { return gid; }
-			set { gid = value;  }
+			get { return aorGroup; }
+			set { aorGroup = value;  }
 		}
 
 		public float CurrentP

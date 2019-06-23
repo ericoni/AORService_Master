@@ -4,13 +4,13 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
-using AORManagementProxyNS;
 using FTN.Common.AORContract;
 using System.IdentityModel.Policy;
 using System.IdentityModel.Claims;
 using System.ServiceModel.Description;
 using System.Security.Principal;
 using ActiveAORCache.Helpers;
+using AORCommon.Principal;
 
 namespace AORService
 { 
@@ -158,54 +158,6 @@ namespace AORService
 
 				return true;
 			}
-		}
-
-		class CustomPrincipal : IMyPrincipal
-		{
-			IIdentity identity;
-			string username = string.Empty;
-			string[] areas;
-
-			public CustomPrincipal(IIdentity identity, string username, string[] roles)
-			{
-				this.identity = identity;
-				this.username = username;
-				this.areas = roles;
-			}
-
-			public IIdentity Identity
-			{
-				get { return this.identity; }
-			}
-
-			public string Username
-			{
-				get { return this.username; }
-				set { this.username = value; }
-			}
-
-			public string[] Areas
-			{
-				get { return this.areas; }
-				set { this.areas = value; }
-			}
-
-			public bool IsInRole(string role)
-			{
-				return true;
-			}
-
-			public WindowsImpersonationContext Impersonate()
-			{
-				throw new NotImplementedException();
-			}
-		}
-
-		interface IMyPrincipal : IPrincipal
-		{
-			string Username { get; set; }
-
-			WindowsImpersonationContext Impersonate();
 		}
 	}
 }

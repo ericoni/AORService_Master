@@ -33,8 +33,7 @@ namespace AORService
 				//var f = AORCacheConfigurations.GetPermissionsForUser("state");
 				//var g = AORCacheConfigurations.GetAORGroupsForArea("West-Area");
 				//var h = AORCacheConfigurations.GetAORGroupsForAreasUnsafe(new List<string>() { "West-Area", "East-Area" });
-				var j = AORCacheConfigurations.GetSyncMachineGidsForAORGroup("group_2");
-
+				var j = AORCacheConfigurations.GetSyncMachineGidsForAORGroups(new List<string>(2) { "group_2", "group_3" });
 			}
 			catch (Exception e)
 			{
@@ -43,9 +42,14 @@ namespace AORService
 			}
 		}
 
-		#region IAORManagement
+        public List<long> GetUsersSynchronousMachines()
+        {
+            throw new NotImplementedException(); // to do jun
+        }
 
-		public bool Login(string username, string password)
+        #region IAORManagement
+
+        public bool Login(string username, string password)
 		{
 			return aorDatabaseHelper.LoginUser(username, password);
 		}

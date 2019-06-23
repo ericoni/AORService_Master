@@ -12,12 +12,47 @@ using FTN.Common.AORCachedModel;
 namespace ActiveAORCache.Helpers
 {
 	/// <summary>
-	/// Method used to access AOR cache. Method validation has to be improved.
+	/// Method used to access AOR cache. Method validation has to be improved. Check for optimizations in newest methods.
 	/// </summary>
 	public class AORCacheConfigurations
 	{
+        // to do jun
+        //public static List<long> GetSyncMachinesForUser()
+        //{
 
-		public static List<long> GetSyncMachineGidsForAORGroup(string aorGroup)
+
+        //}
+
+        public static Dictionary<string, List<long>> GetSyncMachineGidsForAORGroups(List<string> aorGroups)
+        {
+            Dictionary<string, List<long>> resultGids = new Dictionary<string, List<long>>();
+            List<AORCachedGroup> groups = new List<AORCachedGroup>(12);
+            List<long> syncMachines = null;
+
+            using (var access = new AccessDB())
+            {
+                groups = access.Groups.Include("SynchronousMachines").ToList();
+            }
+
+            foreach (var group in groups)
+            {
+                if (!aorGroups.Contains(group.Name))
+                {
+                    continue;
+                }
+
+                syncMachines = new List<long>(group.SynchronousMachines.Count);
+
+                foreach (var sm in group.SynchronousMachines)
+                {
+                    syncMachines.Add(sm.GidFromNms);
+                }
+                resultGids.Add(group.Name, syncMachines);
+            }
+            return resultGids;
+        }
+
+        public static List<long> GetSyncMachineGidsForAORGroup(string aorGroup)
 		{
 			List<long> syncMachines = new List<long>();
 
