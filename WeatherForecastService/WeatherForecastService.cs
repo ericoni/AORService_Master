@@ -9,6 +9,7 @@ using WeatherForecastService;
 
 namespace WeatherForecast
 {
+	[Obsolete("temp izbaceno sranje", true)]
 	public class WeatherForecastService : IDisposable
 	{
 		ServiceHost host = null;

@@ -20,9 +20,9 @@ namespace WeatherForecast
 				Console.WriteLine("\n{0}\n", message);
 				Console.WriteLine("************************************************************************Starting services", message);
 
-				WeatherForecastService wf = new WeatherForecastService();
+				//WeatherForecastService wf = new WeatherForecastService();
 
-				wf.Start();
+				//wf.Start();
 
 				message = "Press <Enter> to stop the service.";
 				Console.ReadKey();

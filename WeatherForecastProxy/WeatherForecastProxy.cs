@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace WeatherForecastProxyNS
 {
-	public class WeatherForecastProxy
+	[Obsolete("temp izbaceno sranje", true)]
+	public class WeatherForecastProxy // to do vrati weather
 	{
 		// Broj pokusaja uspostavljanja komunikacije
 		private const int maxTry = 5;

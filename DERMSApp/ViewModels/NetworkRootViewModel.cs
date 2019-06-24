@@ -12,69 +12,85 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using AORManagementProxyNS;
+using System.Threading;
+using AORCommon.Principal;
+using System.ServiceModel;
 
 namespace DERMSApp.ViewModels
 {
-    public class NetworkRootViewModel : TreeViewItemViewModel
-    {
+	public class NetworkRootViewModel : TreeViewItemViewModel
+	{
 		private RDAdapter rdAdapter = new RDAdapter();
 		ObservableCollection<TableSMItem> _ders;
 
-        public ICommand ActivePowerCommand { get; private set; }
-        public ICommand ReactivePowerCommand { get; private set; }
+		public ICommand ActivePowerCommand { get; private set; }
+		public ICommand ReactivePowerCommand { get; private set; }
 
-        public NetworkRootViewModel(ObservableCollection<TableSMItem> ders) 
-            : base(null, true)
-        {
-            ActivePowerCommand = new RelayCommand(() => ExecuteActivePowerCommand());
-            ReactivePowerCommand = new RelayCommand(() => ExecuteReactivePowerCommand());
-            _ders = ders;
+		public NetworkRootViewModel(ObservableCollection<TableSMItem> ders) 
+			: base(null, true)
+		{
+			ActivePowerCommand = new RelayCommand(() => ExecuteActivePowerCommand());
+			ReactivePowerCommand = new RelayCommand(() => ExecuteReactivePowerCommand());
+			_ders = ders;
 
-        }
+		}
 
-        public string NetworkRootViewModelName
-        {
-            get { return "Entire network"; }
-        }
+		public string NetworkRootViewModelName
+		{
+			get { return "Entire network"; }
+		}
 
-        protected override void LoadChildren()
-        {
-            foreach (GeographicalRegion geographicalRegion in rdAdapter.GetRegions())
-                base.Children.Add(new GeographicalRegionViewModel(geographicalRegion, this, _ders));
+		protected override void LoadChildren()
+		{
+			foreach (GeographicalRegion geographicalRegion in rdAdapter.GetRegions())
+				base.Children.Add(new GeographicalRegionViewModel(geographicalRegion, this, _ders));
 
-        }
+		}
 
-        protected override void LoadDERS()
-        {
-            EventSystem.Publish<long>(-1);
-            _ders.Clear();
+		protected override void LoadDERS()
+		{
+			EventSystem.Publish<long>(-1);
+			_ders.Clear();
 
-            // to do ubaciti aor proxy
+			// to do ubaciti aor proxy
+			//AORManagementProxy aorProxy = new AORManagementProxy();
 
-			foreach(SynchronousMachine der in rdAdapter.GetAllDERs())
+			try
 			{
-                TableSMItem item = new TableSMItem();
-                item = (TableSMItem)CacheReceiver.Instance.TableItemList.Where(o => o.Gid.Equals(der.GlobalId)).FirstOrDefault();
-                if(item == null)
-                {
-                    item = new TableSMItem();
-                    item.CurrentP = 0;
-                    item.TimeStamp = new DateTime();
-                    item.CurrentQ = 0;
-                }
-                item.Der = der;
-                _ders.Add(item);
-            }
-        }
+				var principal = Thread.CurrentPrincipal as IMyPrincipal;
+				//var name = ServiceSecurityContext.Current.PrimaryIdentity.Name;
+				//((CustomPrincipal)Thread.CurrentPrincipal
+			}
+			catch (Exception)
+			{
 
-        private void ExecuteReactivePowerCommand()
-        {
-            EventSystem.Publish<ForecastObjData>(new ForecastObjData() { Gid = -1, Power = false });
-        }
+				throw;
+			}
 
-        private void ExecuteActivePowerCommand()
-        {
-            EventSystem.Publish<ForecastObjData>(new ForecastObjData() { Gid = -1, Power = true });
-        }
-    }
+			foreach (SynchronousMachine der in rdAdapter.GetAllDERs())
+			{
+				TableSMItem item = new TableSMItem();
+				item = (TableSMItem)CacheReceiver.Instance.TableItemList.Where(o => o.Gid.Equals(der.GlobalId)).FirstOrDefault();
+				if(item == null)
+				{
+					item = new TableSMItem();
+					item.CurrentP = 0;
+					item.TimeStamp = new DateTime();
+					item.CurrentQ = 0;
+				}
+				item.Der = der;
+				_ders.Add(item);
+			}
+		}
+
+		private void ExecuteReactivePowerCommand()
+		{
+			EventSystem.Publish<ForecastObjData>(new ForecastObjData() { Gid = -1, Power = false });
+		}
+
+		private void ExecuteActivePowerCommand()
+		{
+			EventSystem.Publish<ForecastObjData>(new ForecastObjData() { Gid = -1, Power = true });
+		}
+	}
 }

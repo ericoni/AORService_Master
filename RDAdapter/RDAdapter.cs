@@ -543,32 +543,32 @@ namespace Adapter
 			return syncMachine;
 		}
 
-        public List<SynchronousMachine> GetSyncMachinesByGids(List<long> gids)
-        {
-            List<SynchronousMachine> syncMachines = new List<SynchronousMachine>(10);
-            List<ModelCode> properties = modelResourcesDesc.GetAllPropertyIds(ModelCode.SYNCMACHINE);
+		public List<SynchronousMachine> GetSyncMachinesByGids(List<long> gids)
+		{
+			List<SynchronousMachine> syncMachines = new List<SynchronousMachine>(10);
+			List<ModelCode> properties = modelResourcesDesc.GetAllPropertyIds(ModelCode.SYNCMACHINE);
 
-            try
-            {
-                foreach (var gid in gids)
-                {
-                    ResourceDescription rd = GdaQueryProxy.GetValues(gid, properties);
-                    var syncMachine = new SynchronousMachine(rd.Id);
-                    syncMachines.Add(syncMachine.ConvertFromRD(rd));
-                }
-                CommonTrace.WriteTrace(CommonTrace.TraceError, "Getting extent values method successfully finished.");
-            }
-            catch (Exception e)
-            {
-                string message = string.Format("Getting extent values method failed for {0}.\n\t{1}", ModelCode.SYNCMACHINE, e.Message);
-                Console.WriteLine(message);
-                CommonTrace.WriteTrace(CommonTrace.TraceError, message);
-            }
+			try
+			{
+				foreach (var gid in gids)
+				{
+					ResourceDescription rd = GdaQueryProxy.GetValues(gid, properties);
+					var syncMachine = new SynchronousMachine(rd.Id);
+					syncMachines.Add(syncMachine.ConvertFromRD(rd));
+				}
+				CommonTrace.WriteTrace(CommonTrace.TraceError, "Getting extent values method successfully finished.");
+			}
+			catch (Exception e)
+			{
+				string message = string.Format("Getting extent values method failed for {0}.\n\t{1}", ModelCode.SYNCMACHINE, e.Message);
+				Console.WriteLine(message);
+				CommonTrace.WriteTrace(CommonTrace.TraceError, message);
+			}
 
-            return syncMachines;
-        }
+			return syncMachines;
+		}
 
-        public GeographicalRegion GetRegionByGid(long gid)
+		public GeographicalRegion GetRegionByGid(long gid)
 		{
 			GeographicalRegion syncMachine = null;
 
@@ -663,53 +663,6 @@ namespace Adapter
 		}
 
 		#region AOR Section
-		//public List<AORAGAggregator> GetAORAgAggregators()
-		//{
-		//	int iteratorId = 0;
-		//	List<long> ids = new List<long>();
-		//	List<AORAGAggregator> aorAggregatorValues = new List<AORAGAggregator>();
-
-		//	try
-		//	{
-		//		int numberOfResources = 500;
-		//		int resourcesLeft = 0;
-
-		//		List<ModelCode> properties = modelResourcesDesc.GetAllPropertyIds(ModelCode.AOR_AGAGGREGATOR);
-
-		//		iteratorId = GdaQueryProxy.GetExtentValues(ModelCode.AOR_AGAGGREGATOR, properties);
-		//		resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
-
-		//		while (resourcesLeft > 0)
-		//		{
-		//			List<ResourceDescription> rds = GdaQueryProxy.IteratorNext(numberOfResources, iteratorId);
-
-		//			for (int i = 0; i < rds.Count; i++)
-		//			{
-		//				var rg = GdaQueryProxy.GetValues(rds[i].Id, properties);
-		//				AORAGAggregator aorAgValue = new AORAGAggregator(rds[i].Id);
-		//				aorAggregatorValues.Add(aorAgValue.ConvertFromRD(rg));
-		//			}
-
-		//			resourcesLeft = GdaQueryProxy.IteratorResourcesLeft(iteratorId);
-		//		}
-
-		//		GdaQueryProxy.IteratorClose(iteratorId);
-
-		//		CommonTrace.WriteTrace(CommonTrace.TraceError, "Getting extent values method successfully finished. (GetAORAgAggregator)");
-
-		//	}
-		//	catch (Exception e)
-		//	{
-		//		string message = string.Format("Getting extent values method failed for {0}.\n\t{1}", ModelCode.AOR_AGAGGREGATOR, e.Message);
-		//		Console.WriteLine(message);
-		//		CommonTrace.WriteTrace(CommonTrace.TraceError, message);
-		//	}
-
-		//	return aorAggregatorValues;
-		//}
-
-	
-		//}
 
 		public List<AORGroup> GetAORGroups()
 		{
@@ -813,7 +766,7 @@ namespace Adapter
 		/// <param name="areaGid"></param>
 		/// <returns></returns>
 		/// 
-		[Obsolete("Don' use this")]
+		[Obsolete("Don' use this", true)]
 		public List<AORCachedGroup> GetAORGroupsWithSmInfo()
 		{
 			//int iteratorId = 0;

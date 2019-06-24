@@ -4,7 +4,9 @@ using AORManagementProxyNS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace TestConsoleApp
@@ -13,16 +15,23 @@ namespace TestConsoleApp
 	{
 		static void Main(string[] args) //ima neka fora s ovim, on kreira svoju novu bazu "UsersDatabase7xxxxx" umjesto da koristi istu.
 		{
-            //var a = AORCacheConfigurations.GetAORAreasForUsername("marko.markovic");//ovako radi normalno
+			//var a = AORCacheConfigurations.GetAORAreasForUsername("marko.markovic");//ovako radi normalno
 
-            // AORCacheConfigurations.SelectAreaForView("West-Area", false);
+			// AORCacheConfigurations.SelectAreaForView("West-Area", false);
 
-            ///var c = AORCacheConfigurations.GetPermissionsForArea("West-Area"); 
+			///var c = AORCacheConfigurations.GetPermissionsForArea("West-Area"); 
 
-            //AORManagementProxy aorManagementProxy = new AORManagementProxy();
-            //aorManagementProxy.Proxy.Login("marko.markovic", "a");
-            RDAdapter rdAdapter = new RDAdapter();
-            var a = rdAdapter.GetSyncMachinesByGids(new List<long>() { 12884901889 });
-        }
+			var curretn = ServiceSecurityContext.Current;
+
+			AORManagementProxy aorManagementProxy = new AORManagementProxy();
+			bool isValidLogin = aorManagementProxy.Proxy.Login("state", "a");
+
+			var curretn2 = ServiceSecurityContext.Current;
+
+			var principal = Thread.CurrentPrincipal.Identity.Name;
+
+			//RDAdapter rdAdapter = new RDAdapter();
+			//var a = rdAdapter.GetSyncMachinesByGids(new List<long>() { 12884901889 });
+		}
 	}
 }

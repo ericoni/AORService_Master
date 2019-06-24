@@ -37,7 +37,7 @@ namespace DERMSApp.ViewModels
 		private TableSMItem derToSend = null;
 		private string timeStamp;
 
-		WeatherForecastProxy weatherProxy = new WeatherForecastProxy();
+		//WeatherForecastProxy weatherProxy = new WeatherForecastProxy(); //// to do vrati weather
 
 		/// <summary>
 		/// Visibility of Tabular Data
@@ -605,65 +605,66 @@ namespace DERMSApp.ViewModels
 			ShowForecast = Visibility.Visible;
 		}
 
-		public void ObjectSelected(long gid)
+		public void ObjectSelected(long gid) //// to do vrati weather
 		{
 			selectedGid = gid;
 
 			//Ako se nalazimo na istorijskom dijagramo izmeni podatke... radi tree view
-			if(ShowCharts == Visibility.Visible)
+			if (ShowCharts == Visibility.Visible)
 			{
 				HistoryDataChartVM = new HistoryDataChartViewModel(selectedGid);
 			}
 
 			new Thread(() =>
 			{
-			   if (gid != -1)
-			   {
+				if (gid != -1)
+				{
 					WeatherInfo tempWeather;
 					try
 					{
-						tempWeather = weatherProxy.Proxy.GetCurrentWeatherDataByGlobalId(gid);
+						//tempWeather = weatherProxy.Proxy.GetCurrentWeatherDataByGlobalId(gid); // to do vrati weather
+						tempWeather = new WeatherInfo();
 					}
-					catch(Exception e)
+					catch (Exception e)
 					{
 						throw e;
 					}
 
-				   tempWeather.Currently.Temperature = Math.Round(tempWeather.Currently.Temperature, 2);
-				   tempWeather.Currently.WindSpeed = Math.Round(tempWeather.Currently.WindSpeed, 2);
-				   tempWeather.Currently.Humidity = Math.Round(tempWeather.Currently.Humidity, 2);
-				   tempWeather.Currently.Pressure = Math.Round(tempWeather.Currently.Pressure, 2);
+					tempWeather.Currently.Temperature = Math.Round(tempWeather.Currently.Temperature, 2);
+					tempWeather.Currently.WindSpeed = Math.Round(tempWeather.Currently.WindSpeed, 2);
+					tempWeather.Currently.Humidity = Math.Round(tempWeather.Currently.Humidity, 2);
+					tempWeather.Currently.Pressure = Math.Round(tempWeather.Currently.Pressure, 2);
 
-				   if (tempWeather.Currently.Summary.ToUpper().Equals("CLEAR"))
-				   {
-					   WeatherIcon = @"../Images/WeatherConditionsSunny.png";
-				   }
-				   else if (tempWeather.Currently.Summary.ToUpper().Equals("OVERCAST") || tempWeather.Currently.Summary.ToUpper().Contains("CLOUD"))
-				   {
-					   WeatherIcon = @"../Images/WeatherConditionsOvercast.png";
-				   }
-				   else if (tempWeather.Currently.Summary.ToUpper().Contains("RAIN") || tempWeather.Currently.Summary.ToUpper().Contains("DRIZZLE"))
-				   {
-					   WeatherIcon = @"../Images/WeatherConditionsRain.png";
-				   }
-				   else
-				   {
-					   WeatherIcon = @"../Images/WindIcon.png";
-				   }
+					if (tempWeather.Currently.Summary.ToUpper().Equals("CLEAR"))
+					{
+						WeatherIcon = @"../Images/WeatherConditionsSunny.png";
+					}
+					else if (tempWeather.Currently.Summary.ToUpper().Equals("OVERCAST") || tempWeather.Currently.Summary.ToUpper().Contains("CLOUD"))
+					{
+						WeatherIcon = @"../Images/WeatherConditionsOvercast.png";
+					}
+					else if (tempWeather.Currently.Summary.ToUpper().Contains("RAIN") || tempWeather.Currently.Summary.ToUpper().Contains("DRIZZLE"))
+					{
+						WeatherIcon = @"../Images/WeatherConditionsRain.png";
+					}
+					else
+					{
+						WeatherIcon = @"../Images/WindIcon.png";
+					}
 
-				   Weather = tempWeather;
+					Weather = tempWeather;
 
-				   WeatherWidgetVisible = Visibility.Visible;
+					WeatherWidgetVisible = Visibility.Visible;
 
-				   new Thread(() => ShowGauges()).Start();
+					new Thread(() => ShowGauges()).Start();
 
-			   }
-			   else
-			   {
-				   WeatherWidgetVisible = Visibility.Hidden;
-				   new Thread(() => ShowGauges()).Start();
-			   }
-		   }).Start();
+				}
+				else
+				{
+					WeatherWidgetVisible = Visibility.Hidden;
+					new Thread(() => ShowGauges()).Start();
+				}
+			}).Start();
 		}
 
 		public void ShowGauges()

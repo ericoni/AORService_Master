@@ -120,6 +120,14 @@ namespace AORService
 				get { return ClaimSet.System; }
 			}
 
+			/// <summary>
+			/// The evaluate method, if it returns true it stops other authorization polices from being evaluated 
+			/// (there can be multiple authorization policies, that will become clear when we create the configuration to add our own configuration policy).
+			/// Source: https://www.blinkingcaret.com/2016/03/02/wcf-security-survival-guide-part-2-authorization/
+			/// </summary>
+			/// <param name="context"></param>
+			/// <param name="state"></param>
+			/// <returns></returns>
 			public bool Evaluate(EvaluationContext context, ref object state)
 			{
 				object obj;
@@ -135,7 +143,7 @@ namespace AORService
 
 				string[] assignedAreas = AORCacheConfigurations.GetAORAreasForUsername(name.Substring(backslashLastIndex + 1));
 
-                context.Properties["Principal"] = new CustomPrincipal(identities[0], "perica", assignedAreas);
+				context.Properties["Principal"] = new CustomPrincipal(identities[0], "perica", assignedAreas);
 
 				return EvaluationResult(assignedAreas);
 			}

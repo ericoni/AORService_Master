@@ -36,7 +36,7 @@ namespace CalculationEngService
 		/// <summary>
 		/// Weather forecast proxy
 		/// </summary>
-		private WeatherForecastProxy wfProxy = null;
+		//private WeatherForecastProxy wfProxy = null; //// to do vrati weather
 
 		/// <summary>
 		/// Proxy for CalculateHorulyForecastClient
@@ -75,7 +75,7 @@ namespace CalculationEngService
 		/// </summary>
 		public CalculationEngineForecast()
 		{
-			wfProxy = new WeatherForecastProxy();
+			//wfProxy = new WeatherForecastProxy();
 			chfProxy = new CalculateHourlyForecast();
 			model = CalculationEngineModel.Instance;
 			powCalc = new PowerCalculator();
@@ -130,11 +130,17 @@ namespace CalculationEngService
 			{
 				Task<ForecastObject> task = new Task<ForecastObject>(() =>
 			   {
-				   WeatherInfo wi = wfProxy.Proxy.Get7DayPerHourForecastByGid(der.GlobalId);
-				   List<Data> hourlyData = wi.Hourly.Data;
-				   long sunriseTime = wi.Daily.Data.FirstOrDefault().SunriseTime;
-				   long sunsetTime = wi.Daily.Data.FirstOrDefault().SunsetTime;
+				   //WeatherInfo wi = wfProxy.Proxy.Get7DayPerHourForecastByGid(der.GlobalId); //// to do vrati weather
+				   //List<Data> hourlyData = wi.Hourly.Data;
+				   //long sunriseTime = wi.Daily.Data.FirstOrDefault().SunriseTime;
+				   //long sunsetTime = wi.Daily.Data.FirstOrDefault().SunsetTime;
+
+				   List<Data> hourlyData = new List<Data>(1) { new Data(555) }; // // to do vrati weather moje
+				   long sunriseTime = 1;
+				   long sunsetTime = 5;
 				   ForecastObject forecastObj = null;
+
+				   WeatherInfo wi = new WeatherInfo();
 
 				   AnalogValue modelDataActive = CalculationEngineModel.Instance.AnalogPointsOriginal.Where(o => o.SynchronousMachine.Equals(der.GlobalId) &&
 																												 o.PowerType.Equals(PowerType.Active)).FirstOrDefault();
