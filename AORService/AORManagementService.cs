@@ -11,6 +11,7 @@ using System.ServiceModel.Description;
 using System.Security.Principal;
 using ActiveAORCache.Helpers;
 using AORCommon.Principal;
+using System.ServiceModel.Channels;
 
 namespace AORService
 { 
@@ -25,15 +26,16 @@ namespace AORService
 	public class AORManagementService : IDisposable
 	{
 		ServiceHost host = null;
-		NetTcpBinding binding = null;
+		//NetTcpBinding binding = null;
 		AORManagement aorManagement = null;
 		//AOREventAlarmChannel eventProxy = null; // to do odkomentarisi
 		string address = "net.tcp://localhost:10038/IAORManagement";  
 
 		public AORManagementService()
 		{
-			binding = new NetTcpBinding();
+			//binding = new NetTcpBinding();
 			aorManagement = new AORManagement();
+
 			//eventProxy = new AOREventAlarmChannel();
 			//eventProxy.Test();
 
@@ -65,7 +67,7 @@ namespace AORService
 
 			try
 			{
-				host.AddServiceEndpoint(typeof(IAORManagement), binding, address);
+				host.AddServiceEndpoint(typeof(IAORManagement), GetBinding(), address);
 
 				List<IAuthorizationPolicy> policies = new List<IAuthorizationPolicy>();
 				policies.Add(new CustomAuthorizationPolicy());
@@ -93,11 +95,19 @@ namespace AORService
 			Console.WriteLine("************************************************************************AOR Login started", message);
 		}
 
+		public Binding GetBinding()
+		{
+			WSHttpBinding binding = new WSHttpBinding(SecurityMode.Message); // bio je message
+			binding.Security.Message.ClientCredentialType = MessageCredentialType.Windows;
+			binding.Security.Mode = SecurityMode.Transport; // ova linija nije bila
+			
+			return binding;
+		}
 		private void CloseHosts()
 		{
 			if (host == null)
 			{
-				throw new Exception("AOR LoginService can not be closed because it is not initialized.");
+				throw new ArgumentNullException("AOR LoginService can not be closed because it is not initialized.");
 			}
 
 			host.Close();

@@ -63,7 +63,6 @@ namespace DERMSApp.ViewModels
 			}
 			catch (Exception)
 			{
-
 				throw;
 			}
 

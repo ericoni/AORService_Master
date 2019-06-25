@@ -1,5 +1,6 @@
 ﻿using ActiveAORCache.Helpers;
 using Adapter;
+using AORCommon.Principal;
 using AORManagementProxyNS;
 using System;
 using System.Collections.Generic;
@@ -29,9 +30,11 @@ namespace TestConsoleApp
 			var curretn2 = ServiceSecurityContext.Current;
 
 			var principal = Thread.CurrentPrincipal.Identity.Name;
+			var p2 = (IMyPrincipal)Thread.CurrentPrincipal;
 
-			//RDAdapter rdAdapter = new RDAdapter();
-			//var a = rdAdapter.GetSyncMachinesByGids(new List<long>() { 12884901889 });
+
+		//RDAdapter rdAdapter = new RDAdapter();
+		//var a = rdAdapter.GetSyncMachinesByGids(new List<long>() { 12884901889 });
 		}
 	}
 }
