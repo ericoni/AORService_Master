@@ -7,6 +7,7 @@ using System.ServiceModel;
 using System.Security;
 using FTN.Common.AORContract;
 using FTN.Common.Model;
+using FTN.Common.AORCachedModel;
 
 namespace AORManagementProxyNS
 {
@@ -20,19 +21,24 @@ namespace AORManagementProxyNS
 		{
 		}
 
-        public List<long> GetUsersSynchronousMachines()
-        {
-            throw new NotImplementedException(); // to do jun
-        }
+		public List<long> GetUsersSynchronousMachines()
+		{
+			throw new NotImplementedException(); // to do jun
+		}
 
-        //public List<string> GetAORAreasForUsername(string username) // to do ubaciti ovde ili u neki zajednici interfejs za pristupanje kesu
-        //{
-        //	return this.Channel.GetAORAreasForUsername(username);
-        //}
+		//public List<string> GetAORAreasForUsername(string username) // to do ubaciti ovde ili u neki zajednici interfejs za pristupanje kesu
+		//{
+		//	return this.Channel.GetAORAreasForUsername(username);
+		//}
 
-        public bool Login(string username, string password)
+		public List<AORCachedArea> Login(string username, string password)
 		{
 			return this.Channel.Login(username, password);
+		}
+
+		public void Test()
+		{
+			this.Channel.Test();
 		}
 	}
 }

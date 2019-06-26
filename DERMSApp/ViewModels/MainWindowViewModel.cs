@@ -199,18 +199,20 @@ namespace DERMSApp.ViewModels
 				return false;
 			}
 
-			if (aorManagementProxy.Proxy.Login(TextBoxUsernameText, TextBoxPasswordText))
+			var aorAreas = aorManagementProxy.Proxy.Login(TextBoxUsernameText, TextBoxPasswordText);
+
+			if (aorAreas.Count == 0)
+			{
+				IsUserAuthenticated = false;
+				return false;
+			}
+			else
 			{
 				IsUserAuthenticated = true;
 				LoginGridVisibility = false;
 				CurrentViewModel = _tabularViewModel;
 				DataTemplatesVisibility = true; // ostavitii ovako ili se vratiti i probati sa onim event djavolima, sta je datatemplates jbt
 				return true;
-			}
-			else
-			{
-				IsUserAuthenticated = false;
-				return false;
 			}
 		}
 

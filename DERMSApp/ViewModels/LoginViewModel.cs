@@ -42,17 +42,7 @@ namespace DERMSApp.ViewModels
 
 		public bool ButtonLoginOnClickExecute() //to do vratiti se
 		{
-			if (aorManagementProxy.Proxy.Login(TextBoxUsernameText, TextBoxPasswordText))
-			{
-				IsUserAuthenticated = true;
-
-				return true;
-			}
-			else
-			{
-				IsUserAuthenticated = false;
-				return false;
-			}
+			return false;
 		}
 
 		public string TextBoxUsernameText

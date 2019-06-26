@@ -17,12 +17,15 @@ namespace FTN.Common.AORContract
 	public interface IAORManagement
 	{
 		[OperationContract]
-		bool Login(string username, string password);
+		List<AORCachedArea> Login(string username, string password);
 
-        [OperationContract]
-        List<long> GetUsersSynchronousMachines();
+		[OperationContract]
+		void Test();
 
-        //[OperationContract]
-        //List<string> GetAORAreasForUsername(string username); // to do voo bi trebalo premjestiti, da ima jedinstven pristup cache-u
-    }
+		[OperationContract]
+		List<long> GetUsersSynchronousMachines();
+
+		//[OperationContract]
+		//List<string> GetAORAreasForUsername(string username); // to do voo bi trebalo premjestiti, da ima jedinstven pristup cache-u
+	}
 }

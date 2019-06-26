@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FTN.Common.AORCachedModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace AORC.Acess
 {
 	public interface IAORDatabaseHelper
 	{
-	 bool LoginUser(string username, string password);
+		List<AORCachedArea> LoginUser(string username, string password);
 	}
 }

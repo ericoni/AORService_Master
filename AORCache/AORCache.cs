@@ -15,7 +15,7 @@ using FTN.Common.AORCachedModel;
 namespace ActiveAORCache
 {
 	//[ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    [Obsolete("Vidjeti da se vise nigdje ne koristi nego da se prisupa direktno na modelu", true)]
+	[Obsolete("Vidjeti da se vise nigdje ne koristi nego da se pristupa direktno na modelu", true)]
 	public class AORCache : IAORCache, IDisposable
 	{
 		public AORCacheModel AORCacheModel { get; private set; }

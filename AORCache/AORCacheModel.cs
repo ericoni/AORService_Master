@@ -364,6 +364,39 @@ namespace ActiveAORCache
 				return new HashSet<AORCachedArea>(areas);
 			}
 		}
+
+		/// <summary>
+		/// Authenticate user by checking username and password. Password hashing yet to be implemented.
+		/// </summary>
+		/// <param name="username"></param>
+		/// <param name="password"></param>
+		/// <returns></returns>
+		public bool AuthenticateUser(string username, string password)
+		{
+			User user = null;
+
+			using (var access = new AccessDB())
+			{
+				user = access.Users.Where(u => u.Username.Equals(username)).FirstOrDefault();
+			}
+
+			if (user == null)
+			{
+				return false;
+			}
+			else
+			{
+				return user.Password.Equals(password);
+			}
+			/* 
+				//return myUser[0].Password.Equals(SecurePasswordManager.Hash(password));
+				 * 
+					 int i = access.SaveChanges();
+
+				if (i > 0)
+					return true;
+				return false;*/
+		}
 	}
 }
 

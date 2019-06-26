@@ -12,6 +12,9 @@ using ActiveAORCache;
 using AORC.Acess;
 using ActiveAORCache.Helpers;
 using System.ServiceModel;
+using System.Threading;
+using AORCommon.Principal;
+using FTN.Common.AORCachedModel;
 
 namespace AORService
 {
@@ -33,7 +36,7 @@ namespace AORService
 				//var f = AORCacheConfigurations.GetPermissionsForUser("state");
 				//var g = AORCacheConfigurations.GetAORGroupsForArea("West-Area");
 				//var h = AORCacheConfigurations.GetAORGroupsForAreasUnsafe(new List<string>() { "West-Area", "East-Area" });
-				var j = AORCacheConfigurations.GetSyncMachineGidsForAORGroups(new List<string>(2) { "group_2", "group_3" });
+				//var j = AORCacheConfigurations.GetSyncMachineGidsForAORGroups(new List<string>(2) { "group_2", "group_3" });
 			}
 			catch (Exception e)
 			{
@@ -42,16 +45,25 @@ namespace AORService
 			}
 		}
 
-        public List<long> GetUsersSynchronousMachines()
-        {
-            throw new NotImplementedException(); // to do jun
-        }
+		public List<long> GetUsersSynchronousMachines()
+		{
+			throw new NotImplementedException(); // to do jun
+		}
 
-        #region IAORManagement
+		#region IAORManagement
 
-        public bool Login(string username, string password)
+		public List<AORCachedArea> Login(string username, string password)
 		{
 			return aorDatabaseHelper.LoginUser(username, password);
+		}
+
+		public void Test()
+		{
+			string a = "sarma";
+			var principal = Thread.CurrentPrincipal;
+			var p2 = ServiceSecurityContext.Current;
+			var p3 = Thread.CurrentPrincipal as IMyPrincipal;
+
 		}
 
 		#endregion

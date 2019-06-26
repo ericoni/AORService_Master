@@ -26,14 +26,14 @@ namespace AORService
 	public class AORManagementService : IDisposable
 	{
 		ServiceHost host = null;
-		//NetTcpBinding binding = null;
+		NetTcpBinding binding = null;
 		AORManagement aorManagement = null;
 		//AOREventAlarmChannel eventProxy = null; // to do odkomentarisi
 		string address = "net.tcp://localhost:10038/IAORManagement";  
 
 		public AORManagementService()
 		{
-			//binding = new NetTcpBinding();
+			binding = new NetTcpBinding();
 			aorManagement = new AORManagement();
 
 			//eventProxy = new AOREventAlarmChannel();
@@ -67,7 +67,7 @@ namespace AORService
 
 			try
 			{
-				host.AddServiceEndpoint(typeof(IAORManagement), GetBinding(), address);
+				host.AddServiceEndpoint(typeof(IAORManagement), binding, address);
 
 				List<IAuthorizationPolicy> policies = new List<IAuthorizationPolicy>();
 				policies.Add(new CustomAuthorizationPolicy());
@@ -137,7 +137,7 @@ namespace AORService
 			/// </summary>
 			/// <param name="context"></param>
 			/// <param name="state"></param>
-			/// <returns></returns>
+			/// <returns> False znaci da za svaku metodu, svaki poziv, dva puta se pozove Evalute(). Kad se stavi true bude 1 poziv prije svake metode. </returns>
 			public bool Evaluate(EvaluationContext context, ref object state)
 			{
 				object obj;
@@ -155,7 +155,8 @@ namespace AORService
 
 				context.Properties["Principal"] = new CustomPrincipal(identities[0], "perica", assignedAreas);
 
-				return EvaluationResult(assignedAreas);
+				//return EvaluationResult(assignedAreas);
+				return true;
 			}
 
 			private bool EvaluationResult(string[] assignedAreas)

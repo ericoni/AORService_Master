@@ -16,43 +16,43 @@ namespace ActiveAORCache.Helpers
 	/// </summary>
 	public class AORCacheConfigurations
 	{
-        // to do jun
-        //public static List<long> GetSyncMachinesForUser()
-        //{
+		// to do jun
+		//public static List<long> GetSyncMachinesForUser()
+		//{
 
 
-        //}
+		//}
 
-        public static Dictionary<string, List<long>> GetSyncMachineGidsForAORGroups(List<string> aorGroups)
-        {
-            Dictionary<string, List<long>> resultGids = new Dictionary<string, List<long>>();
-            List<AORCachedGroup> groups = new List<AORCachedGroup>(12);
-            List<long> syncMachines = null;
+		public static Dictionary<string, List<long>> GetSyncMachineGidsForAORGroups(List<string> aorGroups)
+		{
+			Dictionary<string, List<long>> resultGids = new Dictionary<string, List<long>>();
+			List<AORCachedGroup> groups = new List<AORCachedGroup>(12);
+			List<long> syncMachines = null;
 
-            using (var access = new AccessDB())
-            {
-                groups = access.Groups.Include("SynchronousMachines").ToList();
-            }
+			using (var access = new AccessDB())
+			{
+				groups = access.Groups.Include("SynchronousMachines").ToList();
+			}
 
-            foreach (var group in groups)
-            {
-                if (!aorGroups.Contains(group.Name))
-                {
-                    continue;
-                }
+			foreach (var group in groups)
+			{
+				if (!aorGroups.Contains(group.Name))
+				{
+					continue;
+				}
 
-                syncMachines = new List<long>(group.SynchronousMachines.Count);
+				syncMachines = new List<long>(group.SynchronousMachines.Count);
 
-                foreach (var sm in group.SynchronousMachines)
-                {
-                    syncMachines.Add(sm.GidFromNms);
-                }
-                resultGids.Add(group.Name, syncMachines);
-            }
-            return resultGids;
-        }
+				foreach (var sm in group.SynchronousMachines)
+				{
+					syncMachines.Add(sm.GidFromNms);
+				}
+				resultGids.Add(group.Name, syncMachines);
+			}
+			return resultGids;
+		}
 
-        public static List<long> GetSyncMachineGidsForAORGroup(string aorGroup)
+		public static List<long> GetSyncMachineGidsForAORGroup(string aorGroup)
 		{
 			List<long> syncMachines = new List<long>();
 
@@ -185,6 +185,31 @@ namespace ActiveAORCache.Helpers
 				
 			}
 			return permissions;
+		}
+
+		public static List<AORCachedArea> GetAORAreaObjectsForUsername(string username)
+		{
+			List<AORCachedArea> aorAreas = new List<AORCachedArea>(10);
+			User user = null;
+
+			using (var access = new AccessDB())
+			{
+				aorAreas = access.Areas.Include(u => u.Users.Select(y => y.Areas)).ToList();
+				user = access.Users.Where(u => u.Username.Equals(username)).FirstOrDefault();
+			}
+
+			if (aorAreas.Count == 0 || user == null)
+			{
+				return new List<AORCachedArea>(1) { new AORCachedArea() { Name = "None" } }; // to do vratiti se jos na ovo
+			}
+
+			for (int i = 0; i < aorAreas.Count; i++)
+			{
+				if (!aorAreas[i].Users.Contains(user))
+					aorAreas.RemoveAt(i);
+			}
+
+			return aorAreas;
 		}
 
 		public static string[] GetAORAreasForUsername(string username)
