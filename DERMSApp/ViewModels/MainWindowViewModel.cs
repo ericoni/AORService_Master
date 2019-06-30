@@ -14,6 +14,7 @@ using System.ServiceModel;
 using FTN.Services.NetworkModelService.DataModel.Meas;
 using DERMSApp.Model;
 using AORManagementProxyNS;
+using FTN.Common.AORCachedModel;
 
 namespace DERMSApp.ViewModels
 {
@@ -32,7 +33,7 @@ namespace DERMSApp.ViewModels
 		ICacheService proxy = null;*/
 		#region Fields
 		private string textBoxUsername = string.Empty;
-		private string textBoxPassword = string.Empty; // vratiti se za implementaciju secure string-a ili nesto sa sertifikatima
+		private string textBoxPassword = string.Empty; // to do secure string
 		private bool isUserAuthenticated = false;
 		private bool isLoginGridVisible = false;
 		private bool dataTemplatesVisibility = false;
@@ -46,16 +47,17 @@ namespace DERMSApp.ViewModels
 		/// </summary>
 		private ViewModelBase _currentViewModel;
 
-		/// <summary>
-		/// Static instance of one of the ViewModels.
-		/// </summary>
-		//readonly static TabularViewModel _tabularViewModel = new TabularViewModel();
-		readonly static EntireNetworkViewModel _tabularViewModel = new EntireNetworkViewModel();
+        /// <summary>
+        /// Static instance of one of the ViewModels.
+        /// </summary>
+        //readonly static TabularViewModel _tabularViewModel = new TabularViewModel();
+        //readonly static EntireNetworkViewModel _tabularViewModel = new EntireNetworkViewModel(); // ovako je bilo 30.6.
+        readonly static EntireNetworkViewModel _tabularViewModel;
 
-		/// <summary>
-		/// Static instance of one of the ViewModels.
-		/// </summary>
-		readonly static DeltaViewModel _deltaViewModel = new DeltaViewModel();
+        /// <summary>
+        /// Static instance of one of the ViewModels.
+        /// </summary>
+        readonly static DeltaViewModel _deltaViewModel = new DeltaViewModel();
 
 		/// <summary>
 		/// Visibility of Network View
@@ -153,14 +155,15 @@ namespace DERMSApp.ViewModels
 		/// </summary>
 		public MainWindowViewModel()
 		{
-			CurrentViewModel = MainWindowViewModel._tabularViewModel; // bio je tabular //vratiti ga posle na logovanje i obrisati ovu liniju ispod
-			DataTemplatesVisibility = false; // ovo je sve ono sto nije login
-			LoginGridVisibility = true;
+            DataTemplatesVisibility = false; // master projekat prikaz (sve ono sto nije login)
+            LoginGridVisibility = true; //invert ova dva polja, ako prvi put podesavas app
 
-			aorManagementProxy = new AORManagementProxy(); // vrati se AOR temp samo
-			ButtonLoginOnClick = new RelayCommand(() => ButtonLoginOnClickExecute(), () => true);
+			aorManagementProxy = new AORManagementProxy(); // ugasi, ako prvi put podesavas app
+            ButtonLoginOnClick = new RelayCommand(() => ButtonLoginOnClickExecute(), () => true);
 
-			FirstViewCommand = new RelayCommand(() => ExecuteFirstViewCommand());
+            //CurrentViewModel = MainWindowViewModel._tabularViewModel; // ovako je bilo 30.6., sad je u else od ButtonLoginOnClickExecute()
+
+            FirstViewCommand = new RelayCommand(() => ExecuteFirstViewCommand());
 			SecondViewCommand = new RelayCommand(() => ExecuteSecondViewCommand());
 			ShowAORManagementCommand = new RelayCommand(() => ExecuteShowAORManagementCommand());
 			//ConnectToCalculationEngine();
@@ -194,9 +197,9 @@ namespace DERMSApp.ViewModels
 
 		public bool ButtonLoginOnClickExecute()
 		{
-			if (aorManagementProxy.Proxy == null)
+            if (aorManagementProxy.Proxy == null)
 			{
-				return false;
+                return false;
 			}
 
 			var aorAreas = aorManagementProxy.Proxy.Login(TextBoxUsernameText, TextBoxPasswordText);
@@ -210,8 +213,9 @@ namespace DERMSApp.ViewModels
 			{
 				IsUserAuthenticated = true;
 				LoginGridVisibility = false;
-				CurrentViewModel = _tabularViewModel;
-				DataTemplatesVisibility = true; // ostavitii ovako ili se vratiti i probati sa onim event djavolima, sta je datatemplates jbt
+                CurrentViewModel = new EntireNetworkViewModel(aorAreas);
+                //CurrentViewModel = _tabularViewModel;
+				DataTemplatesVisibility = true; // ovo ili probati sa onim event djavolima, sta je datatemplates jbt
 				return true;
 			}
 		}

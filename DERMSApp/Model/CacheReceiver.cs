@@ -12,6 +12,9 @@ using FTN.Common;
 
 namespace DERMSApp.Model
 {
+    /// <summary>
+    /// To be documented.
+    /// </summary>
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class CacheReceiver : ICacheServiceCallback
     {

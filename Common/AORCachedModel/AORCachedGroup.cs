@@ -15,19 +15,21 @@ namespace FTN.Common.AORCachedModel
 	/// </summary>
 	[Serializable]
 	[DataContract]
-	public class AORCachedGroup : AORCachedEntity
+    [KnownType(typeof(AORCachedSyncMachine))]
+    [KnownType(typeof(AORCachedArea))]
+    public class AORCachedGroup : AORCachedEntity
 	{
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int GroupId { get; set; }
 		[DataMember]
 		public List<AORCachedSyncMachine> SynchronousMachines { get; set; }
-		[DataMember]
-		public List<AORCachedArea> Areas { get; set; }
+        //[DataMember] // to do ovde je svjesno izbacena areas, da se ne bi slalo kroz mrezu previse podataka
+        public List<AORCachedArea> Areas { get; set; }
 		[DataMember]
 		public string Mrid { get; set; } // TODO: za sta ce mi ovaj
 		[DataMember] 
-		[NotMapped]
+		[NotMapped] //zasto notMapped?
 		public long GidFromNms { get; set; }
 		public AORCachedGroup()
 		{

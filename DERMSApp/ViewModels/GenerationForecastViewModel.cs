@@ -270,6 +270,7 @@ namespace DERMSApp.ViewModels
 
 		private void LoadChartDataThread()
 		{
+            return;// to do weather foreceast chart data vrati se 
 			ForecastSeries_Y[0].Values.Clear();
 			ForecastSeries_Y[1].Values.Clear();
 			ForecastSeries_Y[2].Values.Clear();

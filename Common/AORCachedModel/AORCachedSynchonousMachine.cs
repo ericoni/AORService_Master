@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 
 namespace FTN.Common.AORCachedModel
 {
-	public class AORCachedSyncMachine : AORCachedEntity
+    [Serializable]
+    [DataContract]
+    public class AORCachedSyncMachine : AORCachedEntity
 	{
 		private int id;
 		private float maxQ;

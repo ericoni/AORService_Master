@@ -20,13 +20,15 @@ using FTN.Common.Services;
 using System.ServiceModel;
 using DERMSApp.Views;
 using Adapter;
+using FTN.Common.AORCachedModel;
 
 namespace DERMSApp.ViewModels
 {
 	public class EntireNetworkViewModel: ViewModelBase, IDeltaNotifyCallback
 	{
-		//readonly ReadOnlyCollection<GeographicalRegionViewModel> _regions;
-		private ObservableCollection<TableSMItem> _ders;
+        #region Fields
+        //readonly ReadOnlyCollection<GeographicalRegionViewModel> _regions;
+        private ObservableCollection<TableSMItem> _ders;
 		private List<NetworkRootViewModel> _roots;
 		CIMAdapter adapter = new CIMAdapter();
 		private BindableBase historyDataChartVM;
@@ -36,25 +38,29 @@ namespace DERMSApp.ViewModels
 		private ObservableCollection<TableSMItem> dersToSend = null;
 		private TableSMItem derToSend = null;
 		private string timeStamp;
+        private List<AORCachedArea> aorAreas;
 
-		//WeatherForecastProxy weatherProxy = new WeatherForecastProxy(); //// to do vrati weather
+        //WeatherForecastProxy weatherProxy = new WeatherForecastProxy(); //// to do vrati weather
 
-		/// <summary>
-		/// Visibility of Tabular Data
-		/// </summary>
-		private Visibility showData;
+        #region Visibility
+        /// <summary>
+        /// Visibility of Tabular Data
+        /// </summary>
+        private Visibility showData;
+
 
 		private Visibility showCharts;
 
 		private Visibility showForecast;
 
 		private Visibility weatherWidgetVisible;
-
-		/// <summary>
-		/// Simple property to hold the 'ShowTableCommand' - when executed
-		/// it will change the current view to the 'Table Data'
-		/// </summary>
-		public ICommand ShowTableCommand { get; private set; }
+        #endregion Visibility
+        #region Commands
+        /// <summary>
+        /// Simple property to hold the 'ShowTableCommand' - when executed
+        /// it will change the current view to the 'Table Data'
+        /// </summary>
+        public ICommand ShowTableCommand { get; private set; }
 
 		/// <summary>
 		/// Simple property to hold the 'ShowChartCommand' - when executed
@@ -70,7 +76,8 @@ namespace DERMSApp.ViewModels
 
 		public ICommand FilterCommand { get; private set; }
 		public ICommand SearchCommand { get; private set; }
-		public List<string> TypesForFilter { get; set; }
+        #endregion Commands
+        public List<string> TypesForFilter { get; set; }
 
 		private string filterButton;
 		private string filterType;
@@ -97,13 +104,14 @@ namespace DERMSApp.ViewModels
 		private Visibility gaugesVisibility;
 
 		private long selectedGid;
-
-		public EntireNetworkViewModel() 
+        #endregion Fields
+        public EntireNetworkViewModel(List<AORCachedArea> aorAreas) 
 		{
-			_ders = new ObservableCollection<TableSMItem>();
+            this.aorAreas = aorAreas;
+            _ders = new ObservableCollection<TableSMItem>();
 			_roots = new List<NetworkRootViewModel>();
-			_roots.Add(new NetworkRootViewModel(_ders));
-
+			_roots.Add(new NetworkRootViewModel(_ders, aorAreas));
+            
 			ShowCharts = Visibility.Collapsed;
 			ShowForecast = Visibility.Collapsed;
 			ShowData = Visibility.Visible;
@@ -727,7 +735,6 @@ namespace DERMSApp.ViewModels
 			var dialogBox = new DialogBox(new DialogBoxViewModel("Info!", true, "New delta applied.", 1));
 			dialogBox.ShowDialog();
 			//Roots.Add(new NetworkRootViewModel(_ders));
-
 		}
 
 		DuplexChannelFactory<IDeltaNotify> factory = null;

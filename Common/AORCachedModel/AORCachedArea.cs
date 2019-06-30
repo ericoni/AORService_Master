@@ -13,7 +13,10 @@ namespace FTN.Common.AORCachedModel
 	[Serializable]
 	[DataContract]
 	[KnownType(typeof(User))]
-	public class AORCachedArea : AORCachedEntity
+	[KnownType(typeof(AORCachedArea))]
+	[KnownType(typeof(AORCachedGroup))]
+	[KnownType(typeof(Permission))]
+    public class AORCachedArea : AORCachedEntity
 	{
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]

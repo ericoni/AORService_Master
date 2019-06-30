@@ -192,24 +192,25 @@ namespace ActiveAORCache.Helpers
 			List<AORCachedArea> aorAreas = new List<AORCachedArea>(10);
 			User user = null;
 
-			using (var access = new AccessDB())
-			{
-				aorAreas = access.Areas.Include(u => u.Users.Select(y => y.Areas)).ToList();
-				user = access.Users.Where(u => u.Username.Equals(username)).FirstOrDefault();
-			}
+            using (var access = new AccessDB())
+            {
+
+                aorAreas = access.Areas.Include(a => a.Groups.Select(y => y.SynchronousMachines)).ToList();
+                user = access.Users.Where(u => u.Username.Equals(username)).FirstOrDefault();
+            }
 
 			if (aorAreas.Count == 0 || user == null)
 			{
 				return new List<AORCachedArea>(1) { new AORCachedArea() { Name = "None" } }; // to do vratiti se jos na ovo
 			}
 
-			for (int i = 0; i < aorAreas.Count; i++)
-			{
-				if (!aorAreas[i].Users.Contains(user))
-					aorAreas.RemoveAt(i);
-			}
+            for (int i = 0; i < aorAreas.Count; i++)
+            {
+                if (!aorAreas[i].Users.Contains(user))
+                    aorAreas.RemoveAt(i);
+            }
 
-			return aorAreas;
+            return aorAreas;
 		}
 
 		public static string[] GetAORAreasForUsername(string username)
