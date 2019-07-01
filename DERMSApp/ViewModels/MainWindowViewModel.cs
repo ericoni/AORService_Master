@@ -36,6 +36,7 @@ namespace DERMSApp.ViewModels
 		private string textBoxPassword = string.Empty; // to do secure string
 		private bool isUserAuthenticated = false;
 		private bool isLoginGridVisible = false;
+		private bool wrongCredentialsVisibility = false;
 		private bool dataTemplatesVisibility = false;
 
 		/// <summary>
@@ -47,17 +48,17 @@ namespace DERMSApp.ViewModels
 		/// </summary>
 		private ViewModelBase _currentViewModel;
 
-        /// <summary>
-        /// Static instance of one of the ViewModels.
-        /// </summary>
-        //readonly static TabularViewModel _tabularViewModel = new TabularViewModel();
-        //readonly static EntireNetworkViewModel _tabularViewModel = new EntireNetworkViewModel(); // ovako je bilo 30.6.
-        readonly static EntireNetworkViewModel _tabularViewModel;
+		/// <summary>
+		/// Static instance of one of the ViewModels.
+		/// </summary>
+		//readonly static TabularViewModel _tabularViewModel = new TabularViewModel();
+		//readonly static EntireNetworkViewModel _tabularViewModel = new EntireNetworkViewModel(); // ovako je bilo 30.6.
+		readonly static EntireNetworkViewModel _tabularViewModel;
 
-        /// <summary>
-        /// Static instance of one of the ViewModels.
-        /// </summary>
-        readonly static DeltaViewModel _deltaViewModel = new DeltaViewModel();
+		/// <summary>
+		/// Static instance of one of the ViewModels.
+		/// </summary>
+		readonly static DeltaViewModel _deltaViewModel = new DeltaViewModel();
 
 		/// <summary>
 		/// Visibility of Network View
@@ -155,15 +156,15 @@ namespace DERMSApp.ViewModels
 		/// </summary>
 		public MainWindowViewModel()
 		{
-            DataTemplatesVisibility = false; // master projekat prikaz (sve ono sto nije login)
-            LoginGridVisibility = true; //invert ova dva polja, ako prvi put podesavas app
+			DataTemplatesVisibility = false; // master projekat prikaz (sve ono sto nije login)
+			LoginGridVisibility = true; //invert ova dva polja, ako prvi put podesavas app
 
 			aorManagementProxy = new AORManagementProxy(); // ugasi, ako prvi put podesavas app
-            ButtonLoginOnClick = new RelayCommand(() => ButtonLoginOnClickExecute(), () => true);
+			ButtonLoginOnClick = new RelayCommand(() => ButtonLoginOnClickExecute(), () => true);
 
-            //CurrentViewModel = MainWindowViewModel._tabularViewModel; // ovako je bilo 30.6., sad je u else od ButtonLoginOnClickExecute()
+			//CurrentViewModel = MainWindowViewModel._tabularViewModel; // ovako je bilo 30.6., sad je u else od ButtonLoginOnClickExecute()
 
-            FirstViewCommand = new RelayCommand(() => ExecuteFirstViewCommand());
+			FirstViewCommand = new RelayCommand(() => ExecuteFirstViewCommand());
 			SecondViewCommand = new RelayCommand(() => ExecuteSecondViewCommand());
 			ShowAORManagementCommand = new RelayCommand(() => ExecuteShowAORManagementCommand());
 			//ConnectToCalculationEngine();
@@ -197,9 +198,9 @@ namespace DERMSApp.ViewModels
 
 		public bool ButtonLoginOnClickExecute()
 		{
-            if (aorManagementProxy.Proxy == null)
+			if (aorManagementProxy.Proxy == null)
 			{
-                return false;
+				return false;
 			}
 
 			var aorAreas = aorManagementProxy.Proxy.Login(TextBoxUsernameText, TextBoxPasswordText);
@@ -207,14 +208,15 @@ namespace DERMSApp.ViewModels
 			if (aorAreas.Count == 0)
 			{
 				IsUserAuthenticated = false;
+				WrongCredentialsVisibility = true;
 				return false;
 			}
 			else
 			{
 				IsUserAuthenticated = true;
 				LoginGridVisibility = false;
-                CurrentViewModel = new EntireNetworkViewModel(aorAreas);
-                //CurrentViewModel = _tabularViewModel;
+				CurrentViewModel = new EntireNetworkViewModel(aorAreas);
+				//CurrentViewModel = _tabularViewModel;
 				DataTemplatesVisibility = true; // ovo ili probati sa onim event djavolima, sta je datatemplates jbt
 				return true;
 			}
@@ -314,6 +316,20 @@ namespace DERMSApp.ViewModels
 				RaisePropertyChanged("DataTemplatesVisibility");
 			}
 		}
+
+		public bool WrongCredentialsVisibility
+		{
+			get
+			{
+				return wrongCredentialsVisibility;
+			}
+			set
+			{
+				wrongCredentialsVisibility = value;
+				RaisePropertyChanged("WrongCredentialsVisibility");
+			}
+		}
+
 
 		#region Master commented code
 

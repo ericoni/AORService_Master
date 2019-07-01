@@ -24,12 +24,12 @@ namespace DERMSApp.ViewModels
 	{
 		private RDAdapter rdAdapter = new RDAdapter();
 		ObservableCollection<TableSMItem> _ders;
-        List<AORCachedArea> aorAreas = new List<AORCachedArea>();
+		List<AORCachedArea> aorAreas = new List<AORCachedArea>();
 
 		public ICommand ActivePowerCommand { get; private set; }
 		public ICommand ReactivePowerCommand { get; private set; }
 
-        public NetworkRootViewModel(ObservableCollection<TableSMItem> ders) 
+		public NetworkRootViewModel(ObservableCollection<TableSMItem> ders) 
 			: base(null, true)
 		{
 			ActivePowerCommand = new RelayCommand(() => ExecuteActivePowerCommand());
@@ -37,16 +37,16 @@ namespace DERMSApp.ViewModels
 			_ders = ders;
 
 		}
-        public NetworkRootViewModel(ObservableCollection<TableSMItem> ders, List<AORCachedArea> aorAreas)
-       : base(null, true)
-        {
-            ActivePowerCommand = new RelayCommand(() => ExecuteActivePowerCommand());
-            ReactivePowerCommand = new RelayCommand(() => ExecuteReactivePowerCommand());
-            _ders = ders;
-            this.aorAreas = aorAreas;
-        }
+		public NetworkRootViewModel(ObservableCollection<TableSMItem> ders, List<AORCachedArea> aorAreas)
+	   : base(null, true)
+		{
+			ActivePowerCommand = new RelayCommand(() => ExecuteActivePowerCommand());
+			ReactivePowerCommand = new RelayCommand(() => ExecuteReactivePowerCommand());
+			_ders = ders;
+			this.aorAreas = aorAreas;
+		}
 
-        public string NetworkRootViewModelName
+		public string NetworkRootViewModelName
 		{
 			get { return "Entire network"; }
 		}
@@ -57,40 +57,33 @@ namespace DERMSApp.ViewModels
 				base.Children.Add(new GeographicalRegionViewModel(geographicalRegion, this, _ders));
 
 		}
-        /// <summary>
-        /// Ne znam zasto se ova metoda ne pozove nikada. Ni na novu deltu ni na novi login.
-        /// </summary>
+		/// <summary>
+		/// Poziva se kada treba prikazati sve, bas sve DER-ove. 
+		/// Mozda i ovo optimizovati.
+		/// </summary>
 		protected override void LoadDERS()
 		{
 			EventSystem.Publish<long>(-1);
 			_ders.Clear();
 
-            // to do ubaciti aor proxy, a ne ovako direktno vezanje
-            List<long> smGids = new List<long>();
+			// to do ubaciti aor proxy, a ne ovako direktno vezanje
+			List<long> smGids = new List<long>();
 
-            foreach (var area in aorAreas)
-            {
-                foreach (var group in area.Groups)
-                {
-                    foreach (var sm in group.SynchronousMachines)
-                    {
-                        if (smGids.Contains(sm.GidFromNms))
-                        {
+			foreach (var area in aorAreas) // got aorAreas by login
+			{
+				foreach (var group in area.Groups)
+				{
+					foreach (var sm in group.SynchronousMachines)
+					{
+						if (!smGids.Contains(sm.GidFromNms))
+						{
+							smGids.Add(sm.GidFromNms);
+						}
+					}
+				}
+			}
 
-                        }
-                        else
-                        {
-                            smGids.Add(sm.GidFromNms);
-                        }
-                    }
-                }
-            }
-
-            var a = rdAdapter.GetAllDERsByAOR(smGids);
-            var b = rdAdapter.GetAllDERs();
-
-            //foreach (SynchronousMachine der in rdAdapter.GetAllDERs()) // old
-            foreach (var der in rdAdapter.GetAllDERsByAOR(smGids))
+			foreach (var der in rdAdapter.GetSyncMachinesByGids(smGids)) // old 1.7. rdAdapter.GetAllDERs())
 			{
 				TableSMItem item = new TableSMItem();
 				item = (TableSMItem)CacheReceiver.Instance.TableItemList.Where(o => o.Gid.Equals(der.GlobalId)).FirstOrDefault();

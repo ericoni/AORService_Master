@@ -72,7 +72,8 @@
 				<TextBox Height="30"  TextWrapping="Wrap" Text="{Binding TextBoxUsernameText}"  Width="120" />
 				<Label Content="Password" FontSize="10"/>
 				<TextBox Height="30" TextWrapping="Wrap" Text="{Binding TextBoxPasswordText}"  Width="120" />
-				<Button Command="{Binding ButtonLoginOnClick}" Content="Login" Width="75"/>
+				<Button Command="{Binding ButtonLoginOnClick}" Margin="20" Content="Login" Width="75"/>
+				<Label Content="Wrong username/password!" Visibility="{Binding WrongCredentialsVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"></Label>
 			</StackPanel>
 		</Grid>
 	</Grid>

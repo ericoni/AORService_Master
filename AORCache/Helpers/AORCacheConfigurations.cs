@@ -187,30 +187,40 @@ namespace ActiveAORCache.Helpers
 			return permissions;
 		}
 
+		/// <summary>
+		/// Needs to be optimized.
+		/// </summary>
+		/// <param name="username"></param>
+		/// <returns></returns>
 		public static List<AORCachedArea> GetAORAreaObjectsForUsername(string username)
 		{
 			List<AORCachedArea> aorAreas = new List<AORCachedArea>(10);
-			User user = null;
+			List<AORCachedArea> aorAreaReturnValue = new List<AORCachedArea>(10);
 
-            using (var access = new AccessDB())
-            {
 
-                aorAreas = access.Areas.Include(a => a.Groups.Select(y => y.SynchronousMachines)).ToList();
-                user = access.Users.Where(u => u.Username.Equals(username)).FirstOrDefault();
-            }
+			using (var access = new AccessDB())
+			{
+				aorAreas = access.Areas.Include(a => a.Groups.Select(y => y.SynchronousMachines)).Include("Users").ToList();
+			}
 
-			if (aorAreas.Count == 0 || user == null)
+			if (aorAreas.Count == 0)// || user == null)
 			{
 				return new List<AORCachedArea>(1) { new AORCachedArea() { Name = "None" } }; // to do vratiti se jos na ovo
 			}
 
-            for (int i = 0; i < aorAreas.Count; i++)
-            {
-                if (!aorAreas[i].Users.Contains(user))
-                    aorAreas.RemoveAt(i);
-            }
+			foreach (var area in aorAreas)
+			{
+				foreach (var user in area.Users)
+				{
+					if (user.Username.Equals(username))
+					{
+						aorAreaReturnValue.Add(area);
+						break;
+					}
+				}
+			}
 
-            return aorAreas;
+			return aorAreaReturnValue;
 		}
 
 		public static string[] GetAORAreasForUsername(string username)

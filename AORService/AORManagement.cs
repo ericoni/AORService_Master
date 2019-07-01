@@ -31,6 +31,7 @@ namespace AORService
 			try
 			{
 				aorDatabaseHelper = new AORDatabaseHelper();
+				var a = AORCacheConfigurations.GetAORAreaObjectsForUsername("admin");
 				//var c = AORCacheConfigurations.GetPermissionsForArea("West-Area");
 				//var d = AORCacheConfigurations.GetPermissionsForAreas(new List<string>() { "West-Area", "East-Area" });
 				//var f = AORCacheConfigurations.GetPermissionsForUser("state");

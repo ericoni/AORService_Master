@@ -442,33 +442,34 @@ namespace Adapter
 
 			return syncMachines;
 		}
-        /// <summary>
-        /// Optimization is required. Currently is not using NMS "smart methods".
-        /// </summary>
-        /// <param name="gids"></param>
-        /// <returns></returns>
-        public List<SynchronousMachine> GetAllDERsByAOR(List<long> smGids)
-        {
-            var syncMachines = GetAllDERs();
+		[Obsolete("Vec postoji druga metoda", true)]
+		/// <summary>
+		/// Optimization is required. Currently is not using NMS "smart methods".
+		/// </summary>
+		/// <param name="gids"></param>
+		/// <returns></returns>
+		
+		public List<SynchronousMachine> GetAllDERsByGid(List<long> smGids)
+		{
+			List<SynchronousMachine> syncMachines = GetAllDERs();
+			List<SynchronousMachine> syncMachinesReturn = new List<SynchronousMachine>(smGids.Count);
 
-            List<SynchronousMachine> syncMachinesReturn = new List<SynchronousMachine>(smGids.Count);
+			foreach (var gid in smGids)
+			{
+				foreach (var sm in syncMachines)
+				{
+					if (sm.GlobalId == gid)
+					{
+						syncMachinesReturn.Add(sm);
+						break;
+					}
+				}
+			}
 
-            foreach (var gid in smGids)
-            {
-                foreach (var sm in syncMachines)
-                {
-                    if (sm.GlobalId == gid)
-                    {
-                        syncMachinesReturn.Add(sm);
-                        break;
-                    }
-                }
-            }
+			return syncMachinesReturn;
+		}
 
-            return syncMachinesReturn;
-        }
-
-        public List<long> GetAnalogValuesGidForGidAndPowerType(long gid, PowerType powerType)
+		public List<long> GetAnalogValuesGidForGidAndPowerType(long gid, PowerType powerType)
 		{
 			List<long> resultIds = new List<long>();
 			List<SynchronousMachine> ders = new List<SynchronousMachine>();
