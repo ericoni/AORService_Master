@@ -17,6 +17,9 @@ using Adapter;
 
 namespace DERMSApp.ViewModels
 {
+    /// <summary>
+    /// Contains subregions.
+    /// </summary>
 	public class GeographicalRegionViewModel : TreeViewItemViewModel
 	{
 		readonly GeographicalRegion _region;

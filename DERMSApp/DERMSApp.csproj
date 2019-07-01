@@ -172,7 +172,6 @@
     <Compile Include="ViewModels\GenerationForecastViewModel.cs" />
     <Compile Include="ViewModels\GeographicalRegionViewModel.cs" />
     <Compile Include="ViewModels\HistoryDataChartViewModel.cs" />
-    <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\NetworkRootViewModel.cs" />
     <Compile Include="ViewModels\SubGeographicalRegionViewModel.cs" />
     <Compile Include="ViewModels\SubstationViewModel.cs" />

@@ -142,7 +142,7 @@ namespace DERMSApp.ViewModels
 		}
 
 		#region Properties
-		public List<NetworkRootViewModel> Roots
+		public List<NetworkRootViewModel> Roots // zasto je ovo lista?
 		{
 			get { return _roots; }
 			set

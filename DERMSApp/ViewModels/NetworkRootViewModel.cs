@@ -20,6 +20,9 @@ using FTN.Common.AORCachedModel;
 
 namespace DERMSApp.ViewModels
 {
+    /// <summary>
+    /// Contains regions. 
+    /// </summary>
 	public class NetworkRootViewModel : TreeViewItemViewModel
 	{
 		private RDAdapter rdAdapter = new RDAdapter();
