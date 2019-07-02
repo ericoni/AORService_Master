@@ -20,9 +20,9 @@ using FTN.Common.AORCachedModel;
 
 namespace DERMSApp.ViewModels
 {
-    /// <summary>
-    /// Contains regions. 
-    /// </summary>
+	/// <summary>
+	/// Contains regions. 
+	/// </summary>
 	public class NetworkRootViewModel : TreeViewItemViewModel
 	{
 		private RDAdapter rdAdapter = new RDAdapter();
@@ -54,6 +54,9 @@ namespace DERMSApp.ViewModels
 			get { return "Entire network"; }
 		}
 
+		/// <summary>
+		/// Activates when tree view expander on "Entire network" has been clicked on.
+		/// </summary>
 		protected override void LoadChildren()
 		{
 			foreach (GeographicalRegion geographicalRegion in rdAdapter.GetRegions())
@@ -61,6 +64,7 @@ namespace DERMSApp.ViewModels
 
 		}
 		/// <summary>
+		/// Activates when tree view "Entire network" selection has been made.
 		/// Poziva se kada treba prikazati sve, bas sve DER-ove. 
 		/// Mozda i ovo optimizovati.
 		/// </summary>
