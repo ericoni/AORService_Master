@@ -17,26 +17,29 @@ namespace TestApp.ViewModels
 	{
 		AORCacheAccessChannel aorCacheProxy = null;
 		ObservableCollection<AORModel> observableAreas = null;
+		List<string> testList = null;
 
 		public AORManipulationWinVM()
 		{
 			FetchAndShowAORAreas();
+			TestList = new List<string>(2) { "a", "b" };
 		}
 
 		private void FetchAndShowAORAreas()
 		{
 			aorCacheProxy = new AORCacheAccessChannel();
 			HashSet<AORCachedArea> cachedAreas;
+			cachedAreas = new HashSet<AORCachedArea>() { new AORCachedArea() { Name = "prvaTest" }, new AORCachedArea() { Name = "drugaTest" } };
 
-			try
-			{
-				cachedAreas = aorCacheProxy.GetAORAreas();
-			}
-			catch 
-			{
-				cachedAreas = new HashSet<AORCachedArea>() { new AORCachedArea() { Name = "prvaTest" }, new AORCachedArea() { Name = "drugaTest" } };
-				Trace.Write("FetchAndShowAORAreas exception!");
-			}
+			//try
+			//{
+			//	cachedAreas = aorCacheProxy.GetAORAreas();
+			//}
+			//catch 
+			//{
+			//	cachedAreas = new HashSet<AORCachedArea>() { new AORCachedArea() { Name = "prvaTest" }, new AORCachedArea() { Name = "drugaTest" } };
+			//	Trace.Write("FetchAndShowAORAreas exception!");
+			//}
 
 			observableAreas = new ObservableCollection<AORModel>();
 
@@ -58,6 +61,22 @@ namespace TestApp.ViewModels
 				//{
 					observableAreas = value;
 					OnPropertyChanged("Areas");
+				//}
+			}
+		}
+
+		public List<string> TestList
+		{
+			get
+			{
+				return testList;
+			}
+			set
+			{
+				//if (areas != value)
+				//{
+				testList = value;
+				OnPropertyChanged("TestList");
 				//}
 			}
 		}

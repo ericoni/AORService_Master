@@ -23,7 +23,8 @@ namespace TestConsoleApp
 			///var c = AORCacheConfigurations.GetPermissionsForArea("West-Area"); 
 
 			AORManagementProxy aorManagementProxy = new AORManagementProxy();
-			var areas = aorManagementProxy.Proxy.Login("state", "a");
+			var areas = aorManagementProxy.Proxy.Login("testUsername", "a");
+			aorManagementProxy.Proxy.Test();
 
 			//aorManagementProxy.Proxy.Test();
 

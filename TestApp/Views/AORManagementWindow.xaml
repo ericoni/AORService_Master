@@ -68,6 +68,13 @@
 
 	</UserControl.Resources>
 	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto"></ColumnDefinition>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition></RowDefinition>
+			<RowDefinition></RowDefinition>
+		</Grid.RowDefinitions>
 		<!--<ScrollViewer  Margin="30"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Background="Wheat" >
 			<ItemsControl  ItemsSource="{Binding Areas}" UseLayoutRounding="True">
 				<ItemsControl.ItemTemplate>
@@ -86,17 +93,18 @@
 				
 			</ItemsControl>
 		</ScrollViewer>-->
-
-		<TreeView 
+		
+		<TreeView
+			Grid.Row="0" Grid.Column="0"
 			x:Name="treeView"
 			ItemTemplate="{StaticResource Hierarchy}"
 			ItemContainerStyle="{StaticResource TreeViewItemStyle}"
 			HorizontalAlignment="Left"
 			ItemsSource="{Binding Areas}"
-			Height="300" Margin="20,20,0,0" 
-			VerticalAlignment="Top"
+			Height="300"
 			Style="{StaticResource {x:Type TreeView}}"
 			Width="400"/>
+		<DataGrid Grid.Row="0" Grid.Column="1" x:Name="dataGrid" HorizontalAlignment="Left" Margin="264,20,0,0" VerticalAlignment="Top"/>
 
 	</Grid>
 </UserControl>
