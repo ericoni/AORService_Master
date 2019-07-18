@@ -8,7 +8,12 @@
 			 mc:Ignorable="d" 
 			 d:DesignHeight="550" d:DesignWidth="800">
 	<Grid>
-		<!--<Button x:Name="button" Content="Button" Background="Red" VerticalAlignment="Center" HorizontalAlignment="Center" Width="150" Height="150"/>-->
-		<DataGrid x:Name="dataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" ItemsSource="{Binding Events, diag:PresentationTraceSources.TraceLevel=High}"/>
-	</Grid>
+        <StackPanel Orientation="Vertical" Margin="10,10">
+             <DataGrid HorizontalAlignment="Left" VerticalAlignment="Top" ItemsSource="{Binding Events, diag:PresentationTraceSources.TraceLevel=High}" GridLinesVisibility="None" VerticalScrollBarVisibility="Auto" IsReadOnly="True" ColumnWidth="*"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Archive" Width="75"/>
+                <Button Content="Clear log"  Width="75" Command="{Binding ClearEventsCommand}"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
 </UserControl>

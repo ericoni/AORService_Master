@@ -10,14 +10,14 @@ namespace DERMSApp.Model
 	public class Event : BindableBase
 	{
 		private string username;
-		private string message;
+		private string details;
 		private string region;
 		private DateTime timestamp;
 
-		public Event(string username, string message, string region)
+		public Event(string username, string details, string region)
 		{
 			this.Username = username;
-			this.Message = message;
+			this.Details = details;
 			this.Region = region;
 			this.Timestamp = timestamp;
 		}
@@ -35,15 +35,15 @@ namespace DERMSApp.Model
 			}
 		}
 
-		public string Message
-		{
-			get { return message; }
+		public string Details
+        {
+			get { return details; }
 			set
 			{
-				if (message != value)
+				if (details != value)
 				{
-					message = value;
-					OnPropertyChanged("Message");
+					details = value;
+					OnPropertyChanged("Details");
 				}
 			}
 		}

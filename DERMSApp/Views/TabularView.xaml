@@ -420,7 +420,7 @@
 			</Grid>
 
 			<Grid Grid.Row="1" Grid.Column="0">
-				<ContentControl DockPanel.Dock="Top" Content="{Binding EventsVM}"/>
+                <ContentControl DockPanel.Dock="Top" Content="{Binding EventsVM}" Visibility="{Binding ShowEvents}"/>
 			</Grid>
 		</Grid>
 

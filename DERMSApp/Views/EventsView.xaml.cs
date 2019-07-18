@@ -24,7 +24,7 @@ namespace DERMSApp.Views
 		public EventsView()
 		{
 			InitializeComponent();
-			this.DataContext = new EventsViewModel();
+			//this.DataContext = new EventsViewModel(); // koristiti template, u app.xaml a ne ovo
 		}
 	}
 }

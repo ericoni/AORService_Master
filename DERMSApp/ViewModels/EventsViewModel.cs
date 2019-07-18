@@ -6,23 +6,28 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
 
 namespace DERMSApp.ViewModels
 {
 	/// <summary>
-	/// Samo obicni "Event" ga pozove i prikaze "Event 5" u naslovnoj. WTF?!
+	/// Viewmodel for event handling.
 	/// </summary>
 	public class EventsViewModel : BindableBase
 	{
 		private ObservableCollection<Event> events = null;
+        public ICommand ClearEventsCommand { get; private set; }
 
-		public EventsViewModel()
+        public EventsViewModel()
 		{
-			List<Event> tempList = new List<Event>(3) { new Event("a", "p", "r"), new Event("a", "p2", "r"), new Event("a", "p3", "r") };
+			List<Event> tempList = new List<Event>(3) { new Event("a", "p", "r"), new Event("a", "User admin has logged in.", "r"), new Event("a", "p3", "r") };
 			Events = new ObservableCollection<Event>(tempList);
-		}
 
-		public ObservableCollection<Event> Events
+            ClearEventsCommand = new RelayCommand(() => ExecuteClearEventsCommand());
+        }
+
+        public ObservableCollection<Event> Events
 		{
 			get
 			{
@@ -35,5 +40,10 @@ namespace DERMSApp.ViewModels
 				OnPropertyChanged("Events");
 			}
 		}
-	}
+
+        private void ExecuteClearEventsCommand()
+        {
+            Events = new ObservableCollection<Event>();
+        }
+    }
 }

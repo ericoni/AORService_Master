@@ -121,6 +121,7 @@ namespace DERMSApp.ViewModels
 			ShowCharts = Visibility.Collapsed;
 			ShowForecast = Visibility.Collapsed;
 			ShowData = Visibility.Visible;
+            ShowEvents = Visibility.Collapsed;// to do napraviti collapse all visibility metodu
 			WeatherWidgetVisible = Visibility.Hidden;
 
 			ShowTableCommand = new RelayCommand(() => ExecuteShowTableCommand());
@@ -235,7 +236,6 @@ namespace DERMSApp.ViewModels
 				RaisePropertyChanged("EventsVM");
 			}
 		}
-
 
 		public WeatherInfo Weather
 		{
@@ -524,9 +524,10 @@ namespace DERMSApp.ViewModels
 				ExecuteShowTableCommand();
 			}
 		}
-		#endregion
+        #endregion
 
-		private void ExecuteFilterCommand()
+        #region Private methods
+        private void ExecuteFilterCommand()
 		{
 			if(tempList.Count==0)
 			{
@@ -662,10 +663,14 @@ namespace DERMSApp.ViewModels
 			EventSystem.Publish<bool>(true);
 			ShowData = Visibility.Collapsed;
 			ShowCharts = Visibility.Collapsed;
+            ShowEvents = Visibility.Collapsed; // to do srediti da se ovo radi na pametniji nacin
 			ShowForecast = Visibility.Visible;
 		}
 
-		public void ObjectSelected(long gid) //// to do vrati weather
+        #endregion Private methods
+
+        #region Public methods
+        public void ObjectSelected(long gid) //// to do vrati weather
 		{
 			selectedGid = gid;
 
@@ -801,5 +806,7 @@ namespace DERMSApp.ViewModels
 			//proxy = factory.CreateChannel();
 			//proxy.Register();
 		}
-	}
+
+        #endregion Public methods
+    }
 }
