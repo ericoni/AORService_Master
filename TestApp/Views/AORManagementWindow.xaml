@@ -104,7 +104,7 @@
 			Height="300"
 			Style="{StaticResource {x:Type TreeView}}"
 			Width="400"/>
-		<DataGrid Grid.Row="0" Grid.Column="1" x:Name="dataGrid" HorizontalAlignment="Left" Margin="264,20,0,0" VerticalAlignment="Top"/>
-
+		<DataGrid Grid.Row="0" Grid.Column="1" x:Name="dataGrid" ItemsSource="{Binding Events}" VerticalAlignment="Top" AutoGenerateColumns="True" IsReadOnly="True" GridLinesVisibility="None">
+		</DataGrid>
 	</Grid>
 </UserControl>

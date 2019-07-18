@@ -24,49 +24,55 @@ using FTN.Common.AORCachedModel;
 
 namespace DERMSApp.ViewModels
 {
+	/// <summary>
+	/// Uvezan je sa tabular view, nije logicno ali tako je.
+	/// </summary>
 	public class EntireNetworkViewModel: ViewModelBase, IDeltaNotifyCallback
 	{
-        #region Fields
-        //readonly ReadOnlyCollection<GeographicalRegionViewModel> _regions;
-        private ObservableCollection<TableSMItem> _ders;
+		#region Fields
+		//readonly ReadOnlyCollection<GeographicalRegionViewModel> _regions;
+		private ObservableCollection<TableSMItem> _ders;
 		private List<NetworkRootViewModel> _roots;
 		CIMAdapter adapter = new CIMAdapter();
 		private BindableBase historyDataChartVM;
 		private BindableBase generationForecastVM;
+		private BindableBase eventsVM;
 		private WeatherInfo weather;
 		private string weatherIcon;
 		private ObservableCollection<TableSMItem> dersToSend = null;
 		private TableSMItem derToSend = null;
 		private string timeStamp;
-        private List<AORCachedArea> aorAreas;
+		private List<AORCachedArea> aorAreas;
 
-        //WeatherForecastProxy weatherProxy = new WeatherForecastProxy(); //// to do vrati weather
+		//WeatherForecastProxy weatherProxy = new WeatherForecastProxy(); //// to do vrati weather
 
-        #region Visibility
-        /// <summary>
-        /// Visibility of Tabular Data
-        /// </summary>
-        private Visibility showData;
-
-
+		#region Visibility
+		/// <summary>
+		/// Visibility of Tabular Data
+		/// </summary>
+		private Visibility showData;
 		private Visibility showCharts;
-
 		private Visibility showForecast;
-
+		private Visibility showEvents;
 		private Visibility weatherWidgetVisible;
-        #endregion Visibility
-        #region Commands
-        /// <summary>
-        /// Simple property to hold the 'ShowTableCommand' - when executed
-        /// it will change the current view to the 'Table Data'
-        /// </summary>
-        public ICommand ShowTableCommand { get; private set; }
+		#endregion Visibility
+		#region Commands
+		/// <summary>
+		/// Simple property to hold the 'ShowTableCommand' - when executed
+		/// it will change the current view to the 'Table Data'
+		/// </summary>
+		public ICommand ShowTableCommand { get; private set; }
 
 		/// <summary>
 		/// Simple property to hold the 'ShowChartCommand' - when executed
 		/// it will change the current view to the 'History Chart'
 		/// </summary>
 		public ICommand ShowChartCommand { get; private set; }
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public ICommand ShowEventsCommand { get; private set; }
 
 		/// <summary>
 		/// Simple property to hold the 'ShowForecastCommand' - when executed
@@ -76,8 +82,8 @@ namespace DERMSApp.ViewModels
 
 		public ICommand FilterCommand { get; private set; }
 		public ICommand SearchCommand { get; private set; }
-        #endregion Commands
-        public List<string> TypesForFilter { get; set; }
+		#endregion Commands
+		public List<string> TypesForFilter { get; set; }
 
 		private string filterButton;
 		private string filterType;
@@ -104,31 +110,37 @@ namespace DERMSApp.ViewModels
 		private Visibility gaugesVisibility;
 
 		private long selectedGid;
-        #endregion Fields
-        public EntireNetworkViewModel(List<AORCachedArea> aorAreas) 
+		#endregion Fields
+		public EntireNetworkViewModel(List<AORCachedArea> aorAreas) 
 		{
-            this.aorAreas = aorAreas;
-            _ders = new ObservableCollection<TableSMItem>();
+			this.aorAreas = aorAreas;
+			_ders = new ObservableCollection<TableSMItem>();
 			_roots = new List<NetworkRootViewModel>();
 			_roots.Add(new NetworkRootViewModel(_ders, aorAreas));
-            
+			
 			ShowCharts = Visibility.Collapsed;
 			ShowForecast = Visibility.Collapsed;
 			ShowData = Visibility.Visible;
+			WeatherWidgetVisible = Visibility.Hidden;
+
 			ShowTableCommand = new RelayCommand(() => ExecuteShowTableCommand());
 			ShowChartCommand = new RelayCommand(() => ExecuteShowChartCommand());
+			ShowEventsCommand = new RelayCommand(() => ExecuteShowEventsCommand());
 			FilterCommand = new RelayCommand(() => ExecuteFilterCommand());
 			SearchCommand = new RelayCommand(() => ExecuteSearchCommand());
 			//ShowForecastCommand = new RelayCommand(() => ExecuteShowForecastCommand());
-			EventSystem.Subscribe<string>(ShowTable);
-			EventSystem.Subscribe<long>(ObjectSelected);
-			EventSystem.Subscribe<DateTime>(DisplayLastDateTime);
-			EventSystem.Subscribe<ObservableCollection<TableSMItem>>(DisplayPowerAndFlexibility);
-			EventSystem.Subscribe<TableSMItem>(DisplayPowerAndFlexibility);
-			EventSystem.Subscribe<ForecastObjData>(ForecastForObject);
-			WeatherWidgetVisible = Visibility.Hidden;
+			SubscribeToEverything();
+
 			dersToSend = null;
 			derToSend = null;
+			selectedGid = -1;
+
+			InitializeFilters();
+			ConnectToCalculationEngine();
+		}
+
+		private void InitializeFilters()
+		{
 			TypesForFilter = new List<string>();
 			TypesForFilter.Add("Sun");
 			TypesForFilter.Add("Wind");
@@ -136,9 +148,16 @@ namespace DERMSApp.ViewModels
 			SearchButton = "Search";
 			IsSearchEnabled = true;
 			IsFilterEnabled = true;
-			selectedGid = -1;
+		}
 
-			ConnectToCalculationEngine();
+		private void SubscribeToEverything()
+		{
+			EventSystem.Subscribe<string>(ShowTable);
+			EventSystem.Subscribe<long>(ObjectSelected);
+			EventSystem.Subscribe<DateTime>(DisplayLastDateTime);
+			EventSystem.Subscribe<ObservableCollection<TableSMItem>>(DisplayPowerAndFlexibility);
+			EventSystem.Subscribe<TableSMItem>(DisplayPowerAndFlexibility);
+			EventSystem.Subscribe<ForecastObjData>(ForecastForObject);
 		}
 
 		#region Properties
@@ -183,6 +202,16 @@ namespace DERMSApp.ViewModels
 			}
 		}
 
+		public Visibility ShowEvents
+		{
+			get { return showEvents; }
+			set
+			{
+				showEvents = value;
+				RaisePropertyChanged("ShowEvents");
+			}
+		}
+
 		public BindableBase HistoryDataChartVM
 		{
 			get { return historyDataChartVM; }
@@ -194,6 +223,19 @@ namespace DERMSApp.ViewModels
 				RaisePropertyChanged("HistoryDataChartVM");
 			}
 		}
+
+		public BindableBase EventsVM
+		{
+			get { return eventsVM; }
+			set
+			{
+				if (eventsVM == value)
+					return;
+				eventsVM = value;
+				RaisePropertyChanged("EventsVM");
+			}
+		}
+
 
 		public WeatherInfo Weather
 		{
@@ -574,6 +616,7 @@ namespace DERMSApp.ViewModels
 			ShowData = Visibility.Visible;
 			ShowCharts = Visibility.Collapsed;
 			ShowForecast = Visibility.Collapsed;
+			ShowEvents = Visibility.Collapsed;
 		}
 
 		/// <summary>
@@ -585,6 +628,15 @@ namespace DERMSApp.ViewModels
 			ShowData = Visibility.Collapsed;
 			ShowCharts = Visibility.Visible;
 			ShowForecast = Visibility.Collapsed;
+			ShowEvents = Visibility.Collapsed;
+		}
+		private void ExecuteShowEventsCommand()
+		{
+			EventsVM = new EventsViewModel();
+			ShowData = Visibility.Collapsed;
+			ShowCharts = Visibility.Collapsed;
+			ShowForecast = Visibility.Collapsed;
+			ShowEvents = Visibility.Visible;
 		}
 
 		private void DisplayLastDateTime(DateTime lastDateTime)

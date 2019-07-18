@@ -61,12 +61,11 @@ namespace DERMSApp.ViewModels
 		{
 			foreach (GeographicalRegion geographicalRegion in rdAdapter.GetRegions())
 				base.Children.Add(new GeographicalRegionViewModel(geographicalRegion, this, _ders));
-
 		}
 		/// <summary>
 		/// Activates when tree view "Entire network" selection has been made.
 		/// Poziva se kada treba prikazati sve, bas sve DER-ove. 
-		/// Mozda i ovo optimizovati.
+		/// To be optimized.
 		/// </summary>
 		protected override void LoadDERS()
 		{

@@ -164,11 +164,13 @@
     </ApplicationDefinition>
     <Compile Include="Model\BindableBase.cs" />
     <Compile Include="Model\CacheReceiver.cs" />
+    <Compile Include="Model\Event.cs" />
     <Compile Include="Model\EventSystem.cs" />
     <Compile Include="Model\ForecastObjData.cs" />
     <Compile Include="Model\TableSMItem.cs" />
     <Compile Include="ViewModels\DialogBoxViewModel.cs" />
     <Compile Include="ViewModels\EntireNetworkViewModel.cs" />
+    <Compile Include="ViewModels\EventsViewModel.cs" />
     <Compile Include="ViewModels\GenerationForecastViewModel.cs" />
     <Compile Include="ViewModels\GeographicalRegionViewModel.cs" />
     <Compile Include="ViewModels\HistoryDataChartViewModel.cs" />
@@ -181,6 +183,9 @@
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Views\DialogBox.xaml.cs">
       <DependentUpon>DialogBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EventsView.xaml.cs">
+      <DependentUpon>EventsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GenerationForecastView.xaml.cs">
       <DependentUpon>GenerationForecastView.xaml</DependentUpon>
@@ -199,6 +204,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DialogBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EventsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

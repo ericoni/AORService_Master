@@ -53,7 +53,7 @@ namespace DERMSApp.ViewModels
 		/// </summary>
 		//readonly static TabularViewModel _tabularViewModel = new TabularViewModel();
 		//readonly static EntireNetworkViewModel _tabularViewModel = new EntireNetworkViewModel(); // ovako je bilo 30.6.
-		readonly static EntireNetworkViewModel _tabularViewModel;
+		readonly static EntireNetworkViewModel _tabularViewModel; // ne kontam sto se zove tabular, kad je entire network u pitanju no dobro
 
 		/// <summary>
 		/// Static instance of one of the ViewModels.
@@ -100,7 +100,7 @@ namespace DERMSApp.ViewModels
 		/// Simple property to hold the 'FirstViewCommand' - when executed
 		/// it will change the current view to the 'FirstView'
 		/// </summary>
-		public ICommand FirstViewCommand { get; private set; }
+		public ICommand DeltaViewCommand { get; private set; }
 
 		/// <summary>
 		/// Simple property to hold the 'SecondViewCommand' - when executed
@@ -164,7 +164,7 @@ namespace DERMSApp.ViewModels
 
 			//CurrentViewModel = MainWindowViewModel._tabularViewModel; // ovako je bilo 30.6., sad je u else od ButtonLoginOnClickExecute()
 
-			FirstViewCommand = new RelayCommand(() => ExecuteFirstViewCommand());
+			DeltaViewCommand = new RelayCommand(() => ExecuteDeltaViewCommand());
 			SecondViewCommand = new RelayCommand(() => ExecuteSecondViewCommand());
 			ShowAORManagementCommand = new RelayCommand(() => ExecuteShowAORManagementCommand());
 			//ConnectToCalculationEngine();
@@ -223,9 +223,9 @@ namespace DERMSApp.ViewModels
 		}
 
 		/// <summary>
-		/// Set the CurrentViewModel to 'FirstViewModel'
+		/// Set the CurrentViewModel to 'FirstViewModel' (DeltaViewModel)
 		/// </summary>
-		private void ExecuteFirstViewCommand()
+		private void ExecuteDeltaViewCommand()
 		{
 			CurrentViewModel = MainWindowViewModel._deltaViewModel;
 			//ShowNetwork = Visibility.Collapsed;
@@ -233,7 +233,7 @@ namespace DERMSApp.ViewModels
 		}
 
 		/// <summary>
-		/// Set the CurrentViewModel to 'SecondViewModel'
+		/// Set the CurrentViewModel to 'SecondViewModel. Executes when user presses "Home" button then it makes a call to "EntireVM" to method ExecuteShowTableCommand().
 		/// </summary>
 		private void ExecuteSecondViewCommand()
 		{

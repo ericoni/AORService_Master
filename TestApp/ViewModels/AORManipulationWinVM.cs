@@ -10,6 +10,7 @@ using System.Windows.Media;
 using AORManagementProxyNS;
 using FTN.Common.AORCachedModel;
 using System.Diagnostics;
+using DERMSApp.Model;
 
 namespace TestApp.ViewModels
 {
@@ -17,12 +18,13 @@ namespace TestApp.ViewModels
 	{
 		AORCacheAccessChannel aorCacheProxy = null;
 		ObservableCollection<AORModel> observableAreas = null;
-		List<string> testList = null;
+		ObservableCollection<Event> events = null;
 
 		public AORManipulationWinVM()
 		{
 			FetchAndShowAORAreas();
-			TestList = new List<string>(2) { "a", "b" };
+			var tempEvents = new List<Event>(3) { new Event("a", "poruka1", "region1"), new Event("b", "poruka1", "region1"), new Event("c", "poruka1", "region1") };
+			Events = new ObservableCollection<Event>(tempEvents);
 		}
 
 		private void FetchAndShowAORAreas()
@@ -49,36 +51,21 @@ namespace TestApp.ViewModels
 			}
 			observableAreas[0].UsersCoveringArea = new HashSet<string>();
 		}
-		public ObservableCollection<AORModel> Areas
+		public ObservableCollection<Event> Events
 		{
 			get
 			{
-				return observableAreas;
+				return events;
 			}
 			set
 			{
 				//if (areas != value)
 				//{
-					observableAreas = value;
-					OnPropertyChanged("Areas");
+				events = value;
+				OnPropertyChanged("Events");
 				//}
 			}
 		}
 
-		public List<string> TestList
-		{
-			get
-			{
-				return testList;
-			}
-			set
-			{
-				//if (areas != value)
-				//{
-				testList = value;
-				OnPropertyChanged("TestList");
-				//}
-			}
-		}
 	}
 }
