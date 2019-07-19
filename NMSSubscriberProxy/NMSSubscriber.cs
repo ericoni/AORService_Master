@@ -94,11 +94,6 @@ namespace NMSSub
 
 			while (true)
 			{
-				if (tryCounter.Equals(maxTry))
-				{
-					throw new Exception("TSDBProxy: Connection error.");
-				}
-
 				try
 				{
 					proxy.Unsubscribed(topics);
@@ -107,6 +102,12 @@ namespace NMSSub
 				catch (Exception)
 				{
 					tryCounter++;
+
+					if (tryCounter.Equals(maxTry))
+					{
+						throw;
+					}
+
 					Thread.Sleep(sleepTime);
 					OpenChannel();
 				}

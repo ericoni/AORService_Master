@@ -25,7 +25,7 @@ using FTN.Common.AORCachedModel;
 namespace DERMSApp.ViewModels
 {
 	/// <summary>
-	/// Uvezan je sa tabular view, nije logicno ali tako je.
+	/// Uvezan je sa tabular view, nije logicno ali tako je.U sustini glavni view model.
 	/// </summary>
 	public class EntireNetworkViewModel: ViewModelBase, IDeltaNotifyCallback
 	{
@@ -37,6 +37,7 @@ namespace DERMSApp.ViewModels
 		private BindableBase historyDataChartVM;
 		private BindableBase generationForecastVM;
 		private BindableBase eventsVM;
+		private BindableBase alarmsVM;
 		private WeatherInfo weather;
 		private string weatherIcon;
 		private ObservableCollection<TableSMItem> dersToSend = null;
@@ -54,6 +55,8 @@ namespace DERMSApp.ViewModels
 		private Visibility showCharts;
 		private Visibility showForecast;
 		private Visibility showEvents;
+		private Visibility showAlarms;
+		
 		private Visibility weatherWidgetVisible;
 		#endregion Visibility
 		#region Commands
@@ -69,10 +72,10 @@ namespace DERMSApp.ViewModels
 		/// </summary>
 		public ICommand ShowChartCommand { get; private set; }
 
-		/// <summary>
-		/// 
-		/// </summary>
 		public ICommand ShowEventsCommand { get; private set; }
+
+		public ICommand ShowAlarmsCommand { get; private set; }
+
 
 		/// <summary>
 		/// Simple property to hold the 'ShowForecastCommand' - when executed
@@ -117,19 +120,14 @@ namespace DERMSApp.ViewModels
 			_ders = new ObservableCollection<TableSMItem>();
 			_roots = new List<NetworkRootViewModel>();
 			_roots.Add(new NetworkRootViewModel(_ders, aorAreas));
-			
-			ShowCharts = Visibility.Collapsed;
-			ShowForecast = Visibility.Collapsed;
+
+			SetAllVisibilitiesToCollapsed();
 			ShowData = Visibility.Visible;
-            ShowEvents = Visibility.Collapsed;// to do napraviti collapse all visibility metodu
+
 			WeatherWidgetVisible = Visibility.Hidden;
 
-			ShowTableCommand = new RelayCommand(() => ExecuteShowTableCommand());
-			ShowChartCommand = new RelayCommand(() => ExecuteShowChartCommand());
-			ShowEventsCommand = new RelayCommand(() => ExecuteShowEventsCommand());
-			FilterCommand = new RelayCommand(() => ExecuteFilterCommand());
-			SearchCommand = new RelayCommand(() => ExecuteSearchCommand());
-			//ShowForecastCommand = new RelayCommand(() => ExecuteShowForecastCommand());
+			InitializeCommands();
+			
 			SubscribeToEverything();
 
 			dersToSend = null;
@@ -138,6 +136,18 @@ namespace DERMSApp.ViewModels
 
 			InitializeFilters();
 			ConnectToCalculationEngine();
+		}
+
+		private void InitializeCommands()
+		{
+			ShowTableCommand = new RelayCommand(() => ExecuteShowTableCommand());
+			ShowChartCommand = new RelayCommand(() => ExecuteShowChartCommand());
+			ShowEventsCommand = new RelayCommand(() => ExecuteShowEventsCommand());
+			ShowAlarmsCommand = new RelayCommand(() => ExecuteShowAlarmsCommand());
+
+			FilterCommand = new RelayCommand(() => ExecuteFilterCommand());
+			SearchCommand = new RelayCommand(() => ExecuteSearchCommand());
+			//ShowForecastCommand = new RelayCommand(() => ExecuteShowForecastCommand());
 		}
 
 		private void InitializeFilters()
@@ -160,9 +170,20 @@ namespace DERMSApp.ViewModels
 			EventSystem.Subscribe<TableSMItem>(DisplayPowerAndFlexibility);
 			EventSystem.Subscribe<ForecastObjData>(ForecastForObject);
 		}
+		/// <summary>
+		/// Optimize later.
+		/// </summary>
+		private void SetAllVisibilitiesToCollapsed()
+		{
+			ShowCharts = Visibility.Collapsed;
+			ShowForecast = Visibility.Collapsed;
+			ShowData = Visibility.Collapsed;
+			ShowEvents = Visibility.Collapsed;
+			ShowAlarms = Visibility.Collapsed;
+		}
 
-		#region Properties
-		public List<NetworkRootViewModel> Roots // zasto je ovo lista?
+	#region Properties
+	public List<NetworkRootViewModel> Roots // zasto je ovo lista?
 		{
 			get { return _roots; }
 			set
@@ -213,53 +234,16 @@ namespace DERMSApp.ViewModels
 			}
 		}
 
-		public BindableBase HistoryDataChartVM
+		public Visibility ShowAlarms
 		{
-			get { return historyDataChartVM; }
+			get { return showAlarms; }
 			set
 			{
-				if (historyDataChartVM == value)
-					return;
-				historyDataChartVM = value;
-				RaisePropertyChanged("HistoryDataChartVM");
+				showAlarms = value;
+				RaisePropertyChanged("ShowAlarms");
 			}
 		}
 
-		public BindableBase EventsVM
-		{
-			get { return eventsVM; }
-			set
-			{
-				if (eventsVM == value)
-					return;
-				eventsVM = value;
-				RaisePropertyChanged("EventsVM");
-			}
-		}
-
-		public WeatherInfo Weather
-		{
-			get { return weather; }
-			set
-			{
-				weather = value;
-				RaisePropertyChanged("Weather");
-			}
-		}
-
-		public string WeatherIcon
-		{
-			get
-			{
-				return weatherIcon;
-			}
-
-			set
-			{
-				weatherIcon = value;
-				RaisePropertyChanged("WeatherIcon");
-			}
-		}
 
 		public Visibility WeatherWidgetVisible
 		{
@@ -288,6 +272,68 @@ namespace DERMSApp.ViewModels
 				RaisePropertyChanged("ShowForecast");
 			}
 		}
+
+		public BindableBase HistoryDataChartVM
+		{
+			get { return historyDataChartVM; }
+			set
+			{
+				if (historyDataChartVM == value)
+					return;
+				historyDataChartVM = value;
+				RaisePropertyChanged("HistoryDataChartVM");
+			}
+		}
+
+		public BindableBase EventsVM
+		{
+			get { return eventsVM; }
+			set
+			{
+				if (eventsVM == value)
+					return;
+				eventsVM = value;
+				RaisePropertyChanged("EventsVM");
+			}
+		}
+
+		public BindableBase AlarmsVM
+		{
+			get { return alarmsVM; }
+			set
+			{
+				if (alarmsVM == value)
+					return;
+				alarmsVM = value;
+				RaisePropertyChanged("AlarmsVM");
+			}
+		}
+
+		public WeatherInfo Weather
+		{
+			get { return weather; }
+			set
+			{
+				weather = value;
+				RaisePropertyChanged("Weather");
+			}
+		}
+
+		public string WeatherIcon
+		{
+			get
+			{
+				return weatherIcon;
+			}
+
+			set
+			{
+				weatherIcon = value;
+				RaisePropertyChanged("WeatherIcon");
+			}
+		}
+
+	
 
 		public BindableBase GenerationForecastVM
 		{
@@ -524,10 +570,10 @@ namespace DERMSApp.ViewModels
 				ExecuteShowTableCommand();
 			}
 		}
-        #endregion
+		#endregion
 
-        #region Private methods
-        private void ExecuteFilterCommand()
+		#region Private methods
+		private void ExecuteFilterCommand()
 		{
 			if(tempList.Count==0)
 			{
@@ -614,10 +660,8 @@ namespace DERMSApp.ViewModels
 		/// </summary>
 		private void ExecuteShowTableCommand()
 		{
+			SetAllVisibilitiesToCollapsed();
 			ShowData = Visibility.Visible;
-			ShowCharts = Visibility.Collapsed;
-			ShowForecast = Visibility.Collapsed;
-			ShowEvents = Visibility.Collapsed;
 		}
 
 		/// <summary>
@@ -626,18 +670,20 @@ namespace DERMSApp.ViewModels
 		private void ExecuteShowChartCommand()
 		{
 			HistoryDataChartVM = new HistoryDataChartViewModel(selectedGid);
-			ShowData = Visibility.Collapsed;
+			SetAllVisibilitiesToCollapsed();
 			ShowCharts = Visibility.Visible;
-			ShowForecast = Visibility.Collapsed;
-			ShowEvents = Visibility.Collapsed;
 		}
 		private void ExecuteShowEventsCommand()
 		{
 			EventsVM = new EventsViewModel();
-			ShowData = Visibility.Collapsed;
-			ShowCharts = Visibility.Collapsed;
-			ShowForecast = Visibility.Collapsed;
+			SetAllVisibilitiesToCollapsed();
 			ShowEvents = Visibility.Visible;
+		}
+
+		private void ExecuteShowAlarmsCommand()
+		{
+			SetAllVisibilitiesToCollapsed();
+			ShowAlarms = Visibility.Visible;
 		}
 
 		private void DisplayLastDateTime(DateTime lastDateTime)
@@ -661,16 +707,17 @@ namespace DERMSApp.ViewModels
 		{
 			GenerationForecastVM = new GenerationForecastViewModel(d.Gid, d.Power, d.IsGroup, dersToSend, derToSend);
 			EventSystem.Publish<bool>(true);
-			ShowData = Visibility.Collapsed;
-			ShowCharts = Visibility.Collapsed;
-            ShowEvents = Visibility.Collapsed; // to do srediti da se ovo radi na pametniji nacin
+			//ShowData = Visibility.Collapsed;
+			//ShowCharts = Visibility.Collapsed;
+			//ShowEvents = Visibility.Collapsed;
+			SetAllVisibilitiesToCollapsed();
 			ShowForecast = Visibility.Visible;
 		}
 
-        #endregion Private methods
+		#endregion Private methods
 
-        #region Public methods
-        public void ObjectSelected(long gid) //// to do vrati weather
+		#region Public methods
+		public void ObjectSelected(long gid) //// to do vrati weather
 		{
 			selectedGid = gid;
 
@@ -807,6 +854,6 @@ namespace DERMSApp.ViewModels
 			//proxy.Register();
 		}
 
-        #endregion Public methods
-    }
+		#endregion Public methods
+	}
 }

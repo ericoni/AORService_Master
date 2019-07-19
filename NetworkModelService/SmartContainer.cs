@@ -20,7 +20,7 @@ namespace FTN.Services.NetworkModelService
     public class SmartContainer : ITwoPhaseCommit, INMSSubscriber, IDeltaNotify
     {
         /// <summary>
-        /// Lista subscribera zainteresovani za promenu statike
+        /// Lista subscribera zainteresovanih za promenu statike
         /// </summary>
 		private Dictionary<ITwoPhaseCommit, List<DMSType>> subscribers;
 
