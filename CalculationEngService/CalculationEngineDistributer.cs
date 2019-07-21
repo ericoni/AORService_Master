@@ -355,7 +355,7 @@ namespace CalculationEngService
         }
 
         /// <summary>
-        /// Helper function to distribute power when DER is flexible enough
+        /// Helper function to distribute power when DER is flexible enough. To be optimized.
         /// </summary>
         /// <param name="aValue"></param>
         /// <param name="setpoint"></param>

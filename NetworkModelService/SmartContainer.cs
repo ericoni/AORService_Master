@@ -16,13 +16,17 @@ using System.Threading.Tasks;
 
 namespace FTN.Services.NetworkModelService
 {
+    /// <summary>
+    /// Implements "IDeltaNotify" interface.
+    /// </summary>
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class SmartContainer : ITwoPhaseCommit, INMSSubscriber, IDeltaNotify
     {
+        #region Fields
         /// <summary>
         /// Lista subscribera zainteresovanih za promenu statike
         /// </summary>
-		private Dictionary<ITwoPhaseCommit, List<DMSType>> subscribers;
+        private Dictionary<ITwoPhaseCommit, List<DMSType>> subscribers;
 
         /// <summary>
         /// Originalni network model
@@ -63,6 +67,8 @@ namespace FTN.Services.NetworkModelService
         /// Lista Ui-ova koji zele da budu obavesteni kad stigne delta
         /// </summary>
         private List<IDeltaNotifyCallback> registratedUIs = new List<IDeltaNotifyCallback>();
+
+        #endregion Fields
 
         /// <summary>
         /// Get za original network model
@@ -132,6 +138,7 @@ namespace FTN.Services.NetworkModelService
             }
         }
 
+        #region INMSSubscriber
         /// <summary>
         /// Svi zainteresovani za promene statickog modela se prijavljuju na dogadjaje preko ove metode
         /// </summary>
@@ -187,7 +194,7 @@ namespace FTN.Services.NetworkModelService
 
             subscribers.Remove(client);
         }
-
+        #endregion INMSSubscriber
         /// <summary>
         /// Obavestavanje subscriber-a za Prepare i kreiranje delte za svakog subscriber-a
         /// </summary>
@@ -265,7 +272,6 @@ namespace FTN.Services.NetworkModelService
             }
         }
 
-
         /// <summary>
         /// Radi primenu delte i two-phase commit
         /// </summary>
@@ -329,6 +335,7 @@ namespace FTN.Services.NetworkModelService
             return true;
         }
 
+        #region ITwoPhaseCommit
         /// <summary>
         /// Radi radi primenu delte na kopiji, poziva Prepare na svim zainteresovanim servisima
         /// </summary>
@@ -375,6 +382,8 @@ namespace FTN.Services.NetworkModelService
         {
             copy = new Dictionary<DMSType, Container>();
         }
+
+        #endregion ITwoPhaseCommit
 
         /// <summary>
         /// Radi inicijalizaciju kopije
@@ -956,6 +965,7 @@ namespace FTN.Services.NetworkModelService
             return NmsDB.Instance.ReadDeltas();
         }
 
+        #region IDeltaNotify implementation
         public void Register()
         {
             // Subscribe the user to the conversation
@@ -1000,5 +1010,6 @@ namespace FTN.Services.NetworkModelService
                 registratedUIs.Remove(registeredUser);
             }
         }
+        #endregion IDeltaNotify implementation
     }
 }

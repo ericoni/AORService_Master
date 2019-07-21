@@ -51,6 +51,7 @@ namespace CalculationEngine
                 return instance;
             }
         }
+        #region IControlActiveSettingsSubscriber
         public void Subscribed()
         {
             OperationContext context = OperationContext.Current;
@@ -72,6 +73,7 @@ namespace CalculationEngine
                 subscribers.Remove(client);
             }
         }
+        #endregion IControlActiveSettingsSubscriber
 
         public void NotifySubscribers(List<CAS> signals)
         {

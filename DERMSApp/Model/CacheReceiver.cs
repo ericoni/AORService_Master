@@ -107,47 +107,48 @@ namespace DERMSApp.Model
 
         public void ConvertAnalogValuesToTableItemValues(Cache cache)
         {
-            if (cache.CacheList[0] != null)
+            if (cache.CacheList[0] == null)
             {
-                List<Object> cacheObjects = cache.CacheList[0].Measurements;
-                DateTime timestamp = cache.CacheList[0].Timestamp;
-				//this._tableItemList.Clear();
-
-				var groups = cacheObjects.GroupBy(c => ((AnalogValue)c).SynchronousMachine);
-
-                //in each group should be two values, one for P and one for Q of the same SynchronousMachine
-                foreach (var group in groups)
-                {
-					foreach (AnalogValue value in group.ToList() )
-						{
-						TableSMItem tableItem = _tableItemList.Where(o => o.Gid.Equals(value.SynchronousMachine)).FirstOrDefault();
-
-						if (tableItem == null)
-						{
-							tableItem = new TableSMItem(timestamp, group.ToList());
-							this._tableItemList.Add(tableItem);
-						}
-
-						tableItem.TimeStamp = timestamp;
-
-                        EventSystem.Publish<DateTime>(timestamp);
-
-						if (value.PowerType == PowerType.Active)
-						{
-							tableItem.CurrentP = ((AnalogValue)value).Value;
-                            tableItem.PIncrease = ((AnalogValue)value).PowIncrease;
-                            tableItem.PDecrease = ((AnalogValue)value).PowDecrease;
-						}
-						else
-						{
-							tableItem.CurrentQ = ((AnalogValue)value).Value;
-                            tableItem.QIncrease = ((AnalogValue)value).PowIncrease;
-                            tableItem.QDecrease = ((AnalogValue)value).PowDecrease;
-                        }
-					}
-                }
+                return;
             }
 
+            List<Object> cacheObjects = cache.CacheList[0].Measurements;
+            DateTime timestamp = cache.CacheList[0].Timestamp;
+            //this._tableItemList.Clear();
+
+            var groups = cacheObjects.GroupBy(c => ((AnalogValue)c).SynchronousMachine);
+
+            //in each group should be two values, one for P and one for Q of the same SynchronousMachine
+            foreach (var group in groups)
+            {
+                foreach (AnalogValue value in group.ToList())
+                {
+                    TableSMItem tableItem = _tableItemList.Where(o => o.Gid.Equals(value.SynchronousMachine)).FirstOrDefault();
+
+                    if (tableItem == null)
+                    {
+                        tableItem = new TableSMItem(timestamp, group.ToList());
+                        this._tableItemList.Add(tableItem);
+                    }
+
+                    tableItem.TimeStamp = timestamp;
+
+                    EventSystem.Publish<DateTime>(timestamp);
+
+                    if (value.PowerType == PowerType.Active)
+                    {
+                        tableItem.CurrentP = ((AnalogValue)value).Value;
+                        tableItem.PIncrease = ((AnalogValue)value).PowIncrease;
+                        tableItem.PDecrease = ((AnalogValue)value).PowDecrease;
+                    }
+                    else
+                    {
+                        tableItem.CurrentQ = ((AnalogValue)value).Value;
+                        tableItem.QIncrease = ((AnalogValue)value).PowIncrease;
+                        tableItem.QDecrease = ((AnalogValue)value).PowDecrease;
+                    }
+                }
+            }
         }
     }
 }

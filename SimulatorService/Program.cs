@@ -27,11 +27,9 @@ namespace ModBusSimulator
             CASSubscriberProxy CASProxy = new CASSubscriberProxy(callback);
             CASProxy.Subscribed();
 
-
             // Inicijalizacija kontrolera za simulator
             SimulatorController simulator = new SimulatorController();
             simulator.StartSimulator();
-
 
             Console.ReadKey();
         }

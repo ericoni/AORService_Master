@@ -831,7 +831,8 @@ namespace DERMSApp.ViewModels
 			GaugesVisibility = Visibility.Visible;
 		}
 
-		public void Refresh()
+        #region IDeltaNotifyCallback implementation
+        public void Refresh()
 		{
 			Roots = new List<NetworkRootViewModel>() { new NetworkRootViewModel(_ders) };
 			Roots[0].IsExpanded = false;
@@ -841,7 +842,9 @@ namespace DERMSApp.ViewModels
 			//Roots.Add(new NetworkRootViewModel(_ders));
 		}
 
-		DuplexChannelFactory<IDeltaNotify> factory = null;
+        #endregion IDeltaNotifyCallback implementation
+
+        DuplexChannelFactory<IDeltaNotify> factory = null;
 		IDeltaNotify proxy = null;
 
 		public void ConnectToCalculationEngine()
