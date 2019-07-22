@@ -13,7 +13,7 @@ namespace FTN.Common.EventAlarm
 	[ServiceContract(CallbackContract = typeof(IEventDistributionCallback))]
 	public interface IEventDistribution
 	{
-        [OperationContract(IsOneWay = true)]
-        void TestEventDistribution();
+		[OperationContract(IsOneWay = true)]
+		void TestEventDistribution();
 	}
 }
