@@ -1,7 +1,5 @@
 ﻿using EventAlarmProxyNS;
-using EventAlarmService.Subscriptions;
-using EventAlarmServiceNS;
-using FTN.Common.EventAlarm;
+using EventCommon;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +29,7 @@ namespace EventAlarmService
 				//eventSubProxy.SubscribeToAORAreas(new HashSet<long>());
 
 				DERMSEventSubscription dermsEvent = new DERMSEventSubscription();
+                DERMSEventCollector eventCollector = new DERMSEventCollector();
 
 				ServiceHost svc = new ServiceHost(dermsEvent);
 				//ServiceHost svc = new ServiceHost(typeof(DERMSEvent));
@@ -38,13 +37,20 @@ namespace EventAlarmService
 				new NetTcpBinding(),
 				new Uri(("net.tcp://localhost:10047/IDERMSEvent")));
 
-				svc.Open();
+                ServiceHost svc2 = new ServiceHost(eventCollector);
+                //ServiceHost svc = new ServiceHost(typeof(DERMSEvent));
+                svc2.AddServiceEndpoint(typeof(IDERMSEventCollector),
+                new NetTcpBinding(),
+                new Uri(("net.tcp://localhost:10048/IDERMSEventCollector")));
 
-				Console.WriteLine("Press Enter to send msg to clients...");
-				Console.Read();
-				dermsEvent.NotifyClients(7, "Notify received!");
+                svc.Open();
+                svc2.Open();
 
-				Console.WriteLine("Press <Enter> to stop the Event service.");
+                Console.WriteLine("Press Enter to send msg to clients...");
+                Console.Read();
+                dermsEvent.NotifyClients(7, "Notify received!");
+
+                Console.WriteLine("Press <Enter> to stop the Event service.");
 				Console.ReadKey();
 			}
 			catch (Exception ex)

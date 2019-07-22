@@ -18,13 +18,13 @@ namespace TestApp.ViewModels
 	{
 		AORCacheAccessChannel aorCacheProxy = null;
 		ObservableCollection<AORModel> observableAreas = null;
-		ObservableCollection<Event> events = null;
+		ObservableCollection<EventModel> events = null;
 
 		public AORManipulationWinVM()
 		{
 			FetchAndShowAORAreas();
-			var tempEvents = new List<Event>(3) { new Event("a", "poruka1", "region1"), new Event("b", "poruka1", "region1"), new Event("c", "poruka1", "region1") };
-			Events = new ObservableCollection<Event>(tempEvents);
+			var tempEvents = new List<EventModel>(3) { new EventModel("a", "poruka1", "region1"), new EventModel("b", "poruka1", "region1"), new EventModel("c", "poruka1", "region1") };
+			Events = new ObservableCollection<EventModel>(tempEvents);
 		}
 
 		private void FetchAndShowAORAreas()
@@ -51,7 +51,7 @@ namespace TestApp.ViewModels
 			}
 			observableAreas[0].UsersCoveringArea = new HashSet<string>();
 		}
-		public ObservableCollection<Event> Events
+		public ObservableCollection<EventModel> Events
 		{
 			get
 			{

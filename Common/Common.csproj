@@ -117,16 +117,6 @@
     <Compile Include="CalculationEngine\Service\ICalculateHourlyForecast.cs" />
     <Compile Include="CalculationEngine\Service\ICEDistribution.cs" />
     <Compile Include="CalculationEngine\Service\IForecastService.cs" />
-    <Compile Include="EventAlarm\Deprecated\EventSubscriberCallback.cs" />
-    <Compile Include="EventAlarm\Deprecated\EventSubscription\IEventSubscription.cs" />
-    <Compile Include="EventAlarm\Deprecated\EventSubscription\IEventSubscriptionCallback.cs" />
-    <Compile Include="EventAlarm\Deprecated\IAlarm.cs" />
-    <Compile Include="EventAlarm\Deprecated\IEvent.cs" />
-    <Compile Include="EventAlarm\Deprecated\IEventDistributionCallback.cs" />
-    <Compile Include="EventAlarm\Deprecated\IEventDistribution.cs" />
-    <Compile Include="EventAlarm\DERMSEventClientCallback.cs" />
-    <Compile Include="EventAlarm\IDERMSEventSubscription.cs" />
-    <Compile Include="EventAlarm\IDERMSEventSubscriptionCallback.cs" />
     <Compile Include="Model\DNAAuthority.cs" />
     <Compile Include="Model\Permission.cs" />
     <Compile Include="Model\User.cs" />

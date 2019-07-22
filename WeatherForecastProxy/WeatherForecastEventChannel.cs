@@ -1,5 +1,4 @@
-﻿using FTN.Common.EventAlarm;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -16,7 +15,7 @@ namespace WeatherForecastProxyNS
 
 		public void TestEvent()
 		{
-			this.Channel.TestEvent();
+			//this.Channel.TestEvent();
 		}
 	}
 }

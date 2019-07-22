@@ -5,7 +5,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FTN.Common.EventAlarm
+namespace EventCommon
 {
 	[ServiceContract(CallbackContract = typeof(IDERMSEventSubscriptionCallback))]
 	public interface IDERMSEventSubscription

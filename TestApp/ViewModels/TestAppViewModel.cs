@@ -2,7 +2,6 @@
 using AORViewer.Model;
 using AORViewer.ViewModels;
 using EventAlarmProxyNS;
-using FTN.Common.EventAlarm;
 using System;
 using System.Collections.Generic;
 using System.Linq;

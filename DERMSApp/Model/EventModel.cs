@@ -7,14 +7,17 @@ using System.Threading.Tasks;
 
 namespace DERMSApp.Model
 {
-	public class Event : BindableBase
+    /// <summary>
+    /// To be decided difference between EventModel and Event
+    /// </summary>
+	public class EventModel : BindableBase
 	{
 		private string username;
 		private string details;
 		private string region;
 		private DateTime timestamp;
 
-		public Event(string username, string details, string region)
+		public EventModel(string username, string details, string region)
 		{
 			this.Username = username;
 			this.Details = details;

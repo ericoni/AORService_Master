@@ -1,16 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{497DAC3E-CC92-430C-A178-9505A1789832}</ProjectGuid>
+    <ProjectGuid>{8288D1B0-06F5-4E69-814D-134915AD269F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AORManagementProxy</RootNamespace>
-    <AssemblyName>AORManagementProxy</AssemblyName>
+    <RootNamespace>EventCommon</RootNamespace>
+    <AssemblyName>EventCommon</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,6 +42,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -49,31 +52,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AOREventAlarmChannel.cs" />
-    <Compile Include="AOREventAlarmProxy.cs" />
-    <Compile Include="AORManagementChannel.cs" />
-    <Compile Include="AORManagementProxy.cs" />
-    <Compile Include="AORCacheAccessChannel.cs" />
-    <Compile Include="AORCacheAccessProxy.cs" />
-    <Compile Include="IAlarm.cs" />
+    <Compile Include="DERMSEventClientCallback.cs" />
+    <Compile Include="Event.cs" />
+    <Compile Include="IDERMSEventCollector.cs" />
+    <Compile Include="IDERMSEventSubscription.cs" />
+    <Compile Include="IDERMSEventSubscriptionCallback.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AORCommon\AORCommon.csproj">
-      <Project>{8D3521E8-89E2-4E7C-B469-E1FDBD06A479}</Project>
-      <Name>AORCommon</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{892CBE15-9ED7-4540-81FA-0EAABA592138}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

@@ -1,5 +1,4 @@
-﻿using FTN.Common.EventAlarm;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -17,7 +16,7 @@ namespace AORManagementProxyNS
 
 		public void Test()
 		{
-			this.Channel.Test();
+			//this.Channel.Test();
 		}
 	}
 }

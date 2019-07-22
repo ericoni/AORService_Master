@@ -165,7 +165,7 @@
     <Compile Include="Model\Alarm.cs" />
     <Compile Include="Model\BindableBase.cs" />
     <Compile Include="Model\CacheReceiver.cs" />
-    <Compile Include="Model\Event.cs" />
+    <Compile Include="Model\EventModel.cs" />
     <Compile Include="Model\EventSystem.cs" />
     <Compile Include="Model\ForecastObjData.cs" />
     <Compile Include="Model\TableSMItem.cs" />

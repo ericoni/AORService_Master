@@ -1,5 +1,4 @@
 ﻿using DERMSApp.Model;
-using FTN.Common.EventAlarm;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,18 +15,18 @@ namespace DERMSApp.ViewModels
 	/// </summary>
 	public class EventsViewModel : BindableBase
 	{
-		private ObservableCollection<Event> events = null;
+		private ObservableCollection<EventModel> events = null;
         public ICommand ClearEventsCommand { get; private set; }
 
         public EventsViewModel()
 		{
-			List<Event> tempList = new List<Event>(3) { new Event("a", "p", "r"), new Event("a", "User admin has logged in.", "r"), new Event("a", "p3", "r") };
-			Events = new ObservableCollection<Event>(tempList);
+			List<EventModel> tempList = new List<EventModel>(3) { new EventModel("a", "p", "r"), new EventModel("a", "User admin has logged in.", "r"), new EventModel("a", "p3", "r") };
+			Events = new ObservableCollection<EventModel>(tempList);
 
             ClearEventsCommand = new RelayCommand(() => ExecuteClearEventsCommand());
         }
 
-        public ObservableCollection<Event> Events
+        public ObservableCollection<EventModel> Events
 		{
 			get
 			{
@@ -43,7 +42,7 @@ namespace DERMSApp.ViewModels
 
         private void ExecuteClearEventsCommand()
         {
-            Events = new ObservableCollection<Event>();
+            Events = new ObservableCollection<EventModel>();
         }
     }
 }

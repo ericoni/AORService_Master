@@ -5,7 +5,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FTN.Common.EventAlarm
+namespace EventCommon
 {
 	/// <summary>
 	/// Callback interface for <seealso cref="IDERMSEventSubscription"/>. Important note: there's no exception handling if client is closed.

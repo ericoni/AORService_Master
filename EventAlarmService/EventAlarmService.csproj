@@ -53,14 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Deprecated\EventAlarmCollector.cs" />
-    <Compile Include="Deprecated\EventAlarmCollectorService.cs" />
-    <Compile Include="Deprecated\EventAlarmHandler.cs" />
+    <Compile Include="DERMSEventCollector.cs" />
     <Compile Include="DERMSEventSubscription.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Deprecated\Subscriptions\EventAlarmSubscription.cs" />
-    <Compile Include="Deprecated\Subscriptions\EventAlarmSubscriptionService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -73,6 +69,10 @@
     <ProjectReference Include="..\EventAlarmProxy\EventAlarmProxy.csproj">
       <Project>{0B3B179C-C005-46DE-B5F3-E20C0D785099}</Project>
       <Name>EventAlarmProxy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EventCommon\EventCommon.csproj">
+      <Project>{8288d1b0-06f5-4e69-814d-134915ad269f}</Project>
+      <Name>EventCommon</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

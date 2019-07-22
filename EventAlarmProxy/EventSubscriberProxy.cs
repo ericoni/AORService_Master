@@ -1,5 +1,4 @@
-﻿using FTN.Common.EventAlarm.EventSubscription;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -64,7 +63,7 @@ namespace EventAlarmProxyNS
 			{
 				try
 				{
-					proxy.SubscribeToAORAreas(new HashSet<long>());
+					//proxy.SubscribeToAORAreas(new HashSet<long>());
 					break;
 				}
 				catch (Exception)
@@ -90,7 +89,7 @@ namespace EventAlarmProxyNS
 			{
 				try
 				{
-					proxy.UnsubscribeFromAORAreas();
+					//proxy.UnsubscribeFromAORAreas();
 					break;
 				}
 				catch (Exception)
