@@ -17,6 +17,17 @@ namespace EventAlarmService
 	{
 		List<IDERMSEventSubscriptionCallback> callbacks = null;
 		private Dictionary<IDERMSEventSubscriptionCallback, List<long>> subscribers;
+        static DERMSEventSubscription instance = null;
+
+        public static DERMSEventSubscription Instance
+        {
+            get
+            {
+                if (instance == null)
+                    return new DERMSEventSubscription();
+                return instance;
+            }
+        }
 
 		public DERMSEventSubscription()
 		{
@@ -42,8 +53,12 @@ namespace EventAlarmService
 
 		public void Unsubscribe()
 		{
-			throw new NotImplementedException();
-		}
+            OperationContext context = OperationContext.Current;
+            IDERMSEventSubscriptionCallback callback = context.GetCallbackChannel<IDERMSEventSubscriptionCallback>();
+
+            if (callbacks.Contains(callback) == true)
+                callbacks.Remove(callback);
+        }
 		#endregion IDERMSEvent
 
 		public void NotifyClients(long gid, Event e)

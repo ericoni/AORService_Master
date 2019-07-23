@@ -31,9 +31,10 @@ namespace EventAlarmService
 				DERMSEventSubscription dermsEvent = new DERMSEventSubscription();
 				DERMSEventCollector eventCollector = new DERMSEventCollector();
 
-				ServiceHost svc = new ServiceHost(dermsEvent);
-				//ServiceHost svc = new ServiceHost(typeof(DERMSEvent));
-				svc.AddServiceEndpoint(typeof(IDERMSEventSubscription),
+				ServiceHost svc = new ServiceHost(DERMSEventSubscription.Instance);
+                //ServiceHost svc = new ServiceHost(dermsEvent);
+                //ServiceHost svc = new ServiceHost(typeof(DERMSEvent));
+                svc.AddServiceEndpoint(typeof(IDERMSEventSubscription),
 				new NetTcpBinding(),
 				new Uri(("net.tcp://localhost:10047/IDERMSEvent")));
 
@@ -47,7 +48,7 @@ namespace EventAlarmService
 
 				Console.WriteLine("Press Enter to send msg to clients...");
 				Console.Read();
-				//dermsEvent.NotifyClients(7, "Notify received!");
+				//dermsEvent.NotifyClients(7, new Event("username", "detalj", DateTime.Now));
 
 				Console.WriteLine("Press <Enter> to stop the Event service.");
 				Console.ReadKey();

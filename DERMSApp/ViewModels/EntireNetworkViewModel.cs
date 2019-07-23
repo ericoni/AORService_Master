@@ -21,6 +21,7 @@ using System.ServiceModel;
 using DERMSApp.Views;
 using Adapter;
 using FTN.Common.AORCachedModel;
+using EventCommon;
 
 namespace DERMSApp.ViewModels
 {
@@ -123,14 +124,13 @@ namespace DERMSApp.ViewModels
 
 			SetAllVisibilitiesToCollapsed();
 			ShowData = Visibility.Visible;
-
 			WeatherWidgetVisible = Visibility.Hidden;
 
 			InitializeCommands();
-
 			SubscribeToEverything();
+            SubscribeForEvents();// to do vratiti se i konvertovati areas u stringove
 
-			dersToSend = null;
+            dersToSend = null;
 			derToSend = null;
 			selectedGid = -1;
 
@@ -332,8 +332,6 @@ namespace DERMSApp.ViewModels
 				RaisePropertyChanged("WeatherIcon");
 			}
 		}
-
-
 
 		public BindableBase GenerationForecastVM
 		{
@@ -707,12 +705,23 @@ namespace DERMSApp.ViewModels
 		{
 			GenerationForecastVM = new GenerationForecastViewModel(d.Gid, d.Power, d.IsGroup, dersToSend, derToSend);
 			EventSystem.Publish<bool>(true);
-			//ShowData = Visibility.Collapsed;
-			//ShowCharts = Visibility.Collapsed;
-			//ShowEvents = Visibility.Collapsed;
 			SetAllVisibilitiesToCollapsed();
 			ShowForecast = Visibility.Visible;
 		}
+
+        private void SubscribeForEvents()
+        {
+            DERMSEventClientCallback callback = new DERMSEventClientCallback();
+            IDERMSEventSubscription proxy = null;
+
+            DuplexChannelFactory<IDERMSEventSubscription> factory = new DuplexChannelFactory<IDERMSEventSubscription>(
+                new InstanceContext(callback),
+                new NetTcpBinding(),
+                new EndpointAddress("net.tcp://localhost:10047/IDERMSEvent"));
+            proxy = factory.CreateChannel();
+
+            proxy.Subscribe(new List<long>(1) { 7 });
+        }
 
 		#endregion Private methods
 
@@ -800,8 +809,6 @@ namespace DERMSApp.ViewModels
 					counter++;
 					Thread.Sleep(1000);
 				}
-
-
 			}
 
 			ActiveMinimum = Math.Round(DERS.Sum(o => o.PDecrease), 2);
@@ -827,7 +834,6 @@ namespace DERMSApp.ViewModels
 				ActiveShareSun = 0;
 			}
 
-
 			GaugesVisibility = Visibility.Visible;
 		}
 
@@ -847,6 +853,9 @@ namespace DERMSApp.ViewModels
 		DuplexChannelFactory<IDeltaNotify> factory = null;
 		IDeltaNotify proxy = null;
 
+        /// <summary>
+        /// Ne znam od kad je zakomentarisano.
+        /// </summary>
 		public void ConnectToCalculationEngine()
 		{
 			//factory = new DuplexChannelFactory<IDeltaNotify>(

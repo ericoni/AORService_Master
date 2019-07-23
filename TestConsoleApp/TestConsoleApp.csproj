@@ -87,6 +87,10 @@
       <Project>{892CBE15-9ED7-4540-81FA-0EAABA592138}</Project>
       <Name>Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EventAlarmService\EventAlarmService.csproj">
+      <Project>{060885C4-C718-4B90-B893-E623959C83B0}</Project>
+      <Name>EventAlarmService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EventCollectorProxy.cs\EventCollectorProxy.csproj">
       <Project>{C14BAE06-0A99-4563-A7EC-DB0D326AAA01}</Project>
       <Name>EventCollectorProxy</Name>

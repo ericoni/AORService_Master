@@ -2,6 +2,7 @@
 using Adapter;
 using AORCommon.Principal;
 using AORManagementProxyNS;
+using EventAlarmService;
 using EventCollectorProxyNS;
 using EventCommon;
 using System;
@@ -18,9 +19,11 @@ namespace TestConsoleApp
 	{
 		static void Main(string[] args) //ima neka fora, on kreira svoju NOVU bazu "UsersDatabase7xxxxx" umjesto da koristi onu postojecu.
 		{
-			AORManagementProxy aorManagementProxy = new AORManagementProxy();
-			var areas = aorManagementProxy.Proxy.Login("testUsername", "a");
+            //AORManagementProxy aorManagementProxy = new AORManagementProxy();
+            //var areas = aorManagementProxy.Proxy.Login("testUsername", "a");
+            DERMSEventSubscription.Instance.NotifyClients(7, new Event("randomUsername", "randomDetalji", DateTime.Now));
 
+            Console.WriteLine("Prosao instance..");
 			Console.Read();
 		}
 
@@ -41,9 +44,9 @@ namespace TestConsoleApp
 			IDERMSEventSubscription proxy = null;
 
 			DuplexChannelFactory<IDERMSEventSubscription> factory = new DuplexChannelFactory<IDERMSEventSubscription>(
-			  new InstanceContext(callback),
-			new NetTcpBinding(),
-			new EndpointAddress("net.tcp://localhost:10047/IDERMSEvent"));
+			    new InstanceContext(callback),
+			    new NetTcpBinding(),
+			    new EndpointAddress("net.tcp://localhost:10047/IDERMSEvent"));
 			proxy = factory.CreateChannel();
 
 			proxy.Subscribe(new List<long>(1) { 7 });
