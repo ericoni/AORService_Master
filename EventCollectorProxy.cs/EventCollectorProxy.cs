@@ -1,13 +1,15 @@
-﻿using System;
+﻿using EventCommon;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SCADAReceivingProxyNS
+namespace EventCollectorProxyNS
 {
-	public class SCADASetpointProxy
+	public class EventCollectorProxy
 	{
 		// Broj pokusaja uspostavljanja komunikacije
 		private const int maxTry = 5;
@@ -15,9 +17,9 @@ namespace SCADAReceivingProxyNS
 		// Spavanje do narednog pokusaja
 		private const int sleepTime = 3000;
 
-		SCADASetpointChannel proxy;
+		EventCollectorChannel proxy;
 
-		public SCADASetpointProxy()
+		public EventCollectorProxy()
 		{
 			OpenChannel();
 		}
@@ -30,7 +32,7 @@ namespace SCADAReceivingProxyNS
 			{
 				try
 				{
-					proxy = new SCADASetpointChannel();
+					proxy = new EventCollectorChannel();
 					proxy.Open();
 
 					break;
@@ -49,7 +51,7 @@ namespace SCADAReceivingProxyNS
 			}
 		}
 
-		public SCADASetpointChannel Proxy
+		public EventCollectorChannel Proxy
 		{
 			get
 			{

@@ -7,12 +7,20 @@ using System.Threading.Tasks;
 
 namespace EventCommon
 {
-    [DataContract]
-    public class Event
-    {
-        public Event() { }
-        public string Username { get; set; }
-        [DataMember]
-        public string Details { get; set; }
-    }
+	[Serializable]
+	public class Event
+	{
+		public Event() { }
+
+		public Event(string username, string details, DateTime timestamp)
+		{
+			Username = username;
+			Details = details;
+			Timestamp = timestamp;
+		}
+
+		public string Username { get; set; }
+		public string Details { get; set; }
+		public DateTime Timestamp { get; set; }
+	}
 }

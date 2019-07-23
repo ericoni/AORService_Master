@@ -16,17 +16,19 @@ namespace DERMSApp.ViewModels
 	public class EventsViewModel : BindableBase
 	{
 		private ObservableCollection<EventModel> events = null;
-        public ICommand ClearEventsCommand { get; private set; }
+		public ICommand ClearEventsCommand { get; private set; }
 
-        public EventsViewModel()
+		public EventsViewModel()
 		{
 			List<EventModel> tempList = new List<EventModel>(3) { new EventModel("a", "p", "r"), new EventModel("a", "User admin has logged in.", "r"), new EventModel("a", "p3", "r") };
 			Events = new ObservableCollection<EventModel>(tempList);
 
-            ClearEventsCommand = new RelayCommand(() => ExecuteClearEventsCommand());
-        }
+			//EventSystem.Subscribe<string>(UpdateEventData);//to do vrati se i zavrsi ovu komunikaciju iz jednog u drugi VM
 
-        public ObservableCollection<EventModel> Events
+			ClearEventsCommand = new RelayCommand(() => ExecuteClearEventsCommand());
+		}
+
+		public ObservableCollection<EventModel> Events
 		{
 			get
 			{
@@ -40,9 +42,19 @@ namespace DERMSApp.ViewModels
 			}
 		}
 
-        private void ExecuteClearEventsCommand()
-        {
-            Events = new ObservableCollection<EventModel>();
-        }
-    }
+		#region Private methods
+		private void ExecuteClearEventsCommand()
+		{
+			Events = new ObservableCollection<EventModel>();
+		}
+
+		//private void UpdateEventData(string command) //to do vrati se za evetne ovde
+		//{
+		//	if (command.Equals("UpdateEventData"))
+		//	{
+
+		//	}
+		//}
+		#endregion Private methods
+	}
 }

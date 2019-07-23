@@ -7,44 +7,44 @@ using System.Threading.Tasks;
 
 namespace AORCommon.Principal
 {
-    public class CustomPrincipal : IMyPrincipal
-    {
-        IIdentity identity;
-        string username = string.Empty;
-        string[] areas;
+	public class CustomPrincipal : IMyPrincipal
+	{
+		IIdentity identity;
+		string username = string.Empty;
+		List<string> areas;
 
-        public CustomPrincipal(IIdentity identity, string username, string[] roles)
-        {
-            this.identity = identity;
-            this.username = username;
-            this.areas = roles;
-        }
+		public CustomPrincipal(IIdentity identity, string username, List<string> areas)
+		{
+			this.identity = identity;
+			this.username = username;
+			this.Areas = areas;
+		}
 
-        public IIdentity Identity
-        {
-            get { return this.identity; }
-        }
+		public IIdentity Identity
+		{
+			get { return this.identity; }
+		}
 
-        public string Username
-        {
-            get { return this.username; }
-            set { this.username = value; }
-        }
+		public string Username
+		{
+			get { return this.username; }
+			set { this.username = value; }
+		}
 
-        public string[] Areas
-        {
-            get { return this.areas; }
-            set { this.areas = value; }
-        }
+		public List<string> Areas
+		{
+			get { return this.areas; }
+			set { this.areas = value; }
+		}
 
-        public bool IsInRole(string role)
-        {
-            return true;
-        }
+		public bool IsInRole(string role)
+		{
+			return true;
+		}
 
-        public WindowsImpersonationContext Impersonate()
-        {
-            throw new NotImplementedException();
-        }
-    }
+		public WindowsImpersonationContext Impersonate()
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

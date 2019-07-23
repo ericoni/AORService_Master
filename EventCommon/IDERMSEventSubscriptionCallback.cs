@@ -15,6 +15,6 @@ namespace EventCommon
 	public interface IDERMSEventSubscriptionCallback
 	{
 		[OperationContract(IsOneWay = true)] // IsOneWay valjda govori da li je neblokirajuci poziv
-		void ReceiveEvent(string message);
+		void ReceiveEvent(Event e);
 	}
 }

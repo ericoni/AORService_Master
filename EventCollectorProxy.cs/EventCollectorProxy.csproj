@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{063FF0F1-A9BC-4CF2-8858-3B936292F39C}</ProjectGuid>
+    <ProjectGuid>{C14BAE06-0A99-4563-A7EC-DB0D326AAA01}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AORCache</RootNamespace>
-    <AssemblyName>AORCache</AssemblyName>
+    <RootNamespace>EventCollectorProxy.cs</RootNamespace>
+    <AssemblyName>EventCollectorProxy.cs</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -29,28 +29,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <PlatformTarget>x64</PlatformTarget>
-    <OutputPath>bin\x64\Debug\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <PlatformTarget>x64</PlatformTarget>
-    <OutputPath>bin\x64\Release\</OutputPath>
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
@@ -61,38 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Acess\AccessDB.cs" />
-    <Compile Include="Acess\Configuration.cs" />
-    <Compile Include="Acess\IAORDatabaseHelper.cs" />
-    <Compile Include="Acess\AORDatabaseHelper.cs" />
-    <Compile Include="AORCache.cs" />
-    <Compile Include="AORCacheModel.cs" />
-    <Compile Include="Defines.cs" />
-    <Compile Include="Helpers\AORCacheConfigurations.cs" />
-    <Compile Include="IAORCache.cs" />
+    <Compile Include="EventCollectorChannel.cs" />
+    <Compile Include="EventCollectorProxy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{892CBE15-9ED7-4540-81FA-0EAABA592138}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\EventCollectorProxy.cs\EventCollectorProxy.csproj">
-      <Project>{C14BAE06-0A99-4563-A7EC-DB0D326AAA01}</Project>
-      <Name>EventCollectorProxy</Name>
-    </ProjectReference>
     <ProjectReference Include="..\EventCommon\EventCommon.csproj">
       <Project>{8288D1B0-06F5-4E69-814D-134915AD269F}</Project>
       <Name>EventCommon</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RDAdapter\RDAdapter.csproj">
-      <Project>{F2AE1113-EFC9-4C01-AA5D-5CB477BDDA01}</Project>
-      <Name>RDAdapter</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -2,6 +2,7 @@
 using Adapter;
 using AORCommon.Principal;
 using AORManagementProxyNS;
+using EventCollectorProxyNS;
 using EventCommon;
 using System;
 using System.Collections.Generic;
@@ -13,45 +14,61 @@ using System.Threading.Tasks;
 
 namespace TestConsoleApp
 {
-    class Program
-    {
-        static void Main(string[] args) //ima neka fora, on kreira svoju NOVU bazu "UsersDatabase7xxxxx" umjesto da koristi onu postojecu.
-        {
-            //var a = AORCacheConfigurations.GetAORAreasForUsername("marko.markovic");
+	class Program
+	{
+		static void Main(string[] args) //ima neka fora, on kreira svoju NOVU bazu "UsersDatabase7xxxxx" umjesto da koristi onu postojecu.
+		{
+			AORManagementProxy aorManagementProxy = new AORManagementProxy();
+			var areas = aorManagementProxy.Proxy.Login("testUsername", "a");
 
-            // AORCacheConfigurations.SelectAreaForView("West-Area", false);
+			Console.Read();
+		}
 
-            ///var c = AORCacheConfigurations.GetPermissionsForArea("West-Area"); 
+		private void ClientRegularChannelTest()
+		{
+			ChannelFactory<IDERMSEventCollector> factory2 = new ChannelFactory<IDERMSEventCollector>(
+			  new NetTcpBinding(),
+			  new EndpointAddress("net.tcp://localhost:10048/IDERMSEventCollector"));
+			IDERMSEventCollector kanal = factory2.CreateChannel();
 
-            //AORManagementProxy aorManagementProxy = new AORManagementProxy();
-            //var areas = aorManagementProxy.Proxy.Login("testUsername", "a");
-            //aorManagementProxy.Proxy.Test();	
+			Thread.Sleep(3000);
+			kanal.SendEvent(new Event { Details = "Nesto" });
+		}
 
-            //RDAdapter rdAdapter = new RDAdapter();
-            //var a = rdAdapter.GetSyncMachinesByGids(new List<long>() { 12884901889 });
+		private void ClientDuplexChannelTest()
+		{
+			DERMSEventClientCallback callback = new DERMSEventClientCallback();
+			IDERMSEventSubscription proxy = null;
 
-            DERMSEventClientCallback callback = new DERMSEventClientCallback();
-            IDERMSEventSubscription proxy = null;
+			DuplexChannelFactory<IDERMSEventSubscription> factory = new DuplexChannelFactory<IDERMSEventSubscription>(
+			  new InstanceContext(callback),
+			new NetTcpBinding(),
+			new EndpointAddress("net.tcp://localhost:10047/IDERMSEvent"));
+			proxy = factory.CreateChannel();
 
-            IDERMSEventCollector proxyEventCol = null;
+			proxy.Subscribe(new List<long>(1) { 7 });
+		}
 
-            DuplexChannelFactory<IDERMSEventSubscription> factory = new DuplexChannelFactory<IDERMSEventSubscription>(
-              new InstanceContext(callback),
-              new NetTcpBinding(),
-              new EndpointAddress("net.tcp://localhost:10047/IDERMSEvent"));
-            proxy = factory.CreateChannel();
+		private void SendEventTest()
+		{
+			EventCollectorProxy eventProxy = new EventCollectorProxy();
+			eventProxy.Proxy.SendEvent(new Event { Details = "Nesto" });
+		}
 
-            proxy.Subscribe(new List<long>(1) { 7 });
+		private void RandomTesting()
+		{
+			//var a = AORCacheConfigurations.GetAORAreasForUsername("marko.markovic");
 
-            ChannelFactory<IDERMSEventCollector> factory2 = new ChannelFactory<IDERMSEventCollector>(
-              new NetTcpBinding(),
-              new EndpointAddress("net.tcp://localhost:10048/IDERMSEventCollector"));
-            IDERMSEventCollector kanal = factory2.CreateChannel();
+			// AORCacheConfigurations.SelectAreaForView("West-Area", false);
 
-            Thread.Sleep(3000);
-            kanal.SendEvent(new Event { Details = "None" });
+			///var c = AORCacheConfigurations.GetPermissionsForArea("West-Area"); 
 
-            Console.Read();
-        }
-    }
+			//AORManagementProxy aorManagementProxy = new AORManagementProxy();
+			//var areas = aorManagementProxy.Proxy.Login("testUsername", "a");
+			//aorManagementProxy.Proxy.Test();	
+
+			//RDAdapter rdAdapter = new RDAdapter();
+			//var a = rdAdapter.GetSyncMachinesByGids(new List<long>() { 12884901889 });
+		}
+	}
 }

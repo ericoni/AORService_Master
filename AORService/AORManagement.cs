@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using FTN.Common.AORContract;
-using FTN.Common.Model;
 using ActiveAORCache;
 using AORC.Acess;
 using ActiveAORCache.Helpers;
@@ -15,6 +14,8 @@ using System.ServiceModel;
 using System.Threading;
 using AORCommon.Principal;
 using FTN.Common.AORCachedModel;
+using EventCollectorProxyNS;
+using EventCommon;
 
 namespace AORService
 {
@@ -25,12 +26,14 @@ namespace AORService
 	public class AORManagement : IAORManagement
 	{
 		private AORDatabaseHelper aorDatabaseHelper = null;
+		private EventCollectorProxy eventCollectorProxy = null;
 
 		public AORManagement()
 		{
 			try
 			{
 				aorDatabaseHelper = new AORDatabaseHelper();
+				eventCollectorProxy = new EventCollectorProxy();
 				var a = AORCacheConfigurations.GetAORAreaObjectsForUsername("admin");
 				//var c = AORCacheConfigurations.GetPermissionsForArea("West-Area");
 				//var d = AORCacheConfigurations.GetPermissionsForAreas(new List<string>() { "West-Area", "East-Area" });
@@ -55,21 +58,43 @@ namespace AORService
 
 		public List<AORCachedArea> Login(string username, string password)
 		{
-			return aorDatabaseHelper.LoginUser(username, password);
+			var aorCachedAreas = aorDatabaseHelper.LoginUser(username, password);
+			string areasCombinedString = AreasCombinedString(aorCachedAreas);
+
+			var p = Thread.CurrentPrincipal;
+			eventCollectorProxy = new EventCollectorProxy(); //to do izbaciti posle u konstruktor
+			eventCollectorProxy.Proxy.SendEvent(new Event(username, "User logged in with specified AOR areas: " + areasCombinedString, DateTime.Now));
+
+			return aorCachedAreas;
 		}
 
+		/// <summary>
+		/// Ne znam za sta je ovo ubaceno.
+		/// </summary>
 		public void Test()
 		{
 			string a = "sarma";
 			var principal = Thread.CurrentPrincipal;
 			var p2 = ServiceSecurityContext.Current;
 			var p3 = Thread.CurrentPrincipal as IMyPrincipal;
-
 		}
 
 		#endregion
 
 		#region Private methods
+
+		private string AreasCombinedString(List<AORCachedArea> areas)
+		{
+			string combinedString = string.Empty;
+			List<string> areasStringList = new List<string>(areas.Count);
+
+			foreach (var area in areas)
+			{
+				areasStringList.Add(area.Name);
+			}
+			combinedString = string.Join(",", areasStringList);
+			return combinedString;
+		}
 
 		private String SecureStringToString(SecureString value)
 		{
@@ -89,9 +114,6 @@ namespace AORService
 				Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
 			}
 		}
-
-	 
-
 		#endregion
 	}
 }

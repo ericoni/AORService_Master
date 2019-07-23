@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace EventCommon
 {
-    /// <summary>
-    /// Implements <seealso cref="IDERMSEventSubscriptionCallback"/> interface.
-    /// </summary>
+	/// <summary>
+	/// Implements <seealso cref="IDERMSEventSubscriptionCallback"/> interface.
+	/// </summary>
 	public class DERMSEventClientCallback : IDERMSEventSubscriptionCallback
 	{
-		public void ReceiveEvent(string message)
+		public void ReceiveEvent(Event e)
 		{
 		}
 	}

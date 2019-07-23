@@ -151,7 +151,7 @@ namespace AORService
 				String name = identities[0].Name;
 				int backslashLastIndex = name.LastIndexOf('\\');
 
-				string[] assignedAreas = AORCacheConfigurations.GetAORAreasForUsername(name.Substring(backslashLastIndex + 1));
+				var assignedAreas = AORCacheConfigurations.GetAORAreasForUsername(name.Substring(backslashLastIndex + 1));
 
 				context.Properties["Principal"] = new CustomPrincipal(identities[0], "perica", assignedAreas);
 

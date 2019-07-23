@@ -106,6 +106,14 @@
       <Project>{892CBE15-9ED7-4540-81FA-0EAABA592138}</Project>
       <Name>Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EventCollectorProxy.cs\EventCollectorProxy.csproj">
+      <Project>{C14BAE06-0A99-4563-A7EC-DB0D326AAA01}</Project>
+      <Name>EventCollectorProxy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EventCommon\EventCommon.csproj">
+      <Project>{8288D1B0-06F5-4E69-814D-134915AD269F}</Project>
+      <Name>EventCommon</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RDAdapter\RDAdapter.csproj">
       <Project>{F2AE1113-EFC9-4C01-AA5D-5CB477BDDA01}</Project>
       <Name>RDAdapter</Name>

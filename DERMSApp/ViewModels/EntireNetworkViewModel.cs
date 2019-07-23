@@ -27,7 +27,7 @@ namespace DERMSApp.ViewModels
 	/// <summary>
 	/// Uvezan je sa tabular view, nije logicno ali tako je.U sustini glavni view model.
 	/// </summary>
-	public class EntireNetworkViewModel: ViewModelBase, IDeltaNotifyCallback
+	public class EntireNetworkViewModel : ViewModelBase, IDeltaNotifyCallback
 	{
 		#region Fields
 		//readonly ReadOnlyCollection<GeographicalRegionViewModel> _regions;
@@ -56,7 +56,7 @@ namespace DERMSApp.ViewModels
 		private Visibility showForecast;
 		private Visibility showEvents;
 		private Visibility showAlarms;
-		
+
 		private Visibility weatherWidgetVisible;
 		#endregion Visibility
 		#region Commands
@@ -114,7 +114,7 @@ namespace DERMSApp.ViewModels
 
 		private long selectedGid;
 		#endregion Fields
-		public EntireNetworkViewModel(List<AORCachedArea> aorAreas) 
+		public EntireNetworkViewModel(List<AORCachedArea> aorAreas)
 		{
 			this.aorAreas = aorAreas;
 			_ders = new ObservableCollection<TableSMItem>();
@@ -127,7 +127,7 @@ namespace DERMSApp.ViewModels
 			WeatherWidgetVisible = Visibility.Hidden;
 
 			InitializeCommands();
-			
+
 			SubscribeToEverything();
 
 			dersToSend = null;
@@ -182,8 +182,8 @@ namespace DERMSApp.ViewModels
 			ShowAlarms = Visibility.Collapsed;
 		}
 
-	#region Properties
-	public List<NetworkRootViewModel> Roots // zasto je ovo lista?
+		#region Properties
+		public List<NetworkRootViewModel> Roots // zasto je ovo lista?
 		{
 			get { return _roots; }
 			set
@@ -333,7 +333,7 @@ namespace DERMSApp.ViewModels
 			}
 		}
 
-	
+
 
 		public BindableBase GenerationForecastVM
 		{
@@ -575,18 +575,18 @@ namespace DERMSApp.ViewModels
 		#region Private methods
 		private void ExecuteFilterCommand()
 		{
-			if(tempList.Count==0)
+			if (tempList.Count == 0)
 			{
-				foreach(TableSMItem item in DERS)
+				foreach (TableSMItem item in DERS)
 				{
 					tempList.Add(item);
 				}
 				DERS.Clear();
-				foreach(TableSMItem item in tempList)
+				foreach (TableSMItem item in tempList)
 				{
-					if(FilterType.Equals("Sun"))
+					if (FilterType.Equals("Sun"))
 					{
-						if(item.Der.FuelType == FTN.Common.FuelType.Sun)
+						if (item.Der.FuelType == FTN.Common.FuelType.Sun)
 						{
 							DERS.Add(item);
 						}
@@ -786,13 +786,13 @@ namespace DERMSApp.ViewModels
 			int counter = 0;
 			while (true)
 			{
-				if(DERS.Count != 0)
+				if (DERS.Count != 0)
 				{
 					break;
 				}
 				else
 				{
-					if(counter == 5)
+					if (counter == 5)
 					{
 						break;
 					}
@@ -801,9 +801,9 @@ namespace DERMSApp.ViewModels
 					Thread.Sleep(1000);
 				}
 
-   
+
 			}
-			
+
 			ActiveMinimum = Math.Round(DERS.Sum(o => o.PDecrease), 2);
 			ActiveMaximum = Math.Round(DERS.Sum(o => o.PIncrease), 2);
 			ActiveValue = Math.Round(DERS.Sum(o => o.CurrentP), 2);
@@ -817,7 +817,7 @@ namespace DERMSApp.ViewModels
 			if (ActiveValue != 0)
 			{
 				ActiveShareSun = Math.Round((SunPower / ActiveValue) * 100, 2);
-				if(ActiveShareSun > 100)
+				if (ActiveShareSun > 100)
 				{
 					ActiveShareSun = 100;
 				}
@@ -826,13 +826,13 @@ namespace DERMSApp.ViewModels
 			{
 				ActiveShareSun = 0;
 			}
-		   
+
 
 			GaugesVisibility = Visibility.Visible;
 		}
 
-        #region IDeltaNotifyCallback implementation
-        public void Refresh()
+		#region IDeltaNotifyCallback implementation
+		public void Refresh()
 		{
 			Roots = new List<NetworkRootViewModel>() { new NetworkRootViewModel(_ders) };
 			Roots[0].IsExpanded = false;
@@ -842,9 +842,9 @@ namespace DERMSApp.ViewModels
 			//Roots.Add(new NetworkRootViewModel(_ders));
 		}
 
-        #endregion IDeltaNotifyCallback implementation
+		#endregion IDeltaNotifyCallback implementation
 
-        DuplexChannelFactory<IDeltaNotify> factory = null;
+		DuplexChannelFactory<IDeltaNotify> factory = null;
 		IDeltaNotify proxy = null;
 
 		public void ConnectToCalculationEngine()

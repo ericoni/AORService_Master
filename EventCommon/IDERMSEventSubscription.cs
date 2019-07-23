@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace EventCommon
 {
+	/// <summary>
+	/// Has a <seealso cref="IDERMSEventSubscriptionCallback"/> interface.
+	/// </summary>
 	[ServiceContract(CallbackContract = typeof(IDERMSEventSubscriptionCallback))]
 	public interface IDERMSEventSubscription
 	{

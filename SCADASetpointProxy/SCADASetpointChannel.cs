@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace SCADAReceivingProxyNS
 {
-    public class SCADASetpointChannel : ClientBase<ISCADAReceiving>, ISCADAReceiving
-    {
-        public SCADASetpointChannel()
+	public class SCADASetpointChannel : ClientBase<ISCADAReceiving>, ISCADAReceiving
+	{
+		public SCADASetpointChannel()
 			: base("SCADAReceivingEndpoint")
 		{
-        }
-        public void ReceiveAndSetSetpoint(Setpoint setpoint)
-        {
-            this.Channel.ReceiveAndSetSetpoint(setpoint);
-        }
-    }
+		}
+		public void ReceiveAndSetSetpoint(Setpoint setpoint)
+		{
+			this.Channel.ReceiveAndSetSetpoint(setpoint);
+		}
+	}
 }

@@ -197,7 +197,6 @@ namespace ActiveAORCache.Helpers
 			List<AORCachedArea> aorAreas = new List<AORCachedArea>(10);
 			List<AORCachedArea> aorAreaReturnValue = new List<AORCachedArea>(10);
 
-
 			using (var access = new AccessDB())
 			{
 				aorAreas = access.Areas.Include(a => a.Groups.Select(y => y.SynchronousMachines)).Include("Users").ToList();
@@ -205,7 +204,7 @@ namespace ActiveAORCache.Helpers
 
 			if (aorAreas.Count == 0)// || user == null)
 			{
-				return new List<AORCachedArea>(1) { new AORCachedArea() { Name = "None" } }; // to do vratiti se jos na ovo
+				return new List<AORCachedArea>();
 			}
 
 			foreach (var area in aorAreas)
@@ -223,36 +222,36 @@ namespace ActiveAORCache.Helpers
 			return aorAreaReturnValue;
 		}
 
-		public static string[] GetAORAreasForUsername(string username)
+		public static List<string> GetAORAreasForUsername(string username)
 		{
-			string[] areas;
-			List<User> user = null;
+			List<string> areaNames = null;
+			User user = null;
 
 			using (var access = new AccessDB())
 			{
 				try
 				{
-					user = access.Users.Include("Areas").Where(u => u.Username.Equals(username)).ToList();
+					user = access.Users.Include("Areas").Where(u => u.Username.Equals(username)).FirstOrDefault();
 				}
 				catch (Exception e)
 				{
 					throw;
 				}
 
-				if (user.Count == 0)
+				if (user == null)
 				{
-					return new string[1] { "None" };
+					return new List<string>();
 				}
 
-				areas = new string[user[0].Areas.Count];
+				areaNames = new List<string>(user.Areas.Count);
 
-				for (int i = 0; i < user[0].Areas.Count; i++)
+				foreach (var area in user.Areas)
 				{
-					areas[i] = user[0].Areas[i].Name;
+					areaNames.Add(area.Name);
 				}
 			}
 
-			return areas;
+			return areaNames;
 		}
 
 		public static void SelectAreaForControl(string areaName, bool isSelectedForControl)

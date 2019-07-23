@@ -11,11 +11,13 @@ using System.Diagnostics;
 using FTN.Common.Logger;
 using ActiveAORCache.Helpers;
 using ActiveAORCache;
+using EventCollectorProxyNS;
+using System.Threading;
 
 namespace AORC.Acess
 {
 	/// <summary>
-	/// Made for DB population. Kobajagi ce ovo biti malo sigurnija varijanta, da ne radim dodjelu AOR area iz static neke klase.
+	/// Made for DB population. Kobajagi vise safe varijanta, da ne ide dodjela AOR area iz static neke klase.
 	/// </summary>
 	public class AORDatabaseHelper : IAORDatabaseHelper
 	{
@@ -64,11 +66,10 @@ namespace AORC.Acess
 			{
 				if (access.Users.Count() != 0)
 				{
-					string message = "Skipping user database fill (cache database is already populated.";
+					string message = "Skipping user database fill (cache database is already populated).";
 					Trace.Write(message);
 					LogHelper.Log(LogTarget.Database, LogService.AORManagement, message);
 				}
-
 				else
 				{
 					rdAdapter = new RDAdapter();
