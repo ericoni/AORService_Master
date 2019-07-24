@@ -19,34 +19,44 @@ namespace TestConsoleApp
 	{
 		static void Main(string[] args) //ima neka fora, on kreira svoju NOVU bazu "UsersDatabase7xxxxx" umjesto da koristi onu postojecu.
 		{
-            //AORManagementProxy aorManagementProxy = new AORManagementProxy();
-            //var areas = aorManagementProxy.Proxy.Login("testUsername", "a");
-            DERMSEventSubscription.Instance.NotifyClients(7, new Event("randomUsername", "randomDetalji", DateTime.Now));
+			DERMSEventClientCallback callback = new DERMSEventClientCallback();
+			IDERMSEventSubscription proxy = null;
 
-            Console.WriteLine("Prosao instance..");
+			DuplexChannelFactory<IDERMSEventSubscription> factory = new DuplexChannelFactory<IDERMSEventSubscription>(
+				new InstanceContext(callback),
+				new NetTcpBinding(),
+				new EndpointAddress("net.tcp://localhost:10047/IDERMSEvent"));
+			proxy = factory.CreateChannel();
+
+			proxy.Subscribe(new List<long>(1) { 8 });//hardcoded subscribe
+
+			AORManagementProxy aorManagementProxy = new AORManagementProxy();// prvo subscribe pa posle login
+			var areas = aorManagementProxy.Proxy.Login("testUsername", "a");
+
+			Console.WriteLine("Prosao main..");
 			Console.Read();
 		}
 
 		private void ClientRegularChannelTest()
 		{
-			ChannelFactory<IDERMSEventCollector> factory2 = new ChannelFactory<IDERMSEventCollector>(
-			  new NetTcpBinding(),
-			  new EndpointAddress("net.tcp://localhost:10048/IDERMSEventCollector"));
-			IDERMSEventCollector kanal = factory2.CreateChannel();
+			//ChannelFactory<IDERMSEventCollector> factory2 = new ChannelFactory<IDERMSEventCollector>(
+			//  new NetTcpBinding(),
+			//  new EndpointAddress("net.tcp://localhost:10048/IDERMSEventCollector"));
+			//IDERMSEventCollector kanal = factory2.CreateChannel();
 
-			Thread.Sleep(3000);
-			kanal.SendEvent(new Event { Details = "Nesto" });
+			//Thread.Sleep(3000);
+			//kanal.SendEvent(new Event { Details = "Nesto" });
 		}
 
-		private void ClientDuplexChannelTest()
+		static void ClientDuplexChannelTest()
 		{
 			DERMSEventClientCallback callback = new DERMSEventClientCallback();
 			IDERMSEventSubscription proxy = null;
 
 			DuplexChannelFactory<IDERMSEventSubscription> factory = new DuplexChannelFactory<IDERMSEventSubscription>(
-			    new InstanceContext(callback),
-			    new NetTcpBinding(),
-			    new EndpointAddress("net.tcp://localhost:10047/IDERMSEvent"));
+				new InstanceContext(callback),
+				new NetTcpBinding(),
+				new EndpointAddress("net.tcp://localhost:10047/IDERMSEvent"));
 			proxy = factory.CreateChannel();
 
 			proxy.Subscribe(new List<long>(1) { 7 });

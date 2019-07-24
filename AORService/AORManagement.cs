@@ -62,7 +62,7 @@ namespace AORService
 			string areasCombinedString = AreasCombinedString(aorCachedAreas);
 
 			var p = Thread.CurrentPrincipal;
-			eventCollectorProxy = new EventCollectorProxy(); //to do izbaciti posle u konstruktor
+			eventCollectorProxy = new EventCollectorProxy(); //to do izbaciti ga posle u konstruktor
 			eventCollectorProxy.Proxy.SendEvent(new Event(username, "User logged in with specified AOR areas: " + areasCombinedString, DateTime.Now));
 
 			return aorCachedAreas;

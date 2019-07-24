@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace EventCommon
 {
 	/// <summary>
+	/// Handles client's subscribe/unsubscribe request.
 	/// Has a <seealso cref="IDERMSEventSubscriptionCallback"/> interface.
 	/// </summary>
 	[ServiceContract(CallbackContract = typeof(IDERMSEventSubscriptionCallback))]

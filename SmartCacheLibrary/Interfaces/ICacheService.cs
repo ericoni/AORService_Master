@@ -6,19 +6,19 @@ using System.ServiceModel;
 
 namespace SmartCacheLibrary.Interfaces
 {
-    /// <summary>
-    /// GPH Quick Message Service Operations
-    /// </summary>
-    [ServiceContract(CallbackContract = typeof(ICacheServiceCallback))]
-    public interface ICacheService
-    {
-        [OperationContract]
-        int Register(string userName);
+	/// <summary>
+	/// GPH Quick Message Service Operations. Has a <seealso cref="ICacheServiceCallback"/>  callback interface.
+	/// </summary>
+	[ServiceContract(CallbackContract = typeof(ICacheServiceCallback))]
+	public interface ICacheService
+	{
+		[OperationContract]
+		int Register(string userName);
 
-        [OperationContract(IsOneWay = true)]
-        void ReceiveCache(string userName, List<string> addressList);
+		[OperationContract(IsOneWay = true)]
+		void ReceiveCache(string userName, List<string> addressList);
 
-        [OperationContract]
-        int Unregister(string userName);
-    }
+		[OperationContract]
+		int Unregister(string userName);
+	}
 }

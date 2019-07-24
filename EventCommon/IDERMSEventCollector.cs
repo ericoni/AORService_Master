@@ -7,10 +7,13 @@ using System.Threading.Tasks;
 
 namespace EventCommon
 {
-    [ServiceContract]
-    public interface IDERMSEventCollector
-    {
-        [OperationContract]
-        void SendEvent(Event e);
-    }
+	/// <summary>
+	/// Method for event information collecting.
+	/// </summary>
+	[ServiceContract]
+	public interface IDERMSEventCollector
+	{
+		[OperationContract]
+		void SendEvent(Event e);
+	}
 }

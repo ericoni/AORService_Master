@@ -203,6 +203,7 @@ namespace DERMSApp.ViewModels
 				return false;
 			}
 
+			CurrentViewModel = new EntireNetworkViewModel(new List<AORCachedArea>()); // to do jako je bitno vratiti ga ovde 24.7.
 			var aorAreas = aorManagementProxy.Proxy.Login(TextBoxUsernameText, TextBoxPasswordText);
 
 			if (aorAreas.Count == 0)
@@ -215,7 +216,7 @@ namespace DERMSApp.ViewModels
 			{
 				IsUserAuthenticated = true;
 				LoginGridVisibility = false;
-				CurrentViewModel = new EntireNetworkViewModel(aorAreas);
+				//CurrentViewModel = new EntireNetworkViewModel(aorAreas); // to do jako je bitno vratiti ga ovde 24.7.
 				//CurrentViewModel = _tabularViewModel;
 				DataTemplatesVisibility = true; // ovo ili probati sa onim event djavolima, sta je datatemplates jbt
 				return true;

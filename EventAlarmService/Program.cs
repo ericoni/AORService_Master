@@ -15,26 +15,12 @@ namespace EventAlarmService
 		{
 			try
 			{
-				//string message = "Starting EventAlarmCollectorService...\n";
-				//Console.WriteLine("\n{0}\n", message);
-				//EventAlarmCollectorService eventAlarmService = new EventAlarmCollectorService();
-				//eventAlarmService.Start();
-
-				//EventAlarmSubscriptionService eventAlarmSubService = new EventAlarmSubscriptionService();
-				//eventAlarmSubService.Start();
-
-				/// ovo je stajalo i prije 22.07. comment
-				//EventSubscriberCallback eventSubCallback = new EventSubscriberCallback();
-				//EventSubscriberProxy eventSubProxy = new EventSubscriberProxy(eventSubCallback);
-				//eventSubProxy.SubscribeToAORAreas(new HashSet<long>());
-
-				DERMSEventSubscription dermsEvent = new DERMSEventSubscription();
 				DERMSEventCollector eventCollector = new DERMSEventCollector();
 
 				ServiceHost svc = new ServiceHost(DERMSEventSubscription.Instance);
-                //ServiceHost svc = new ServiceHost(dermsEvent);
-                //ServiceHost svc = new ServiceHost(typeof(DERMSEvent));
-                svc.AddServiceEndpoint(typeof(IDERMSEventSubscription),
+				//ServiceHost svc = new ServiceHost(dermsEvent);
+				//ServiceHost svc = new ServiceHost(typeof(DERMSEvent));
+				svc.AddServiceEndpoint(typeof(IDERMSEventSubscription),
 				new NetTcpBinding(),
 				new Uri(("net.tcp://localhost:10047/IDERMSEvent")));
 
@@ -59,6 +45,22 @@ namespace EventAlarmService
 				Console.WriteLine("Event Service startup failed.");
 				Console.ReadLine();
 			}
+		}
+
+		private void RandomKod()
+		{
+			//string message = "Starting EventAlarmCollectorService...\n";
+			//Console.WriteLine("\n{0}\n", message);
+			//EventAlarmCollectorService eventAlarmService = new EventAlarmCollectorService();
+			//eventAlarmService.Start();
+
+			//EventAlarmSubscriptionService eventAlarmSubService = new EventAlarmSubscriptionService();
+			//eventAlarmSubService.Start();
+
+			/// ovo je stajalo i prije 22.07. comment
+			//EventSubscriberCallback eventSubCallback = new EventSubscriberCallback();
+			//EventSubscriberProxy eventSubProxy = new EventSubscriberProxy(eventSubCallback);
+			//eventSubProxy.SubscribeToAORAreas(new HashSet<long>());
 		}
 	}
 }

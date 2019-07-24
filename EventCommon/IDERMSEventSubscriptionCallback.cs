@@ -14,7 +14,12 @@ namespace EventCommon
 	[ServiceContract]
 	public interface IDERMSEventSubscriptionCallback
 	{
-		[OperationContract(IsOneWay = true)] // IsOneWay valjda govori da li je neblokirajuci poziv
+		/// <summary>
+		/// IsOneWay valjda govori da li je neblokirajuci poziv.
+		/// Enable the service to call back even when the concurrency mode is set to single-threaded,
+		/// because there will not be any reply message to contend for the lock
+		/// </summary>
+		[OperationContract(IsOneWay = true)] 
 		void ReceiveEvent(Event e);
 	}
 }

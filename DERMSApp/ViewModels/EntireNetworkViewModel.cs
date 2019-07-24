@@ -128,9 +128,9 @@ namespace DERMSApp.ViewModels
 
 			InitializeCommands();
 			SubscribeToEverything();
-            SubscribeForEvents();// to do vratiti se i konvertovati areas u stringove
+			SubscribeForEvents();// to do vratiti se i konvertovati areas u stringove
 
-            dersToSend = null;
+			dersToSend = null;
 			derToSend = null;
 			selectedGid = -1;
 
@@ -709,19 +709,19 @@ namespace DERMSApp.ViewModels
 			ShowForecast = Visibility.Visible;
 		}
 
-        private void SubscribeForEvents()
-        {
-            DERMSEventClientCallback callback = new DERMSEventClientCallback();
-            IDERMSEventSubscription proxy = null;
+		private void SubscribeForEvents()
+		{
+			DERMSEventClientCallback callback = new DERMSEventClientCallback();
+			IDERMSEventSubscription proxy = null;
 
-            DuplexChannelFactory<IDERMSEventSubscription> factory = new DuplexChannelFactory<IDERMSEventSubscription>(
-                new InstanceContext(callback),
-                new NetTcpBinding(),
-                new EndpointAddress("net.tcp://localhost:10047/IDERMSEvent"));
-            proxy = factory.CreateChannel();
+			DuplexChannelFactory<IDERMSEventSubscription> factory = new DuplexChannelFactory<IDERMSEventSubscription>(
+				new InstanceContext(callback),
+				new NetTcpBinding(),
+				new EndpointAddress("net.tcp://localhost:10047/IDERMSEvent"));
+			proxy = factory.CreateChannel();
 
-            proxy.Subscribe(new List<long>(1) { 7 });
-        }
+			proxy.Subscribe(new List<long>(1) { 7 });//hardcoded subscribe
+		}
 
 		#endregion Private methods
 
@@ -853,9 +853,9 @@ namespace DERMSApp.ViewModels
 		DuplexChannelFactory<IDeltaNotify> factory = null;
 		IDeltaNotify proxy = null;
 
-        /// <summary>
-        /// Ne znam od kad je zakomentarisano.
-        /// </summary>
+		/// <summary>
+		/// Ne znam od kad je zakomentarisano.
+		/// </summary>
 		public void ConnectToCalculationEngine()
 		{
 			//factory = new DuplexChannelFactory<IDeltaNotify>(

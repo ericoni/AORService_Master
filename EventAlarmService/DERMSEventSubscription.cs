@@ -15,24 +15,30 @@ namespace EventAlarmService
 	[ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
 	public class DERMSEventSubscription : IDERMSEventSubscription
 	{
-		List<IDERMSEventSubscriptionCallback> callbacks = null;
-		private Dictionary<IDERMSEventSubscriptionCallback, List<long>> subscribers;
-        static DERMSEventSubscription instance = null;
+		#region Field
+		List<IDERMSEventSubscriptionCallback> callbacks = new List<IDERMSEventSubscriptionCallback>();
+		static List<IDERMSEventSubscriptionCallback> callbacks2 = new List<IDERMSEventSubscriptionCallback>();
+		static Dictionary<IDERMSEventSubscriptionCallback, List<long>> subscribers = new Dictionary<IDERMSEventSubscriptionCallback, List<long>>();
+		Dictionary<IDERMSEventSubscriptionCallback, List<long>> subscribers2 = new Dictionary<IDERMSEventSubscriptionCallback, List<long>>();
+		static DERMSEventSubscription instance = null;
+		int counterForCst = 0;
+		#endregion Field
 
-        public static DERMSEventSubscription Instance
-        {
-            get
-            {
-                if (instance == null)
-                    return new DERMSEventSubscription();
-                return instance;
-            }
-        }
+		public static DERMSEventSubscription Instance
+		{
+			get
+			{
+				if (instance == null)
+					return new DERMSEventSubscription();
+				return instance;
+			}
+		}
 
 		public DERMSEventSubscription()
 		{
-			callbacks = new List<IDERMSEventSubscriptionCallback>();
-			subscribers = new Dictionary<IDERMSEventSubscriptionCallback, List<long>>();
+			counterForCst++;
+			//callbacks = new List<IDERMSEventSubscriptionCallback>();
+			//subscribers = new Dictionary<IDERMSEventSubscriptionCallback, List<long>>();
 		}
 
 		#region IDERMSEvent
@@ -46,28 +52,44 @@ namespace EventAlarmService
 			IDERMSEventSubscriptionCallback callback = context.GetCallbackChannel<IDERMSEventSubscriptionCallback>();
 
 			subscribers.Add(callback, areaGids); //to do add validation
+			subscribers2.Add(callback, areaGids); //to do add validation
 
 			if (callbacks.Contains(callback) == false)
 				callbacks.Add(callback);
+			if (callbacks2.Contains(callback) == false)
+				callbacks2.Add(callback);
 		}
 
 		public void Unsubscribe()
 		{
-            OperationContext context = OperationContext.Current;
-            IDERMSEventSubscriptionCallback callback = context.GetCallbackChannel<IDERMSEventSubscriptionCallback>();
+			OperationContext context = OperationContext.Current;
+			IDERMSEventSubscriptionCallback callback = context.GetCallbackChannel<IDERMSEventSubscriptionCallback>();
 
-            if (callbacks.Contains(callback) == true)
-                callbacks.Remove(callback);
-        }
+			if (callbacks.Contains(callback) == true)
+				callbacks.Remove(callback);
+		}
 		#endregion IDERMSEvent
 
 		public void NotifyClients(long gid, Event e)
 		{
 			foreach (KeyValuePair<IDERMSEventSubscriptionCallback, List<long>> entry in subscribers)
-			{
+			{//to do problem prazna lista subscribers
+
 				if (entry.Value.Contains(gid))
 				{
-					entry.Key.ReceiveEvent(e);
+					try
+					{
+						entry.Key.ReceiveEvent(e);
+					}
+					catch (ObjectDisposedException)
+					{
+						throw;
+					}
+					catch (Exception)
+					{
+
+						throw;
+					}
 				}
 			}
 			//Action<IDERMSEventSubscriptionCallback> invoke = callback => callback.ReceiveEvent(message);

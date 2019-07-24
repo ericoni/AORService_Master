@@ -6,10 +6,13 @@ using System.ServiceModel;
 
 namespace SmartCacheLibrary.Interfaces
 {
-    public interface ICacheServiceCallback
-    {
-        [OperationContract(IsOneWay = true)] // Govori da li je neblokirajuci poziv, kada se odradi poziv
-        void NotifyUserOfCache(string userName, /*string cache*/Cache cache);
+	/// <summary>
+	/// Callback interface for <seealso cref="ICacheService"/>.
+	/// </summary>
+	public interface ICacheServiceCallback
+	{
+		[OperationContract(IsOneWay = true)] // Govori da li je neblokirajuci poziv, kada se odradi poziv
+		void NotifyUserOfCache(string userName, /*string cache*/Cache cache);
 
-    }
+	}
 }
