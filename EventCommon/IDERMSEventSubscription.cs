@@ -15,7 +15,7 @@ namespace EventCommon
 	public interface IDERMSEventSubscription
 	{
 		[OperationContract]
-		void Subscribe(List<long> gids);
+		void Subscribe(List<string> areaNames);
 		[OperationContract]
 		void Unsubscribe();
 	}

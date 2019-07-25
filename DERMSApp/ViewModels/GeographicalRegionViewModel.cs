@@ -17,9 +17,9 @@ using Adapter;
 
 namespace DERMSApp.ViewModels
 {
-    /// <summary>
-    /// Contains subregions.
-    /// </summary>
+	/// <summary>
+	/// Contains subregions.
+	/// </summary>
 	public class GeographicalRegionViewModel : TreeViewItemViewModel
 	{
 		readonly GeographicalRegion _region;
@@ -159,9 +159,10 @@ namespace DERMSApp.ViewModels
 				_ders.Add(item);
 			}
 
+			string regionName = rdAdapter.GetRegionByGid(_region.GlobalId).Name;
 			base.IsSelected = true;
 			EventSystem.Publish<ObservableCollection<TableSMItem>>(_ders);
-			EventSystem.Publish<ForecastObjData>(new ForecastObjData() { Gid = _region.GlobalId, Power = true, IsGroup = true });
+			EventSystem.Publish<ForecastObjData>(new ForecastObjData() { Gid = _region.GlobalId, Power = true, IsGroup = true, Region = regionName });
 		}
 	}
 }

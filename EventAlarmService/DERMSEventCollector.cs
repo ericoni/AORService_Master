@@ -16,28 +16,28 @@ namespace EventAlarmService
 	public class DERMSEventCollector : IDERMSEventCollector
 	{
 		static DERMSEventCollector instance;
-        private static object syncRoot = new Object();
+		private static object syncRoot = new Object();
 
-        public static DERMSEventCollector Instance
+		public static DERMSEventCollector Instance
 		{
-            get
-            {
-                if (instance == null)
-                {
-                    lock (syncRoot)
-                    {
-                        if (instance == null)
-                            instance = new DERMSEventCollector();
-                    }
-                }
+			get
+			{
+				if (instance == null)
+				{
+					lock (syncRoot)
+					{
+						if (instance == null)
+							instance = new DERMSEventCollector();
+					}
+				}
 
-                return instance;
-            }
-        }
+				return instance;
+			}
+		}
 		public void SendEvent(Event e)
 		{
 			//Event ev = new Event("randomUsername", "randomDetalji", DateTime.Now);
-			DERMSEventSubscription.Instance.NotifyClients(7, e);//Problem ovo dovodi do instanciranja novog objekta (iako bi ne bi trebalo zbog postojeceg pa sam uveo static polja tamo)
+			DERMSEventSubscription.Instance.NotifyClients("a", e);
 		}
 	}
 }

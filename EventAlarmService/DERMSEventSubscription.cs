@@ -17,29 +17,29 @@ namespace EventAlarmService
 	{
 		#region Fields
 		List<IDERMSEventSubscriptionCallback> callbacks = new List<IDERMSEventSubscriptionCallback>();
-		static Dictionary<IDERMSEventSubscriptionCallback, List<long>> subscribers = new Dictionary<IDERMSEventSubscriptionCallback, List<long>>();
-		Dictionary<IDERMSEventSubscriptionCallback, List<long>> subscribers2 = new Dictionary<IDERMSEventSubscriptionCallback, List<long>>();
+		static Dictionary<IDERMSEventSubscriptionCallback, List<string>> subscribers = new Dictionary<IDERMSEventSubscriptionCallback, List<string>>();
+		Dictionary<IDERMSEventSubscriptionCallback, List<string>> subscribers2 = new Dictionary<IDERMSEventSubscriptionCallback, List<string>>();
 		static DERMSEventSubscription instance = null;
-        private static object syncRoot = new Object();
-        int counterForCst = 0;
+		private static object syncRoot = new Object();
+		int counterForCst = 0;
 		#endregion Fields
 
 		public static DERMSEventSubscription Instance
 		{
-            get
-            {
-                if (instance == null)
-                {
-                    lock (syncRoot)
-                    {
-                        if (instance == null)
-                            instance = new DERMSEventSubscription();
-                    }
-                }
+			get
+			{
+				if (instance == null)
+				{
+					lock (syncRoot)
+					{
+						if (instance == null)
+							instance = new DERMSEventSubscription();
+					}
+				}
 
-                return instance;
-            }
-        }
+				return instance;
+			}
+		}
 
 		public DERMSEventSubscription()
 		{
@@ -49,17 +49,13 @@ namespace EventAlarmService
 		}
 
 		#region IDERMSEvent
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="areaGids"></param>
-		public void Subscribe(List<long> areaGids)
+		public void Subscribe(List<string> areaNames)
 		{
 			OperationContext context = OperationContext.Current;
 			IDERMSEventSubscriptionCallback callback = context.GetCallbackChannel<IDERMSEventSubscriptionCallback>();
 
-			subscribers.Add(callback, areaGids); //to do add validation
-			subscribers2.Add(callback, areaGids); //to do add validation
+			subscribers.Add(callback, areaNames); //to do add validation
+			subscribers2.Add(callback, areaNames); //to do add validation
 
 			if (callbacks.Contains(callback) == false)
 				callbacks.Add(callback);
@@ -75,22 +71,22 @@ namespace EventAlarmService
 		}
 		#endregion IDERMSEvent
 
-		public void NotifyClients(long gid, Event e)
+		public void NotifyClients(string areaName, Event e)
 		{
-            List<IDERMSEventSubscriptionCallback> callbacksToRemove = new List<IDERMSEventSubscriptionCallback>();
+			List<IDERMSEventSubscriptionCallback> callbacksToRemove = new List<IDERMSEventSubscriptionCallback>();
 
-            foreach (KeyValuePair<IDERMSEventSubscriptionCallback, List<long>> subscriber in subscribers)
+			foreach (KeyValuePair<IDERMSEventSubscriptionCallback, List<string>> subscriber in subscribers)
 			{
-				if (subscriber.Value.Contains(gid))
+				if (subscriber.Value.Contains(areaName))
 				{
 					try
 					{
-                        subscriber.Key.ReceiveEvent(e);
+						subscriber.Key.ReceiveEvent(e);
 					}
 					catch (System.ServiceModel.CommunicationObjectAbortedException)
 					{
-                        callbacksToRemove.Add(subscriber.Key);
-                        continue;
+						callbacksToRemove.Add(subscriber.Key);
+						continue;
 					}
 					catch (Exception)
 					{
@@ -98,7 +94,7 @@ namespace EventAlarmService
 					}
 				}
 			}
-            callbacksToRemove.ForEach(a => subscribers.Remove(a));
+			callbacksToRemove.ForEach(a => subscribers.Remove(a));
 			//Action<IDERMSEventSubscriptionCallback> invoke = callback => callback.ReceiveEvent(message);
 			//callbacks.ForEach(invoke);
 		}

@@ -26,10 +26,10 @@ namespace AORManagementProxyNS
 			throw new NotImplementedException(); // to do jun
 		}
 
-		//public List<string> GetAORAreasForUsername(string username) // to do ubaciti ovde ili u neki zajednici interfejs za pristupanje kesu
-		//{
-		//	return this.Channel.GetAORAreasForUsername(username);
-		//}
+		public List<string> GetAORAreasForUsername(string username) // to do ubaciti ovde ili u neki zajednici interfejs za pristupanje kesu
+		{
+			return this.Channel.GetAORAreasForUsername(username);
+		}
 
 		public List<AORCachedArea> Login(string username, string password)
 		{

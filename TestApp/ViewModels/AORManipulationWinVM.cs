@@ -18,20 +18,19 @@ namespace TestApp.ViewModels
 	{
 		AORCacheAccessChannel aorCacheProxy = null;
 		ObservableCollection<AORModel> observableAreas = null;
-		ObservableCollection<EventModel> events = null;
+		//ObservableCollection<EventModel> events = null;//ne znam zasto sam ovo ubacio 25.7.
 
 		public AORManipulationWinVM()
 		{
 			FetchAndShowAORAreas();
-			var tempEvents = new List<EventModel>(3) { new EventModel("a", "poruka1", "region1"), new EventModel("b", "poruka1", "region1"), new EventModel("c", "poruka1", "region1") };
-			Events = new ObservableCollection<EventModel>(tempEvents);
+			//var tempEvents = new List<EventModel>(3) { new EventModel("a", "poruka1", "region1"), new EventModel("b", "poruka1", "region1"), new EventModel("c", "poruka1", "region1") };
+			//Events = new ObservableCollection<EventModel>(tempEvents);
 		}
 
 		private void FetchAndShowAORAreas()
 		{
 			aorCacheProxy = new AORCacheAccessChannel();
-			HashSet<AORCachedArea> cachedAreas;
-			cachedAreas = new HashSet<AORCachedArea>() { new AORCachedArea() { Name = "prvaTest" }, new AORCachedArea() { Name = "drugaTest" } };
+			HashSet<AORCachedArea> cachedAreas = new HashSet<AORCachedArea>() { new AORCachedArea() { Name = "prvaTest" }, new AORCachedArea() { Name = "drugaTest" } };
 
 			//try
 			//{
@@ -51,21 +50,22 @@ namespace TestApp.ViewModels
 			}
 			observableAreas[0].UsersCoveringArea = new HashSet<string>();
 		}
-		public ObservableCollection<EventModel> Events
-		{
-			get
-			{
-				return events;
-			}
-			set
-			{
-				//if (areas != value)
-				//{
-				events = value;
-				OnPropertyChanged("Events");
-				//}
-			}
-		}
+
+		//public ObservableCollection<EventModel> Events
+		//{
+		//	get
+		//	{
+		//		return events;
+		//	}
+		//	set
+		//	{
+		//		//if (areas != value)
+		//		//{
+		//		events = value;
+		//		OnPropertyChanged("Events");
+		//		//}
+		//	}
+		//}
 
 	}
 }

@@ -15,6 +15,7 @@ using FTN.Services.NetworkModelService.DataModel.Meas;
 using DERMSApp.Model;
 using AORManagementProxyNS;
 using FTN.Common.AORCachedModel;
+using EventCommon;
 
 namespace DERMSApp.ViewModels
 {
@@ -204,6 +205,9 @@ namespace DERMSApp.ViewModels
 			}
 
 			CurrentViewModel = new EntireNetworkViewModel(new List<AORCachedArea>()); // to do jako je bitno vratiti ga ovde 24.7.
+			//var aorAreasStrings = aorManagementProxy.Proxy.GetAORAreasForUsername(TextBoxUsernameText); //to do vratiti se vrati se ovde obavezno. Znaci prvo sub pa onda Login.
+			//SubscribeEntireVMForEvents(aorAreasStrings);
+
 			var aorAreas = aorManagementProxy.Proxy.Login(TextBoxUsernameText, TextBoxPasswordText);
 
 			if (aorAreas.Count == 0)
@@ -217,6 +221,8 @@ namespace DERMSApp.ViewModels
 				IsUserAuthenticated = true;
 				LoginGridVisibility = false;
 				//CurrentViewModel = new EntireNetworkViewModel(aorAreas); // to do jako je bitno vratiti ga ovde 24.7.
+				//CurrentViewModel = new EntireNetworkViewModel(new List<AORCachedArea>()); // to do jako je bitno vratiti ga ovde 24.7., 25.7.
+
 				//CurrentViewModel = _tabularViewModel;
 				DataTemplatesVisibility = true; // ovo ili probati sa onim event djavolima, sta je datatemplates jbt
 				return true;
@@ -243,6 +249,20 @@ namespace DERMSApp.ViewModels
 			//ShowNetwork = Visibility.Visible;
 			//ShowApplyDelta = Visibility.Collapsed;
 		}
+
+		private void SubscribeEntireVMForEvents(List<string> areaNames)
+		{
+			IDERMSEventSubscription proxy = null;
+
+			DuplexChannelFactory<IDERMSEventSubscription> factory = new DuplexChannelFactory<IDERMSEventSubscription>(
+				new InstanceContext(this),
+				new NetTcpBinding(),
+				new EndpointAddress("net.tcp://localhost:10047/IDERMSEvent"));
+			proxy = factory.CreateChannel();
+
+			proxy.Subscribe(areaNames);
+		}
+
 
 		private void ExecuteShowAORManagementCommand()
 		{

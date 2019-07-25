@@ -42,7 +42,7 @@
 					<MenuItem Header="Load delta" Command="{Binding FirstViewCommand}"/>
 				</MenuItem>
 				<MenuItem Header="Manage AORs" Command="{Binding ShowAORManagementCommand}" VerticalContentAlignment="Center" Visibility="Collapsed"></MenuItem>
-				<MenuItem Header="Login" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Right" Command="{Binding LoginCommand}">
+				<MenuItem Header="Logout" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Right">
 				</MenuItem>
 				<!--Button Width="88"
 					Height="23"

@@ -2,10 +2,13 @@
 
 namespace FTN.Common.Services
 {
-    [ServiceContract]
-    public interface IDeltaNotifyCallback
-    {
-        [OperationContract]
-        void Refresh();
-    }
+	/// <summary>
+	/// Callback interface for <seealso cref="IDeltaNotify"/> interface.
+	/// </summary>
+	[ServiceContract]
+	public interface IDeltaNotifyCallback
+	{
+		[OperationContract]
+		void Refresh();
+	}
 }

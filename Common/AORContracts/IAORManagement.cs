@@ -25,7 +25,7 @@ namespace FTN.Common.AORContract
 		[OperationContract]
 		List<long> GetUsersSynchronousMachines();
 
-		//[OperationContract]
-		//List<string> GetAORAreasForUsername(string username); // to do voo bi trebalo premjestiti, da ima jedinstven pristup cache-u
+		[OperationContract]
+		List<string> GetAORAreasForUsername(string username); // to do ovo bi trebalo premjestiti, da ima jedinstven pristup cache-u
 	}
 }

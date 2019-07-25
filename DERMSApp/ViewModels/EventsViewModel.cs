@@ -21,11 +21,11 @@ namespace DERMSApp.ViewModels
 
 		public EventsViewModel()
 		{
-			List<EventModel> tempList = new List<EventModel>(3) { new EventModel("a", "p", "r"), new EventModel("a", "User admin has logged in.", "r"), new EventModel("a", "p3", "r") };
-            //Events = new ObservableCollection<EventModel>(tempList);
-            Events = new ObservableCollection<EventModel>();
+			//List<EventModel> tempList = new List<EventModel>(3) { new EventModel("a", "p", "r", DateTime.Now, DateTime.Now), new EventModel("a", "p3", "r", DateTime.Now, DateTime.Now) };
+			//Events = new ObservableCollection<EventModel>(tempList);
+			Events = new ObservableCollection<EventModel>();
 
-            EventSystem.Subscribe<Event>(UpdateEventData);//to do vrati se i zavrsi ovu komunikaciju iz jednog u drugi VM
+			EventSystem.Subscribe<Event>(UpdateEventData);
 
 			ClearEventsCommand = new RelayCommand(() => ExecuteClearEventsCommand());
 		}
@@ -50,10 +50,16 @@ namespace DERMSApp.ViewModels
 			Events = new ObservableCollection<EventModel>();
 		}
 
-        private void UpdateEventData(Event e)//to do prikazi pristigle podatke na data grid-u
-        {
-            
-        }
-        #endregion Private methods
-    }
+		private void UpdateEventData(Event e)
+		{
+			EventModel eventModel =  ConvertEventToModel(e);
+			Events.Add(eventModel);
+		}
+
+		private EventModel ConvertEventToModel(Event e)
+		{
+			return new EventModel(e.Username, e.Details, e.Region, e.FieldTimestamp, DateTime.Now);
+		}
+		#endregion Private methods
+	}
 }

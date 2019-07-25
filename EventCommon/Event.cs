@@ -12,15 +12,17 @@ namespace EventCommon
 	{
 		public Event() { }
 
-		public Event(string username, string details, DateTime timestamp)
+		public Event(string username, string details, string region, DateTime fieldTimestamp)
 		{
 			Username = username;
 			Details = details;
-			Timestamp = timestamp;
+			Region = region;
+			FieldTimestamp = fieldTimestamp;
 		}
 
 		public string Username { get; set; }
 		public string Details { get; set; }
-		public DateTime Timestamp { get; set; }
+		public string Region { get; set; }
+		public DateTime FieldTimestamp { get; set; }
 	}
 }

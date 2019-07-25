@@ -270,7 +270,7 @@ namespace DERMSApp.ViewModels
 
 		private void LoadChartDataThread()
 		{
-            return;// to do weather foreceast chart data vrati se 
+			return;// to do weather foreceast chart data vrati se 
 			ForecastSeries_Y[0].Values.Clear();
 			ForecastSeries_Y[1].Values.Clear();
 			ForecastSeries_Y[2].Values.Clear();
@@ -425,6 +425,10 @@ namespace DERMSApp.ViewModels
 			dialogBox.ShowDialog();
 		}
 
+		/// <summary>
+		/// Ova se metoda pozove kad se radi "Execute". To do vrati se ovde za event.
+		/// </summary>
+		/// <param name="newCommand"></param>
 		private void CheckAndExecuteCommand(Command newCommand)
 		{
 			if (CommandProxy.Proxy.CommandExists(SelectedDER, powerType))
@@ -444,7 +448,8 @@ namespace DERMSApp.ViewModels
 						StopEnabled = commandExist;
 
 						localSemapthore.Release();
-
+						
+						//to do mislim da je ovo potrebno ubaciti neki notify
 						//Thread.Sleep(2000);
 						//LoadChartData();
 						//DisplayPowerAndFlexibility(this.DERS, this._der);

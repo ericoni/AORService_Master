@@ -13,8 +13,8 @@ namespace EventCommon
 	{
 		public void ReceiveEvent(Event e)
 		{
-            //EventSystem.Publish<string>("ShowTable");
-        }
-    }
+			//EventSystem.Publish<string>("ShowTable");
+		}
+	}
 }
 	

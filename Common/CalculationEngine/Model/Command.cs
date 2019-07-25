@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace FTN.Common.CalculationEngine.Model
 {
-    [DataContract]
+	[DataContract]
 	public class Command
 	{
 		private string mrid = "";
+		private string region;
 		private long globalId;
 		private float demandedPower;
 		private PowerType powerType;
@@ -23,7 +24,21 @@ namespace FTN.Common.CalculationEngine.Model
 		private int duration;
 		private OptimizationType optimizationType;
 
-        [DataMember]
+		[DataMember]
+		public string Region
+		{
+			get
+			{
+				return region;
+			}
+
+			set
+			{
+				region = value;
+			}
+		}
+
+		[DataMember]
 		public long GlobalId
 		{
 			get
@@ -37,8 +52,8 @@ namespace FTN.Common.CalculationEngine.Model
 			}
 		}
 
-        [DataMember]
-        public float DemandedPower
+		[DataMember]
+		public float DemandedPower
 		{
 			get
 			{
@@ -51,8 +66,8 @@ namespace FTN.Common.CalculationEngine.Model
 			}
 		}
 
-        [DataMember]
-        public PowerType PowerType
+		[DataMember]
+		public PowerType PowerType
 		{
 			get
 			{
@@ -65,8 +80,8 @@ namespace FTN.Common.CalculationEngine.Model
 			}
 		}
 
-        [DataMember]
-        public long EndTime
+		[DataMember]
+		public long EndTime
 		{
 			get
 			{
@@ -79,8 +94,8 @@ namespace FTN.Common.CalculationEngine.Model
 			}
 		}
 
-        [DataMember]
-        public int Duration
+		[DataMember]
+		public int Duration
 		{
 			get
 			{
@@ -93,8 +108,8 @@ namespace FTN.Common.CalculationEngine.Model
 			}
 		}
 
-        [DataMember]
-        public OptimizationType OptimizationType
+		[DataMember]
+		public OptimizationType OptimizationType
 		{
 			get
 			{
@@ -107,8 +122,8 @@ namespace FTN.Common.CalculationEngine.Model
 			}
 		}
 
-        [DataMember]
-        public string Mrid
+		[DataMember]
+		public string Mrid
 		{
 			get
 			{
@@ -120,8 +135,8 @@ namespace FTN.Common.CalculationEngine.Model
 			}
 		}
 
-        [DataMember]
-        public long StartTime
+		[DataMember]
+		public long StartTime
 		{
 			get
 			{
@@ -134,7 +149,7 @@ namespace FTN.Common.CalculationEngine.Model
 			}
 		}
 
-        public Command() { }
+		public Command() { }
 
 		public Command(long globalId, float demandedPower, PowerType powerType, int duration, OptimizationType optimizationType)
 		{

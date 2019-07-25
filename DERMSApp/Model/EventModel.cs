@@ -7,22 +7,24 @@ using System.Threading.Tasks;
 
 namespace DERMSApp.Model
 {
-    /// <summary>
-    /// To be decided difference between EventModel and Event
-    /// </summary>
+	/// <summary>
+	/// Event model for UI presentation. To do mozda izbaciti bindable base.
+	/// </summary>
 	public class EventModel : BindableBase
 	{
 		private string username;
 		private string details;
 		private string region;
-		private DateTime timestamp;
+		private DateTime systemTimestamp;
+		private DateTime fieldTimestamp;
 
-		public EventModel(string username, string details, string region)
+		public EventModel(string username, string details, string region, DateTime fieldTimestamp, DateTime systemTimestamp)
 		{
 			this.Username = username;
 			this.Details = details;
 			this.Region = region;
-			this.Timestamp = timestamp;
+			this.FieldTimestamp = fieldTimestamp;
+			this.SystemTimestamp = systemTimestamp;
 		}
 
 		public string Username
@@ -39,7 +41,7 @@ namespace DERMSApp.Model
 		}
 
 		public string Details
-        {
+		{
 			get { return details; }
 			set
 			{
@@ -64,15 +66,28 @@ namespace DERMSApp.Model
 			}
 		}
 
-		public DateTime Timestamp
+		public DateTime SystemTimestamp
 		{
-			get { return timestamp; }
+			get { return systemTimestamp; }
 			set
 			{
-				if (timestamp != value)
+				if (systemTimestamp != value)
 				{
-					timestamp = value;
-					OnPropertyChanged("Timestamp");
+					systemTimestamp = value;
+					OnPropertyChanged("SystemTimestamp");
+				}
+			}
+		}
+
+		public DateTime FieldTimestamp
+		{
+			get { return fieldTimestamp; }
+			set
+			{
+				if (fieldTimestamp != value)
+				{
+					fieldTimestamp = value;
+					OnPropertyChanged("FieldTimestamp");
 				}
 			}
 		}

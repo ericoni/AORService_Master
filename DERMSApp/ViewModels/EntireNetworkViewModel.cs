@@ -129,9 +129,9 @@ namespace DERMSApp.ViewModels
 			InitializeCommands();
 			SubscribeToEverything();
 
-            EventsVM = new EventsViewModel();//to do bice prebaceno odmah da se instancira, da cuva podatke o events 25.7.
+			EventsVM = new EventsViewModel();//to do bice prebaceno odmah da se instancira, da cuva podatke o events 25.7.
 
-            SubscribeForEvents();// to do vratiti se i konvertovati areas u stringove
+			SubscribeForEvents();// to do vratiti se i konvertovati areas u stringove
 
 			dersToSend = null;
 			derToSend = null;
@@ -173,6 +173,24 @@ namespace DERMSApp.ViewModels
 			EventSystem.Subscribe<TableSMItem>(DisplayPowerAndFlexibility);
 			EventSystem.Subscribe<ForecastObjData>(ForecastForObject);
 		}
+
+		/// <summary>
+		/// Subscribe for event from EventAlarmService.
+		/// </summary>
+		private void SubscribeForEvents()
+		{
+			//DERMSEventClientCallback callback = new DERMSEventClientCallback();
+			IDERMSEventSubscription proxy = null;
+
+			DuplexChannelFactory<IDERMSEventSubscription> factory = new DuplexChannelFactory<IDERMSEventSubscription>(
+				new InstanceContext(this),
+				new NetTcpBinding(),
+				new EndpointAddress("net.tcp://localhost:10047/IDERMSEvent"));
+			proxy = factory.CreateChannel();
+
+			proxy.Subscribe(new List<string>(1) { "a" });//hardcoded subscribe
+		}
+
 		/// <summary>
 		/// Optimize later.
 		/// </summary>
@@ -204,6 +222,16 @@ namespace DERMSApp.ViewModels
 			{
 				_ders = value;
 				RaisePropertyChanged("DERS");
+			}
+		}
+
+		public List<AORCachedArea> Areas
+		{
+			get { return aorAreas; }
+			set
+			{
+				aorAreas = value;
+				RaisePropertyChanged("Areas");
 			}
 		}
 
@@ -704,26 +732,16 @@ namespace DERMSApp.ViewModels
 			dersToSend = null;
 		}
 
+		/// <summary>
+		/// Ovo se pozove kad se odradi EventSystem.Publish<ForecastObjData>. U forecast obj data sam dodao naziv regiona.
+		/// </summary>
+		/// <param name="d"></param>
 		private void ForecastForObject(ForecastObjData d)
 		{
 			GenerationForecastVM = new GenerationForecastViewModel(d.Gid, d.Power, d.IsGroup, dersToSend, derToSend);
 			EventSystem.Publish<bool>(true);
 			SetAllVisibilitiesToCollapsed();
 			ShowForecast = Visibility.Visible;
-		}
-
-		private void SubscribeForEvents()
-		{
-			//DERMSEventClientCallback callback = new DERMSEventClientCallback();
-			IDERMSEventSubscription proxy = null;
-
-			DuplexChannelFactory<IDERMSEventSubscription> factory = new DuplexChannelFactory<IDERMSEventSubscription>(
-				new InstanceContext(this),
-				new NetTcpBinding(),
-				new EndpointAddress("net.tcp://localhost:10047/IDERMSEvent"));
-			proxy = factory.CreateChannel();
-
-			proxy.Subscribe(new List<long>(1) { 7 });//hardcoded subscribe
 		}
 
 		#endregion Private methods
@@ -869,11 +887,11 @@ namespace DERMSApp.ViewModels
 			//proxy.Register();
 		}
 
-        public void ReceiveEvent(Event e)
-        {
-            EventSystem.Publish<Event>(e);
-        }
+		public void ReceiveEvent(Event e)
+		{
+			EventSystem.Publish<Event>(e);
+		}
 
-        #endregion Public methods
-    }
+		#endregion Public methods
+	}
 }

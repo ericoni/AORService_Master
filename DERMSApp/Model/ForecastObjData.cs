@@ -6,54 +6,67 @@ using System.Threading.Tasks;
 
 namespace DERMSApp.Model
 {
-    public class ForecastObjData
-    {
-        private long gid;
-        private bool power;
-        private bool isGroup;
+	public class ForecastObjData
+	{
+		private long gid;
+		private bool power;
+		private bool isGroup;
+		private string region;
 
-        public ForecastObjData()
-        {
+		public ForecastObjData()
+		{
 
-        }
+		}
 
-        public long Gid
-        {
-            get
-            {
-                return gid;
-            }
+		public long Gid
+		{
+			get
+			{
+				return gid;
+			}
 
-            set
-            {
-                gid = value;
-            }
-        }
+			set
+			{
+				gid = value;
+			}
+		}
 
-        public bool Power
-        {
-            get
-            {
-                return power;
-            }
+		public bool Power
+		{
+			get
+			{
+				return power;
+			}
 
-            set
-            {
-                power = value;
-            }
-        }
+			set
+			{
+				power = value;
+			}
+		}
 
-        public bool IsGroup
-        {
-            get
-            {
-                return isGroup;
-            }
+		public bool IsGroup
+		{
+			get
+			{
+				return isGroup;
+			}
 
-            set
-            {
-                isGroup = value;
-            }
-        }
-    }
+			set
+			{
+				isGroup = value;
+			}
+		}
+		public string Region
+		{
+			get
+			{
+				return region;
+			}
+
+			set
+			{
+				region = value;
+			}
+		}
+	}
 }

@@ -33,8 +33,8 @@ namespace AORService
 			try
 			{
 				aorDatabaseHelper = new AORDatabaseHelper();
-				eventCollectorProxy = new EventCollectorProxy();
-				var a = AORCacheConfigurations.GetAORAreaObjectsForUsername("admin");
+				eventCollectorProxy = new EventCollectorProxy();//to do trenutno se 2 puta instancira
+				//var a = AORCacheConfigurations.GetAORAreaObjectsForUsername("admin");
 				//var c = AORCacheConfigurations.GetPermissionsForArea("West-Area");
 				//var d = AORCacheConfigurations.GetPermissionsForAreas(new List<string>() { "West-Area", "East-Area" });
 				//var f = AORCacheConfigurations.GetPermissionsForUser("state");
@@ -49,6 +49,19 @@ namespace AORService
 			}
 		}
 
+		public List<string> GetAORAreasForUsername(string username)
+		{
+			var aorCachedAreas =  AORCacheConfigurations.GetAORAreaObjectsForUsername(username);
+			List<string> aorAreas = new List<string>(aorCachedAreas.Count);
+
+			foreach (var cachedArea in aorCachedAreas)
+			{
+				aorAreas.Add(cachedArea.Name);
+			}
+
+			return aorAreas;
+		}
+
 		public List<long> GetUsersSynchronousMachines()
 		{
 			throw new NotImplementedException(); // to do jun
@@ -58,12 +71,12 @@ namespace AORService
 
 		public List<AORCachedArea> Login(string username, string password)
 		{
-			var aorCachedAreas = aorDatabaseHelper.LoginUser(username, password);
+			List<AORCachedArea> aorCachedAreas = aorDatabaseHelper.LoginUser(username, password);
 			string areasCombinedString = AreasCombinedString(aorCachedAreas);
 
 			var p = Thread.CurrentPrincipal;
 			eventCollectorProxy = new EventCollectorProxy(); //to do izbaciti ga posle u konstruktor
-			eventCollectorProxy.Proxy.SendEvent(new Event(username, "User logged in with specified AOR areas: " + areasCombinedString, DateTime.Now));
+			eventCollectorProxy.Proxy.SendEvent(new Event(username, "User logged in with specified AOR areas: " + areasCombinedString, "region1", DateTime.Now));
 
 			return aorCachedAreas;
 		}
