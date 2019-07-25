@@ -10,7 +10,7 @@ namespace EventAlarmService
 {
 	/// <summary>
 	/// Implements <seealso cref="IDERMSEventSubscription"/> interface.
-	/// Service that manages subscriptions and client notification.
+	/// Service that manages subscriptions and client notification. Problem, kada se radi poziv iz CE instancira se nova instanca.
 	/// </summary>
 	[ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
 	public class DERMSEventSubscription : IDERMSEventSubscription
@@ -19,34 +19,35 @@ namespace EventAlarmService
 		List<IDERMSEventSubscriptionCallback> callbacks = new List<IDERMSEventSubscriptionCallback>();
 		static Dictionary<IDERMSEventSubscriptionCallback, List<string>> subscribers = new Dictionary<IDERMSEventSubscriptionCallback, List<string>>();
 		Dictionary<IDERMSEventSubscriptionCallback, List<string>> subscribers2 = new Dictionary<IDERMSEventSubscriptionCallback, List<string>>();
-		static DERMSEventSubscription instance = null;
+        static readonly DERMSEventSubscription instance = new DERMSEventSubscription();// to do novo , kako bi se off re-instanciranje kad se javi CE s komandom
 		private static object syncRoot = new Object();
-		int counterForCst = 0;
-		#endregion Fields
+        #endregion Fields
 
-		public static DERMSEventSubscription Instance
+        public static DERMSEventSubscription Instance { get { return instance; } }
+        //public static DERMSEventSubscription Instance
+        //{
+        //	get
+        //	{
+        //		if (instance == null)
+        //		{
+        //			lock (syncRoot)
+        //			{
+        //				if (instance == null)
+        //					instance = new DERMSEventSubscription();
+        //			}
+        //		}
+
+        //		return instance;
+        //	}
+        //}
+
+        static DERMSEventSubscription()
 		{
-			get
-			{
-				if (instance == null)
-				{
-					lock (syncRoot)
-					{
-						if (instance == null)
-							instance = new DERMSEventSubscription();
-					}
-				}
-
-				return instance;
-			}
-		}
-
-		public DERMSEventSubscription()
-		{
-			counterForCst++;
 			//callbacks = new List<IDERMSEventSubscriptionCallback>();
 			//subscribers = new Dictionary<IDERMSEventSubscriptionCallback, List<long>>();
 		}
+
+        private DERMSEventSubscription() { }
 
 		#region IDERMSEvent
 		public void Subscribe(List<string> areaNames)
@@ -54,8 +55,8 @@ namespace EventAlarmService
 			OperationContext context = OperationContext.Current;
 			IDERMSEventSubscriptionCallback callback = context.GetCallbackChannel<IDERMSEventSubscriptionCallback>();
 
-			subscribers.Add(callback, areaNames); //to do add validation
-			subscribers2.Add(callback, areaNames); //to do add validation
+			subscribers.Add(callback, areaNames); //to do add validations here and down there
+			subscribers2.Add(callback, areaNames);
 
 			if (callbacks.Contains(callback) == false)
 				callbacks.Add(callback);

@@ -24,7 +24,7 @@ namespace FTN.Common.AORCachedModel
 		public int GroupId { get; set; }
 		[DataMember]
 		public List<AORCachedSyncMachine> SynchronousMachines { get; set; }
-        //[DataMember] // to do ovde je svjesno izbacena areas, da se ne bi slalo kroz mrezu previse podataka
+        //[DataMember] // ovde je svjesno izbacena areas, da se ne bi slalo kroz mrezu previse podataka
         public List<AORCachedArea> Areas { get; set; }
 		[DataMember]
 		public string Mrid { get; set; } // TODO: za sta ce mi ovaj

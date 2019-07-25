@@ -129,9 +129,9 @@ namespace DERMSApp.ViewModels
 			InitializeCommands();
 			SubscribeToEverything();
 
-			EventsVM = new EventsViewModel();//to do bice prebaceno odmah da se instancira, da cuva podatke o events 25.7.
+			EventsVM = new EventsViewModel();
 
-			SubscribeForEvents();// to do vratiti se i konvertovati areas u stringove
+			SubscribeForEvents();
 
 			dersToSend = null;
 			derToSend = null;
@@ -704,7 +704,7 @@ namespace DERMSApp.ViewModels
 		}
 		private void ExecuteShowEventsCommand()
 		{
-			//EventsVM = new EventsViewModel();//to do bice prebaceno odmah da se instancira, da cuva podatke o events 25.7.
+			//EventsVM = new EventsViewModel();//prebaceno u konstruktor da se jednom instancira
 			SetAllVisibilitiesToCollapsed();
 			ShowEvents = Visibility.Visible;
 		}
@@ -732,11 +732,12 @@ namespace DERMSApp.ViewModels
 			dersToSend = null;
 		}
 
-		/// <summary>
-		/// Ovo se pozove kad se odradi EventSystem.Publish<ForecastObjData>. U forecast obj data sam dodao naziv regiona.
-		/// </summary>
-		/// <param name="d"></param>
-		private void ForecastForObject(ForecastObjData d)
+        /// <summary>
+        /// Ovo se pozove kad se odradi EventSystem.Publish<ForecastObjData>. U forecast obj data sam dodao naziv regiona.
+        /// Jedino mjesto gdje se instancira GenerationForecastViewModel();
+        /// </summary>
+        /// <param name="d"></param>
+        private void ForecastForObject(ForecastObjData d)
 		{
 			GenerationForecastVM = new GenerationForecastViewModel(d.Gid, d.Power, d.IsGroup, dersToSend, derToSend);
 			EventSystem.Publish<bool>(true);

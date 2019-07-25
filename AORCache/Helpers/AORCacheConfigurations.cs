@@ -16,7 +16,6 @@ namespace ActiveAORCache.Helpers
 	/// </summary>
 	public class AORCacheConfigurations
 	{
-		// to do jun
 		//public static List<long> GetSyncMachinesForUser()
 		//{
 

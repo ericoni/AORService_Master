@@ -60,7 +60,7 @@ namespace FTN.Common.WeatherForecast.Model
 		public WeatherInfo()
 		{
 			Hourly = new Hourly();
-			currently = new Data(667); // to do 30.6. bilo je bez icega, samo da se spreci exception
+			currently = new Data(667);
 			Daily = new Daily();
 		}
 	}

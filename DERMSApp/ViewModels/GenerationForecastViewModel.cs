@@ -3,6 +3,8 @@ using CEForecastProxy;
 using CommonCE;
 using DERMSApp.Model;
 using DERMSApp.Views;
+using EventAlarmService;
+using EventCommon;
 using FTN.Common;
 using FTN.Common.CalculationEngine.Model;
 using FTN.Services.NetworkModelService.DataModel.Meas;
@@ -165,6 +167,7 @@ namespace DERMSApp.ViewModels
 			{
 				meteringUnit = "kVAr";
 			}
+
 			group = isGroup;
 			InitGUIElements();
 			IncreaseCommandValue = new RelayCommand(() => IncreaseCommandValueExecute(), () => true);
@@ -172,7 +175,6 @@ namespace DERMSApp.ViewModels
 			ExecuteSetpointCommand = new RelayCommand(() => ExecuteSetpointCommandExecute(), () => true);
 			StopSetpointCommand = new RelayCommand(() => StopSetpointCommandExecute(), () => true);
 			EventSystem.Subscribe<string>(NullifyCommand);
-
 
 			DisplayPowerAndFlexibility(_forecastDERS, _forecastDER);
 			LoadChartData();
@@ -265,12 +267,11 @@ namespace DERMSApp.ViewModels
 		private void LoadChartData()
 		{
 			new Thread(() => LoadChartDataThread()).Start();
-
 		}
 
 		private void LoadChartDataThread()
 		{
-			return;// to do weather foreceast chart data vrati se 
+			return;// to do weather forecast chart data vrati se 
 			ForecastSeries_Y[0].Values.Clear();
 			ForecastSeries_Y[1].Values.Clear();
 			ForecastSeries_Y[2].Values.Clear();
@@ -389,7 +390,6 @@ namespace DERMSApp.ViewModels
 					ShowCenteredDialog(dBox);
 					return;
 				}
-
 				else if (float.Parse(DecreaseForObject) < Math.Abs(result) && result < 0)
 				{
 					dBox = new DialogBox(new DialogBoxViewModel("Error!", true, "Delta value can not have value greater than maximum decrease.", 3));
@@ -426,7 +426,7 @@ namespace DERMSApp.ViewModels
 		}
 
 		/// <summary>
-		/// Ova se metoda pozove kad se radi "Execute". To do vrati se ovde za event.
+		/// Ova se metoda pozove kad se radi "Execute". To do to do vrati se ovde za event. bitno
 		/// </summary>
 		/// <param name="newCommand"></param>
 		private void CheckAndExecuteCommand(Command newCommand)
@@ -439,8 +439,10 @@ namespace DERMSApp.ViewModels
 			else
 			{
 				Semaphore localSemapthore = new Semaphore(0, 1);
-				new Thread(() =>
-				{
+
+                //to do vrati se temp je zakomentarisano, zato sto ne sacuva kontekst thread-a
+				//new Thread(() =>
+				//{
 					if (CommandProxy.Proxy.DistributePowerClient(newCommand))
 					{
 						bool commandExist = CommandProxy.Proxy.CommandExists(SelectedDER, powerType);
@@ -448,20 +450,24 @@ namespace DERMSApp.ViewModels
 						StopEnabled = commandExist;
 
 						localSemapthore.Release();
-						
-						//to do mislim da je ovo potrebno ubaciti neki notify
-						//Thread.Sleep(2000);
-						//LoadChartData();
-						//DisplayPowerAndFlexibility(this.DERS, this._der);
-					}
-					else
+
+                        Event e = new Event("a", "New command for " + newCommand.GlobalId + "with demanded power " + newCommand.DemandedPower.ToString() + "with power type: " + newCommand.PowerType.ToString() + " and start time: " + newCommand.StartTime.ToString(), "regionXX", DateTime.Now);
+                        DERMSEventSubscription.Instance.NotifyClients("a", e);
+
+                        //to do mislim da je ovo potrebno ubaciti neki notify za evente
+
+                        //Thread.Sleep(2000);
+                        //LoadChartData();
+                        //DisplayPowerAndFlexibility(this.DERS, this._der);
+                    }
+                    else
 					{
 						localSemapthore.Release();
 
 						var dialogBox = new DialogBox(new DialogBoxViewModel("Error!", true, "Error when executing command!", 3));
 						dialogBox.ShowDialog();
 					}
-				}).Start();
+				//}).Start();
 
 				localSemapthore.WaitOne(10000);
 
@@ -597,8 +603,6 @@ namespace DERMSApp.ViewModels
 
 			EventSystem.Publish<XmlDocument>(doc);
 		}
-
-	  
 
 		#region Properties
 		public long SelectedDER

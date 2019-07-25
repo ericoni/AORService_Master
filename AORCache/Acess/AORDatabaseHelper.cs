@@ -16,32 +16,18 @@ using System.Threading;
 
 namespace AORC.Acess
 {
-	/// <summary>
-	/// Made for DB population. Kobajagi vise safe varijanta, da ne ide dodjela AOR area iz static neke klase.
-	/// </summary>
-	public class AORDatabaseHelper : IAORDatabaseHelper
+    /// <summary>
+    /// Implements <seealso cref="IAORDatabaseHelper"/> interface. 
+    /// Class for DB population. Kobajagi vise safe varijanta, da ne ide dodjela AOR area iz static neke klase.
+    /// mislim da mi ne treba singleton za instance ove klase.
+    /// </summary>
+    public class AORDatabaseHelper : IAORDatabaseHelper
 	{
 		private static IAORDatabaseHelper myDB;
 		private RDAdapter rdAdapter = null;
 		private AORCachedGroup aorGroup = null;
 		private List<AORCachedGroup> aorGroups = null;
 		private List<SynchronousMachine> syncMachines = null;
-
-		public static IAORDatabaseHelper Instance // to do mislim da mi ne treba singleton
-		{
-			get
-			{
-				if (myDB == null)
-					myDB = new AORDatabaseHelper();
-
-				return myDB;
-			}
-			set
-			{
-				if (myDB == null)
-					myDB = value;
-			}
-		}
 
 		public AORDatabaseHelper()
 		{

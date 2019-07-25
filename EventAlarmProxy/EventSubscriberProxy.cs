@@ -102,7 +102,6 @@ namespace EventAlarmProxyNS
 					}
 
 					Thread.Sleep(sleepTime);
-					//OpenChannel(); // to do je li ovo copy paste ?
 				}
 			}
 		}

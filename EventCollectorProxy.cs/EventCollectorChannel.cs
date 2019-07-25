@@ -11,7 +11,7 @@ namespace EventCollectorProxyNS
 	public class EventCollectorChannel : ClientBase<IDERMSEventCollector>, IDERMSEventCollector
 	{
 		public EventCollectorChannel()
-			: base("EventCollectorEndpoint")//to do pazi endpoint name!
+			: base("EventCollectorEndpoint")
 		{
 		}
 		public void SendEvent(Event e)

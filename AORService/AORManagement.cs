@@ -33,7 +33,7 @@ namespace AORService
 			try
 			{
 				aorDatabaseHelper = new AORDatabaseHelper();
-				eventCollectorProxy = new EventCollectorProxy();//to do trenutno se 2 puta instancira
+				eventCollectorProxy = new EventCollectorProxy();
 				//var a = AORCacheConfigurations.GetAORAreaObjectsForUsername("admin");
 				//var c = AORCacheConfigurations.GetPermissionsForArea("West-Area");
 				//var d = AORCacheConfigurations.GetPermissionsForAreas(new List<string>() { "West-Area", "East-Area" });
@@ -64,7 +64,7 @@ namespace AORService
 
 		public List<long> GetUsersSynchronousMachines()
 		{
-			throw new NotImplementedException(); // to do jun
+			throw new NotImplementedException();
 		}
 
 		#region IAORManagement

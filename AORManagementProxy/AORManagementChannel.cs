@@ -23,10 +23,10 @@ namespace AORManagementProxyNS
 
 		public List<long> GetUsersSynchronousMachines()
 		{
-			throw new NotImplementedException(); // to do jun
+			throw new NotImplementedException(); //
 		}
 
-		public List<string> GetAORAreasForUsername(string username) // to do ubaciti ovde ili u neki zajednici interfejs za pristupanje kesu
+		public List<string> GetAORAreasForUsername(string username) // to do ubaciti ovde ili u neki zajednicki interfejs za pristupanje kesu
 		{
 			return this.Channel.GetAORAreasForUsername(username);
 		}

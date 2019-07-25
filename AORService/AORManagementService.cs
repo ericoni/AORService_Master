@@ -28,16 +28,12 @@ namespace AORService
 		ServiceHost host = null;
 		NetTcpBinding binding = null;
 		AORManagement aorManagement = null;
-		//AOREventAlarmChannel eventProxy = null; // to do odkomentarisi
 		string address = "net.tcp://localhost:10038/IAORManagement";  
 
 		public AORManagementService()
 		{
 			binding = new NetTcpBinding();
 			aorManagement = new AORManagement();
-
-			//eventProxy = new AOREventAlarmChannel();
-			//eventProxy.Test();
 
 			InitializeHosts();
 		}
