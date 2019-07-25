@@ -32,10 +32,6 @@ namespace EventAlarmService
 				svc.Open();
 				svc2.Open();
 
-				Console.WriteLine("Press Enter to send msg to clients...");
-				Console.Read();
-				//dermsEvent.NotifyClients(7, new Event("username", "detalj", DateTime.Now));
-
 				Console.WriteLine("Press <Enter> to stop the Event service.");
 				Console.ReadKey();
 			}

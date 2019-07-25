@@ -16,15 +16,24 @@ namespace EventAlarmService
 	public class DERMSEventCollector : IDERMSEventCollector
 	{
 		static DERMSEventCollector instance;
-		public static DERMSEventCollector Instance
+        private static object syncRoot = new Object();
+
+        public static DERMSEventCollector Instance
 		{
-			get
-			{
-				if (instance == null)
-					instance = new DERMSEventCollector();
-				return instance;
-			}	
-		}
+            get
+            {
+                if (instance == null)
+                {
+                    lock (syncRoot)
+                    {
+                        if (instance == null)
+                            instance = new DERMSEventCollector();
+                    }
+                }
+
+                return instance;
+            }
+        }
 		public void SendEvent(Event e)
 		{
 			//Event ev = new Event("randomUsername", "randomDetalji", DateTime.Now);

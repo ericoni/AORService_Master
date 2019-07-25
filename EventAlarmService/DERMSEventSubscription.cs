@@ -15,24 +15,31 @@ namespace EventAlarmService
 	[ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
 	public class DERMSEventSubscription : IDERMSEventSubscription
 	{
-		#region Field
+		#region Fields
 		List<IDERMSEventSubscriptionCallback> callbacks = new List<IDERMSEventSubscriptionCallback>();
-		static List<IDERMSEventSubscriptionCallback> callbacks2 = new List<IDERMSEventSubscriptionCallback>();
 		static Dictionary<IDERMSEventSubscriptionCallback, List<long>> subscribers = new Dictionary<IDERMSEventSubscriptionCallback, List<long>>();
 		Dictionary<IDERMSEventSubscriptionCallback, List<long>> subscribers2 = new Dictionary<IDERMSEventSubscriptionCallback, List<long>>();
 		static DERMSEventSubscription instance = null;
-		int counterForCst = 0;
-		#endregion Field
+        private static object syncRoot = new Object();
+        int counterForCst = 0;
+		#endregion Fields
 
 		public static DERMSEventSubscription Instance
 		{
-			get
-			{
-				if (instance == null)
-					return new DERMSEventSubscription();
-				return instance;
-			}
-		}
+            get
+            {
+                if (instance == null)
+                {
+                    lock (syncRoot)
+                    {
+                        if (instance == null)
+                            instance = new DERMSEventSubscription();
+                    }
+                }
+
+                return instance;
+            }
+        }
 
 		public DERMSEventSubscription()
 		{
@@ -56,8 +63,6 @@ namespace EventAlarmService
 
 			if (callbacks.Contains(callback) == false)
 				callbacks.Add(callback);
-			if (callbacks2.Contains(callback) == false)
-				callbacks2.Add(callback);
 		}
 
 		public void Unsubscribe()
@@ -72,26 +77,28 @@ namespace EventAlarmService
 
 		public void NotifyClients(long gid, Event e)
 		{
-			foreach (KeyValuePair<IDERMSEventSubscriptionCallback, List<long>> entry in subscribers)
-			{//to do problem prazna lista subscribers
+            List<IDERMSEventSubscriptionCallback> callbacksToRemove = new List<IDERMSEventSubscriptionCallback>();
 
-				if (entry.Value.Contains(gid))
+            foreach (KeyValuePair<IDERMSEventSubscriptionCallback, List<long>> subscriber in subscribers)
+			{
+				if (subscriber.Value.Contains(gid))
 				{
 					try
 					{
-						entry.Key.ReceiveEvent(e);
+                        subscriber.Key.ReceiveEvent(e);
 					}
-					catch (ObjectDisposedException)
+					catch (System.ServiceModel.CommunicationObjectAbortedException)
 					{
-						throw;
+                        callbacksToRemove.Add(subscriber.Key);
+                        continue;
 					}
 					catch (Exception)
 					{
-
 						throw;
 					}
 				}
 			}
+            callbacksToRemove.ForEach(a => subscribers.Remove(a));
 			//Action<IDERMSEventSubscriptionCallback> invoke = callback => callback.ReceiveEvent(message);
 			//callbacks.ForEach(invoke);
 		}

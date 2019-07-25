@@ -28,7 +28,7 @@ namespace DERMSApp.ViewModels
 	/// <summary>
 	/// Uvezan je sa tabular view, nije logicno ali tako je.U sustini glavni view model.
 	/// </summary>
-	public class EntireNetworkViewModel : ViewModelBase, IDeltaNotifyCallback
+	public class EntireNetworkViewModel : ViewModelBase, IDeltaNotifyCallback, IDERMSEventSubscriptionCallback
 	{
 		#region Fields
 		//readonly ReadOnlyCollection<GeographicalRegionViewModel> _regions;
@@ -128,7 +128,10 @@ namespace DERMSApp.ViewModels
 
 			InitializeCommands();
 			SubscribeToEverything();
-			SubscribeForEvents();// to do vratiti se i konvertovati areas u stringove
+
+            EventsVM = new EventsViewModel();//to do bice prebaceno odmah da se instancira, da cuva podatke o events 25.7.
+
+            SubscribeForEvents();// to do vratiti se i konvertovati areas u stringove
 
 			dersToSend = null;
 			derToSend = null;
@@ -673,7 +676,7 @@ namespace DERMSApp.ViewModels
 		}
 		private void ExecuteShowEventsCommand()
 		{
-			EventsVM = new EventsViewModel();
+			//EventsVM = new EventsViewModel();//to do bice prebaceno odmah da se instancira, da cuva podatke o events 25.7.
 			SetAllVisibilitiesToCollapsed();
 			ShowEvents = Visibility.Visible;
 		}
@@ -711,11 +714,11 @@ namespace DERMSApp.ViewModels
 
 		private void SubscribeForEvents()
 		{
-			DERMSEventClientCallback callback = new DERMSEventClientCallback();
+			//DERMSEventClientCallback callback = new DERMSEventClientCallback();
 			IDERMSEventSubscription proxy = null;
 
 			DuplexChannelFactory<IDERMSEventSubscription> factory = new DuplexChannelFactory<IDERMSEventSubscription>(
-				new InstanceContext(callback),
+				new InstanceContext(this),
 				new NetTcpBinding(),
 				new EndpointAddress("net.tcp://localhost:10047/IDERMSEvent"));
 			proxy = factory.CreateChannel();
@@ -866,6 +869,11 @@ namespace DERMSApp.ViewModels
 			//proxy.Register();
 		}
 
-		#endregion Public methods
-	}
+        public void ReceiveEvent(Event e)
+        {
+            EventSystem.Publish<Event>(e);
+        }
+
+        #endregion Public methods
+    }
 }

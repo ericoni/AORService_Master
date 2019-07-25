@@ -28,7 +28,7 @@ namespace TestConsoleApp
 				new EndpointAddress("net.tcp://localhost:10047/IDERMSEvent"));
 			proxy = factory.CreateChannel();
 
-			proxy.Subscribe(new List<long>(1) { 8 });//hardcoded subscribe
+			proxy.Subscribe(new List<long>(1) { 7 });//hardcoded subscribe
 
 			AORManagementProxy aorManagementProxy = new AORManagementProxy();// prvo subscribe pa posle login
 			var areas = aorManagementProxy.Proxy.Login("testUsername", "a");

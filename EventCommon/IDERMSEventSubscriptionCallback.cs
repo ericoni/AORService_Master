@@ -14,12 +14,14 @@ namespace EventCommon
 	[ServiceContract]
 	public interface IDERMSEventSubscriptionCallback
 	{
-		/// <summary>
-		/// IsOneWay valjda govori da li je neblokirajuci poziv.
-		/// Enable the service to call back even when the concurrency mode is set to single-threaded,
-		/// because there will not be any reply message to contend for the lock
-		/// </summary>
-		[OperationContract(IsOneWay = true)] 
+        /// <summary>
+        /// IsOneWay valjda govori da li je neblokirajuci poziv.
+        /// Enable the service to call back even when the concurrency mode is set to single-threaded,
+        /// because there will not be any reply message to contend for the lock.
+        /// WCF biblija : event-handling operations should have a void return type, should not have any outgoing parameters,
+        /// and should be marked as one-way.
+        /// </summary>
+        [OperationContract(IsOneWay = true)] 
 		void ReceiveEvent(Event e);
 	}
 }
