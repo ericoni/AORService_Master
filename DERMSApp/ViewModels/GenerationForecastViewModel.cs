@@ -4,6 +4,7 @@ using CommonCE;
 using DERMSApp.Model;
 using DERMSApp.Views;
 using EventAlarmService;
+using EventCollectorProxyNS;
 using EventCommon;
 using FTN.Common;
 using FTN.Common.CalculationEngine.Model;
@@ -180,6 +181,7 @@ namespace DERMSApp.ViewModels
 			LoadChartData();
 			SortedDictionary<long, float> commands = CommandProxy.Proxy.GetApplaiedCommands(SelectedDER, powerType);
 			CommandTimeLineData(commands, SelectedDER + "commands.xml");
+
 		}
 
 		private void InitGUIElements()
@@ -440,9 +442,9 @@ namespace DERMSApp.ViewModels
 			{
 				Semaphore localSemapthore = new Semaphore(0, 1);
 
-                //to do vrati se temp je zakomentarisano, zato sto ne sacuva kontekst thread-a
-				//new Thread(() =>
-				//{
+				//to do odavde sam prvobitno hito da posaljem event
+				new Thread(() =>
+				{
 					if (CommandProxy.Proxy.DistributePowerClient(newCommand))
 					{
 						bool commandExist = CommandProxy.Proxy.CommandExists(SelectedDER, powerType);
@@ -451,23 +453,18 @@ namespace DERMSApp.ViewModels
 
 						localSemapthore.Release();
 
-                        Event e = new Event("a", "New command for " + newCommand.GlobalId + "with demanded power " + newCommand.DemandedPower.ToString() + "with power type: " + newCommand.PowerType.ToString() + " and start time: " + newCommand.StartTime.ToString(), "regionXX", DateTime.Now);
-                        DERMSEventSubscription.Instance.NotifyClients("a", e);
-
-                        //to do mislim da je ovo potrebno ubaciti neki notify za evente
-
-                        //Thread.Sleep(2000);
-                        //LoadChartData();
-                        //DisplayPowerAndFlexibility(this.DERS, this._der);
-                    }
-                    else
+						//Thread.Sleep(2000);
+						//LoadChartData();
+						//DisplayPowerAndFlexibility(this.DERS, this._der);
+					}
+					else
 					{
 						localSemapthore.Release();
 
 						var dialogBox = new DialogBox(new DialogBoxViewModel("Error!", true, "Error when executing command!", 3));
 						dialogBox.ShowDialog();
 					}
-				//}).Start();
+				}).Start();
 
 				localSemapthore.WaitOne(10000);
 

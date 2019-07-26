@@ -195,6 +195,9 @@ namespace DERMSApp.ViewModels
 					Thread.Sleep(3000);
 				}
 			}
+
+			TextBoxUsernameText = "admin";
+			TextBoxPasswordText = "a";
 		}
 
 		public bool ButtonLoginOnClickExecute()

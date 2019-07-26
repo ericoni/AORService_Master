@@ -32,7 +32,7 @@ namespace EventAlarmService
 				svc.Open();
 				svc2.Open();
 
-                Console.WriteLine("Press <Enter> to stop the Event service.");
+				Console.WriteLine("Press <Enter> to stop the Event service.");
 				Console.ReadKey();
 			}
 			catch (Exception ex)

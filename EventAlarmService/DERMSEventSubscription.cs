@@ -19,35 +19,35 @@ namespace EventAlarmService
 		List<IDERMSEventSubscriptionCallback> callbacks = new List<IDERMSEventSubscriptionCallback>();
 		static Dictionary<IDERMSEventSubscriptionCallback, List<string>> subscribers = new Dictionary<IDERMSEventSubscriptionCallback, List<string>>();
 		Dictionary<IDERMSEventSubscriptionCallback, List<string>> subscribers2 = new Dictionary<IDERMSEventSubscriptionCallback, List<string>>();
-        static readonly DERMSEventSubscription instance = new DERMSEventSubscription();// to do novo , kako bi se off re-instanciranje kad se javi CE s komandom
+		static readonly DERMSEventSubscription instance = new DERMSEventSubscription();// to do novo , kako bi se off re-instanciranje kad se javi CE s komandom
 		private static object syncRoot = new Object();
-        #endregion Fields
+		#endregion Fields
 
-        public static DERMSEventSubscription Instance { get { return instance; } }
-        //public static DERMSEventSubscription Instance
-        //{
-        //	get
-        //	{
-        //		if (instance == null)
-        //		{
-        //			lock (syncRoot)
-        //			{
-        //				if (instance == null)
-        //					instance = new DERMSEventSubscription();
-        //			}
-        //		}
+		public static DERMSEventSubscription Instance { get { return instance; } }
+		//public static DERMSEventSubscription Instance
+		//{
+		//	get
+		//	{
+		//		if (instance == null)
+		//		{
+		//			lock (syncRoot)
+		//			{
+		//				if (instance == null)
+		//					instance = new DERMSEventSubscription();
+		//			}
+		//		}
 
-        //		return instance;
-        //	}
-        //}
+		//		return instance;
+		//	}
+		//}
 
-        static DERMSEventSubscription()
+		static DERMSEventSubscription()
 		{
 			//callbacks = new List<IDERMSEventSubscriptionCallback>();
 			//subscribers = new Dictionary<IDERMSEventSubscriptionCallback, List<long>>();
 		}
 
-        private DERMSEventSubscription() { }
+		private DERMSEventSubscription() { }
 
 		#region IDERMSEvent
 		public void Subscribe(List<string> areaNames)

@@ -19,19 +19,24 @@ namespace TestConsoleApp
 	{
 		static void Main(string[] args) //ima neka fora, on kreira svoju NOVU bazu "UsersDatabase7xxxxx" umjesto da koristi onu postojecu.
 		{
-			DERMSEventClientCallback callback = new DERMSEventClientCallback();
-			IDERMSEventSubscription proxy = null;
+			//DERMSEventClientCallback callback = new DERMSEventClientCallback();
+			//IDERMSEventSubscription proxy = null;
 
-			DuplexChannelFactory<IDERMSEventSubscription> factory = new DuplexChannelFactory<IDERMSEventSubscription>(
-				new InstanceContext(callback),
-				new NetTcpBinding(),
-				new EndpointAddress("net.tcp://localhost:10047/IDERMSEvent"));
-			proxy = factory.CreateChannel();
+			//DuplexChannelFactory<IDERMSEventSubscription> factory = new DuplexChannelFactory<IDERMSEventSubscription>(
+			//	new InstanceContext(callback),
+			//	new NetTcpBinding(),
+			//	new EndpointAddress("net.tcp://localhost:10047/IDERMSEvent"));
+			//proxy = factory.CreateChannel();
 
 			//proxy.Subscribe(new List<long>(1) { 7 });//hardcoded subscribe
 
-			AORManagementProxy aorManagementProxy = new AORManagementProxy();// prvo subscribe pa posle login
-			var areas = aorManagementProxy.Proxy.Login("testUsername", "a");
+			//AORManagementProxy aorManagementProxy = new AORManagementProxy();// prvo subscribe pa posle login
+			//var areas = aorManagementProxy.Proxy.Login("testUsername", "a");
+
+			Event e = new Event("a", "New command for ", "regionXX", DateTime.Now);
+			EventCollectorProxy eventCollectorProxy = new EventCollectorProxy(); //to do izbaciti ga posle u konstruktor
+			eventCollectorProxy.Proxy.SendEvent(e);
+			//DERMSEventSubscription.Instance.NotifyClients("a", e);//ne koristiti ga ovako, nego uvijek pucamo notifikaciju na event-e
 
 			Console.WriteLine("Prosao main..");
 			Console.Read();
