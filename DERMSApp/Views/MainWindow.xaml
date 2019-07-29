@@ -39,7 +39,7 @@
 					<MenuItem.Icon>
 						<Image Source="../Images/DropDownArrow.png"/>
 					</MenuItem.Icon>
-					<MenuItem Header="Load delta" Command="{Binding FirstViewCommand}"/>
+                    <MenuItem Header="Load delta" Command="{Binding DeltaViewCommand}"/>
 				</MenuItem>
 				<MenuItem Header="AOR Board" Command="{Binding ShowAORManagementCommand}" VerticalContentAlignment="Center"></MenuItem>
 				<MenuItem Header="Logout" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Right">

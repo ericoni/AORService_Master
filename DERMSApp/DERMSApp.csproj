@@ -162,7 +162,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\CoveredToBackground.cs" />
+    <Compile Include="Converters\CoveredToString.cs" />
     <Compile Include="Model\Alarm.cs" />
+    <Compile Include="Model\AreaModel.cs" />
     <Compile Include="Model\BindableBase.cs" />
     <Compile Include="Model\CacheReceiver.cs" />
     <Compile Include="Model\EventModel.cs" />
@@ -170,6 +173,7 @@
     <Compile Include="Model\ForecastObjData.cs" />
     <Compile Include="Model\TableSMItem.cs" />
     <Compile Include="ViewModels\AlarmsViewModel.cs" />
+    <Compile Include="ViewModels\AORBoardViewModel.cs" />
     <Compile Include="ViewModels\DialogBoxViewModel.cs" />
     <Compile Include="ViewModels\EntireNetworkViewModel.cs" />
     <Compile Include="ViewModels\EventsViewModel.cs" />
@@ -183,6 +187,9 @@
     <Compile Include="ViewModels\TreeViewItemViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="Views\AORBoardWindow.xaml.cs">
+      <DependentUpon>AORBoardWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DialogBox.xaml.cs">
       <DependentUpon>DialogBox.xaml</DependentUpon>
     </Compile>
@@ -201,6 +208,10 @@
     <Compile Include="Views\TabularView.xaml.cs">
       <DependentUpon>TabularView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\AORBoardWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\DeltaView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
