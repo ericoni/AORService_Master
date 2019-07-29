@@ -115,7 +115,7 @@ namespace DERMSApp.ViewModels
 		/// </summary>
 		public ICommand ButtonLoginOnClick { get; set; }
 
-		public ICommand ShowAORManagementCommand { get; private set; }
+		public ICommand ShowAORBoardCommand { get; private set; }
 
 		/// <summary>
 		/// The Show Network property. 
@@ -167,36 +167,14 @@ namespace DERMSApp.ViewModels
 
 			DeltaViewCommand = new RelayCommand(() => ExecuteDeltaViewCommand());
 			SecondViewCommand = new RelayCommand(() => ExecuteSecondViewCommand());
-			ShowAORManagementCommand = new RelayCommand(() => ExecuteShowAORManagementCommand());
+			ShowAORBoardCommand = new RelayCommand(() => ExecuteShowAORBoardCommand());
 			//ConnectToCalculationEngine();
 			//ShowNetwork = Visibility.Visible; //bio koment
 			//ShowApplyDelta = Visibility.Collapsed;
 
-			CacheReceiver cacheReceiver = CacheReceiver.Instance;
+			ConnectCacheToCE();
 
-			int tryCounter = 0;
-
-			while (true)
-			{
-				try
-				{
-					cacheReceiver.ConnectToCalculationEngine();
-					break;
-				}
-				catch (Exception)
-				{
-					tryCounter++;
-
-					if (tryCounter.Equals(maxTry))
-					{
-						throw;
-					}
-
-					Thread.Sleep(3000);
-				}
-			}
-
-			TextBoxUsernameText = "admin";
+			TextBoxUsernameText = "admin";//to do hardcoded for now
 			TextBoxPasswordText = "a";
 		}
 
@@ -229,6 +207,33 @@ namespace DERMSApp.ViewModels
 				//CurrentViewModel = _tabularViewModel;
 				DataTemplatesVisibility = true; // ovo ili probati sa onim event djavolima, sta je datatemplates jbt
 				return true;
+			}
+		}
+
+		private void ConnectCacheToCE()
+		{
+			CacheReceiver cacheReceiver = CacheReceiver.Instance;
+
+			int tryCounter = 0;
+
+			while (true)
+			{
+				try
+				{
+					cacheReceiver.ConnectToCalculationEngine();
+					break;
+				}
+				catch (Exception)
+				{
+					tryCounter++;
+
+					if (tryCounter.Equals(maxTry))
+					{
+						throw;
+					}
+
+					Thread.Sleep(3000);
+				}
 			}
 		}
 
@@ -267,7 +272,7 @@ namespace DERMSApp.ViewModels
 		}
 
 
-		private void ExecuteShowAORManagementCommand()
+		private void ExecuteShowAORBoardCommand()
 		{
 
 		}
