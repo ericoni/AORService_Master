@@ -16,6 +16,7 @@ using DERMSApp.Model;
 using AORManagementProxyNS;
 using FTN.Common.AORCachedModel;
 using EventCommon;
+using DERMSApp.Views;
 
 namespace DERMSApp.ViewModels
 {
@@ -176,6 +177,7 @@ namespace DERMSApp.ViewModels
 
 			TextBoxUsernameText = "admin";//to do hardcoded for now
 			TextBoxPasswordText = "a";
+			ExecuteShowAORBoardCommand();
 		}
 
 		public bool ButtonLoginOnClickExecute()
@@ -274,7 +276,15 @@ namespace DERMSApp.ViewModels
 
 		private void ExecuteShowAORBoardCommand()
 		{
-
+			AORBoardWindow aorBoardWindow = new AORBoardWindow();
+			try
+			{
+				aorBoardWindow.Show();
+			}
+			catch (Exception e)
+			{ 
+				throw;
+			}
 		}
 
 		public string TextBoxUsernameText

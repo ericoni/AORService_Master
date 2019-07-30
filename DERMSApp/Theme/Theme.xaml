@@ -2540,7 +2540,7 @@
                                 <ToolTipService.ToolTip>
                                     <ToolTip x:Name="validationTooltip"
                                              DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}"
-                                             Template="{StaticResource ValidationToolTipTemplate}"
+                                            
                                              Placement="Right"
                                              PlacementTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}">
                                         <ToolTip.Triggers>

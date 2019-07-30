@@ -8,12 +8,12 @@
 			 mc:Ignorable="d" 
 			 d:DesignHeight="550" d:DesignWidth="800">
 	<Grid>
-        <StackPanel Orientation="Vertical" Margin="10,10">
-             <DataGrid HorizontalAlignment="Left" VerticalAlignment="Top" ItemsSource="{Binding Events, diag:PresentationTraceSources.TraceLevel=High}" GridLinesVisibility="None" VerticalScrollBarVisibility="Auto" IsReadOnly="True" ColumnWidth="*"/>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="Archive" Width="75"/>
-                <Button Content="Clear log"  Width="75" Command="{Binding ClearEventsCommand}"/>
-            </StackPanel>
-        </StackPanel>
-    </Grid>
+		<StackPanel Orientation="Vertical" Margin="10,10">
+			 <DataGrid HorizontalAlignment="Left" VerticalAlignment="Top" ItemsSource="{Binding Events, diag:PresentationTraceSources.TraceLevel=High}" GridLinesVisibility="None" VerticalScrollBarVisibility="Auto" IsReadOnly="True" ColumnWidth="*"/>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+				<Button Content="Archive" Width="75"/>
+				<Button Content="Clear log"  Width="75" Command="{Binding ClearEventsCommand}"/>
+			</StackPanel>
+		</StackPanel>
+	</Grid>
 </UserControl>
