@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace DERMSApp.Model
 {
 	public class AreaModel : BindableBase
-    {
+	{
 		private string name;
 		bool isCheckedForView;//to do redefinisati ime (staviti fino da se zna sta je view, i sta je control
 		bool isCovered;
