@@ -34,7 +34,7 @@ namespace TestConsoleApp
 																			 //var areas = aorManagementProxy.Proxy.Login("state", "a");
 
 			//bool isSelected = aorManagementProxy.Proxy.SelectAreaForView("West-Area", true);
-			bool isSelected = aorManagementProxy.Proxy.SelectAreaForControl("West-Area", false);
+			bool isSelected = aorManagementProxy.Proxy.SelectAreaForControl("West-Area", true);
 
 			//var p = Thread.CurrentPrincipal as IMyPrincipal;
 			//var p2 = Thread.CurrentPrincipal;

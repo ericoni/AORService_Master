@@ -165,18 +165,25 @@ namespace AORC.Acess
 					k = access.SaveChanges();
 					if (k <= 0)
 						throw new Exception("Failed to save user and area changes!");
-					#endregion
+                    #endregion
 
-					#region UserAreasNewCombined
-					AORCachedUserArea userAreaCombined = new AORCachedUserArea();
-					userAreaCombined.AreaId = area1.AreaId;
-					userAreaCombined.UserId = u1.UserId;
+                    #region UserAreasNewCombined
 
-					AORCachedUserArea userAreaCombined2 = new AORCachedUserArea();//ovo baca neki exception
-					userAreaCombined2.AreaId = area2.AreaId;
-					userAreaCombined2.UserId = u2.UserId;
+                    var userAreaCombinedNew = new AORCachedUserAreaNew
+                    {
+                        User = u1,
+                        Area = area1,
+                        IsSelectedForControl = false
+                    };
 
-					access.CachedUserAreas.AddRange(new List<AORCachedUserArea>() { userAreaCombined , userAreaCombined2 });
+                    var userAreaCombinedNew2 = new AORCachedUserAreaNew
+                    {
+                        User = u2,
+                        Area = area1,
+                        IsSelectedForControl = false
+                    };
+
+                    access.CachedUserAreasNew.AddRange(new List<AORCachedUserAreaNew>() { userAreaCombinedNew, userAreaCombinedNew2 });//, userAreaCombined2, userAreaCombined3 });
 					k = access.SaveChanges();
 					if (k <= 0)
 						throw new Exception("Failed to save user and area combined changes!");

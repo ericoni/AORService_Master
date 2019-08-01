@@ -19,7 +19,8 @@ namespace AORC.Acess
 		public DbSet<AORCachedGroup> Groups { get; set; }
 		public DbSet<AORCachedArea> Areas { get; set; }
 		public DbSet<AORCachedSyncMachine> SynchronousMachines { get; set; }
-        public DbSet<AORCachedUserArea> CachedUserAreas { get; set; }
+        //public DbSet<AORCachedUserArea> CachedUserAreas { get; set; }
+        public DbSet<AORCachedUserAreaNew> CachedUserAreasNew { get; set; }
 
         //public DbSet<AreasGroupsCombined> AreasGroupsCombined { get; set; } //vrati se ovde
 
@@ -74,35 +75,6 @@ namespace AORC.Acess
 					k.MapRightKey("DNAId");
 					k.ToTable("UsersDNACombined");
 				});
-
-            //modelBuilder.Entity<AORCachedUser>().HasKey(q => q.UserId);
-            //modelBuilder.Entity<AORCachedArea>().HasKey(q => q.AreaId);
-            //modelBuilder.Entity<AORCachedUserArea>().HasKey(q =>
-            //    new {
-            //        q.UserId,
-            //        q.AreaId
-            //    });
-
-            // Relationships
-            //modelBuilder.Entity<UserEmail>()
-            //    .HasRequired(t => t.Email)
-            //    .WithMany(t => t.UserEmails)
-            //    .HasForeignKey(t => t.EmailID)
-
-            //modelBuilder.Entity<UserEmail>()
-            //    .HasRequired(t => t.User)
-            //    .WithMany(t => t.UserEmails)
-            //    .HasForeignKey(t => t.UserID)
-
-            //modelBuilder.Entity<AORCachedUserArea>()
-            //     .HasRequired(AORCachedArea)
-            //     .WithMany(t => t.UserEmails)
-            //     .HasForeignKey(t => t.AreaId)
-
-            //modelBuilder.Entity<AORCachedUserArea>()
-            //    .HasRequired()
-            //    .WithMany(t => t.UserEmails)
-            //    .HasForeignKey(t => t.UserId)
 
             base.OnModelCreating(modelBuilder);
 		}
