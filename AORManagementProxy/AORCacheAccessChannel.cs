@@ -6,7 +6,6 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
-using FTN.Common.Model;
 using FTN.Common.AORModel;
 using FTN.Common.AORCachedModel;
 
@@ -38,7 +37,7 @@ namespace AORManagementProxyNS
 		{
 			return this.Channel.GetAORGroups();
 		}
-		public List<User> GetAllUsers()
+		public List<AORCachedUser> GetAllUsers()
 		{
 			return this.Channel.GetAllUsers();
 		}

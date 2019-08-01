@@ -10,7 +10,6 @@ using FTN.Common.AORModel;
 using FTN.Common.Logger;
 using Adapter;
 using AORC.Acess;
-using FTN.Common.Model;
 using FTN.Common.AORCachedModel;
 
 namespace ActiveAORCache
@@ -264,7 +263,7 @@ namespace ActiveAORCache
 			}
 		}
 
-		public List<User> GetAllUsers()
+		public List<AORCachedUser> GetAllUsers()
 		{
 			using (var access = new AccessDB())
 			{
@@ -373,7 +372,7 @@ namespace ActiveAORCache
 		/// <returns></returns>
 		public bool AuthenticateUser(string username, string password)
 		{
-			User user = null;
+            AORCachedUser user = null;
 
 			using (var access = new AccessDB())
 			{

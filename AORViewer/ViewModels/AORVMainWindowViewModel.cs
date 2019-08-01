@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Windows;
 using AORViewer.Model;
-using FTN.Common.Model;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using FTN.Common.AORCachedModel;
@@ -21,7 +20,7 @@ namespace AORViewer.ViewModels
 		private List<DNAAuthority> dnaList;
 		private HashSet<AORCachedArea> aorAreas;
 		private List<AORCachedGroup> aorGroups;
-		private List<User> users;
+		private List<AORCachedUser> users;
 		private AORCacheAccessProxy aorViewCommProxy;
 		private AORCachedArea selectedArea;
 		private AORCachedGroup selectedGroup;
@@ -178,7 +177,7 @@ namespace AORViewer.ViewModels
 			}
 		}
 
-		public List<User> Users
+		public List<AORCachedUser> Users
 		{
 			get
 			{

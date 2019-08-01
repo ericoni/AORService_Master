@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.ServiceModel;
 using System.Security;
 using FTN.Common.AORContract;
-using FTN.Common.Model;
 using FTN.Common.AORCachedModel;
 
 namespace AORManagementProxyNS

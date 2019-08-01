@@ -33,7 +33,8 @@ namespace AORService
 			try
 			{
 				aorDatabaseHelper = new AORDatabaseHelper();
-				eventCollectorProxy = new EventCollectorProxy();
+				//eventCollectorProxy = new EventCollectorProxy();//to do vrati se ovde za evente, nakon sto prodje db initialization
+
 				//var a = AORCacheConfigurations.GetAORAreaObjectsForUsername("admin");
 				//var c = AORCacheConfigurations.GetPermissionsForArea("West-Area");
 				//var d = AORCacheConfigurations.GetPermissionsForAreas(new List<string>() { "West-Area", "East-Area" });

@@ -7,8 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using FTN.Common.AORCachedModel;
 
-namespace FTN.Common.Model
+namespace FTN.Common.AORCachedModel
 {
 	[Serializable]
 	public class DNAAuthority
@@ -24,7 +25,7 @@ namespace FTN.Common.Model
 		[XmlAttribute]
 		public string Description { get; set; }
 		[XmlIgnore]
-		public List<User> Users { get; set; } // ubaceno samo zbog EF many to many
+		public List<AORCachedUser> Users { get; set; } // ubaceno samo zbog EF many to many
 		public DNAAuthority() { }
 
 		public DNAAuthority(string name, List<Permission> permissionList)

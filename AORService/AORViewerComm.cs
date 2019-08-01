@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FTN.Common.Model;
 using FTN.Common.AORModel;
 using System.ServiceModel;
 using FTN.Common.AORCachedModel;
@@ -90,7 +89,7 @@ namespace AORService
 			throw new NotImplementedException();
 		}
 
-		public List<User> GetAllUsers()
+		public List<AORCachedUser> GetAllUsers()
 		{
 			throw new NotImplementedException();
 		}

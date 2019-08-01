@@ -1,6 +1,4 @@
-﻿using FTN.Common.AORCachedModel;
-using FTN.Common.AORModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,14 +7,14 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FTN.Common.Model
+namespace FTN.Common.AORCachedModel
 {
     /// <summary>
     /// Zasto koristim ovaj User, a ne AORUser?
     /// </summary>
     [Serializable]
     [DataContract]
-    public class User
+    public class AORCachedUser
 	{
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -25,12 +23,14 @@ namespace FTN.Common.Model
 		public string Password { get; set; }
 		public List<DNAAuthority> DNAs { get; set; }
 		public List<AORCachedArea> Areas { get; set; }
-		//public List<AORCachedArea> ControlAreas { get; set; } // TODO: vratiti se jos na ovo kansije kada se bude pravio AOR management window
-		//public List<AORCachedArea> ViewAreas { get; set; }
+        public ICollection<AORCachedUserArea> UserAreas { get; set; }
 
-		public User() { }
+        //public List<AORCachedArea> ControlAreas { get; set; } // TODO: vratiti se jos na ovo kansije kada se bude pravio AOR management window
+        //public List<AORCachedArea> ViewAreas { get; set; }
 
-		public User(string username, string password, List<DNAAuthority> dnas, List<AORCachedArea> areas)//, List<AORCachedArea> controlAreas, List<AORCachedArea> viewAreas)
+        public AORCachedUser() { }
+
+		public AORCachedUser(string username, string password, List<DNAAuthority> dnas, List<AORCachedArea> areas)//, List<AORCachedArea> controlAreas, List<AORCachedArea> viewAreas)
 		{
 			this.Username = username;
 			this.Password = password;

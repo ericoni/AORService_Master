@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
-using FTN.Common.Model;
 using FTN.Common.AORCachedModel;
 
 namespace ActiveAORCache.Helpers
@@ -224,7 +223,7 @@ namespace ActiveAORCache.Helpers
 		public static List<string> GetAORAreasForUsername(string username)
 		{
 			List<string> areaNames = null;
-			User user = null;
+			AORCachedUser user = null;
 
 			using (var access = new AccessDB())
 			{

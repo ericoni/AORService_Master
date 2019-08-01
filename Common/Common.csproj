@@ -99,6 +99,7 @@
     <Compile Include="AORCachedModel\AORCachedEntity.cs" />
     <Compile Include="AORCachedModel\AORCachedGroup.cs" />
     <Compile Include="AORCachedModel\AORCachedSynchonousMachine.cs" />
+    <Compile Include="AORCachedModel\AORCachedUserArea.cs" />
     <Compile Include="AORContracts\IAORManagement.cs" />
     <Compile Include="AORHelpers\NMSModelAORConverter.cs" />
     <Compile Include="AORContracts\IAORGDAContract.cs" />
@@ -117,9 +118,9 @@
     <Compile Include="CalculationEngine\Service\ICalculateHourlyForecast.cs" />
     <Compile Include="CalculationEngine\Service\ICEDistribution.cs" />
     <Compile Include="CalculationEngine\Service\IForecastService.cs" />
-    <Compile Include="Model\DNAAuthority.cs" />
-    <Compile Include="Model\Permission.cs" />
-    <Compile Include="Model\User.cs" />
+    <Compile Include="AORCachedModel\DNAAuthority.cs" />
+    <Compile Include="AORCachedModel\Permission.cs" />
+    <Compile Include="AORCachedModel\AORCachedUser.cs" />
     <Compile Include="NMS\Proxy\NetworkModelGDAProxy.cs" />
     <Compile Include="NMS\Services\GDA\INetworkModelGDAContract.cs" />
     <Compile Include="NMS\Services\NetworkModel\INetworkModelClient.cs" />

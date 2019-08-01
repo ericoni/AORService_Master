@@ -145,7 +145,7 @@ namespace FTN.Services.NetworkModelService
 					io = new AORAGAggregator(globalId);
 					break;
 				case DMSType.AOR_USER:
-					io = new AORUser(globalId);
+					io = new AORUser(globalId);// to do mozda je ovo potrebno azurirati, ali vjerovatno ne. Posto AOR service vodi racuna.
 					break;
 				case DMSType.AOR_GROUP:
 					io = new AORGroup(globalId);

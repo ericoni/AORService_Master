@@ -1,5 +1,4 @@
-﻿using FTN.Common.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -40,7 +39,7 @@ namespace ActiveAORCache
 			return AORCacheModel.GetModelAORGroups();
 		}
 
-		public List<User> GetAllUsers()
+		public List<AORCachedUser> GetAllUsers()
 		{
 			return AORCacheModel.GetAllUsers();
 		}

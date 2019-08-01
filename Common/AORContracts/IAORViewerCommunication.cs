@@ -4,7 +4,6 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
-using FTN.Common.Model;
 using FTN.Common.AORModel;
 using FTN.Common.AORCachedModel;
 
@@ -29,7 +28,7 @@ namespace FTN.Common.AORContract
 		[OperationContract]
 		List<AORCachedGroup> GetAORGroups();
 		[OperationContract]
-		List<User> GetAllUsers();
+		List<AORCachedUser> GetAllUsers();
 		[OperationContract]
 		List<string> GetPermissionsForArea(string name);
 		[OperationContract]

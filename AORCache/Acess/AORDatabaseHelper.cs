@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FTN.Common.Model;
 using Adapter;
 using FTN.Common.AORCachedModel;
 using FTN.Services.NetworkModelService.DataModel.Wires;
@@ -150,27 +149,27 @@ namespace AORC.Acess
 
 					#region Users
 
-					User u1 = new User("marko.markovic", "a", new List<DNAAuthority>() { dna1, dna4, dna6 }, new List<AORCachedArea>() { area1, area2 });
-					User u2 = new User("petar.petrovic", "a", new List<DNAAuthority>() { dna2, dna4, dna6 }, new List<AORCachedArea>() { area3 });
-					User u3 = new User("zika.joksimovic", "a", new List<DNAAuthority>() { dna2, dna3, dna4, dna5, dna6 }, new List<AORCachedArea>() { area1, area2, area3, area8 });
-					User u4 = new User("state", "a", new List<DNAAuthority>() { dna1, dna2, dna3, dna4, dna5, dna6, dna7 }, new List<AORCachedArea>() { area1, area2, area3, area7, area8 });
-					User u5 = new User("testUsername", "a", new List<DNAAuthority>() { dna1, dna2, dna3 }, new List<AORCachedArea>() { area1, area2, area3, area7 });
-					User u6 = new User("admin", "a", new List<DNAAuthority>() { dna1, dna2, dna3 }, new List<AORCachedArea>() { area9 });//ima samo jednu grupu, u kojoj je 1x SM
-
+					AORCachedUser u1 = new AORCachedUser("marko.markovic", "a", new List<DNAAuthority>() { dna1, dna4, dna6 }, new List<AORCachedArea>() { area1, area2 });
+					AORCachedUser u2 = new AORCachedUser("petar.petrovic", "a", new List<DNAAuthority>() { dna2, dna4, dna6 }, new List<AORCachedArea>() { area3 });
+					AORCachedUser u3 = new AORCachedUser("zika.joksimovic", "a", new List<DNAAuthority>() { dna2, dna3, dna4, dna5, dna6 }, new List<AORCachedArea>() { area1, area2, area3, area8 });
+					AORCachedUser u4 = new AORCachedUser("state", "a", new List<DNAAuthority>() { dna1, dna2, dna3, dna4, dna5, dna6, dna7 }, new List<AORCachedArea>() { area1, area2, area3, area7, area8 });
+					AORCachedUser u5 = new AORCachedUser("testUsername", "a", new List<DNAAuthority>() { dna1, dna2, dna3 }, new List<AORCachedArea>() { area1, area2, area3, area7 });
+					AORCachedUser u6 = new AORCachedUser("admin", "a", new List<DNAAuthority>() { dna1, dna2, dna3 }, new List<AORCachedArea>() { area9 });//ima samo jednu grupu, u kojoj je 1x SM
 
 					//u1.DNAs = new List<DNAAuthority>() { dna3, dna4 }; //zasto je ovo ubaceno, a ne preko cst?
 					//u2.DNAs = new List<DNAAuthority>() { dna4, dna5, dna6 };
 
-					access.Users.AddRange(new List<User>() { u1, u2, u3, u4, u5, u6 });
+					access.Users.AddRange(new List<AORCachedUser>() { u1, u2, u3, u4, u5, u6 });
 					access.Areas.AddRange(new List<AORCachedArea>(11) { area1, area2, area3, area4, area5, area6, area7, area8, area9, area10, area11 });
+
+                    //access.CachedUserAreas.Add(new AORCachedUserArea() { UserId = u1.UserId, AreaId = area1.AreaId });//to do vrati se na punjenje ovih povezanih entiteta
 
 					k = access.SaveChanges();
 					if (k <= 0)
-						throw new Exception("Failed to save user and area changes!");
-
-					#endregion
-				}
-			}
+                        throw new Exception("Failed to save user and area changes!");
+                    #endregion
+                }
+            }
 		}
 	}
 }

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace FTN.Common.Model
+namespace FTN.Common.AORCachedModel
 {
 	[Serializable]
 	public class Permission
