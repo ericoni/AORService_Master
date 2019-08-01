@@ -130,6 +130,7 @@ namespace AORService
 			/// The evaluate method, if it returns true it stops other authorization polices from being evaluated 
 			/// (there can be multiple authorization policies, that will become clear when we create the configuration to add our own configuration policy).
 			/// Source: https://www.blinkingcaret.com/2016/03/02/wcf-security-survival-guide-part-2-authorization/
+			/// To do potrebno je napraviti logiku kojom se provjerava da li je user otkucao one kredencijale kojima je pokrenut trenutni proces.
 			/// </summary>
 			/// <param name="context"></param>
 			/// <param name="state"></param>
@@ -146,10 +147,11 @@ namespace AORService
 
 				String name = identities[0].Name;
 				int backslashLastIndex = name.LastIndexOf('\\');
+				string username = name.Substring(backslashLastIndex + 1);
 
-				var assignedAreas = AORCacheConfigurations.GetAORAreasForUsername(name.Substring(backslashLastIndex + 1));
+				var assignedAreas = AORCacheConfigurations.GetAORAreasForUsername(username);
 
-				context.Properties["Principal"] = new CustomPrincipal(identities[0], "perica", assignedAreas);
+				context.Properties["Principal"] = new CustomPrincipal(identities[0], username, assignedAreas);
 
 				//return EvaluationResult(assignedAreas);
 				return true;

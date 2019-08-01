@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace FTN.Common.AORCachedModel
 {
-    /// <summary>
-    /// Zasto koristim ovaj User, a ne AORUser?
-    /// </summary>
-    [Serializable]
-    [DataContract]
-    public class AORCachedUser
+	/// <summary>
+	/// Zasto koristim ovaj User, a ne AORUser?
+	/// </summary>
+	[Serializable]
+	[DataContract]
+	public class AORCachedUser
 	{
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -23,12 +23,12 @@ namespace FTN.Common.AORCachedModel
 		public string Password { get; set; }
 		public List<DNAAuthority> DNAs { get; set; }
 		public List<AORCachedArea> Areas { get; set; }
-        public ICollection<AORCachedUserArea> UserAreas { get; set; }
+		public virtual ICollection<AORCachedUserArea> UserAreas { get; set; }
 
-        //public List<AORCachedArea> ControlAreas { get; set; } // TODO: vratiti se jos na ovo kansije kada se bude pravio AOR management window
-        //public List<AORCachedArea> ViewAreas { get; set; }
+		//public List<AORCachedArea> ControlAreas { get; set; } // TODO: vratiti se jos na ovo kansije kada se bude pravio AOR management window
+		//public List<AORCachedArea> ViewAreas { get; set; }
 
-        public AORCachedUser() { }
+		public AORCachedUser() { }
 
 		public AORCachedUser(string username, string password, List<DNAAuthority> dnas, List<AORCachedArea> areas)//, List<AORCachedArea> controlAreas, List<AORCachedArea> viewAreas)
 		{

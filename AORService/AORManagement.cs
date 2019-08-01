@@ -16,6 +16,7 @@ using AORCommon.Principal;
 using FTN.Common.AORCachedModel;
 using EventCollectorProxyNS;
 using EventCommon;
+using System.Security.Principal;
 
 namespace AORService
 {
@@ -75,22 +76,33 @@ namespace AORService
 			List<AORCachedArea> aorCachedAreas = aorDatabaseHelper.LoginUser(username, password);
 			string areasCombinedString = AreasCombinedString(aorCachedAreas);
 
-			var p = Thread.CurrentPrincipal;
-			eventCollectorProxy = new EventCollectorProxy(); //to do izbaciti ga posle u konstruktor
-			eventCollectorProxy.Proxy.SendEvent(new Event(username, "User logged in with specified AOR areas: " + areasCombinedString, "region1", DateTime.Now));
+			//var p = Thread.CurrentPrincipal;
+			//eventCollectorProxy = new EventCollectorProxy(); //to do vrati event posle testiranja 
+			//eventCollectorProxy.Proxy.SendEvent(new Event(username, "User logged in with specified AOR areas: " + areasCombinedString, "region1", DateTime.Now));
 
 			return aorCachedAreas;
+		}
+
+		public bool SelectAreaForControl(string areaName, bool isSelectedForControl)
+		{
+			return AORCacheConfigurations.SelectAreaForControl(areaName, isSelectedForControl);
+		}
+
+		public bool SelectAreaForView(string areaName, bool isSelectedForView)
+		{
+			return AORCacheConfigurations.SelectAreaForView(areaName, isSelectedForView);
 		}
 
 		/// <summary>
 		/// Ne znam za sta je ovo ubaceno.
 		/// </summary>
-		public void Test()
+		public void Test(IPrincipal p)
 		{
 			string a = "sarma";
 			var principal = Thread.CurrentPrincipal;
 			var p2 = ServiceSecurityContext.Current;
-			var p3 = Thread.CurrentPrincipal as IMyPrincipal;
+			var p3 = Thread.CurrentPrincipal as IMyPrincipal;//bitna napomena sve 3 su ekvivalentni.
+			Console.WriteLine(principal.Identity.Name);
 		}
 
 		#endregion

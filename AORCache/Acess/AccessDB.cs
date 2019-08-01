@@ -75,13 +75,13 @@ namespace AORC.Acess
 					k.ToTable("UsersDNACombined");
 				});
 
-            modelBuilder.Entity<AORCachedUser>().HasKey(q => q.UserId);
-            modelBuilder.Entity<AORCachedArea>().HasKey(q => q.AreaId);
-            modelBuilder.Entity<AORCachedUserArea>().HasKey(q =>
-                new {
-                    q.UserId,
-                    q.AreaId
-                });
+            //modelBuilder.Entity<AORCachedUser>().HasKey(q => q.UserId);
+            //modelBuilder.Entity<AORCachedArea>().HasKey(q => q.AreaId);
+            //modelBuilder.Entity<AORCachedUserArea>().HasKey(q =>
+            //    new {
+            //        q.UserId,
+            //        q.AreaId
+            //    });
 
             // Relationships
             //modelBuilder.Entity<UserEmail>()
@@ -106,5 +106,6 @@ namespace AORC.Acess
 
             base.OnModelCreating(modelBuilder);
 		}
+
 	}
 }

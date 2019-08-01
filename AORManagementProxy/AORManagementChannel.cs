@@ -7,6 +7,8 @@ using System.ServiceModel;
 using System.Security;
 using FTN.Common.AORContract;
 using FTN.Common.AORCachedModel;
+using AORCommon.Principal;
+using System.Security.Principal;
 
 namespace AORManagementProxyNS
 {
@@ -35,9 +37,19 @@ namespace AORManagementProxyNS
 			return this.Channel.Login(username, password);
 		}
 
-		public void Test()
+		public void Test(IPrincipal p)
 		{
-			this.Channel.Test();
+			this.Channel.Test(p);
+		}
+
+		public bool SelectAreaForView(string areaName, bool isSelectedForView)
+		{
+			return this.Channel.SelectAreaForView(areaName, isSelectedForView);
+		}
+
+		public bool SelectAreaForControl(string areaName, bool isSelectedForControl)
+		{
+			return this.Channel.SelectAreaForControl(areaName, isSelectedForControl);
 		}
 	}
 }

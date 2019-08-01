@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using FTN.Common.AORCachedModel;
+using System.Threading;
 
 namespace ActiveAORCache.Helpers
 {
@@ -252,46 +253,134 @@ namespace ActiveAORCache.Helpers
 			return areaNames;
 		}
 
-		public static void SelectAreaForControl(string areaName, bool isSelectedForControl)
-		{
-			using (var access = new AccessDB())
-			{
-				if (areaName == string.Empty)
-					return;
+		//public static void SelectAreaForControl(string areaName, bool isSelectedForControl)
+		//{
+		//	if (areaName == string.Empty)
+		//		return;
 
-				var area = access.Areas.Where(a => a.Name.Equals(areaName)).ToList()[0];
-				area.IsControllable = isSelectedForControl;
+		//	using (var access = new AccessDB())
+		//	{
+		//		var area = access.Areas.Where(a => a.Name.Equals(areaName)).FirstOrDefault();
+		//		area.IsControllable = isSelectedForControl;
 
-				int i = access.SaveChanges();
+		//		int i = access.SaveChanges();
 
-				if (i <= 0)
-					Trace.WriteLine("ERROR: Failed to save state in SelectAreaForControl method");
-			}
-		}
+		//		if (i <= 0)
+		//			Trace.WriteLine("ERROR: Failed to save state in SelectAreaForControl method");
+		//	}
+		//}
 	
-		public static void SelectAreaForView(string areaName, bool isSelectedForView)
+		//public static void SelectAreaForView(string areaName, bool isSelectedForView)
+		//{
+
+		//	if (areaName == string.Empty)
+		//		return;
+
+		//	using (var access = new AccessDB())
+		//	{
+		//		var areaQuery = access.Areas.Where(a => a.Name.Equals(areaName)).FirstOrDefault();
+
+		//		if (areaQuery == null)
+		//		{
+		//			Trace.WriteLine("ERROR: areaQuery in SelectAreaForView is empty.");
+		//			return;
+		//		}
+
+		//		areaQuery.IsViewable = isSelectedForView;
+
+		//		int i = access.SaveChanges();
+
+		//		if (i <= 0)
+		//			Trace.WriteLine("ERROR: Failed to save state in SelectAreaForView method");
+		//	}
+		//}
+
+		public static bool SelectAreaForControl(string areaName, bool isSelectedForControl)
 		{
+			if (areaName == string.Empty)
+				return false;
+
+			var principal = Thread.CurrentPrincipal;
+			String name = principal.Identity.Name;
+			int backslashLastIndex = name.LastIndexOf('\\');
+			string username = name.Substring(backslashLastIndex + 1);
+
 			using (var access = new AccessDB())
 			{
-				if (areaName == string.Empty)
-					return;
+				var areaQuery = access.Areas.Where(a => a.Name.Equals(areaName)).FirstOrDefault();
+				var userQuery = access.Users.Where(u => u.Username.Equals(username)).FirstOrDefault();
 
-				var areaQuery = access.Areas.Where(a => a.Name.Equals(areaName)).ToList();
-
-				if (areaQuery.Count == 0)
+				if (areaQuery == null || userQuery == null)
 				{
-					Trace.WriteLine("ERROR: areaQuery in SelectAreaForView is empty.");
-					return;
+					Trace.WriteLine("ERROR: areaQuery/userQuery in SelectAreaForControl is empty.");
+					return false;
 				}
 
-				var area = areaQuery[0];
-				area.IsViewable = isSelectedForView;
+				var userAreasCombined = access.CachedUserAreas.Where(a => a.AreaId == areaQuery.AreaId).Where(a=>a.UserId == userQuery.UserId).FirstOrDefault();
+
+				if (userAreasCombined == null)
+				{
+					Trace.WriteLine("ERROR: userAreasCombined in SelectAreaForControl is empty.");
+					return false;
+				}
+
+				userAreasCombined.IsSelectedForControl = isSelectedForControl;
+
+				if (isSelectedForControl)
+				{
+					areaQuery.NumberOfUsersControling++;
+				}
+				else
+				{
+					areaQuery.NumberOfUsersControling--;
+				}
 
 				int i = access.SaveChanges();
 
 				if (i <= 0)
-					Trace.WriteLine("ERROR: Failed to save state in SelectAreaForView method");
+				{
+					Trace.WriteLine("ERROR: Failed to save state in SelectAreaForControl method");
+					return false;
+				}
+				return true;
 			}
 		}
+
+		public static bool SelectAreaForView(string areaName, bool isSelectedForView)
+		{
+			if (areaName == string.Empty)
+				return false;
+
+			using (var access = new AccessDB())
+			{
+				var areaQuery = access.Areas.Where(a => a.Name.Equals(areaName)).FirstOrDefault();
+
+				if (areaQuery == null)
+				{
+					Trace.WriteLine("ERROR: areaQuery in SelectAreaForView is empty.");
+					return false;
+				}
+
+				var userAreasCombined = access.CachedUserAreas.Where(a => a.AreaId == areaQuery.AreaId).FirstOrDefault();
+
+				if (userAreasCombined == null)
+				{
+					Trace.WriteLine("ERROR: userAreasCombined in SelectAreaForView is empty.");
+					return false;
+				}
+
+				userAreasCombined.IsSelectedForView = isSelectedForView;
+
+				int i = access.SaveChanges();
+
+				if (i <= 0)
+				{
+					Trace.WriteLine("ERROR: Failed to save state in SelectAreaForView method");
+					return false;
+				}
+				return true;
+			}
+		}
+
 	}
 }

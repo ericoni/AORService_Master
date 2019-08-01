@@ -15,12 +15,12 @@ using System.Threading;
 
 namespace AORC.Acess
 {
-    /// <summary>
-    /// Implements <seealso cref="IAORDatabaseHelper"/> interface. 
-    /// Class for DB population. Kobajagi vise safe varijanta, da ne ide dodjela AOR area iz static neke klase.
-    /// mislim da mi ne treba singleton za instance ove klase.
-    /// </summary>
-    public class AORDatabaseHelper : IAORDatabaseHelper
+	/// <summary>
+	/// Implements <seealso cref="IAORDatabaseHelper"/> interface. 
+	/// Class for DB population. Kobajagi vise safe varijanta, da ne ide dodjela AOR area iz static neke klase.
+	/// mislim da mi ne treba singleton za instance ove klase.
+	/// </summary>
+	public class AORDatabaseHelper : IAORDatabaseHelper
 	{
 		private static IAORDatabaseHelper myDB;
 		private RDAdapter rdAdapter = null;
@@ -162,14 +162,27 @@ namespace AORC.Acess
 					access.Users.AddRange(new List<AORCachedUser>() { u1, u2, u3, u4, u5, u6 });
 					access.Areas.AddRange(new List<AORCachedArea>(11) { area1, area2, area3, area4, area5, area6, area7, area8, area9, area10, area11 });
 
-                    //access.CachedUserAreas.Add(new AORCachedUserArea() { UserId = u1.UserId, AreaId = area1.AreaId });//to do vrati se na punjenje ovih povezanih entiteta
-
 					k = access.SaveChanges();
 					if (k <= 0)
-                        throw new Exception("Failed to save user and area changes!");
-                    #endregion
-                }
-            }
+						throw new Exception("Failed to save user and area changes!");
+					#endregion
+
+					#region UserAreasNewCombined
+					AORCachedUserArea userAreaCombined = new AORCachedUserArea();
+					userAreaCombined.AreaId = area1.AreaId;
+					userAreaCombined.UserId = u1.UserId;
+
+					AORCachedUserArea userAreaCombined2 = new AORCachedUserArea();//ovo baca neki exception
+					userAreaCombined2.AreaId = area2.AreaId;
+					userAreaCombined2.UserId = u2.UserId;
+
+					access.CachedUserAreas.AddRange(new List<AORCachedUserArea>() { userAreaCombined , userAreaCombined2 });
+					k = access.SaveChanges();
+					if (k <= 0)
+						throw new Exception("Failed to save user and area combined changes!");
+					#endregion UserAreasNewCombined
+				}
+			}
 		}
 	}
 }

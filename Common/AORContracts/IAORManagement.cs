@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using FTN.Common.AORCachedModel;
 using FTN.Services.NetworkModelService.DataModel.Wires;
+using AORCommon.Principal;
+using System.Security.Principal;
 
 namespace FTN.Common.AORContract
 {
@@ -20,12 +22,17 @@ namespace FTN.Common.AORContract
 		List<AORCachedArea> Login(string username, string password);
 
 		[OperationContract]
-		void Test();
+		void Test(IPrincipal p);//to do delete this
 
 		[OperationContract]
 		List<long> GetUsersSynchronousMachines();
 
 		[OperationContract]
-		List<string> GetAORAreasForUsername(string username); // to do ovo bi trebalo premjestiti, da ima jedinstven pristup cache-u
+		List<string> GetAORAreasForUsername(string username); // to do ovo bi mozda trebalo premjestiti, da ima jedinstven pristup cache-u
+
+		[OperationContract]
+		bool SelectAreaForView(string areaName, bool isSelectedForView);
+		[OperationContract]
+		bool SelectAreaForControl(string areaName, bool isSelectedForControl);
 	}
 }
