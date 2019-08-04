@@ -183,7 +183,14 @@ namespace AORC.Acess
                         IsSelectedForControl = false
                     };
 
-                    access.CachedUserAreasNew.AddRange(new List<AORCachedUserAreaNew>() { userAreaCombinedNew, userAreaCombinedNew2 });//, userAreaCombined2, userAreaCombined3 });
+                    var userAreaCombinedNew3 = new AORCachedUserAreaNew
+                    {
+                        User = u2,
+                        Area = area2,
+                        IsSelectedForControl = false
+                    };
+
+                    access.CachedUserAreasNew.AddRange(new List<AORCachedUserAreaNew>() { userAreaCombinedNew, userAreaCombinedNew2, userAreaCombinedNew3 });//, userAreaCombined2, userAreaCombined3 });
 					k = access.SaveChanges();
 					if (k <= 0)
 						throw new Exception("Failed to save user and area combined changes!");

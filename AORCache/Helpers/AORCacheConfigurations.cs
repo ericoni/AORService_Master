@@ -198,8 +198,9 @@ namespace ActiveAORCache.Helpers
 
 			using (var access = new AccessDB())
 			{
-				aorAreas = access.Areas.Include(a => a.Groups.Select(y => y.SynchronousMachines)).Include("Users").ToList();
-			}
+				aorAreas = access.Areas.Include(a => a.Groups.Select(y => y.SynchronousMachines)).Include("Users").Include("Permissions").ToList();
+
+            }
 
 			if (aorAreas.Count == 0)// || user == null)
 			{

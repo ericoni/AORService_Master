@@ -15,7 +15,6 @@ namespace FTN.Common.AORCachedModel
 	[KnownType(typeof(AORCachedArea))]
 	[KnownType(typeof(AORCachedGroup))]
 	[KnownType(typeof(Permission))]
-	[KnownType(typeof(AORCachedUserArea))]
 	public class AORCachedArea : AORCachedEntity
 	{
 		[Key]
@@ -34,11 +33,11 @@ namespace FTN.Common.AORCachedModel
 		[DataMember]
 		public List<Permission> Permissions { get; set; }
 		[DataMember]
-		public List<AORCachedUser> Users { get; set; }//to do da li ovo izbaciti, mozda nije potrebno. Nego raditi samo sa UserArea combined tabelom... 1.8.
-		[DataMember]
-		public virtual ICollection<AORCachedUserArea> UserAreas { get; set; }
-		[DataMember]
-		public int NumberOfUsersControling { get; set; }
+		public List<AORCachedUser> Users { get; set; }//to do da li ovo izbaciti, mozda nije potrebno. Nego raditi samo sa UserAreaNew combined tabelom... 1.8.
+		//[DataMember] // izgleda da nece ovo kad se stavi,svakako ne vidim ulogu koju ima kad moze sve ok da radi.
+        //public virtual ICollection<AORCachedUserArea> UserAreas { get; set; }
+        [DataMember]
+        public int NumberOfUsersControling { get; set; }
 		//[DataMember] // sa ovim puca
 		[NotMapped]
 		public string GetPermsInOneLine {

@@ -23,7 +23,7 @@ namespace FTN.Common.AORCachedModel
 		public string Password { get; set; }
 		public List<DNAAuthority> DNAs { get; set; }
 		public List<AORCachedArea> Areas { get; set; }
-		public virtual ICollection<AORCachedUserArea> UserAreas { get; set; }
+		//public virtual ICollection<AORCachedUserArea> UserAreas { get; set; }
 
 		//public List<AORCachedArea> ControlAreas { get; set; } // TODO: vratiti se jos na ovo kansije kada se bude pravio AOR management window
 		//public List<AORCachedArea> ViewAreas { get; set; }

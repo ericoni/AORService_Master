@@ -31,17 +31,19 @@ namespace TestConsoleApp
 			//proxy.Subscribe(new List<long>(1) { 7 });//hardcoded subscribe
 
 			AORManagementProxy aorManagementProxy = new AORManagementProxy();// prvo subscribe pa posle login
-																			 //var areas = aorManagementProxy.Proxy.Login("state", "a");
+                                                                             //var areas = aorManagementProxy.Proxy.Login("state", "a");
 
-			//bool isSelected = aorManagementProxy.Proxy.SelectAreaForView("West-Area", true);
-			bool isSelected = aorManagementProxy.Proxy.SelectAreaForControl("West-Area", true);
+            //bool isSelected = aorManagementProxy.Proxy.SelectAreaForView("West-Area", true);
+            //bool isSelected = aorManagementProxy.Proxy.SelectAreaForControl("West-Area", true);
 
-			//var p = Thread.CurrentPrincipal as IMyPrincipal;
-			//var p2 = Thread.CurrentPrincipal;
+            var areas = aorManagementProxy.Proxy.Login("state", "a");
 
-			//aorManagementProxy.Proxy.Test(null);
+            //var p = Thread.CurrentPrincipal as IMyPrincipal;
+            //var p2 = Thread.CurrentPrincipal;
 
-			Console.WriteLine("Prosao main..");
+            //aorManagementProxy.Proxy.Test(null);
+
+            Console.WriteLine("Prosao main..");
 			Console.Read();
 		}
 
