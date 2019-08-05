@@ -187,6 +187,9 @@
     <Compile Include="ViewModels\TreeViewItemViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="Views\AlarmsView.xaml.cs">
+      <DependentUpon>AlarmsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AORBoardWindow.xaml.cs">
       <DependentUpon>AORBoardWindow.xaml</DependentUpon>
     </Compile>
@@ -208,6 +211,10 @@
     <Compile Include="Views\TabularView.xaml.cs">
       <DependentUpon>TabularView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\AlarmsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AORBoardWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -388,6 +395,9 @@
     <Resource Include="Images\ErrorIcon.png" />
     <Resource Include="Images\InfoIcon.png" />
     <Resource Include="Images\WarningIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\alarmBell.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

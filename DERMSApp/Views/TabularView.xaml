@@ -276,7 +276,8 @@
 					<MenuItem Header="Table Data" Command="{Binding ShowTableCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
 					<MenuItem Header="History Chart" Command="{Binding ShowChartCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
 					<MenuItem Header="Events 3" Command="{Binding ShowEventsCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
-				</Menu>
+                    <MenuItem Header="Alarms 3" Command="{Binding ShowAlarmsCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
+                </Menu>
 			</Grid>
 
 			<Grid Grid.Row="1" Grid.Column="0" >
@@ -369,7 +370,8 @@
 					<MenuItem Header="Table Data" Command="{Binding ShowTableCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
 					<MenuItem Header="History Chart" Command="{Binding ShowChartCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
 					<MenuItem Header="Events 2" Command="{Binding ShowEventsCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
-				</Menu>
+                    <MenuItem Header="Alarms 2" Command="{Binding ShowAlarmsCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
+                </Menu>
 			</Grid>
 
 			<Grid Grid.Row="1" Grid.Column="0">
@@ -392,7 +394,7 @@
 					<MenuItem Header="Table Data" Command="{Binding ShowTableCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
 					<MenuItem Header="History Chart" Command="{Binding ShowChartCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
 					<MenuItem Header="Events" Command="{Binding ShowEventsCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
-					<MenuItem Header="Alarms" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
+					<MenuItem Header="Alarms" Command="{Binding ShowAlarmsCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
 				</Menu>
 			</Grid>
 
@@ -401,7 +403,7 @@
 			</Grid>
 		</Grid>
 
-		<!--Events chart-->
+		<!--Events chart event chart -->
 		<Grid Grid.Column="1" Grid.RowSpan="2" Visibility="{Binding ShowEvents}">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="5*"/>
@@ -416,7 +418,8 @@
 					<MenuItem Header="Table Data" Command="{Binding ShowTableCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
 					<MenuItem Header="History Chart" Command="{Binding ShowChartCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
 					<MenuItem Header="Events 5"  Command="{Binding ShowEventsCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
-				</Menu>
+                    <MenuItem Header="Alarms 5"  Command="{Binding ShowAlarmsCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
+                </Menu>
 			</Grid>
 
 			<Grid Grid.Row="1" Grid.Column="0">
@@ -424,7 +427,31 @@
 			</Grid>
 		</Grid>
 
-		<!-- Gadgets for Active power, Reactive power and  solar generator [%]-->
+        <!--Alarms chart-->
+        <Grid Grid.Column="1" Grid.RowSpan="2" Visibility="{Binding ShowAlarms}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="95*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="0">
+                <Menu>
+                    <MenuItem Header="Table Data" Command="{Binding ShowTableCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
+                    <MenuItem Header="History Chart" Command="{Binding ShowChartCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
+                    <MenuItem Header="Events 5"  Command="{Binding ShowEventsCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
+                    <MenuItem Header="Alarms 5"  Command="{Binding ShowAlarmsCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
+                </Menu>
+            </Grid>
+
+            <Grid Grid.Row="1" Grid.Column="0">
+                <ContentControl DockPanel.Dock="Top" Content="{Binding AlarmsVM}" Visibility="{Binding ShowAlarms}"/>
+            </Grid>
+        </Grid>
+
+        <!-- Gadgets for Active power, Reactive power and  solar generator [%]-->
 		<Border Grid.Row="1" Grid.Column="1" BorderBrush="#FFFFFFFa" BorderThickness=".5"  Visibility="{Binding ShowData}">
 			<Grid Grid.Row="1" Grid.Column="1" Background="#FF1D1D1D"  Visibility="{Binding ShowData}">
 				<Grid.RowDefinitions>
@@ -479,7 +506,7 @@
 			</Grid>
 		</Border>
 
-		<!--ovo bi valjda trebalo da je status bar-->
+		<!--status bar-->
 		<Border  Grid.Row="3" Grid.Column="0" BorderThickness="0,0,1,0" BorderBrush="White" >
 			<Grid Grid.Row="3" Grid.Column="0" Background="RoyalBlue">
 			</Grid>
@@ -492,19 +519,38 @@
 			</Grid.ColumnDefinitions>
 			<Grid Grid.Row="0" Grid.Column="1">
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="50*" />
-					<ColumnDefinition Width="50*" />
+					<ColumnDefinition Width="30*" />
+                    <ColumnDefinition Width="35*" />
+                    <ColumnDefinition Width="35*" />
 				</Grid.ColumnDefinitions>
-				
-				<Border  Grid.Row="0" Grid.Column="0" BorderThickness="1,0,0,0" BorderBrush="White" >
+
+                <Button Grid.Column="0" 
+                        BorderThickness="0" 
+                        BorderBrush="Transparent"
+                        Width="40"
+                        Background="Transparent"
+                        Command="{Binding ShowAlarmsCommand}"
+                        >
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <ContentPresenter Content="{TemplateBinding Content}"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBlock FontSize="18" ><Bold>5</Bold></TextBlock>
+                        <Image Source="../Images/alarmBell.png" Height="35" Width="19"/>
+                    </StackPanel>
+                </Button>
+
+                <Border  Grid.Row="0" Grid.Column="1" BorderThickness="1,0,0,0" BorderBrush="White" >
 					<Grid Grid.Column ="0">
 						<Viewbox Stretch="Uniform" HorizontalAlignment="Right">
-							<Label Content="Last time of update: " FontSize="26" FontStretch="Normal" />
+							<Label Content="Last update: " FontSize="26" FontStretch="Normal" />
 						</Viewbox>
 					</Grid>
 				</Border>
 				
-				<Grid Grid.Column="1">
+				<Grid Grid.Column="2">
 					<Viewbox Stretch="Uniform" HorizontalAlignment="Center">
 						<Label Content="{Binding TimeStamp}" FontSize="26" FontStretch="Normal"/>
 					</Viewbox>
