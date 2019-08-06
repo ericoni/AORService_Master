@@ -17,9 +17,10 @@ namespace DERMSApp.ViewModels
 
         public AlarmsViewModel()
         {
-            List<Alarm> tempList = new List<Alarm>(3) { new Alarm("a", "p"), new Alarm("a", "p2"), new Alarm("a", "p3") };
+            List<Alarm> tempList = new List<Alarm>(3) { new Alarm("a", "p"), new Alarm("a", "p2"), new Alarm("a", "p3", AlarmSeverity.High) };
             Alarms = new ObservableCollection<Alarm>(tempList);
 
+            Alarms[0].Severity = AlarmSeverity.Medium;
             ClearAlarmsCommand = new RelayCommand(() => ExecuteClearAlarmsCommand());
         }
 

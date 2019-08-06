@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace DERMSApp.Converters
 {
@@ -12,10 +13,18 @@ namespace DERMSApp.Converters
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			throw new NotImplementedException();
-		}
+            //var a = (short)value;
+            //if ((short)value == 0)
+            //{
+            //    return new SolidColorBrush(Colors.SeaGreen);//PaleGreen
+            //}
 
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            //return new SolidColorBrush(Colors.Yellow);//PaleGreen
+            System.Windows.Media.Brush brushReturn = System.Windows.Media.Brushes.Red;
+            return brushReturn;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			throw new NotImplementedException();
 		}

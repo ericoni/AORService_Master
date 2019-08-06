@@ -20,7 +20,6 @@ namespace DERMSApp.Converters
 			//return null;
 
 			return FetchStyle("FaderStyleButton");
-
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
