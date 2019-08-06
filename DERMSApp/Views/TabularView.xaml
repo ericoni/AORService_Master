@@ -5,13 +5,17 @@
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			 xmlns:local="clr-namespace:DERMSApp.Views"
 			 xmlns:viewModels="clr-namespace:DERMSApp.ViewModels"
+			 xmlns:converters="clr-namespace:DERMSApp.Converters"
 			 xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
 			 mc:Ignorable="d" 
+			 
 			 d:DesignHeight="550" d:DesignWidth="800">
 	<UserControl.Resources>
 		<DataTemplate DataType="{x:Type viewModels:HistoryDataChartViewModel}">
 			<local:HistoryDataChartView/>
 		</DataTemplate>
+		<converters:AlarmBlinkConverter x:Key="AlarmBlinkConverter"></converters:AlarmBlinkConverter>
+
 	</UserControl.Resources>
 
 	<Grid>
@@ -276,8 +280,8 @@
 					<MenuItem Header="Table Data" Command="{Binding ShowTableCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
 					<MenuItem Header="History Chart" Command="{Binding ShowChartCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
 					<MenuItem Header="Events 3" Command="{Binding ShowEventsCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
-                    <MenuItem Header="Alarms 3" Command="{Binding ShowAlarmsCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
-                </Menu>
+					<MenuItem Header="Alarms 3" Command="{Binding ShowAlarmsCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
+				</Menu>
 			</Grid>
 
 			<Grid Grid.Row="1" Grid.Column="0" >
@@ -370,8 +374,8 @@
 					<MenuItem Header="Table Data" Command="{Binding ShowTableCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
 					<MenuItem Header="History Chart" Command="{Binding ShowChartCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
 					<MenuItem Header="Events 2" Command="{Binding ShowEventsCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
-                    <MenuItem Header="Alarms 2" Command="{Binding ShowAlarmsCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
-                </Menu>
+					<MenuItem Header="Alarms 2" Command="{Binding ShowAlarmsCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
+				</Menu>
 			</Grid>
 
 			<Grid Grid.Row="1" Grid.Column="0">
@@ -418,40 +422,40 @@
 					<MenuItem Header="Table Data" Command="{Binding ShowTableCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
 					<MenuItem Header="History Chart" Command="{Binding ShowChartCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
 					<MenuItem Header="Events 5"  Command="{Binding ShowEventsCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
-                    <MenuItem Header="Alarms 5"  Command="{Binding ShowAlarmsCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
-                </Menu>
+					<MenuItem Header="Alarms 5"  Command="{Binding ShowAlarmsCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
+				</Menu>
 			</Grid>
 
 			<Grid Grid.Row="1" Grid.Column="0">
-                <ContentControl DockPanel.Dock="Top" Content="{Binding EventsVM}" Visibility="{Binding ShowEvents}"/>
+				<ContentControl DockPanel.Dock="Top" Content="{Binding EventsVM}" Visibility="{Binding ShowEvents}"/>
 			</Grid>
 		</Grid>
 
-        <!--Alarms chart-->
-        <Grid Grid.Column="1" Grid.RowSpan="2" Visibility="{Binding ShowAlarms}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="5*"/>
-                <RowDefinition Height="95*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+		<!--Alarms chart-->
+		<Grid Grid.Column="1" Grid.RowSpan="2" Visibility="{Binding ShowAlarms}">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="5*"/>
+				<RowDefinition Height="95*"/>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
 
-            <Grid Grid.Row="0" Grid.Column="0">
-                <Menu>
-                    <MenuItem Header="Table Data" Command="{Binding ShowTableCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
-                    <MenuItem Header="History Chart" Command="{Binding ShowChartCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
-                    <MenuItem Header="Events 5"  Command="{Binding ShowEventsCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
-                    <MenuItem Header="Alarms 5"  Command="{Binding ShowAlarmsCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
-                </Menu>
-            </Grid>
+			<Grid Grid.Row="0" Grid.Column="0">
+				<Menu>
+					<MenuItem Header="Table Data" Command="{Binding ShowTableCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
+					<MenuItem Header="History Chart" Command="{Binding ShowChartCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
+					<MenuItem Header="Events 5"  Command="{Binding ShowEventsCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
+					<MenuItem Header="Alarms 5"  Command="{Binding ShowAlarmsCommand}" FontSize="14" Margin="3" BorderBrush="White" Background="#FF1D1D1D" FontStretch="Normal"/>
+				</Menu>
+			</Grid>
 
-            <Grid Grid.Row="1" Grid.Column="0">
-                <ContentControl DockPanel.Dock="Top" Content="{Binding AlarmsVM}" Visibility="{Binding ShowAlarms}"/>
-            </Grid>
-        </Grid>
+			<Grid Grid.Row="1" Grid.Column="0">
+				<ContentControl DockPanel.Dock="Top" Content="{Binding AlarmsVM}" Visibility="{Binding ShowAlarms}"/>
+			</Grid>
+		</Grid>
 
-        <!-- Gadgets for Active power, Reactive power and  solar generator [%]-->
+		<!-- Gadgets for Active power, Reactive power and  solar generator [%]-->
 		<Border Grid.Row="1" Grid.Column="1" BorderBrush="#FFFFFFFa" BorderThickness=".5"  Visibility="{Binding ShowData}">
 			<Grid Grid.Row="1" Grid.Column="1" Background="#FF1D1D1D"  Visibility="{Binding ShowData}">
 				<Grid.RowDefinitions>
@@ -520,29 +524,30 @@
 			<Grid Grid.Row="0" Grid.Column="1">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="30*" />
-                    <ColumnDefinition Width="35*" />
-                    <ColumnDefinition Width="35*" />
+					<ColumnDefinition Width="35*" />
+					<ColumnDefinition Width="35*" />
 				</Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0" 
-                        BorderThickness="0" 
-                        BorderBrush="Transparent"
-                        Width="40"
-                        Background="Transparent"
-                        Command="{Binding ShowAlarmsCommand}"
-                        >
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <ContentPresenter Content="{TemplateBinding Content}"/>
-                        </ControlTemplate>
-                    </Button.Template>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <TextBlock FontSize="18" ><Bold>5</Bold></TextBlock>
-                        <Image Source="../Images/alarmBell.png" Height="35" Width="19"/>
-                    </StackPanel>
-                </Button>
+				<Button Grid.Column="0" 
+						BorderThickness="0" 
+						BorderBrush="Transparent"
+						Width="40"
+						Background="Transparent"
+						Command="{Binding ShowAlarmsCommand}"
+						Style="{Binding Areas.Count, Converter={StaticResource AlarmBlinkConverter}}"
+						>
+					<!--<Button.Template>
+						<ControlTemplate TargetType="Button">
+							<ContentPresenter Content="{TemplateBinding Content}"/>
+						</ControlTemplate>
+					</Button.Template>-->
+					<StackPanel Orientation="Horizontal" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+						<TextBlock FontSize="16" Text="{Binding Areas.Count}" VerticalAlignment="Top"><Bold></Bold></TextBlock>
+						<Image Source="../Images/alarmBell.png" Height="37" Width="20"/>
+					</StackPanel>
+				</Button>
 
-                <Border  Grid.Row="0" Grid.Column="1" BorderThickness="1,0,0,0" BorderBrush="White" >
+				<Border  Grid.Row="0" Grid.Column="1" BorderThickness="1,0,0,0" BorderBrush="White" >
 					<Grid Grid.Column ="0">
 						<Viewbox Stretch="Uniform" HorizontalAlignment="Right">
 							<Label Content="Last update: " FontSize="26" FontStretch="Normal" />

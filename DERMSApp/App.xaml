@@ -37,16 +37,32 @@
 	  <DataTemplate DataType="{x:Type vm:GenerationForecastViewModel}">
 		<views:GenerationForecastView />
 	  </DataTemplate>
-       <DataTemplate DataType="{x:Type vm:EventsViewModel}">
-           <views:EventsView />
-       </DataTemplate>
-       <DataTemplate DataType="{x:Type vm:AlarmsViewModel}">
-        <views:AlarmsView />
-      </DataTemplate>
-            <!--<DataTemplate DataType="{x:Type vm:LoginViewModel}">  
+	   <DataTemplate DataType="{x:Type vm:EventsViewModel}">
+		   <views:EventsView />
+	   </DataTemplate>
+	   <DataTemplate DataType="{x:Type vm:AlarmsViewModel}">
+		<views:AlarmsView />
+	  </DataTemplate>
+			<!--<DataTemplate DataType="{x:Type vm:LoginViewModel}">  
 		<views:LoginWindow/>
 	  </DataTemplate>-->
 			<!-- vrati se ovde -->
+			<Style x:Key="FaderStyleButton" TargetType="{x:Type Button}">
+				<Style.Resources>
+					<Storyboard x:Key="FadeStoryboard">
+						<DoubleAnimation Storyboard.TargetProperty="(TextBlock.Opacity)" 
+								From="0" To="1" Duration="0:0:0.5"
+								RepeatBehavior="Forever" AutoReverse="True"/>
+					</Storyboard>
+				</Style.Resources>
+				<Style.Triggers>
+					<Trigger Property="Visibility" Value="Visible">
+						<Trigger.EnterActions>
+							<BeginStoryboard Storyboard="{StaticResource FadeStoryboard}"/>
+						</Trigger.EnterActions>
+					</Trigger>
+				</Style.Triggers>
+			</Style>
 		</ResourceDictionary>
   </Application.Resources>
 </Application>

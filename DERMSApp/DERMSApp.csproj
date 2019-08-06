@@ -162,8 +162,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\AlarmBlinkConverter.cs" />
     <Compile Include="Converters\CoveredToBackground.cs" />
     <Compile Include="Converters\CoveredToString.cs" />
+    <Compile Include="Converters\SeverityToForegroundConverter.cs" />
     <Compile Include="Model\Alarm.cs" />
     <Compile Include="Model\AreaModel.cs" />
     <Compile Include="Model\BindableBase.cs" />
