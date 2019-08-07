@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DERMSApp.Model;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -13,18 +14,26 @@ namespace DERMSApp.Converters
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-            //var a = (short)value;
-            //if ((short)value == 0)
-            //{
-            //    return new SolidColorBrush(Colors.SeaGreen);//PaleGreen
-            //}
+			SolidColorBrush returnBrush = null;
 
-            //return new SolidColorBrush(Colors.Yellow);//PaleGreen
-            System.Windows.Media.Brush brushReturn = System.Windows.Media.Brushes.Red;
-            return brushReturn;
-        }
+			switch ((AlarmSeverity)value)
+			{
+				case AlarmSeverity.High:
+					returnBrush = new SolidColorBrush(Colors.OrangeRed);
+					break;
+				case AlarmSeverity.Medium:
+					returnBrush = new SolidColorBrush(Colors.Khaki);
+					break;
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+				default:
+					returnBrush = new SolidColorBrush(Colors.White);
+					break;
+			}
+
+			return returnBrush;
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			throw new NotImplementedException();
 		}

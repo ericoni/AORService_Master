@@ -10,37 +10,38 @@ using GalaSoft.MvvmLight.Command;
 
 namespace DERMSApp.ViewModels
 {
-    public class AlarmsViewModel : BindableBase
-    {
-        private ObservableCollection<Alarm> alarms = null;
-        public ICommand ClearAlarmsCommand { get; private set; }
+	public class AlarmsViewModel : BindableBase
+	{
+		private ObservableCollection<Alarm> alarms = null;
+		public ICommand ClearAlarmsCommand { get; private set; }
 
-        public AlarmsViewModel()
-        {
-            List<Alarm> tempList = new List<Alarm>(3) { new Alarm("a", "p"), new Alarm("a", "p2"), new Alarm("a", "p3", AlarmSeverity.High) };
-            Alarms = new ObservableCollection<Alarm>(tempList);
+		public AlarmsViewModel()
+		{
+			List<Alarm> tempList = new List<Alarm>(3) { new Alarm("Area has become uncovered.", "Backa", DateTime.Now.AddMinutes(-6).AddSeconds(-5).AddMilliseconds(-66), AlarmSeverity.High), new Alarm("Weather Forecast is not available.", "Backa", DateTime.Now, AlarmSeverity.Medium), new Alarm("Reason3", "Backa", DateTime.Now) };
 
-            Alarms[0].Severity = AlarmSeverity.Medium;
-            ClearAlarmsCommand = new RelayCommand(() => ExecuteClearAlarmsCommand());
-        }
+			Alarms = new ObservableCollection<Alarm>(tempList);
 
-        public ObservableCollection<Alarm> Alarms
-        {
-            get
-            {
-                return alarms;
-            }
+			Alarms[0].Severity = AlarmSeverity.Medium;
+			ClearAlarmsCommand = new RelayCommand(() => ExecuteClearAlarmsCommand());
+		}
 
-            set
-            {
-                alarms = value;
-                OnPropertyChanged("Alarms");
-            }
-        }
+		public ObservableCollection<Alarm> Alarms
+		{
+			get
+			{
+				return alarms;
+			}
 
-        private void ExecuteClearAlarmsCommand()
-        {
-            Alarms = new ObservableCollection<Alarm>();
-        }
-    }
+			set
+			{
+				alarms = value;
+				OnPropertyChanged("Alarms");
+			}
+		}
+
+		private void ExecuteClearAlarmsCommand()
+		{
+			Alarms = new ObservableCollection<Alarm>();
+		}
+	}
 }

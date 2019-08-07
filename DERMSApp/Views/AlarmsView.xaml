@@ -5,16 +5,23 @@
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:converters="clr-namespace:DERMSApp.Converters"
 			 xmlns:local="clr-namespace:DERMSApp.Views"
+			 xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
 			 mc:Ignorable="d" 
 			 d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
-        <converters:SeverityToForegroundConverter x:Key="SeverityToForegroundConverter"></converters:SeverityToForegroundConverter>
-    </UserControl.Resources>
+	<UserControl.Resources>
+		<converters:SeverityToForegroundConverter x:Key="SeverityToForegroundConverter"></converters:SeverityToForegroundConverter>
+		<Style x:Key="ForegroundStyle" TargetType="TextBlock">
+			<Setter Property="Foreground" 
+						Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}, 
+							Path=Item.Severity, 
+							Converter={StaticResource SeverityToForegroundConverter}}"/>
+		 </Style>
+	</UserControl.Resources>
 	<Grid>
 		<StackPanel Orientation="Vertical" Margin="10,10">
 			<DataGrid 
-                      x:Name="dataGridAlarm"
-                      HorizontalAlignment="Left" 
+					  x:Name="dataGridAlarm"
+					  HorizontalAlignment="Left" 
 					  VerticalAlignment="Top" 
 					  ItemsSource="{Binding Alarms}" 
 					  GridLinesVisibility="None" 
@@ -23,21 +30,11 @@
 					  ColumnWidth="*" 
 					  AutoGenerateColumns="False"
 					  >
-				<!--<DataGrid.Resources>
-					<Style TargetType="{x:Type DataGridRow}" x:Key="DataGridForegroundStyle">
-						<Style.Triggers>
-							<Trigger Property="IsMouseOver" Value="True">
-								<Setter Property="Foreground" Value="Red" />
-							</Trigger>
-						</Style.Triggers>
-					</Style>
-				</DataGrid.Resources>-->
 				<DataGrid.Columns>
-					<DataGridTextColumn Header="Username" Binding="{Binding Username}"/>
-					<DataGridTextColumn Header="Details" Binding="{Binding Details}" />
-                    <!--<DataGridTextColumn Header="Severity" Binding="{Binding Severity}"/>-->
-                    <DataGridTextColumn Header="Severity" Binding="{Binding Severity}" Foreground="{Binding Severity, Converter={StaticResource SeverityToForegroundConverter}}"/>
-					<DataGridTextColumn Header="Timestamp" Binding="{Binding Timestamp}"/>
+					<DataGridTextColumn Header="Details" Binding="{Binding Details}" ElementStyle="{StaticResource ForegroundStyle}"/>
+					<DataGridTextColumn Header="Region" Binding="{Binding Region}" ElementStyle="{StaticResource ForegroundStyle}"/>
+					<DataGridTextColumn Header="Severity" Binding="{Binding Severity}" ElementStyle="{StaticResource ForegroundStyle}"/>
+					<DataGridTextColumn Header="Timestamp" Binding="{Binding FieldTimestamp}" ElementStyle="{StaticResource ForegroundStyle}"/>
 				</DataGrid.Columns>
 			</DataGrid>
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">

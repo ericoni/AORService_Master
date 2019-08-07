@@ -13,32 +13,22 @@ namespace DERMSApp.Model
 		High = 2
 	}
 
+	[Serializable]
 	public class Alarm : BindableBase
 	{
-		private string username;
 		private string details;
+		private string region;
+		private string substation;
+		private string generatorType;
 		private AlarmSeverity severity;
-		private DateTime timestamp;
+		private DateTime fieldTimestamp;
 
-		public Alarm(string username, string details, AlarmSeverity severity = AlarmSeverity.Low)
+		public Alarm(string details, string region, DateTime fieldTimestamp,  AlarmSeverity severity = AlarmSeverity.Low, string substation = null, string generatorType = null)
 		{
-			this.Username = username;
 			this.Details = details;
-			this.Timestamp = timestamp;
+			this.Region = region;
+			this.FieldTimestamp = fieldTimestamp;
 			this.Severity = severity;
-		}
-
-		public string Username
-		{
-			get { return username; }
-			set
-			{
-				if (username != value)
-				{
-					username = value;
-					OnPropertyChanged("Username");
-				}
-			}
 		}
 
 		public string Details
@@ -50,6 +40,18 @@ namespace DERMSApp.Model
 				{
 					details = value;
 					OnPropertyChanged("Details");
+				}
+			}
+		}
+		public string Region
+		{
+			get { return region; }
+			set
+			{
+				if (region != value)
+				{
+					region = value;
+					OnPropertyChanged("Region");
 				}
 			}
 		}
@@ -67,15 +69,41 @@ namespace DERMSApp.Model
 			}
 		}
 
-		public DateTime Timestamp
+		public DateTime FieldTimestamp
 		{
-			get { return timestamp; }
+			get { return fieldTimestamp; }
 			set
 			{
-				if (timestamp != value)
+				if (fieldTimestamp != value)
 				{
-					timestamp = value;
-					OnPropertyChanged("Timestamp");
+					fieldTimestamp = value;
+					OnPropertyChanged("FieldTimestamp");
+				}
+			}
+		}
+
+		public string Substation
+		{
+			get { return substation; }
+			set
+			{
+				if (substation != value)
+				{
+					substation = value;
+					OnPropertyChanged("Substation");
+				}
+			}
+		}
+
+		public string GeneratorType
+		{
+			get { return generatorType; }
+			set
+			{
+				if (generatorType != value)
+				{
+					generatorType = value;
+					OnPropertyChanged("GeneratorType");
 				}
 			}
 		}
