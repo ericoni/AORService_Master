@@ -25,7 +25,8 @@
 					  VerticalAlignment="Top" 
 					  ItemsSource="{Binding Alarms}" 
 					  GridLinesVisibility="None" 
-					  VerticalScrollBarVisibility="Auto" 
+					  VerticalScrollBarVisibility="Auto"
+					  HorizontalScrollBarVisibility="Auto"
 					  IsReadOnly="True" 
 					  ColumnWidth="*" 
 					  AutoGenerateColumns="False"
@@ -38,8 +39,9 @@
 				</DataGrid.Columns>
 			</DataGrid>
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-				<Button Content="Archive" Width="75"/>
-				<Button Content="Clear log"  Width="75" Command="{Binding ClearAlarmsCommand}"/>
+				<CheckBox Content="Show Only Mine" VerticalAlignment="Center" Margin="10,0,0,0"></CheckBox>
+				<Button Content="Archive" Width="75" Margin="10,0,0,0"/>
+				<Button Content="Clear log"  Width="75" Command="{Binding ClearAlarmsCommand}" Margin="10,0,0,0"/>
 			</StackPanel>
 		</StackPanel>
 	</Grid>

@@ -76,9 +76,9 @@ namespace AORService
 			List<AORCachedArea> aorCachedAreas = aorDatabaseHelper.LoginUser(username, password);
 			string areasCombinedString = AreasCombinedString(aorCachedAreas);
 
-			//var p = Thread.CurrentPrincipal;
-			//eventCollectorProxy = new EventCollectorProxy(); //to do vrati event posle testiranja 
-			//eventCollectorProxy.Proxy.SendEvent(new Event(username, "User logged in with specified AOR areas: " + areasCombinedString, "region1", DateTime.Now));
+			eventCollectorProxy = new EventCollectorProxy();
+			//eventCollectorProxy.Proxy.SendEvent(new Event(username, "User logged in with specified AOR areas: " + areasCombinedString, null, DateTime.Now));//to do hardcoded for a moment
+			eventCollectorProxy.Proxy.SendEvent(new Event(username, "User 'petar.petrovic' logged in with specified AOR areas:  Backa-Area, Zrenjanin-Area, NoviBecej-Area", null, DateTime.Now));//to do hardcoded for a moment
 
 			return aorCachedAreas;
 		}

@@ -688,6 +688,37 @@ namespace Adapter
 			return substations;
 		}
 
+		public string GetStaticModelResourceNameByGid(long gid)
+		{
+			string resourceName = string.Empty;
+
+			switch (((DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(gid)))
+			{
+				case DMSType.REGION:
+					var region = GetRegionByGid(gid);
+					resourceName = region.Name;
+					break;
+				case DMSType.SUBREGION:
+					var subregion = GetSubRegionByGid(gid);
+					resourceName = subregion.Name;
+					break;
+				case DMSType.SUBSTATION:
+					var substation = GetSubstation(gid);
+					resourceName = substation.Name;
+					break;
+				case DMSType.SYNCMACHINE:
+					SynchronousMachine sm = GetSyncMachineByGid(gid);
+					resourceName = sm.Name;
+					break;
+				default:
+					return "Non existent!";
+			}
+
+			return resourceName;
+		}
+
+
+
 		#region AOR Section
 
 		public List<AORGroup> GetAORGroups()

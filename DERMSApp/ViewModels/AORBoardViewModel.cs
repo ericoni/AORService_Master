@@ -21,6 +21,9 @@ namespace DERMSApp.ViewModels
 		private AreaModel a5 = null;
 		private AreaModel a6 = null;
 		private AreaModel a7 = null;
+		private AreaModel a8 = null;
+		private AreaModel a9 = null;
+		private AreaModel a10 = null;
 		TreeView treeView = null;
 		
 
@@ -31,15 +34,18 @@ namespace DERMSApp.ViewModels
 		private ObservableCollection<AreaModel> areas = null;
 		public AORBoardViewModel(TreeView treeView)
 		{
-			a1 = new AreaModel("a1");
-			a2 = new AreaModel("a2");
-			a3 = new AreaModel("a3");
+			a1 = new AreaModel("Backa-Area");
+			a2 = new AreaModel("Low-Voltage-Backa-Area");
+			a3 = new AreaModel("High-Voltage-Backa-Area");
 			a4 = new AreaModel("a4");
 
-			a5 = new AreaModel("a5");
-			a6 = new AreaModel("a6");
+			a5 = new AreaModel("Zrenjanin-Area");
+			a6 = new AreaModel("Low-Voltage-Zrenjanin-Area");
+			a7 = new AreaModel("High-Voltage-Zrenjanin-Area");
 
-			a7 = new AreaModel("a7");
+			a8 = new AreaModel("NoviBecej-Area");
+			a9 = new AreaModel("Low-Voltage-NoviBecej-Area");
+			a10 = new AreaModel("High-Voltage-NoviBecej-Area");
 
 			a1.SubAreas.Add(a2);
 			a1.SubAreas.Add(a3);
@@ -49,6 +55,9 @@ namespace DERMSApp.ViewModels
 
 			a5.SubAreas.Add(a6);
 			a5.SubAreas.Add(a7);    // kraj druga grana
+
+			a8.SubAreas.Add(a9);
+			a8.SubAreas.Add(a10);
 
 			var areasTemp = new List<AreaModel>();
 			areasTemp.Add(a1);
@@ -60,6 +69,10 @@ namespace DERMSApp.ViewModels
 			areasTemp.Add(a6);
 
 			areasTemp.Add(a7);
+
+			areasTemp.Add(a8);
+			areasTemp.Add(a9);
+			areasTemp.Add(a10);
 
 			areasTemp = FilterTopAreaAors(areasTemp);//to do sada je without filter
 			Areas = new ObservableCollection<AreaModel>(areasTemp);

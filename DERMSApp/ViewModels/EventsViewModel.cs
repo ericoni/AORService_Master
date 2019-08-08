@@ -21,11 +21,11 @@ namespace DERMSApp.ViewModels
 
 		public EventsViewModel()
 		{
-            List<EventModel> tempList = new List<EventModel>(3) { new EventModel("a", "p", "r", DateTime.Now, DateTime.Now, AORCommon.Enumerations.SeverityEnumeration.High), new EventModel("a", "p3", "r", DateTime.Now, DateTime.Now) };
-            Events = new ObservableCollection<EventModel>(tempList);
-            //Events = new ObservableCollection<EventModel>();// to do hardcoded for the moment
+			//List<EventModel> tempList = new List<EventModel>(3) { new EventModel("a", "p", "r", DateTime.Now, DateTime.Now, AORCommon.Enumerations.SeverityEnumeration.High), new EventModel("a", "p3", "r", DateTime.Now, DateTime.Now) };
+			//Events = new ObservableCollection<EventModel>(tempList);
+			Events = new ObservableCollection<EventModel>();// to do hardcoded for the moment
 
-            EventSystem.Subscribe<Event>(UpdateEventData);
+			EventSystem.Subscribe<Event>(UpdateEventData);
 
 			ClearEventsCommand = new RelayCommand(() => ExecuteClearEventsCommand());
 		}

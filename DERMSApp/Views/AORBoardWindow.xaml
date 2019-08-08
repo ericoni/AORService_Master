@@ -7,6 +7,7 @@
 		xmlns:models="clr-namespace:DERMSApp.Model"
 		xmlns:converters="clr-namespace:DERMSApp.Converters"
 		mc:Ignorable="d"
+		SizeToContent="WidthAndHeight"
 		Title="AOR Board Window" Height="450" Width="800" WindowStartupLocation="CenterScreen">
 	<Window.Resources>
 		<ResourceDictionary>
@@ -405,7 +406,7 @@
 		</ResourceDictionary>
 	</Window.Resources>
 
-	<Grid>
+	<Grid Background="#FF0C0C0C">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="Auto" SharedSizeGroup="gr0"/>
 			<ColumnDefinition Width="Auto" SharedSizeGroup="gr1"/>
@@ -435,8 +436,6 @@
 			x:Name="treeViewAORBoard"
 			HorizontalAlignment="Left"
 			ItemsSource="{Binding Areas}"
-			Height="620" 
-			Width="490"
 			Margin="20,20,0,0" 
 			VerticalAlignment="Top"
 			>

@@ -9,13 +9,13 @@ namespace FTN.ServiceContracts
 	[ServiceContract]
 	public interface INetworkModelClient
 	{
-        [OperationContract]
-        Substation GetSubstation(long gid);
+		[OperationContract]
+		Substation GetSubstation(long gid);
 
 		[OperationContract]
 		List<Substation> GetAllSubstation();
 
-        [OperationContract]
+		[OperationContract]
 		List<GeographicalRegion> GetRegions();
 
 		[OperationContract]
@@ -28,13 +28,15 @@ namespace FTN.ServiceContracts
 		List<SynchronousMachine> GetDERs(long gid);
 
 		[OperationContract]
-        List<long> GetAnalogValuesGidForGidAndPowerType(long gid, PowerType powerType);
+		List<long> GetAnalogValuesGidForGidAndPowerType(long gid, PowerType powerType);
 
-        [OperationContract]
-        List<long> GetAllAnalogValuesGidForPowerType(PowerType powerType);
+		[OperationContract]
+		List<long> GetAllAnalogValuesGidForPowerType(PowerType powerType);
 
 		[OperationContract]
 		SynchronousMachine GetSyncMachineByGid(long gid);
+		[OperationContract]
+		string GetStaticModelResourceNameByGid(long gid);
 	}
 
 }

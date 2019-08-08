@@ -629,7 +629,7 @@ namespace CalculationEngService
 		/// Funkcija koju UI poziva i vrsi resporedjivanje i upravljanje SetPoint-ima
 		/// </summary>
 		/// <param name="command"> Komanda </param>
-		/// <returns> Da li je moguce primenit komandu</returns>
+		/// <returns> Da li je moguce primeniti komandu</returns>
 		public bool DistributePowerClient(Command command)
 		{
 			// Rezultat Proracuna ce biti smesten u dictionary. Kljuc je vreme a vrednost set point
@@ -689,7 +689,9 @@ namespace CalculationEngService
 			Thread coordinator = new Thread(() => ThreadCoordinator(distributePowerResult, commands));
 			coordinator.Start();
 
-			Event e = new Event("a", "New setpoint for gid " + command.GlobalId + " ,demanded power " + command.DemandedPower.ToString() + " ,power type: " + command.PowerType.ToString() + " and start time: " + new DateTime(command.StartTime).ToString(), "regionXX", DateTime.Now);
+			string staticModelResourceName = rdAdapter.GetStaticModelResourceNameByGid(command.GlobalId);
+			
+			Event e = new Event("a", "New setpoint for "+  staticModelResourceName +  " ,demanded power: " + command.DemandedPower.ToString() + " ,power type: " + command.PowerType.ToString() + " and duration: " + command.Duration + "h.", "Backa", DateTime.Now.AddMinutes(1).AddSeconds(5).AddMilliseconds(18));
 			eventCollectorProxy.Proxy.SendEvent(e);
 			return true;
 		}
@@ -774,6 +776,9 @@ namespace CalculationEngService
 				CalculationEngineModel.Instance.RemoveCommand(command);
 			}
 
+			string staticModelResourceName = rdAdapter.GetStaticModelResourceNameByGid(gid);
+			Event e = new Event("a", "Setpoint removed for " + staticModelResourceName, "Backa", DateTime.Now.AddMinutes(3).AddSeconds(5).AddMilliseconds(66));
+			eventCollectorProxy.Proxy.SendEvent(e);
 			return true;
 		}
 
