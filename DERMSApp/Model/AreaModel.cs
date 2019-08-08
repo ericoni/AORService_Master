@@ -14,26 +14,27 @@ namespace DERMSApp.Model
 	{
 		private string name;
 		bool isCheckedForView;//to do redefinisati ime (staviti fino da se zna sta je view, i sta je control
+        bool isCheckedForControl;
 		bool isCovered;
-
 		bool viewStatus;
 		bool controlStatus;
 		private ObservableCollection<AreaModel> subareas;
-		int userCoveringArea;
+		int numberOfCoveringUsers;
 		public AreaModel()
 		{
 
 		}
 
-		public AreaModel(string name)
+        public AreaModel(string name, int numberOfCoveringUsers = 2, bool isCheckedForView = true, bool isCheckedForControl = true, bool isCovered = true)
 		{
 			this.name = name;
-			this.IsCheckedForView = true;
+			this.IsCheckedForView = isCheckedForView;
+            this.isCheckedForControl = isCheckedForControl;
 			this.subareas = new ObservableCollection<AreaModel>();
-			this.isCovered = false; //do to vrati se na ovo
-			this.userCoveringArea = 5;
+			this.isCovered = isCovered; //do to vrati se na ovo
+			this.NumberOfCoveringUsers = numberOfCoveringUsers;
 			this.viewStatus = true;
-			this.controlStatus = false;
+			this.controlStatus = true;
 		}
 		public string Name
 		{
@@ -86,18 +87,19 @@ namespace DERMSApp.Model
 			}
 		}
 
-		public int UsersCoveringArea
-		{
-			get { return 6; }
-			//set
-			//{
-			//    if (isCovered != value)
-			//    {
-			//        isCovered = value;
-			//        OnPropertyChanged("UsersCoveringArea");
-			//    }
-			//}
-		}
+        public int NumberOfCoveringUsers
+        {
+            get { return numberOfCoveringUsers; }
+            set
+            {
+                if (numberOfCoveringUsers != value)
+                {
+                    numberOfCoveringUsers = value;
+                    OnPropertyChanged("NumberOfCoveringUsers");
+                }
+            }
+        }
+
 		public bool IsCheckedForView
 		{
 			get { return isCheckedForView; }
@@ -119,7 +121,28 @@ namespace DERMSApp.Model
 			}
 		}
 
-		public ObservableCollection<AreaModel> SubAreas
+        public bool IsCheckedForControl
+        {
+            get { return isCheckedForControl; }
+            set
+            {
+                //if (isCheckedForView != value)
+                //{
+                isCheckedForControl = value;
+                OnPropertyChanged("IsCheckedForControl");
+
+                if (this.SubAreas != null)
+                {
+                    foreach (var subarea in this.SubAreas)
+                    {
+                        subarea.IsCheckedForControl = value;
+                    }
+                }
+                //}
+            }
+        }
+
+        public ObservableCollection<AreaModel> SubAreas
 		{
 			get { return subareas; }
 			set

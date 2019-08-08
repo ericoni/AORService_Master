@@ -34,14 +34,16 @@ namespace DERMSApp.ViewModels
 		private ObservableCollection<AreaModel> areas = null;
 		public AORBoardViewModel(TreeView treeView)
 		{
-			a1 = new AreaModel("Backa-Area");
-			a2 = new AreaModel("Low-Voltage-Backa-Area");
-			a3 = new AreaModel("High-Voltage-Backa-Area");
+			a1 = new AreaModel("Backa-Area", 1);
+			a2 = new AreaModel("Low-Voltage-Backa-Area", 2);
+			a3 = new AreaModel("High-Voltage-Backa-Area", 2);
 			a4 = new AreaModel("a4");
 
-			a5 = new AreaModel("Zrenjanin-Area");
+			a5 = new AreaModel("Zrenjanin-Area", 1);
 			a6 = new AreaModel("Low-Voltage-Zrenjanin-Area");
-			a7 = new AreaModel("High-Voltage-Zrenjanin-Area");
+			a7 = new AreaModel("High-Voltage-Zrenjanin-Area", 0, true, false, false);
+            a7.ViewStatus = true;
+            a7.ControlStatus = false;
 
 			a8 = new AreaModel("NoviBecej-Area");
 			a9 = new AreaModel("Low-Voltage-NoviBecej-Area");

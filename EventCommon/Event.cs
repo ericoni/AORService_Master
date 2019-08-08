@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace EventCommon
 {
     /// <summary>
-    /// If you need to create an event use this method and send it via proxy to EventService.
+    /// If you need to create an event use this method and send it via proxy to EventService. Servisi koriste ovu klasu.
     /// </summary>
 	[Serializable]
 	public class Event

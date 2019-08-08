@@ -472,11 +472,14 @@ namespace DERMSApp.ViewModels
 
 				SortedDictionary<long, float> commands = CommandProxy.Proxy.GetApplaiedCommands(SelectedDER, powerType);
 
-				IncreaseForObject = (Math.Round(float.Parse(IncreaseForObject) - commands[current.Ticks], 2)).ToString();
-				DecreaseForObject = (Math.Round(float.Parse(DecreaseForObject) + commands[current.Ticks], 2)).ToString();
-			 
-				PowerOfObject = (Math.Round((float.Parse(PowerOfObject) + commands[current.Ticks]), 2)).ToString();
+                if (commands.ContainsKey(current.Ticks))
+                {
+                    IncreaseForObject = (Math.Round(float.Parse(IncreaseForObject) - commands[current.Ticks], 2)).ToString();
+                    DecreaseForObject = (Math.Round(float.Parse(DecreaseForObject) + commands[current.Ticks], 2)).ToString();
 
+                    PowerOfObject = (Math.Round((float.Parse(PowerOfObject) + commands[current.Ticks]), 2)).ToString();
+                }
+			
 				LoadChartData();
 
 				CommandTimeLineData(commands, SelectedDER + "commands.xml");

@@ -39,7 +39,7 @@
 				</DataGrid.Columns>
 			</DataGrid>
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-				<CheckBox Content="Show Only Mine" VerticalAlignment="Center" Margin="10,0,0,0"></CheckBox>
+				<CheckBox Content="Show Global Alarms" VerticalAlignment="Center" Margin="10,0,0,0"></CheckBox>
 				<Button Content="Archive" Width="75" Margin="10,0,0,0"/>
 				<Button Content="Clear log"  Width="75" Command="{Binding ClearAlarmsCommand}" Margin="10,0,0,0"/>
 			</StackPanel>

@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 namespace DERMSApp.Model
 {
 	/// <summary>
-	/// Event model for UI presentation. This is currently in use. to do remove BindableBase vjereovatno.
+	/// Event model for UI presentation. To do remove BindableBase vjereovatno. Ova se samo koristi za view modele.
+    /// Mozda mi ne treba ova klasa uopste nego koristiti istu, ne znam zasto je ubacena. xD
 	/// </summary>
 	public class EventModel : BindableBase
 	{

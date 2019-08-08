@@ -3,6 +3,7 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+         xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
 		xmlns:local="clr-namespace:DERMSApp.Views"
 		xmlns:models="clr-namespace:DERMSApp.Model"
 		xmlns:converters="clr-namespace:DERMSApp.Converters"
@@ -68,7 +69,7 @@
 								<StackPanel Orientation="Vertical">
 									<Label Grid.Column="4" Content="Number of users" FontSize="11"></Label>
 									<TextBlock Grid.Column="4" 
-											   Text="{Binding UsersCoveringArea}" 
+											   Text="{Binding NumberOfCoveringUsers, diag:PresentationTraceSources.TraceLevel=High}" 
 											   HorizontalAlignment="Center"
 											   FontSize="11"></TextBlock>
 								</StackPanel>
@@ -494,7 +495,7 @@
 									<StackPanel Orientation="Vertical">
 										<Label Grid.Column="4" Content="Number of users" FontSize="11"></Label>
 										<TextBlock Grid.Column="4" 
-											   Text="{Binding UsersCoveringArea}" 
+											   Text="{Binding NumberOfCoveringUsers}" 
 											   HorizontalAlignment="Center"
 											   FontSize="11"></TextBlock>
 									</StackPanel>

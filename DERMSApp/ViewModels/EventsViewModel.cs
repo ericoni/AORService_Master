@@ -45,10 +45,18 @@ namespace DERMSApp.ViewModels
 		}
 
 		#region Private methods
+        /// <summary>
+        /// To do vrati se ovde i obrisi hardcode. 
+        /// </summary>
 		private void ExecuteClearEventsCommand()
 		{
 			Events = new ObservableCollection<EventModel>();
-		}
+            EventModel e1 = new EventModel(null, "User 'petar.petrovic' logged in with specified AOR areas: Backa-Area, Zrenjanin-Area, NoviBecej-Area", null, DateTime.Now, DateTime.Now);
+            EventModel e2 = new EventModel(null, "New setpoint for Zrenjanin, demanded power: 10, power type: Active and duration: 2h", "Backa", DateTime.Now.AddMinutes(1).AddSeconds(31), DateTime.Now.AddMinutes(1).AddSeconds(31), AORCommon.Enumerations.SeverityEnumeration.Medium);
+            EventModel e3 = new EventModel(null, "Setpoint removed for Zrenjanin", "Backa", DateTime.Now.AddMinutes(2).AddSeconds(12), DateTime.Now.AddMinutes(2).AddSeconds(12), AORCommon.Enumerations.SeverityEnumeration.Medium);
+
+            Events = new ObservableCollection<EventModel>(new List<EventModel>(3) { e1, e2, e3 });
+        }
 
 		private void UpdateEventData(Event e)
 		{
