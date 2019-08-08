@@ -7,7 +7,8 @@ using Prism.Events;
 namespace DERMSApp.Model
 {
     /// <summary>
-    /// Static EventAggregator
+    /// Static EventAggregator. Used to communicate between view models.
+    /// Usage: Just subscribe to anything and publish a changeset from any location.
     /// </summary>
     public static class EventSystem
     {

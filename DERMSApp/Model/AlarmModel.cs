@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AORCommon.Enumerations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,24 +7,17 @@ using System.Threading.Tasks;
 
 namespace DERMSApp.Model
 {
-	public enum AlarmSeverity
-	{
-		Low = 0,
-		Medium = 1,
-		High = 2
-	}
-
 	[Serializable]
-	public class Alarm : BindableBase
+	public class AlarmModel : BindableBase
 	{
 		private string details;
 		private string region;
 		private string substation;
 		private string generatorType;
-		private AlarmSeverity severity;
+		private SeverityEnumeration severity;
 		private DateTime fieldTimestamp;
 
-		public Alarm(string details, string region, DateTime fieldTimestamp,  AlarmSeverity severity = AlarmSeverity.Low, string substation = null, string generatorType = null)
+		public AlarmModel(string details, string region, DateTime fieldTimestamp, SeverityEnumeration severity = SeverityEnumeration.Low, string substation = null, string generatorType = null)
 		{
 			this.Details = details;
 			this.Region = region;
@@ -56,7 +50,7 @@ namespace DERMSApp.Model
 			}
 		}
 
-		public AlarmSeverity Severity
+		public SeverityEnumeration Severity
 		{
 			get { return severity; }
 			set

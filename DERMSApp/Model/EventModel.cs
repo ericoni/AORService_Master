@@ -1,4 +1,5 @@
-﻿using DERMSApp.Model;
+﻿using AORCommon.Enumerations;
+using DERMSApp.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,21 +9,24 @@ using System.Threading.Tasks;
 namespace DERMSApp.Model
 {
 	/// <summary>
-	/// Event model for UI presentation. To do mozda izbaciti bindable base.
+	/// Event model for UI presentation. This is currently in use. to do remove BindableBase vjereovatno.
 	/// </summary>
 	public class EventModel : BindableBase
 	{
 		private string username;
 		private string details;
 		private string region;
+        private SeverityEnumeration severity;
 		private DateTime systemTimestamp;
 		private DateTime fieldTimestamp;
 
-		public EventModel(string username, string details, string region, DateTime fieldTimestamp, DateTime systemTimestamp)
+		public EventModel(string username, string details, string region, DateTime fieldTimestamp, DateTime systemTimestamp, 
+            SeverityEnumeration severity = SeverityEnumeration.Low)
 		{
 			this.Username = username;
 			this.Details = details;
 			this.Region = region;
+            this.Severity = severity;
 			this.FieldTimestamp = fieldTimestamp;
 			this.SystemTimestamp = systemTimestamp;
 		}
@@ -66,7 +70,20 @@ namespace DERMSApp.Model
 			}
 		}
 
-		public DateTime SystemTimestamp
+        public  SeverityEnumeration Severity
+        {
+            get { return severity; }
+            set
+            {
+                if (severity != value)
+                {
+                    severity = value;
+                    OnPropertyChanged("Severity");
+                }
+            }
+        }
+
+        public DateTime SystemTimestamp
 		{
 			get { return systemTimestamp; }
 			set

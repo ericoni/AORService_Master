@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace DERMSApp.Model
 {
+    /// <summary>
+    /// To be documented.
+    /// </summary>
 	public class AreaModel : BindableBase
 	{
 		private string name;

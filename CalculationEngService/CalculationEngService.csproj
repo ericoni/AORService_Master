@@ -81,6 +81,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AORCommon\AORCommon.csproj">
+      <Project>{8d3521e8-89e2-4e7c-b469-e1fdbd06a479}</Project>
+      <Name>AORCommon</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CIMAdapter\CIMAdapter.csproj">
       <Project>{f680d34f-c148-4314-8914-b2df3e7b17af}</Project>
       <Name>CIMAdapter</Name>

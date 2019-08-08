@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using AORCommon.Enumerations;
 using DERMSApp.Model;
 using GalaSoft.MvvmLight.Command;
 
@@ -12,20 +13,17 @@ namespace DERMSApp.ViewModels
 {
 	public class AlarmsViewModel : BindableBase
 	{
-		private ObservableCollection<Alarm> alarms = null;
+		private ObservableCollection<AlarmModel> alarms = null;
 		public ICommand ClearAlarmsCommand { get; private set; }
 
 		public AlarmsViewModel()
 		{
-			List<Alarm> tempList = new List<Alarm>(3) { new Alarm("Area has become uncovered.", "Backa", DateTime.Now.AddMinutes(-6).AddSeconds(-5).AddMilliseconds(-66), AlarmSeverity.High), new Alarm("Weather Forecast is not available.", "Backa", DateTime.Now, AlarmSeverity.Medium), new Alarm("Reason3", "Backa", DateTime.Now) };
-
-			Alarms = new ObservableCollection<Alarm>(tempList);
-
-			Alarms[0].Severity = AlarmSeverity.Medium;
+            List<AlarmModel> tempList = new List<AlarmModel>(3) { new AlarmModel("Area has become uncovered.", "Backa", DateTime.Now.AddMinutes(-6).AddSeconds(-5).AddMilliseconds(-66), SeverityEnumeration.High), new AlarmModel("Weather Forecast is not available.", "Backa", DateTime.Now, SeverityEnumeration.Medium)};
+            Alarms = new ObservableCollection<AlarmModel>(tempList);
 			ClearAlarmsCommand = new RelayCommand(() => ExecuteClearAlarmsCommand());
 		}
 
-		public ObservableCollection<Alarm> Alarms
+		public ObservableCollection<AlarmModel> Alarms
 		{
 			get
 			{
@@ -41,7 +39,7 @@ namespace DERMSApp.ViewModels
 
 		private void ExecuteClearAlarmsCommand()
 		{
-			Alarms = new ObservableCollection<Alarm>();
+			Alarms = new ObservableCollection<AlarmModel>();
 		}
 	}
 }

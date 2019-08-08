@@ -1,4 +1,5 @@
-﻿using DERMSApp.Model;
+﻿using AORCommon.Enumerations;
+using DERMSApp.Model;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -16,12 +17,12 @@ namespace DERMSApp.Converters
 		{
 			SolidColorBrush returnBrush = null;
 
-			switch ((AlarmSeverity)value)
+			switch ((SeverityEnumeration)value)
 			{
-				case AlarmSeverity.High:
+				case SeverityEnumeration.High:
 					returnBrush = new SolidColorBrush(Colors.OrangeRed);
 					break;
-				case AlarmSeverity.Medium:
+				case SeverityEnumeration.Medium:
 					returnBrush = new SolidColorBrush(Colors.Khaki);
 					break;
 

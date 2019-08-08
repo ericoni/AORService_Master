@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enumerations\SeverityEnumeration.cs" />
     <Compile Include="Helpers\ADLDSHelper.cs" />
     <Compile Include="Helpers\AORHelper.cs" />
     <Compile Include="Principal\CustomPrincipal.cs" />
