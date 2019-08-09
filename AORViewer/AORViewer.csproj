@@ -153,10 +153,12 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Theme\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Page Include="Theme\Theme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\AreaAddNewWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -206,6 +208,10 @@
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{892CBE15-9ED7-4540-81FA-0EAABA592138}</Project>
       <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RDAdapter\RDAdapter.csproj">
+      <Project>{F2AE1113-EFC9-4C01-AA5D-5CB477BDDA01}</Project>
+      <Name>RDAdapter</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

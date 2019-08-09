@@ -7,6 +7,8 @@ using GalaSoft.MvvmLight.Command;
 using FTN.Common.AORCachedModel;
 using AORViewer.Views;
 using AORManagementProxyNS;
+using Adapter;
+using FTN.Common.AORHelpers;
 
 namespace AORViewer.ViewModels
 {
@@ -31,6 +33,7 @@ namespace AORViewer.ViewModels
 		private string areaPermissionsOneLine = string.Empty;
 		private List<string> areaGroups;
 		private Permission selectedPermisssion;
+		RDAdapter rdAdapter;
 
 		#endregion Fields
 		#region Commands
@@ -82,30 +85,68 @@ namespace AORViewer.ViewModels
 				var dnas = aorViewCommProxy.Proxy.GetAllDNAs();
 				DNAList = dnas;
 
-				var groups = aorViewCommProxy.Proxy.GetAORGroups();
-				AORGroups = groups;
+				//var groups = aorViewCommProxy.Proxy.GetAORGroups();//to do temp commented
+				//var groups = new List<AORCachedGroup>() { new AORCachedGroup("Zrenjanin-East-MediumVoltage", 1) };
 
-				var areas = aorViewCommProxy.Proxy.GetAORAreas();
-				AORAreas = areas;
+				rdAdapter = new RDAdapter();
+				var nmsAorGroups = rdAdapter.GetAORGroups();
+				List<AORCachedGroup> aorCachedGroups = new List<AORCachedGroup>();
 
-				foreach (var item in areas)
+				foreach (var nmsGroup in nmsAorGroups)
 				{
-					var perms = aorViewCommProxy.Proxy.GetPermissionsForArea(item.Name);
-					foreach (var p in perms)
-					{
-						item.Permissions.Add(new Permission(p));
-					}
+					var a = NMSModelAORConverter.ConvertAORGroupFromNMS(nmsGroup);
+					aorCachedGroups.Add(a);
 				}
+				AORGroups = aorCachedGroups;
 
-				users = aorViewCommProxy.Proxy.GetAllUsers();
-				Users = users;
+				#region perms
+				Permission p1 = new Permission("DNA_PermissionControlSCADA", "Permission to issue commands towards SCADA system.");
+				Permission p2 = new Permission("DNA_PermissionUpdateNetworkModel", "Permission to apply delta (model changes)- update current network model within their assigned AOR");
+				Permission p3 = new Permission("DNA_PermissionViewSystem", "Permission to view content of AORViewer");
+				Permission p4 = new Permission("DNA_PermissionSystemAdministration", "Permission to view system settings in AORViewer");
+				Permission p5 = new Permission("DNA_PermissionViewSecurity", "Permission to view security content of AORViewer");
+				Permission p6 = new Permission("DNA_PermissionSecurityAdministration", "Permission to edit security content of AORViewer");
+				Permission p7 = new Permission("DNA_PermissionViewAdministration", "Permission to edit security content of AORViewer");
+				Permission p8 = new Permission("DNA_PermissionViewSCADA", "Permission to view content operating under SCADA system.");
+				Permission p9 = new Permission("DNA_PermissionViewSCADA_HV", "Permission to view high voltage content operating under SCADA system.");
+				Permission p10 = new Permission("DNA_PermissionViewSCADA_LV", "Permission to view low voltage content operating under SCADA system.");
+				#endregion
+
+				//var areas = aorViewCommProxy.Proxy.GetAORAreas();
+				#region Areas
+				AORCachedArea area1 = new AORCachedArea("West-Area", "", new List<Permission> { p1, p2, p3, p4 }, new List<AORCachedGroup>(aorGroups)); // aorGroup[0] gets id 7 (mozda sto prva nema u sebi SM?)
+				AORCachedArea area2 = new AORCachedArea("East-Area", "", new List<Permission> { p1, p3, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1] });
+				AORCachedArea area3 = new AORCachedArea("South-Area", "", new List<Permission> { p2, p3, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[5] });
+				AORCachedArea area4 = new AORCachedArea("North-Area", "", new List<Permission> { p1, p2, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3] });
+				AORCachedArea area5 = new AORCachedArea("North-Area2", "", new List<Permission> { p5, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3] });
+				AORCachedArea area6 = new AORCachedArea("North-Area-HighVoltage", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
+				AORCachedArea area7 = new AORCachedArea("East-Area-Wind", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
+				AORCachedArea area8 = new AORCachedArea("East-Area-LowVoltage", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
+				AORCachedArea area9 = new AORCachedArea("East-Area-HighVoltage", "", new List<Permission> { p1, p7, p8 }, new List<AORCachedGroup>() { aorGroups[1] });
+				AORCachedArea area10 = new AORCachedArea("Central-Area-HighVoltage", "", new List<Permission> { p1, p2, p3, p7, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1], aorGroups[5], aorGroups[6] });
+				AORCachedArea area11 = new AORCachedArea("Central-Area-LowVoltage", "", new List<Permission> { p1, p2, p5, p7 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1], aorGroups[4], aorGroups[6] });
+
+				HashSet<AORCachedArea> hashSetAreas = new HashSet<AORCachedArea>() { area1, area2, area3, area4, area5, area6, area7, area8, area9, area10, area11 };
+				#endregion
+				AORAreas = hashSetAreas;
+
+				//foreach (var item in areas)
+				//{
+				//	var perms = aorViewCommProxy.Proxy.GetPermissionsForArea(item.Name);
+				//	foreach (var p in perms)
+				//	{
+				//		item.Permissions.Add(new Permission(p));
+				//	}
+				//}
+
+				//users = aorViewCommProxy.Proxy.GetAllUsers();
+				//Users = users;
 			}
 			catch (Exception ex)
 			{
 				Console.WriteLine("AORVMainWindowViewModel Constructor failed: " + ex.StackTrace);
 			}
 		}
-
 
 		public List<LBModelBase> AORViewerList
 		{

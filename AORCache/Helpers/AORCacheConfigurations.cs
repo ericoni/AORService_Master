@@ -200,7 +200,7 @@ namespace ActiveAORCache.Helpers
 			{
 				aorAreas = access.Areas.Include(a => a.Groups.Select(y => y.SynchronousMachines)).Include("Users").Include("Permissions").ToList();
 
-            }
+			}
 
 			if (aorAreas.Count == 0)// || user == null)
 			{
@@ -296,22 +296,22 @@ namespace ActiveAORCache.Helpers
 		//	}
 		//}
 
-        /// <summary>
-        /// HARCDODED SECTION, potrebno je ispraviti ovo posle faze testiranja.
-        /// </summary>
-        /// <param name="areaName"></param>
-        /// <param name="isSelectedForControl"></param>
-        /// <returns></returns>
+		/// <summary>
+		/// HARCDODED SECTION, potrebno je ispraviti ovo posle faze testiranja.
+		/// </summary>
+		/// <param name="areaName"></param>
+		/// <param name="isSelectedForControl"></param>
+		/// <returns></returns>
 		public static bool SelectAreaForControl(string areaName, bool isSelectedForControl)
 		{
 			if (areaName == string.Empty)
 				return false;
 
-            //var principal = Thread.CurrentPrincipal;
-            //String name = principal.Identity.Name;
-            //int backslashLastIndex = name.LastIndexOf('\\');
-            //string username = name.Substring(backslashLastIndex + 1);
-            string username = "marko.markovic";//to do hardcoded for now
+			//var principal = Thread.CurrentPrincipal;
+			//String name = principal.Identity.Name;
+			//int backslashLastIndex = name.LastIndexOf('\\');
+			//string username = name.Substring(backslashLastIndex + 1);
+			string username = "marko.markovic";//to do hardcoded for now
 
 			using (var access = new AccessDB())
 			{
@@ -324,10 +324,10 @@ namespace ActiveAORCache.Helpers
 					return false;
 				}
 
-                var x = access.CachedUserAreasNew.ToList();
-                var y = access.CachedUserAreasNew.Where(a => a.AreaId == areaQuery.AreaId).FirstOrDefault();
+				var x = access.CachedUserAreasNew.ToList();
+				var y = access.CachedUserAreasNew.Where(a => a.AreaId == areaQuery.AreaId).FirstOrDefault();
 
-                var userAreasCombined = access.CachedUserAreasNew.Where(a => a.AreaId == areaQuery.AreaId).Where(a=>a.UserId == userQuery.UserId).FirstOrDefault();
+				var userAreasCombined = access.CachedUserAreasNew.Where(a => a.AreaId == areaQuery.AreaId).Where(a=>a.UserId == userQuery.UserId).FirstOrDefault();
 
 				if (userAreasCombined == null)
 				{

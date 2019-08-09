@@ -16,5 +16,10 @@
 			</DataTemplate>-->
 		<!--</ResourceDictionary>-->
 		<!--<vm:AORVMainWindowViewModel x:Key="AORVMainWindowViewModel" />-->
+		<!--<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="Theme/Theme.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>-->
 	</Application.Resources>
 </Application>

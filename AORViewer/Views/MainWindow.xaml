@@ -7,12 +7,11 @@
 		xmlns:local="clr-namespace:AORViewer.Views"
 		xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
 		mc:Ignorable="d"
-		Title="AOR Viewer" Height="600" Width="800">
+		Title="AOR Presenter" Height="600" Width="800">
 	<Window.DataContext>
 		<VM:AORVMainWindowViewModel/>
 	</Window.DataContext>
-	<Grid>
-		<Grid>
+	<Grid Background="#FF0C0C0C">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="0.3*"></ColumnDefinition>
 				<ColumnDefinition Width="*"></ColumnDefinition>
@@ -21,7 +20,7 @@
 				<RowDefinition Height="*"></RowDefinition>
 			</Grid.RowDefinitions>
 
-			<ListBox Grid.Row="0" Grid.Column="0" ItemsSource="{Binding AORViewerList}" SelectedItem="{Binding SelectedElement}">
+		<ListBox Grid.Row="0" Grid.Column="0" ItemsSource="{Binding AORViewerList}" SelectedItem="{Binding SelectedElement}" Background="#FF0C0C0C">
 				<ListBox.ItemTemplate>
 					<DataTemplate>
 						<StackPanel Orientation="Horizontal">
@@ -35,7 +34,8 @@
 					<ContextMenu>
 						<MenuItem Header="Update AORs" Visibility="{Binding Path=DataContext.IsAORGroupsOrAreasSelected, ElementName=MainAppGrid}"/>
 						<Separator />
-						<MenuItem Header="Add new" Command="{Binding AddNewAreaCommand}" /> <!--srediti context menu da fino prikazuje, radi samo za new area-->
+						<MenuItem Header="Add new" Command="{Binding AddNewAreaCommand}" />
+						<!--srediti context menu da fino prikazuje, radi samo za new area-->
 						<Separator />
 						<MenuItem Header="Export data" />
 						<MenuItem Header="Import data"/>
@@ -43,7 +43,7 @@
 				</ListBox.ContextMenu>
 			</ListBox>
 
-				<DataGrid Grid.Column="1"  Visibility="{Binding IsPermissionsSelected}" ItemsSource="{Binding PermissionList}" SelectedItem="{Binding SelectedPermission}"
+			<DataGrid Grid.Column="1"  Visibility="{Binding IsPermissionsSelected}" ItemsSource="{Binding PermissionList}" SelectedItem="{Binding SelectedPermission}"
 					  CanUserAddRows="False" GridLinesVisibility="Vertical" AutoGenerateColumns="False">
 				<DataGrid.ContextMenu>
 					<ContextMenu>
@@ -68,7 +68,7 @@
 				<DataGrid.Columns>
 					<DataGridTextColumn Header="Name" Binding="{Binding Name}" />
 					<DataGridTextColumn Header="Description" Binding="{Binding Description}" />
-				</DataGrid.Columns>				
+				</DataGrid.Columns>
 			</DataGrid>
 			<!--<Grid Grid.Column="1" Visibility="{Binding IsAORAreasSelected}">
 				<TextBox Text="{Binding SelectedElement.Description}"></TextBox>
@@ -83,7 +83,7 @@
 				</DataGrid.ContextMenu>
 				<DataGrid.Columns>
 					<DataGridTextColumn Header="Name" Binding="{Binding Name}" />
-					
+
 					<DataGridTextColumn Header="Permissions" Binding="{Binding GetPermsInOneLine}"/>
 				</DataGrid.Columns>
 			</DataGrid>
@@ -92,7 +92,7 @@
 				<TextBox Text="{Binding SelectedElement.Description}"></TextBox>
 			</Grid>-->
 			<!--SelectedItem="{Binding SelectedGroup}"-->
-			<DataGrid Grid.Column="1" Visibility="{Binding IsAORGroupsSelected}" ItemsSource="{Binding AORGroups}" SelectedItem="{Binding SelectedGroup}"
+		<DataGrid Grid.Column="1" Visibility="{Binding IsAORGroupsSelected}" ItemsSource="{Binding AORGroups}" SelectedItem="{Binding SelectedGroup}" Background="#FF0C0C0C"
 				CanUserAddRows="False" GridLinesVisibility="Vertical" AutoGenerateColumns="False">
 				<DataGrid.ContextMenu>
 					<ContextMenu>
@@ -105,5 +105,4 @@
 				</DataGrid.Columns>
 			</DataGrid>
 		</Grid>
-	</Grid>
 </Window>
