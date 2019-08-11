@@ -24,7 +24,10 @@ namespace DERMSApp.ViewModels
 		private AreaModel a8 = null;
 		private AreaModel a9 = null;
 		private AreaModel a10 = null;
-		TreeView treeView = null;
+		private AreaModel a11 = null;
+		private AreaModel a12 = null;
+		private AreaModel a13 = null;
+        TreeView treeView = null;
 		
 
 		#region Commands
@@ -49,7 +52,11 @@ namespace DERMSApp.ViewModels
 			a9 = new AreaModel("Low-Voltage-NoviBecej-Area");
 			a10 = new AreaModel("High-Voltage-NoviBecej-Area");
 
-			a1.SubAreas.Add(a2);
+            a11 = new AreaModel("Secanj-Area");
+            a12 = new AreaModel("Low-Voltage-Secanj-Area");
+            a13 = new AreaModel("High-Voltage-Secanj-Area");
+
+            a1.SubAreas.Add(a2);
 			a1.SubAreas.Add(a3);
 
 			a3.SubAreas.Add(a4);
@@ -61,6 +68,9 @@ namespace DERMSApp.ViewModels
 			a8.SubAreas.Add(a9);
 			a8.SubAreas.Add(a10);
 
+            a11.SubAreas.Add(a12);
+            a11.SubAreas.Add(a13);
+            
 			var areasTemp = new List<AreaModel>();
 			areasTemp.Add(a1);
 			areasTemp.Add(a2);
@@ -76,7 +86,11 @@ namespace DERMSApp.ViewModels
 			areasTemp.Add(a9);
 			areasTemp.Add(a10);
 
-			areasTemp = FilterTopAreaAors(areasTemp);//to do sada je without filter
+            areasTemp.Add(a11);
+            areasTemp.Add(a12);
+            areasTemp.Add(a13);
+
+            areasTemp = FilterTopAreaAors(areasTemp);//to do sada je without filter
 			Areas = new ObservableCollection<AreaModel>(areasTemp);
 
 			ExecuteCommand = new RelayCommand(() => ExecuteExecuteCommand());

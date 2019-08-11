@@ -7,7 +7,7 @@
 		xmlns:local="clr-namespace:AORViewer.Views"
 		xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
 		mc:Ignorable="d"
-		Title="AOR Presenter" Height="600" Width="800">
+		Title="AOR Supervisor" Height="600" Width="800">
 	<Window.DataContext>
 		<VM:AORVMainWindowViewModel/>
 	</Window.DataContext>
@@ -43,7 +43,7 @@
 				</ListBox.ContextMenu>
 			</ListBox>
 
-			<DataGrid Grid.Column="1"  Visibility="{Binding IsPermissionsSelected}" ItemsSource="{Binding PermissionList}" SelectedItem="{Binding SelectedPermission}"
+        <DataGrid Grid.Column="1"  Visibility="{Binding IsPermissionsSelected}" ItemsSource="{Binding PermissionList}" SelectedItem="{Binding SelectedPermission}" Background="#FF0C0C0C"
 					  CanUserAddRows="False" GridLinesVisibility="Vertical" AutoGenerateColumns="False">
 				<DataGrid.ContextMenu>
 					<ContextMenu>
@@ -57,7 +57,7 @@
 				</DataGrid.Columns>
 			</DataGrid>
 
-			<DataGrid Grid.Column="1" Visibility="{Binding IsAuthoritiesSelected}" ItemsSource="{Binding DNAList}" SelectedItem="{Binding SelectedDNA}"
+        <DataGrid Grid.Column="1" Visibility="{Binding IsAuthoritiesSelected}" ItemsSource="{Binding DNAList}" SelectedItem="{Binding SelectedDNA}" Background="#FF0C0C0C"
 					  CanUserAddRows="False" GridLinesVisibility="Vertical" AutoGenerateColumns="False">
 				<DataGrid.ContextMenu>
 					<ContextMenu>
@@ -73,7 +73,7 @@
 			<!--<Grid Grid.Column="1" Visibility="{Binding IsAORAreasSelected}">
 				<TextBox Text="{Binding SelectedElement.Description}"></TextBox>
 			</Grid>-->
-			<DataGrid Grid.Column="1" Visibility="{Binding IsAORAreasSelected}" ItemsSource="{Binding AORAreas}" SelectedItem="{Binding SelectedArea}" 
+        <DataGrid Grid.Column="1" Visibility="{Binding IsAORAreasSelected}" ItemsSource="{Binding AORAreas}" SelectedItem="{Binding SelectedArea}"  Background="#FF0C0C0C"
 					  CanUserAddRows="False" GridLinesVisibility="Vertical" AutoGenerateColumns="False">
 				<DataGrid.ContextMenu>
 					<ContextMenu>

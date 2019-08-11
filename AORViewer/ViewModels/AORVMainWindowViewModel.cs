@@ -58,7 +58,7 @@ namespace AORViewer.ViewModels
 			{ new LBModelBase(LBType.Permissions.ToString(), "Neki opis", @"..\..\..\Images\Permission.jpg"),
 				new LBModelBase(LBType.AOR_Groups.ToString(), "AOR GRUPE",@"..\..\..\Images\AORGroup.jpg"),
 				new LBModelBase(LBType.AOR_Areas.ToString(), "ARea",@"..\..\..\Images\AORArea.jpg"),
-				new LBModelBase(LBType.DNA_Authorities.ToString(), "Dna nesto", @"..\..\..\Images\Authority.jpg")};
+				new LBModelBase(LBType.Roles.ToString(), "Dna nesto", @"..\..\..\Images\Authority.jpg")};
 			AORViewerList = aorViewerTempList;
 
 			AORAreaPropertiesCommand = new RelayCommand(() => ExecuteAreaPropertiesCommand());
@@ -85,18 +85,36 @@ namespace AORViewer.ViewModels
 				var dnas = aorViewCommProxy.Proxy.GetAllDNAs();
 				DNAList = dnas;
 
-				//var groups = aorViewCommProxy.Proxy.GetAORGroups();//to do temp commented
-				//var groups = new List<AORCachedGroup>() { new AORCachedGroup("Zrenjanin-East-MediumVoltage", 1) };
+                //var groups = aorViewCommProxy.Proxy.GetAORGroups();//to do temp commented
+                //var groups = new List<AORCachedGroup>() { new AORCachedGroup("Zrenjanin-East-MediumVoltage", 1) };
 
-				rdAdapter = new RDAdapter();
-				var nmsAorGroups = rdAdapter.GetAORGroups();
-				List<AORCachedGroup> aorCachedGroups = new List<AORCachedGroup>();
+                //rdAdapter = new RDAdapter();
+                //var nmsAorGroups = rdAdapter.GetAORGroups();
+                //foreach (var nmsGroup in nmsAorGroups)
+                //{
+                //    var a = NMSModelAORConverter.ConvertAORGroupFromNMS(nmsGroup);
+                //    aorCachedGroups.Add(a);
+                //}
+                AORCachedGroup group1 = new AORCachedGroup("Zrenjanin-1-Group", 1);
+                AORCachedGroup group2 = new AORCachedGroup("Zrenjanin-2-Group", 2);
+                AORCachedGroup group3 = new AORCachedGroup("Zrenjanin-3-Group", 3);
+                AORCachedGroup group4 = new AORCachedGroup("Zrenjanin-4-Group", 4);
+                AORCachedGroup group5 = new AORCachedGroup("Zrenjanin-5-Group", 5);
+                AORCachedGroup group6 = new AORCachedGroup("Zrenjanin-6-Group", 5);
 
-				foreach (var nmsGroup in nmsAorGroups)
-				{
-					var a = NMSModelAORConverter.ConvertAORGroupFromNMS(nmsGroup);
-					aorCachedGroups.Add(a);
-				}
+                AORCachedGroup group7 = new AORCachedGroup("NoviBecej-1-Group", 5);
+                AORCachedGroup group8 = new AORCachedGroup("NoviBecej-2-Group", 5);
+                AORCachedGroup group9 = new AORCachedGroup("NoviBecej-3-Group", 5);
+                AORCachedGroup group10 = new AORCachedGroup("NoviBecej-4-Group", 5);
+
+                AORCachedGroup group11 = new AORCachedGroup("Secanj-1-Group", 5);
+                AORCachedGroup group12 = new AORCachedGroup("Secanj-2-Group", 5);
+                AORCachedGroup group13 = new AORCachedGroup("Secanj-3-Group", 5);
+
+                List<AORCachedGroup> aorCachedGroups = new List<AORCachedGroup>() {
+                    group1, group2, group3, group4, group5, group6, group7, group8, group9, group10, group11, group12, group13 };
+
+				
 				AORGroups = aorCachedGroups;
 
 				#region perms
@@ -110,23 +128,36 @@ namespace AORViewer.ViewModels
 				Permission p8 = new Permission("DNA_PermissionViewSCADA", "Permission to view content operating under SCADA system.");
 				Permission p9 = new Permission("DNA_PermissionViewSCADA_HV", "Permission to view high voltage content operating under SCADA system.");
 				Permission p10 = new Permission("DNA_PermissionViewSCADA_LV", "Permission to view low voltage content operating under SCADA system.");
-				#endregion
+                #endregion
 
-				//var areas = aorViewCommProxy.Proxy.GetAORAreas();
-				#region Areas
-				AORCachedArea area1 = new AORCachedArea("West-Area", "", new List<Permission> { p1, p2, p3, p4 }, new List<AORCachedGroup>(aorGroups)); // aorGroup[0] gets id 7 (mozda sto prva nema u sebi SM?)
-				AORCachedArea area2 = new AORCachedArea("East-Area", "", new List<Permission> { p1, p3, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1] });
-				AORCachedArea area3 = new AORCachedArea("South-Area", "", new List<Permission> { p2, p3, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[5] });
-				AORCachedArea area4 = new AORCachedArea("North-Area", "", new List<Permission> { p1, p2, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3] });
-				AORCachedArea area5 = new AORCachedArea("North-Area2", "", new List<Permission> { p5, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3] });
-				AORCachedArea area6 = new AORCachedArea("North-Area-HighVoltage", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
-				AORCachedArea area7 = new AORCachedArea("East-Area-Wind", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
-				AORCachedArea area8 = new AORCachedArea("East-Area-LowVoltage", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
-				AORCachedArea area9 = new AORCachedArea("East-Area-HighVoltage", "", new List<Permission> { p1, p7, p8 }, new List<AORCachedGroup>() { aorGroups[1] });
-				AORCachedArea area10 = new AORCachedArea("Central-Area-HighVoltage", "", new List<Permission> { p1, p2, p3, p7, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1], aorGroups[5], aorGroups[6] });
-				AORCachedArea area11 = new AORCachedArea("Central-Area-LowVoltage", "", new List<Permission> { p1, p2, p5, p7 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1], aorGroups[4], aorGroups[6] });
+                //var areas = aorViewCommProxy.Proxy.GetAORAreas();
+                #region Areas
+                AORCachedArea area1 = new AORCachedArea("Backa-Area", "", new List<Permission> { p1, p2, p3, p4 }, new List<AORCachedGroup>(aorGroups)); // aorGroup[0] gets id 7 (mozda sto prva nema u sebi SM?)
+                AORCachedArea area2 = new AORCachedArea("Low-Voltage-Zrenjanin-Area", "", new List<Permission> { p1, p3, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1] });
+                AORCachedArea area3 = new AORCachedArea("High-Voltage-Zrenjanin-Area", "", new List<Permission> { p2, p3, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[5] });
+                AORCachedArea area4 = new AORCachedArea("NoviBecej-Area", "", new List<Permission> { p1, p2, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3] });
+                AORCachedArea area5 = new AORCachedArea("Low-Voltage-NoviBecej-Area", "", new List<Permission> { p5, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3] });
+                AORCachedArea area6 = new AORCachedArea("High-Voltage-NoviBecej-Area", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
+                AORCachedArea area7 = new AORCachedArea("Secanj-Area", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
+                AORCachedArea area8 = new AORCachedArea("ZapadnoBackiOkrug-Area", "", new List<Permission> { p1, p2, p3, p7, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1], aorGroups[5], aorGroups[6] });
+                AORCachedArea area9 = new AORCachedArea("ZapadnoBackiOkrug-Area-LowVoltage", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
+                AORCachedArea area10 = new AORCachedArea("ZapadnoBackiOkrug-Area-HighVoltage", "", new List<Permission> { p1, p7, p8 }, new List<AORCachedGroup>() { aorGroups[1] });
+                AORCachedArea area11 = new AORCachedArea("SremskiOkrug-Area", "", new List<Permission> { p1, p2, p3, p7, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1], aorGroups[5], aorGroups[6] });
+                AORCachedArea area12 = new AORCachedArea("SremskiOkrug-Area-LowVoltage", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
+                AORCachedArea area13 = new AORCachedArea("SremskiOkrug-Area-HighVoltage", "", new List<Permission> { p1, p7, p8 }, new List<AORCachedGroup>() { aorGroups[1] });
+                AORCachedArea area14 = new AORCachedArea("JuznoBanatskiOkrug-Area", "", new List<Permission> { p1, p2, p3, p7, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1], aorGroups[5], aorGroups[6] });
+                AORCachedArea area15 = new AORCachedArea("JuznoBanatskiOkrug-LowVoltage", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
+                AORCachedArea area16 = new AORCachedArea("JuznoBanatskiOkrug-Area-HighVoltage", "", new List<Permission> { p1, p7, p8 }, new List<AORCachedGroup>() { aorGroups[1] });
+                AORCachedArea area17 = new AORCachedArea("SrednjeBanatskiOkrug-Area", "", new List<Permission> { p1, p2, p3, p7, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1], aorGroups[5], aorGroups[6] });
+                AORCachedArea area18 = new AORCachedArea("SrednjeBanatskiOkrug-Area-LowVoltage", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
+                AORCachedArea area19 = new AORCachedArea("SrednjeBanatskiOkrug-Area-HighVoltage", "", new List<Permission> { p1, p7, p8 }, new List<AORCachedGroup>() { aorGroups[1] });
+                AORCachedArea area20 = new AORCachedArea("Vojvodina-Area", "", new List<Permission> { p1, p2, p3, p4, p7, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1], aorGroups[5], aorGroups[6] });
+                AORCachedArea area21 = new AORCachedArea("Vojvodina-Area-LowVoltage", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
+                AORCachedArea area22 = new AORCachedArea("Vojvodina-Area-HighVoltage", "", new List<Permission> { p1, p2, p7, p8 }, new List<AORCachedGroup>() { aorGroups[1] });
 
-				HashSet<AORCachedArea> hashSetAreas = new HashSet<AORCachedArea>() { area1, area2, area3, area4, area5, area6, area7, area8, area9, area10, area11 };
+                HashSet<AORCachedArea> hashSetAreas = new HashSet<AORCachedArea>() {
+                        area1, area2, area3, area4, area5, area6, area7, area8, area9, area10,
+                        area11, area12, area13, area14, area15, area16, area17, area18, area19, area20, area21, area22  };
 				#endregion
 				AORAreas = hashSetAreas;
 
@@ -268,7 +299,7 @@ namespace AORViewer.ViewModels
 			get
 			{
 				if (SelectedElement != null)
-					return SelectedElement.Name.Equals(LBType.DNA_Authorities.ToString()) ? Visibility.Visible : Visibility.Collapsed;
+					return SelectedElement.Name.Equals(LBType.Roles.ToString()) ? Visibility.Visible : Visibility.Collapsed;
 				else
 					return Visibility.Collapsed;
 			}

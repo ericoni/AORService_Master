@@ -52,7 +52,7 @@ namespace AORViewer.Model
 	public enum LBType
 	{
 		Permissions,
-		DNA_Authorities,
+		Roles,
 		AOR_Groups,
 		AOR_Areas
 	}

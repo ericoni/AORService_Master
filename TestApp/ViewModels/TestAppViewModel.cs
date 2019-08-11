@@ -44,7 +44,7 @@ namespace TestApp.ViewModels
 			{ new LBModelBase(LBType.Permissions.ToString(), "Neki opis", @"..\..\..\Images\moreAM.jpg"),
 				new LBModelBase(LBType.AOR_Groups.ToString(), "AOR GRUPE",@"..\..\..\Images\moreAM.jpg"),
 				new LBModelBase(LBType.AOR_Areas.ToString(), "ARea",@"..\..\..\Images\moreAM.jpg"),
-				new LBModelBase(LBType.DNA_Authorities.ToString(), "Dna nesto", @"..\..\..\Images\moreAM.jpg")};
+				new LBModelBase(LBType.Roles.ToString(), "Dna nesto", @"..\..\..\Images\moreAM.jpg")};
 			AORViewerList = aorViewerTempList;
 		}
 
