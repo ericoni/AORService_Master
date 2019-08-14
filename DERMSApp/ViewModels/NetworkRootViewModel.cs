@@ -75,7 +75,7 @@ namespace DERMSApp.ViewModels
 			// to do ubaciti aor proxy, a ne ovako direktno vezanje
 			List<long> smGids = new List<long>();
 
-			foreach (var area in aorAreas) // got aorAreas by login
+			foreach (var area in aorAreas) // got aorAreas by login, hardcoded for the moment
 			{
 				foreach (var group in area.Groups)
 				{
@@ -90,7 +90,7 @@ namespace DERMSApp.ViewModels
 			}
 
 			foreach (var der in rdAdapter.GetSyncMachinesByGids(smGids)) // old 1.7. rdAdapter.GetAllDERs())
-			{
+			{// to do 15.8. mislim da je ovde potrebno dodati za setovanje grupe za Table item
 				TableSMItem item = new TableSMItem();
 				item = (TableSMItem)CacheReceiver.Instance.TableItemList.Where(o => o.Gid.Equals(der.GlobalId)).FirstOrDefault();
 				if(item == null)

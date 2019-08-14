@@ -164,24 +164,23 @@ namespace ActiveAORCache.Helpers
 			return returnValue;
 		}
 
-		public static HashSet<string> GetPermissionsForUser(string username)
+		public static List<string> GetPermissionsForUser(string username)
 		{
-			HashSet<string> permissions = new HashSet<string>();
+            List<string> permissions = new List<string>();
 
 			using (var access = new AccessDB())
 			{
-				var user = access.Users.Include(x => x.DNAs.Select(y => y.PermissionList)).Where(u => u.Username.Equals(username)).ToList();
+                var user = access.Users.Include(x => x.DNAs.Select(y => y.PermissionList)).Where(u => u.Username.Equals(username)).FirstOrDefault();
 
-				Debug.Assert(user == null || user.Count == 0, "Null in GetPermissionsForUser ");
+				Debug.Assert(user == null, "Null in GetPermissionsForUser ");
 
-				foreach (var dna in user[0].DNAs)
+				foreach (var dna in user.DNAs)
 				{
 					foreach (var permission in dna.PermissionList)
 					{
 						permissions.Add(permission.Name);
 					}
 				}
-				
 			}
 			return permissions;
 		}

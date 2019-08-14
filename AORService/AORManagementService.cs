@@ -150,8 +150,9 @@ namespace AORService
 				string username = name.Substring(backslashLastIndex + 1);
 
 				var assignedAreas = AORCacheConfigurations.GetAORAreasForUsername(username);
+                var assignedPermissions = AORCacheConfigurations.GetPermissionsForUser(username);
 
-				context.Properties["Principal"] = new CustomPrincipal(identities[0], username, assignedAreas);
+				context.Properties["Principal"] = new CustomPrincipal(identities[0], username, assignedAreas, assignedPermissions);
 
 				//return EvaluationResult(assignedAreas);
 				return true;

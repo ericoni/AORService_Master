@@ -51,5 +51,10 @@ namespace AORManagementProxyNS
 		{
 			return this.Channel.SelectAreaForControl(areaName, isSelectedForControl);
 		}
-	}
+
+        public List<string> GetPermissionsForUser(string username)
+        {
+            return this.Channel.GetPermissionsForUser(username);
+        }
+    }
 }

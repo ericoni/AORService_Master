@@ -12,12 +12,14 @@ namespace AORCommon.Principal
 		IIdentity identity;
 		string username = string.Empty;
 		List<string> areas;
+        List<string> permissions;
 
-		public CustomPrincipal(IIdentity identity, string username, List<string> areas)
+		public CustomPrincipal(IIdentity identity, string username, List<string> areas, List<string> assignedPermissions)
 		{
 			this.identity = identity;
 			this.username = username;
 			this.Areas = areas;
+            this.Permissions = permissions;
 		}
 
 		public IIdentity Identity
@@ -36,8 +38,13 @@ namespace AORCommon.Principal
 			get { return this.areas; }
 			set { this.areas = value; }
 		}
+        public List<string> Permissions
+        {
+            get { return this.permissions; }
+            set { this.permissions = value; }
+        }
 
-		public bool IsInRole(string role)
+        public bool IsInRole(string role)
 		{
 			return true;
 		}

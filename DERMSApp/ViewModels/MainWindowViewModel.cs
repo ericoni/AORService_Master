@@ -189,7 +189,7 @@ namespace DERMSApp.ViewModels
 				return false;
 			}
 
-			//var aorAreaObjects = aorManagementProxy.Proxy.GetAORAreaObjectsForUsername("admin");
+			//var aorAreaObjects = aorManagementProxy.Proxy.GetAORAreaObjectsForUsername("admin");// to do implement again xD 15.8.
 
 			CurrentViewModel = new EntireNetworkViewModel(new List<AORCachedArea>()); // to do jako je bitno vratiti ga ovde 24.7.
 																					  //var aorAreasStrings = aorManagementProxy.Proxy.GetAORAreasForUsername(TextBoxUsernameText); //to do vratiti se vrati se ovde obavezno. Znaci prvo sub pa onda Login.

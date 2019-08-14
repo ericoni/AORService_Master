@@ -32,7 +32,11 @@ namespace FTN.Common.AORContract
 
 		[OperationContract]
 		bool SelectAreaForView(string areaName, bool isSelectedForView);
+
 		[OperationContract]
 		bool SelectAreaForControl(string areaName, bool isSelectedForControl);
-	}
+
+        [OperationContract]
+        List<string> GetPermissionsForUser(string username);
+    }
 }

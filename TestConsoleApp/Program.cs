@@ -19,25 +19,27 @@ namespace TestConsoleApp
 	{
 		static void Main(string[] args) //ima neka fora, on kreira svoju NOVU bazu "UsersDatabase7xxxxx" umjesto da koristi onu postojecu.
 		{
-			//DERMSEventClientCallback callback = new DERMSEventClientCallback();
-			//IDERMSEventSubscription proxy = null;
+            //DERMSEventClientCallback callback = new DERMSEventClientCallback();
+            //IDERMSEventSubscription proxy = null;
 
-			//DuplexChannelFactory<IDERMSEventSubscription> factory = new DuplexChannelFactory<IDERMSEventSubscription>(
-			//	new InstanceContext(callback),
-			//	new NetTcpBinding(),
-			//	new EndpointAddress("net.tcp://localhost:10047/IDERMSEvent"));
-			//proxy = factory.CreateChannel();
+            //DuplexChannelFactory<IDERMSEventSubscription> factory = new DuplexChannelFactory<IDERMSEventSubscription>(
+            //	new InstanceContext(callback),
+            //	new NetTcpBinding(),
+            //	new EndpointAddress("net.tcp://localhost:10047/IDERMSEvent"));
+            //proxy = factory.CreateChannel();
 
-			//proxy.Subscribe(new List<long>(1) { 7 });//hardcoded subscribe
+            //proxy.Subscribe(new List<long>(1) { 7 });//hardcoded subscribe
 
-			AORManagementProxy aorManagementProxy = new AORManagementProxy();// prvo subscribe pa posle login
-                                                                             //var areas = aorManagementProxy.Proxy.Login("state", "a");
+            //AORManagementProxy aorManagementProxy = new AORManagementProxy();// prvo subscribe pa posle login
+            //var areas = aorManagementProxy.Proxy.Login("state", "a");
 
             //bool isSelected = aorManagementProxy.Proxy.SelectAreaForView("West-Area", true);
             //bool isSelected = aorManagementProxy.Proxy.SelectAreaForControl("West-Area", true);
 
-            var areas = aorManagementProxy.Proxy.Login("state", "a");
+            //var areas = aorManagementProxy.Proxy.Login("state", "a");
 
+
+            var perms = AORCacheConfigurations.GetPermissionsForUser("admin");
             //var p = Thread.CurrentPrincipal as IMyPrincipal;
             //var p2 = Thread.CurrentPrincipal;
 
