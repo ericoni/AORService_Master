@@ -35,7 +35,7 @@
 						<Image Source="../Images/HomeIcon.png"/>
 					</MenuItem.Icon>
 				</MenuItem>
-				<MenuItem Header="Advanced" VerticalContentAlignment="Center" VerticalAlignment="Center"  >
+				<MenuItem Header="Advanced" VerticalContentAlignment="Center" VerticalAlignment="Center" >
 					<MenuItem.Icon>
 						<Image Source="../Images/DropDownArrow.png"/>
 					</MenuItem.Icon>

@@ -162,7 +162,7 @@ namespace DERMSApp.ViewModels
 			DataTemplatesVisibility = false; // master projekat prikaz (sve ono sto nije login)
 			LoginGridVisibility = true; //invert ova dva polja, ako prvi put podesavas app
 
-			aorManagementProxy = new AORManagementProxy(); // ugasi, ako prvi put podesavas app
+			//aorManagementProxy = new AORManagementProxy(); // ugasi, ako prvi put podesavas app
 			ButtonLoginOnClick = new RelayCommand(() => ButtonLoginOnClickExecute(), () => true);
 
 			//CurrentViewModel = MainWindowViewModel._tabularViewModel; // ovako je bilo 30.6., sad je u else od ButtonLoginOnClickExecute()
@@ -184,10 +184,11 @@ namespace DERMSApp.ViewModels
 
 		public bool ButtonLoginOnClickExecute()
 		{
-			if (aorManagementProxy.Proxy == null)
-			{
-				return false;
-			}
+			//if (aorManagementProxy.Proxy == null)
+			//{
+			//	return false;
+			//}
+			//aorManagementProxy = new AORManagementProxy();
 
 			//var aorAreaObjects = aorManagementProxy.Proxy.GetAORAreaObjectsForUsername("admin");// to do implement again xD 15.8.
 
@@ -195,7 +196,8 @@ namespace DERMSApp.ViewModels
 																					  //var aorAreasStrings = aorManagementProxy.Proxy.GetAORAreasForUsername(TextBoxUsernameText); //to do vratiti se vrati se ovde obavezno. Znaci prvo sub pa onda Login.
 																					  //SubscribeEntireVMForEvents(aorAreasStrings);
 
-			var aorAreas = aorManagementProxy.Proxy.Login(TextBoxUsernameText, TextBoxPasswordText);
+			//var aorAreas = aorManagementProxy.Proxy.Login(TextBoxUsernameText, TextBoxPasswordText);
+			var aorAreas = new List<AORCachedArea>(1) { new AORCachedArea("aaa", "bbbb", null, null, null) }; //to do temp fix, samo kod ponovnog ucitavanja delte
 
 			if (aorAreas.Count == 0)
 			{
