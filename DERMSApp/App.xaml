@@ -43,7 +43,8 @@
 	   <DataTemplate DataType="{x:Type vm:AlarmsViewModel}">
 		<views:AlarmsView />
 	  </DataTemplate>
-			<!--<DataTemplate DataType="{x:Type vm:LoginViewModel}">  
+      
+            <!--<DataTemplate DataType="{x:Type vm:LoginViewModel}">  
 		<views:LoginWindow/>
 	  </DataTemplate>-->
 			<!-- vrati se ovde -->

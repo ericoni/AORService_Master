@@ -15,16 +15,15 @@ using System.Windows.Shapes;
 
 namespace DERMSApp.Views
 {
-	/// <summary>
-	/// Interaction logic for AORBoardWindow.xaml
-	/// </summary>
-	public partial class AORBoardWindow : Window
-	{
-		public AORBoardWindow()
-		{
-			InitializeComponent();
-			//this.DataContext = new AORBoardViewModel(treeViewAORBoard);
-			this.DataContext = new AORBoardViewModel(new TreeView());//to do i ovo je neki budz?
-		}
-	}
+    /// <summary>
+    /// Interaction logic for AORSupervisionWindow.xaml
+    /// </summary>
+    public partial class AORSupervisionWindow : Window
+    {
+        public AORSupervisionWindow()
+        {
+            InitializeComponent();
+            this.DataContext = new AORSupervisionViewModel();
+        }
+    }
 }

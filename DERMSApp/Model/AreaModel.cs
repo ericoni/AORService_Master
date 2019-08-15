@@ -20,6 +20,7 @@ namespace DERMSApp.Model
 		bool controlStatus;
 		private ObservableCollection<AreaModel> subareas;
 		int numberOfCoveringUsers;
+        DateTime timestamp;
 		public AreaModel()
 		{
 
@@ -36,6 +37,19 @@ namespace DERMSApp.Model
 			this.viewStatus = true;
 			this.controlStatus = true;
 		}
+
+        /// <summary>
+        /// Used for AOR Delegation window.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="nubmerOfCoveringUsers"></param>
+        public AreaModel(string name, DateTime timestamp, int numberOfCoveringUsers = 0)
+        {
+            this.name = name;
+            this.numberOfCoveringUsers = numberOfCoveringUsers;
+            this.timestamp = timestamp;
+        }
+
 		public string Name
 		{
 			get { return name; }
@@ -154,5 +168,18 @@ namespace DERMSApp.Model
 				//}
 			}
 		}
-	}
+
+        public DateTime Timestamp
+        {
+            get { return timestamp; }
+            set
+            {
+                //if (areas != value)
+                //{
+                timestamp = value;
+                OnPropertyChanged("Timestamp");
+                //}
+            }
+        }
+    }
 }

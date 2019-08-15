@@ -115,15 +115,15 @@ namespace DERMSApp.ViewModels
 		/// login request to AORService
 		/// </summary>
 		public ICommand ButtonLoginOnClick { get; set; }
-
 		public ICommand ShowAORBoardCommand { get; private set; }
 		public ICommand ShowAlarmsCommand { get; private set; }
+		public ICommand ShowAORSupervisionCommand { get; private set; }
 
-		/// <summary>
-		/// The Show Network property. 
-		/// Changes if the Network Table and Tree View needs to be shown.
-		/// </summary>
-		public Visibility ShowNetwork
+        /// <summary>
+        /// The Show Network property. 
+        /// Changes if the Network Table and Tree View needs to be shown.
+        /// </summary>
+        public Visibility ShowNetwork
 		{
 			get { return showNetwork; }
 			set
@@ -170,7 +170,8 @@ namespace DERMSApp.ViewModels
 			DeltaViewCommand = new RelayCommand(() => ExecuteDeltaViewCommand());
 			SecondViewCommand = new RelayCommand(() => ExecuteSecondViewCommand());
 			ShowAORBoardCommand = new RelayCommand(() => ExecuteShowAORBoardCommand());
-			ShowAlarmsCommand = new RelayCommand(() => ExecuteShowAlarmsCommand());
+            ShowAORSupervisionCommand = new RelayCommand(() => ExecuteShowAORSupervisionCommand());
+            ShowAlarmsCommand = new RelayCommand(() => ExecuteShowAlarmsCommand());
 
 			//ConnectToCalculationEngine();
 			//ShowNetwork = Visibility.Visible; //bio koment
@@ -297,8 +298,20 @@ namespace DERMSApp.ViewModels
 		{
 			EventSystem.Publish("ShowAlarmsEventSystem");
 		}
+        private void ExecuteShowAORSupervisionCommand()
+        {
+            AORSupervisionWindow aorSupervisionBoard = new AORSupervisionWindow();
+            try
+            {
+                aorSupervisionBoard.Show();
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
 
-		public string TextBoxUsernameText
+        public string TextBoxUsernameText
 		{
 			get
 			{

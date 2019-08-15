@@ -176,6 +176,7 @@
     <Compile Include="Model\TableSMItem.cs" />
     <Compile Include="ViewModels\AlarmsViewModel.cs" />
     <Compile Include="ViewModels\AORBoardViewModel.cs" />
+    <Compile Include="ViewModels\AORSupervisionViewModel.cs" />
     <Compile Include="ViewModels\DialogBoxViewModel.cs" />
     <Compile Include="ViewModels\EntireNetworkViewModel.cs" />
     <Compile Include="ViewModels\EventsViewModel.cs" />
@@ -194,6 +195,9 @@
     </Compile>
     <Compile Include="Views\AORBoardWindow.xaml.cs">
       <DependentUpon>AORBoardWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AORSupervisionWindow.xaml.cs">
+      <DependentUpon>AORSupervisionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DialogBox.xaml.cs">
       <DependentUpon>DialogBox.xaml</DependentUpon>
@@ -218,6 +222,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AORBoardWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AORSupervisionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
