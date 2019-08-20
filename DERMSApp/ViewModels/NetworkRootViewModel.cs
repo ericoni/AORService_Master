@@ -69,10 +69,11 @@ namespace DERMSApp.ViewModels
 		/// </summary>
 		protected override void LoadDERS()
 		{
+			AORManagementProxy aorManagementProxy;
 			EventSystem.Publish<long>(-1);
 			_ders.Clear();
 
-			// to do ubaciti aor proxy, a ne ovako direktno vezanje
+			// to do ubaciti aor proxy, a ne ovako direktno vezanje. Ne kontam sto je ovakav komentar 20.8.
 			List<long> smGids = new List<long>();
 
 			foreach (var area in aorAreas) // got aorAreas by login, hardcoded for the moment
@@ -89,7 +90,19 @@ namespace DERMSApp.ViewModels
 				}
 			}
 
-			foreach (var der in rdAdapter.GetSyncMachinesByGids(smGids)) // old 1.7. rdAdapter.GetAllDERs())
+			List<SynchronousMachine> syncMachines = rdAdapter.GetSyncMachinesByGids(smGids);
+
+			//try
+			//{
+			//	aorManagementProxy = new AORManagementProxy();
+			//	aorManagementProxy.Proxy.
+			//}
+			//catch (Exception e)
+			//{
+			//	throw e;
+			//}
+
+			foreach (SynchronousMachine der in syncMachines) // old 1.7. rdAdapter.GetAllDERs())
 			{// to do 15.8. mislim da je ovde potrebno dodati za setovanje grupe za Table item
 				TableSMItem item = new TableSMItem();
 				item = (TableSMItem)CacheReceiver.Instance.TableItemList.Where(o => o.Gid.Equals(der.GlobalId)).FirstOrDefault();

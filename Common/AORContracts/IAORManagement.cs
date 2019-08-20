@@ -31,12 +31,15 @@ namespace FTN.Common.AORContract
 		List<string> GetAORAreasForUsername(string username); // to do ovo bi mozda trebalo premjestiti, da ima jedinstven pristup cache-u
 
 		[OperationContract]
+		Dictionary<string, List<string>> GetAORGroupsAreasMapping(List<string> areaNames);
+
+		[OperationContract]
 		bool SelectAreaForView(string areaName, bool isSelectedForView);
 
 		[OperationContract]
 		bool SelectAreaForControl(string areaName, bool isSelectedForControl);
 
-        [OperationContract]
-        List<string> GetPermissionsForUser(string username);
-    }
+		[OperationContract]
+		List<string> GetPermissionsForUser(string username);
+	}
 }

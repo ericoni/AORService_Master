@@ -34,19 +34,21 @@ namespace AORService
 			try
 			{
 				aorDatabaseHelper = new AORDatabaseHelper();
-                //eventCollectorProxy = new EventCollectorProxy();//to do vrati se ovde za evente, nakon sto prodje db initialization
 
-                //var a = AORCacheConfigurations.GetAORAreaObjectsForUsername("admin");//samo se ovako testiraju, a ne iz console app iz drugog proj
-                //var c = AORCacheConfigurations.GetPermissionsForArea("West-Area");
-                //var d = AORCacheConfigurations.GetPermissionsForAreas(new List<string>() { "West-Area", "East-Area" });
-                //var f = AORCacheConfigurations.GetPermissionsForUser("state");
-                //var g = AORCacheConfigurations.GetAORGroupsForArea("West-Area");
-                //var g = AORCacheConfigurations.GetPermissionsForUser("admin");
+				//var aorAreaNames = aorManagementProxy.Proxy.GetAORAreasForUsername("admin");
+				//var areasGroupsMapping = aorManagementProxy.Proxy.GetAORGroupsAreasMapping(aorAreaNames);
+				var x = AORCacheConfigurations.GetAORGroupsForSyncMachines(new List<long>() { 1 });
+				//eventCollectorProxy = new EventCollectorProxy();//to do vrati se ovde za evente, nakon sto prodje db initialization
 
-                //var h = AORCacheConfigurations.GetAORGroupsForAreasUnsafe(new List<string>() { "West-Area", "East-Area" });
-                //var j = AORCacheConfigurations.GetSyncMachineGidsForAORGroups(new List<string>(2) { "group_2", "group_3" });
-            }
-            catch (Exception e)
+				//var a = AORCacheConfigurations.GetAORAreaObjectsForUsername("admin");//samo se ovako testiraj, a ne iz console app iz drugog proj!!! BITNO
+				//var c = AORCacheConfigurations.GetPermissionsForArea("West-Area");
+				//var d = AORCacheConfigurations.GetPermissionsForAreas(new List<string>() { "West-Area", "East-Area" });
+				//var g = AORCacheConfigurations.GetPermissionsForUser("admin");
+
+				//var h = AORCacheConfigurations.GetAORGroupsForAreasUnsafe(new List<string>() { "West-Area", "East-Area" });
+				//var j = AORCacheConfigurations.GetSyncMachineGidsForAORGroups(new List<string>(2) { "group_2", "group_3" });
+			}
+			catch (Exception e)
 			{
 				Trace.Write(e.StackTrace);
 				throw e;
@@ -66,9 +68,9 @@ namespace AORService
 			return aorAreas;
 		}
 
-     
+	 
 
-        public List<long> GetUsersSynchronousMachines()
+		public List<long> GetUsersSynchronousMachines()
 		{
 			throw new NotImplementedException();
 		}
@@ -96,14 +98,19 @@ namespace AORService
 		{
 			return AORCacheConfigurations.SelectAreaForView(areaName, isSelectedForView);
 		}
-        public List<string> GetPermissionsForUser(string username)
-        {
-            return AORCacheConfigurations.GetPermissionsForUser(username);
-        }
-        /// <summary>
-        /// Ne znam za sta je ovo ubaceno.
-        /// </summary>
-        public void Test(IPrincipal p)
+		public List<string> GetPermissionsForUser(string username)
+		{
+			return AORCacheConfigurations.GetPermissionsForUser(username);
+		}
+
+		public Dictionary<string, List<string>> GetAORGroupsAreasMapping(List<string> areaNames)
+		{
+			return AORCacheConfigurations.GetAORGroupsForAreasUnsafe(areaNames);
+		}
+		/// <summary>
+		/// Ne znam za sta je ovo ubaceno.
+		/// </summary>
+		public void Test(IPrincipal p)
 		{
 			string a = "sarma";
 			var principal = Thread.CurrentPrincipal;
@@ -147,6 +154,7 @@ namespace AORService
 				Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
 			}
 		}
+
 		#endregion
 	}
 }

@@ -32,6 +32,11 @@ namespace AORManagementProxyNS
 			return this.Channel.GetAORAreasForUsername(username);
 		}
 
+		public Dictionary<string, List<string>> GetAORGroupsAreasMapping(List<string> areaNames)
+		{
+			return this.Channel.GetAORGroupsAreasMapping(areaNames);
+		}
+
 		public List<AORCachedArea> Login(string username, string password)
 		{
 			return this.Channel.Login(username, password);
@@ -52,9 +57,9 @@ namespace AORManagementProxyNS
 			return this.Channel.SelectAreaForControl(areaName, isSelectedForControl);
 		}
 
-        public List<string> GetPermissionsForUser(string username)
-        {
-            return this.Channel.GetPermissionsForUser(username);
-        }
-    }
+		public List<string> GetPermissionsForUser(string username)
+		{
+			return this.Channel.GetPermissionsForUser(username);
+		}
+	}
 }

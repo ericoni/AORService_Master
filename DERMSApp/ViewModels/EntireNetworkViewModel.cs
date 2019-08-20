@@ -132,7 +132,7 @@ namespace DERMSApp.ViewModels
 			EventsVM = new EventsViewModel();
 			SubscribeForEvents();
 
-            AlarmsVM = new AlarmsViewModel();
+			AlarmsVM = new AlarmsViewModel();
 
 			dersToSend = null;
 			derToSend = null;
@@ -169,7 +169,7 @@ namespace DERMSApp.ViewModels
 		{
 			EventSystem.Subscribe<string>(ShowTable);
 			EventSystem.Subscribe<string>(ShowAlarmsEventSystem);
-            EventSystem.Subscribe<long>(ObjectSelected);
+			EventSystem.Subscribe<long>(ObjectSelected);
 			EventSystem.Subscribe<DateTime>(DisplayLastDateTime);
 			EventSystem.Subscribe<ObservableCollection<TableSMItem>>(DisplayPowerAndFlexibility);
 			EventSystem.Subscribe<TableSMItem>(DisplayPowerAndFlexibility);
@@ -602,17 +602,17 @@ namespace DERMSApp.ViewModels
 			}
 		}
 
-        private void ShowAlarmsEventSystem(string command)
-        {
-            if (command.Equals("ShowAlarmsEventSystem"))
-            {
-                ExecuteShowAlarmsCommand();
-            }
-        }
-        #endregion
+		private void ShowAlarmsEventSystem(string command)
+		{
+			if (command.Equals("ShowAlarmsEventSystem"))
+			{
+				ExecuteShowAlarmsCommand();
+			}
+		}
+		#endregion
 
-        #region Private methods
-        private void ExecuteFilterCommand()
+		#region Private methods
+		private void ExecuteFilterCommand()
 		{
 			if (tempList.Count == 0)
 			{
@@ -742,12 +742,12 @@ namespace DERMSApp.ViewModels
 			dersToSend = null;
 		}
 
-        /// <summary>
-        /// Ovo se pozove kad se odradi EventSystem.Publish<ForecastObjData>. U forecast obj data sam dodao naziv regiona.
-        /// Jedino mjesto gdje se instancira GenerationForecastViewModel();
-        /// </summary>
-        /// <param name="d"></param>
-        private void ForecastForObject(ForecastObjData d)
+		/// <summary>
+		/// Ovo se pozove kad se odradi EventSystem.Publish<ForecastObjData>. U forecast obj data sam dodao naziv regiona.
+		/// Jedino mjesto gdje se instancira GenerationForecastViewModel();
+		/// </summary>
+		/// <param name="d"></param>
+		private void ForecastForObject(ForecastObjData d)
 		{
 			GenerationForecastVM = new GenerationForecastViewModel(d.Gid, d.Power, d.IsGroup, dersToSend, derToSend);
 			EventSystem.Publish<bool>(true);

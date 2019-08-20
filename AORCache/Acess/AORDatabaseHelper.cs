@@ -73,10 +73,8 @@ namespace AORC.Acess
 					Permission p6 = new Permission("PermissionSecurityAdministration", "Permission to edit security content of AORSupervisor");
 					Permission p7 = new Permission("PermissionViewAdministration", "Permission to edit security content of AORSupervisor");
 					Permission p8 = new Permission("PermissionViewSCADA", "Permission to view content operating under SCADA system.");
-					Permission p9 = new Permission("PermissionViewSCADA_HV", "Permission to view high voltage content operating under SCADA system.");
-					Permission p10 = new Permission("PermissionViewSCADA_LV", "Permission to view low voltage content operating under SCADA system.");
 
-					IList<Permission> perms = new List<Permission>() { p1, p2, p3, p4, p5, p6, p7, p8, p9, p10 };
+					IList<Permission> perms = new List<Permission>() { p1, p2, p3, p4, p5, p6, p7, p8 };
 					access.Permissions.AddRange(perms);
 
 					int k = access.SaveChanges();
@@ -92,10 +90,8 @@ namespace AORC.Acess
 					DNAAuthority dna4 = new DNAAuthority("Viewer", "Required for a user to access the SCADA system.  Provides non-interactive access to data according to AOR.", new List<Permission>() { p3, p5, p7, p8 });
 					DNAAuthority dna5 = new DNAAuthority("DMSAdmin", new List<Permission>() { p3, p5, p7 });
 					DNAAuthority dna6 = new DNAAuthority("Operator", new List<Permission>() { p1, p2, p8 });
-					DNAAuthority dna7 = new DNAAuthority("Operator_HV", new List<Permission>() { p9 });
-					DNAAuthority dna8 = new DNAAuthority("Operator_LV", new List<Permission>() { p10 });
 
-					access.DNAs.AddRange(new List<DNAAuthority>() { dna1, dna2, dna3, dna4, dna5, dna6, dna7, dna8 });
+					access.DNAs.AddRange(new List<DNAAuthority>() { dna1, dna2, dna3, dna4, dna5, dna6 });
 
 					int l = access.SaveChanges();
 
@@ -162,7 +158,7 @@ namespace AORC.Acess
 					AORCachedUser u1 = new AORCachedUser("marko.markovic", "a", new List<DNAAuthority>() { dna1, dna4, dna6 }, new List<AORCachedArea>() { area1, area2 });
 					AORCachedUser u2 = new AORCachedUser("petar.petrovic", "a", new List<DNAAuthority>() { dna2, dna4, dna6 }, new List<AORCachedArea>() { area3 });
 					AORCachedUser u3 = new AORCachedUser("zika.joksimovic", "a", new List<DNAAuthority>() { dna2, dna3, dna4, dna5, dna6 }, new List<AORCachedArea>() { area1, area2, area3, area8 });
-					AORCachedUser u4 = new AORCachedUser("state", "a", new List<DNAAuthority>() { dna1, dna2, dna3, dna4, dna5, dna6, dna7 }, new List<AORCachedArea>() { area1, area2, area3, area7, area8 });
+					AORCachedUser u4 = new AORCachedUser("state", "a", new List<DNAAuthority>() { dna1, dna2, dna3, dna4, dna5, dna6 }, new List<AORCachedArea>() { area1, area2, area3, area7, area8 });
 					AORCachedUser u5 = new AORCachedUser("testUsername", "a", new List<DNAAuthority>() { dna1, dna2, dna3 }, new List<AORCachedArea>() { area1, area2, area3, area7 });
 					AORCachedUser u6 = new AORCachedUser("admin", "a", new List<DNAAuthority>() { dna1, dna2, dna3 }, new List<AORCachedArea>() { area9 });//ima samo jednu grupu, u kojoj je 1x SM
 

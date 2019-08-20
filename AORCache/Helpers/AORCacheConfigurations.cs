@@ -166,11 +166,11 @@ namespace ActiveAORCache.Helpers
 
 		public static List<string> GetPermissionsForUser(string username)
 		{
-            List<string> permissions = new List<string>();
+			List<string> permissions = new List<string>();
 
 			using (var access = new AccessDB())
 			{
-                var user = access.Users.Include(x => x.DNAs.Select(y => y.PermissionList)).Where(u => u.Username.Equals(username)).FirstOrDefault();
+				var user = access.Users.Include(x => x.DNAs.Select(y => y.PermissionList)).Where(u => u.Username.Equals(username)).FirstOrDefault();
 
 				Debug.Assert(user == null, "Null in GetPermissionsForUser ");
 
@@ -198,7 +198,6 @@ namespace ActiveAORCache.Helpers
 			using (var access = new AccessDB())
 			{
 				aorAreas = access.Areas.Include(a => a.Groups.Select(y => y.SynchronousMachines)).Include("Users").Include("Permissions").ToList();
-
 			}
 
 			if (aorAreas.Count == 0)// || user == null)
@@ -253,6 +252,26 @@ namespace ActiveAORCache.Helpers
 			return areaNames;
 		}
 
+		public static Dictionary<long, List<string>> GetAORGroupsForSyncMachines(List<long> smGids)
+		{
+			//List<AORCachedGroup> aorGroups = null;
+			//using (var access = new AccessDB())
+			//{
+			//	aorGroups = access.Groups.Include("SynchronousMachines").ToList();
+			//}
+
+			//foreach (var aorGroup in aorGroups)
+			//{
+
+			//}
+			using (var access = new AccessDB())
+			{
+				var sms = access.SynchronousMachines.ToList();
+			}
+
+			return new Dictionary<long, List<string>>();
+		}
+
 		//public static void SelectAreaForControl(string areaName, bool isSelectedForControl)
 		//{
 		//	if (areaName == string.Empty)
@@ -269,7 +288,7 @@ namespace ActiveAORCache.Helpers
 		//			Trace.WriteLine("ERROR: Failed to save state in SelectAreaForControl method");
 		//	}
 		//}
-	
+
 		//public static void SelectAreaForView(string areaName, bool isSelectedForView)
 		//{
 

@@ -18,10 +18,10 @@ namespace DERMSApp.ViewModels
 
 		public AlarmsViewModel()
 		{
-            List<AlarmModel> tempList = new List<AlarmModel>(3) {
-                new AlarmModel("Area 'Low-Voltage-Zrenjanin-Area' has become uncovered.", "Backa", DateTime.Now.AddMinutes(-6).AddSeconds(-5).AddMilliseconds(-66), SeverityEnumeration.High),
-                new AlarmModel("Weather Forecast is not available.", "Backa", DateTime.Now, SeverityEnumeration.Medium)};
-            Alarms = new ObservableCollection<AlarmModel>(tempList);
+			List<AlarmModel> tempList = new List<AlarmModel>(3) {
+				new AlarmModel("Area 'Low-Voltage-Zrenjanin-Area' has become uncovered.", "Backa", DateTime.Now.AddMinutes(-6).AddSeconds(-5).AddMilliseconds(-66), SeverityEnumeration.High),
+				new AlarmModel("Weather Forecast is not available.", "Backa", DateTime.Now, SeverityEnumeration.Medium)};
+			Alarms = new ObservableCollection<AlarmModel>(tempList);
 			ClearAlarmsCommand = new RelayCommand(() => ExecuteClearAlarmsCommand());
 		}
 

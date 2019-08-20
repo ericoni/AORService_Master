@@ -119,11 +119,11 @@ namespace DERMSApp.ViewModels
 		public ICommand ShowAlarmsCommand { get; private set; }
 		public ICommand ShowAORSupervisionCommand { get; private set; }
 
-        /// <summary>
-        /// The Show Network property. 
-        /// Changes if the Network Table and Tree View needs to be shown.
-        /// </summary>
-        public Visibility ShowNetwork
+		/// <summary>
+		/// The Show Network property. 
+		/// Changes if the Network Table and Tree View needs to be shown.
+		/// </summary>
+		public Visibility ShowNetwork
 		{
 			get { return showNetwork; }
 			set
@@ -160,7 +160,7 @@ namespace DERMSApp.ViewModels
 		public MainWindowViewModel()
 		{
 			DataTemplatesVisibility = false; // master projekat prikaz (sve ono sto nije login)
-			LoginGridVisibility = true; //invert ova dva polja, ako prvi put podesavas app
+			LoginGridVisibility = true; //invert ova dva polja, ako podesavas app koji nema applied delta
 
 			//aorManagementProxy = new AORManagementProxy(); // ugasi, ako prvi put podesavas app
 			ButtonLoginOnClick = new RelayCommand(() => ButtonLoginOnClickExecute(), () => true);
@@ -170,8 +170,8 @@ namespace DERMSApp.ViewModels
 			DeltaViewCommand = new RelayCommand(() => ExecuteDeltaViewCommand());
 			SecondViewCommand = new RelayCommand(() => ExecuteSecondViewCommand());
 			ShowAORBoardCommand = new RelayCommand(() => ExecuteShowAORBoardCommand());
-            ShowAORSupervisionCommand = new RelayCommand(() => ExecuteShowAORSupervisionCommand());
-            ShowAlarmsCommand = new RelayCommand(() => ExecuteShowAlarmsCommand());
+			ShowAORSupervisionCommand = new RelayCommand(() => ExecuteShowAORSupervisionCommand());
+			ShowAlarmsCommand = new RelayCommand(() => ExecuteShowAlarmsCommand());
 
 			//ConnectToCalculationEngine();
 			//ShowNetwork = Visibility.Visible; //bio koment
@@ -183,22 +183,25 @@ namespace DERMSApp.ViewModels
 			TextBoxPasswordText = "a";
 		}
 
+		/// <summary>
+		/// Method that does authentication and authorization. aorManagementProxy.Proxy.Login
+		/// 
+		/// </summary>
+		/// <returns></returns>
 		public bool ButtonLoginOnClickExecute()
 		{
-			//if (aorManagementProxy.Proxy == null)
-			//{
-			//	return false;
-			//}
 			//aorManagementProxy = new AORManagementProxy();
 
 			//var aorAreaObjects = aorManagementProxy.Proxy.GetAORAreaObjectsForUsername("admin");// to do implement again xD 15.8.
+			//var aorAreaNames = aorManagementProxy.Proxy.GetAORAreasForUsername("admin");
+			//var areasGroupsMapping = aorManagementProxy.Proxy.GetAORGroupsAreasMapping(aorAreaNames);
 
 			CurrentViewModel = new EntireNetworkViewModel(new List<AORCachedArea>()); // to do jako je bitno vratiti ga ovde 24.7.
-																					  //var aorAreasStrings = aorManagementProxy.Proxy.GetAORAreasForUsername(TextBoxUsernameText); //to do vratiti se vrati se ovde obavezno. Znaci prvo sub pa onda Login.
-																					  //SubscribeEntireVMForEvents(aorAreasStrings);
+			//var aorAreasStrings = aorManagementProxy.Proxy.GetAORAreasForUsername(TextBoxUsernameText); //to do vratiti se vrati se ovde obavezno. Znaci prvo sub pa onda Login.
+			//SubscribeEntireVMForEvents(aorAreasStrings);
 
-			//var aorAreas = aorManagementProxy.Proxy.Login(TextBoxUsernameText, TextBoxPasswordText);
-			var aorAreas = new List<AORCachedArea>(1) { new AORCachedArea("aaa", "bbbb", null, null, null) }; //to do temp fix, samo kod ponovnog ucitavanja delte
+			//var aorAreasRealLogin = aorManagementProxy.Proxy.Login(TextBoxUsernameText, TextBoxPasswordText);
+			var aorAreas = new List<AORCachedArea>(1) { new AORCachedArea("aaa", "bbbb", null, null, null) }; //to do temp fix, samo kod ponovnog ucitavanja delte. Ne sjecam se tacno zasto. xD
 
 			if (aorAreas.Count == 0)
 			{
@@ -298,20 +301,20 @@ namespace DERMSApp.ViewModels
 		{
 			EventSystem.Publish("ShowAlarmsEventSystem");
 		}
-        private void ExecuteShowAORSupervisionCommand()
-        {
-            AORSupervisionWindow aorSupervisionBoard = new AORSupervisionWindow();
-            try
-            {
-                aorSupervisionBoard.Show();
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
-        }
+		private void ExecuteShowAORSupervisionCommand()
+		{
+			AORSupervisionWindow aorSupervisionBoard = new AORSupervisionWindow();
+			try
+			{
+				aorSupervisionBoard.Show();
+			}
+			catch (Exception e)
+			{
+				throw;
+			}
+		}
 
-        public string TextBoxUsernameText
+		public string TextBoxUsernameText
 		{
 			get
 			{
