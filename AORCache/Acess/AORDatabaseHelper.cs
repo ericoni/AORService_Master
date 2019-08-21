@@ -25,7 +25,8 @@ namespace AORC.Acess
 		private static IAORDatabaseHelper myDB;
 		private RDAdapter rdAdapter = null;
 		private AORCachedGroup aorGroup = null;
-		private List<AORCachedGroup> aorGroups = null;
+		private List<AORCachedGroup> aorCachedGroups = null;
+		HashSet<AORCachedSyncMachine> aorSMachinesHash = new HashSet<AORCachedSyncMachine>();
 		private List<SynchronousMachine> syncMachines = null;
 
 		public AORDatabaseHelper()
@@ -58,7 +59,7 @@ namespace AORC.Acess
 				else
 				{
 					rdAdapter = new RDAdapter();
-					aorGroups = new List<AORCachedGroup>();
+					aorCachedGroups = new List<AORCachedGroup>();
 
 					string message = "Database is empty. InitializeAORCacheDB() will proceed.";
 					Trace.Write(message);
@@ -104,22 +105,27 @@ namespace AORC.Acess
 
 					if (nmsAorGroups == null)
 					{
-						Trace.Write("NMS AOR groups are null, you need to populate NMS database first.");
+						Trace.Write("Warning: NMS AOR groups are null, you need to populate NMS database first.");
 						return;
 					}
 
 					foreach (var nmsGroup in nmsAorGroups)
 					{
-						syncMachines = rdAdapter.GetSyncMachinesForAreaGroupGid(new List<long>() { nmsGroup.GlobalId });
+						var syncMachines = rdAdapter.GetSyncMachinesForAreaGroupGid(new List<long>() { nmsGroup.GlobalId });
 
 						var aorSyncMachines = NMSModelAORConverter.ConvertSyncMachinesFromNMS(syncMachines);
 
+						foreach (var sm in aorSyncMachines)
+						{
+							aorSMachinesHash.Add(sm);
+						}
+
 						aorGroup = NMSModelAORConverter.ConvertAORGroupFromNMS(nmsGroup);
 						aorGroup.SynchronousMachines = aorSyncMachines;
-						aorGroups.Add(aorGroup);
+						aorCachedGroups.Add(aorGroup);
 					}
 
-					access.Groups.AddRange(aorGroups);
+					access.Groups.AddRange(aorCachedGroups);
 					k = access.SaveChanges();
 
 					if (k <= 0)
@@ -129,28 +135,28 @@ namespace AORC.Acess
 
 					#region AOR Areas
 
-					AORCachedArea area1 = new AORCachedArea("Backa-Area", "", new List<Permission> { p1, p2, p3, p4 }, new List<AORCachedGroup>(aorGroups)); // aorGroup[0] gets id 7 (mozda sto prva nema u sebi SM?)
-					AORCachedArea area2 = new AORCachedArea("Low-Voltage-Zrenjanin-Area", "", new List<Permission> { p1, p3, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1] });
-					AORCachedArea area3 = new AORCachedArea("High-Voltage-Zrenjanin-Area", "", new List<Permission> { p2, p3, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[5] });
-					AORCachedArea area4 = new AORCachedArea("NoviBecej-Area", "", new List<Permission> { p1, p2, p4, p5, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3] });
-					AORCachedArea area5 = new AORCachedArea("Low-Voltage-NoviBecej-Area", "", new List<Permission> { p5, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3] });
-					AORCachedArea area6 = new AORCachedArea("High-Voltage-NoviBecej-Area", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
-					AORCachedArea area7 = new AORCachedArea("Secanj-Area", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
-					AORCachedArea area8 = new AORCachedArea("ZapadnoBackiOkrug-Area", "", new List<Permission> { p1, p2, p3, p7, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1], aorGroups[5], aorGroups[6] });
-					AORCachedArea area9 = new AORCachedArea("ZapadnoBackiOkrug-Area-LowVoltage", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
-					AORCachedArea area10 = new AORCachedArea("ZapadnoBackiOkrug-Area-HighVoltage", "", new List<Permission> { p1, p7, p8 }, new List<AORCachedGroup>() { aorGroups[1] });
-					AORCachedArea area11 = new AORCachedArea("SremskiOkrug-Area", "", new List<Permission> { p1, p2, p3, p7, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1], aorGroups[5], aorGroups[6] });
-					AORCachedArea area12 = new AORCachedArea("SremskiOkrug-Area-LowVoltage", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
-					AORCachedArea area13 = new AORCachedArea("SremskiOkrug-Area-HighVoltage", "", new List<Permission> { p1, p7, p8 }, new List<AORCachedGroup>() { aorGroups[1] });
-					AORCachedArea area14 = new AORCachedArea("JuznoBanatskiOkrug-Area", "", new List<Permission> { p1, p2, p3, p7, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1], aorGroups[5], aorGroups[6] });
-					AORCachedArea area15 = new AORCachedArea("JuznoBanatskiOkrug-LowVoltage", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
-					AORCachedArea area16 = new AORCachedArea("JuznoBanatskiOkrug-Area-HighVoltage", "", new List<Permission> { p1, p7, p8 }, new List<AORCachedGroup>() { aorGroups[1] });
-					AORCachedArea area17 = new AORCachedArea("SrednjeBanatskiOkrug-Area", "", new List<Permission> { p1, p2, p3, p7, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1], aorGroups[5], aorGroups[6] });
-					AORCachedArea area18 = new AORCachedArea("SrednjeBanatskiOkrug-Area-LowVoltage", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
-					AORCachedArea area19 = new AORCachedArea("SrednjeBanatskiOkrug-Area-HighVoltage", "", new List<Permission> { p1, p7, p8 }, new List<AORCachedGroup>() { aorGroups[1] });
-					AORCachedArea area20 = new AORCachedArea("Vojvodina-Area", "", new List<Permission> { p1, p2, p3, p4, p7, p8 }, new List<AORCachedGroup>() { aorGroups[0], aorGroups[1], aorGroups[5], aorGroups[6] });
-					AORCachedArea area21 = new AORCachedArea("Vojvodina-Area-LowVoltage", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorGroups[1], aorGroups[2], aorGroups[3], aorGroups[4] });
-					AORCachedArea area22 = new AORCachedArea("Vojvodina-Area-HighVoltage", "", new List<Permission> { p1, p2, p7, p8 }, new List<AORCachedGroup>() { aorGroups[1] });
+					AORCachedArea area1 = new AORCachedArea("Backa-Area", "", new List<Permission> { p1, p2, p3, p4 }, new List<AORCachedGroup>(aorCachedGroups)); // aorGroup[0] gets id 7 (mozda sto prva nema u sebi SM?)
+					AORCachedArea area2 = new AORCachedArea("Low-Voltage-Zrenjanin-Area", "", new List<Permission> { p1, p3, p4, p5, p8 }, new List<AORCachedGroup>() { aorCachedGroups[0], aorCachedGroups[1] });
+					AORCachedArea area3 = new AORCachedArea("High-Voltage-Zrenjanin-Area", "", new List<Permission> { p2, p3, p4, p5, p8 }, new List<AORCachedGroup>() { aorCachedGroups[0], aorCachedGroups[5] });
+					AORCachedArea area4 = new AORCachedArea("NoviBecej-Area", "", new List<Permission> { p1, p2, p4, p5, p8 }, new List<AORCachedGroup>() { aorCachedGroups[1], aorCachedGroups[2], aorCachedGroups[3] });
+					AORCachedArea area5 = new AORCachedArea("Low-Voltage-NoviBecej-Area", "", new List<Permission> { p5, p8 }, new List<AORCachedGroup>() { aorCachedGroups[1], aorCachedGroups[2], aorCachedGroups[3] });
+					AORCachedArea area6 = new AORCachedArea("High-Voltage-NoviBecej-Area", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorCachedGroups[1], aorCachedGroups[2], aorCachedGroups[3], aorCachedGroups[4] });
+					AORCachedArea area7 = new AORCachedArea("Secanj-Area", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorCachedGroups[1], aorCachedGroups[2], aorCachedGroups[3], aorCachedGroups[4] });
+					AORCachedArea area8 = new AORCachedArea("ZapadnoBackiOkrug-Area", "", new List<Permission> { p1, p2, p3, p7, p8 }, new List<AORCachedGroup>() { aorCachedGroups[0], aorCachedGroups[1], aorCachedGroups[5], aorCachedGroups[6] });
+					AORCachedArea area9 = new AORCachedArea("ZapadnoBackiOkrug-Area-LowVoltage", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorCachedGroups[1], aorCachedGroups[2], aorCachedGroups[3], aorCachedGroups[4] });
+					AORCachedArea area10 = new AORCachedArea("ZapadnoBackiOkrug-Area-HighVoltage", "", new List<Permission> { p1, p7, p8 }, new List<AORCachedGroup>() { aorCachedGroups[1] });
+					AORCachedArea area11 = new AORCachedArea("SremskiOkrug-Area", "", new List<Permission> { p1, p2, p3, p7, p8 }, new List<AORCachedGroup>() { aorCachedGroups[0], aorCachedGroups[1], aorCachedGroups[5], aorCachedGroups[6] });
+					AORCachedArea area12 = new AORCachedArea("SremskiOkrug-Area-LowVoltage", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorCachedGroups[1], aorCachedGroups[2], aorCachedGroups[3], aorCachedGroups[4] });
+					AORCachedArea area13 = new AORCachedArea("SremskiOkrug-Area-HighVoltage", "", new List<Permission> { p1, p7, p8 }, new List<AORCachedGroup>() { aorCachedGroups[1] });
+					AORCachedArea area14 = new AORCachedArea("JuznoBanatskiOkrug-Area", "", new List<Permission> { p1, p2, p3, p7, p8 }, new List<AORCachedGroup>() { aorCachedGroups[0], aorCachedGroups[1], aorCachedGroups[5], aorCachedGroups[6] });
+					AORCachedArea area15 = new AORCachedArea("JuznoBanatskiOkrug-LowVoltage", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorCachedGroups[1], aorCachedGroups[2], aorCachedGroups[3], aorCachedGroups[4] });
+					AORCachedArea area16 = new AORCachedArea("JuznoBanatskiOkrug-Area-HighVoltage", "", new List<Permission> { p1, p7, p8 }, new List<AORCachedGroup>() { aorCachedGroups[1] });
+					AORCachedArea area17 = new AORCachedArea("SrednjeBanatskiOkrug-Area", "", new List<Permission> { p1, p2, p3, p7, p8 }, new List<AORCachedGroup>() { aorCachedGroups[0], aorCachedGroups[1], aorCachedGroups[5], aorCachedGroups[6] });
+					AORCachedArea area18 = new AORCachedArea("SrednjeBanatskiOkrug-Area-LowVoltage", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorCachedGroups[1], aorCachedGroups[2], aorCachedGroups[3], aorCachedGroups[4] });
+					AORCachedArea area19 = new AORCachedArea("SrednjeBanatskiOkrug-Area-HighVoltage", "", new List<Permission> { p1, p7, p8 }, new List<AORCachedGroup>() { aorCachedGroups[1] });
+					AORCachedArea area20 = new AORCachedArea("Vojvodina-Area", "", new List<Permission> { p1, p2, p3, p4, p7, p8 }, new List<AORCachedGroup>() { aorCachedGroups[0], aorCachedGroups[1], aorCachedGroups[5], aorCachedGroups[6] });
+					AORCachedArea area21 = new AORCachedArea("Vojvodina-Area-LowVoltage", "", new List<Permission> { p1, p8 }, new List<AORCachedGroup>() { aorCachedGroups[1], aorCachedGroups[2], aorCachedGroups[3], aorCachedGroups[4] });
+					AORCachedArea area22 = new AORCachedArea("Vojvodina-Area-HighVoltage", "", new List<Permission> { p1, p2, p7, p8 }, new List<AORCachedGroup>() { aorCachedGroups[1] });
 					#endregion
 
 					#region Users
@@ -203,6 +209,87 @@ namespace AORC.Acess
 					if (k <= 0)
 						throw new Exception("Failed to save user and area combined changes!");
 					#endregion UserAreasNewCombined
+
+					#region SyncMachineGroupCombined 
+					List<AORCachedSyncMachine> listAorCachedSM = new List<AORCachedSyncMachine>(aorSMachinesHash);
+
+					// mozda izbaciti snimanje grupa u stari access.Groups
+					var SyncMachineGroupCombined = new AORCachedSyncMachineGroupNew
+					{
+						Group = aorCachedGroups[0],
+						SyncMachine = listAorCachedSM[0],
+						SmGidFromNMS = listAorCachedSM[0].GidFromNms,
+						AORGroupName = aorCachedGroups[0].Name
+					};
+
+					var SyncMachineGroupCombined2 = new AORCachedSyncMachineGroupNew
+					{
+						Group = aorCachedGroups[1],
+						SyncMachine = listAorCachedSM[1],
+						SmGidFromNMS = listAorCachedSM[1].GidFromNms,
+						AORGroupName = aorCachedGroups[1].Name
+					};
+
+					var SyncMachineGroupCombined3 = new AORCachedSyncMachineGroupNew
+					{
+						Group = aorCachedGroups[2],
+						SyncMachine = listAorCachedSM[2],
+						SmGidFromNMS = listAorCachedSM[2].GidFromNms,
+						AORGroupName = aorCachedGroups[2].Name
+					};
+
+					var SyncMachineGroupCombined4 = new AORCachedSyncMachineGroupNew
+					{
+						Group = aorCachedGroups[2],
+						SyncMachine = listAorCachedSM[3],
+						SmGidFromNMS = listAorCachedSM[3].GidFromNms,
+						AORGroupName = aorCachedGroups[2].Name
+					};
+
+					var SyncMachineGroupCombined5 = new AORCachedSyncMachineGroupNew
+					{
+						Group = aorCachedGroups[2],
+						SyncMachine = listAorCachedSM[4],
+						SmGidFromNMS = listAorCachedSM[4].GidFromNms,
+						AORGroupName = aorCachedGroups[2].Name
+					};
+
+					var SyncMachineGroupCombined6 = new AORCachedSyncMachineGroupNew
+					{
+						Group = aorCachedGroups[2],
+						SyncMachine = listAorCachedSM[5],
+						SmGidFromNMS = listAorCachedSM[5].GidFromNms,
+						AORGroupName = aorCachedGroups[2].Name
+					};
+
+					var SyncMachineGroupCombined7 = new AORCachedSyncMachineGroupNew
+					{
+						Group = aorCachedGroups[3],
+						SyncMachine = listAorCachedSM[6],
+						SmGidFromNMS = listAorCachedSM[6].GidFromNms,
+						AORGroupName = aorCachedGroups[3].Name
+					};
+
+
+					var SyncMachineGroupCombined8 = new AORCachedSyncMachineGroupNew
+					{
+						Group = aorCachedGroups[4],
+						SyncMachine = listAorCachedSM[7],
+						SmGidFromNMS = listAorCachedSM[7].GidFromNms,
+						AORGroupName = aorCachedGroups[4].Name
+					};
+
+					access.CachedSyncMachineGroupsNew.AddRange(new List<AORCachedSyncMachineGroupNew>()
+					{
+						SyncMachineGroupCombined, SyncMachineGroupCombined2, SyncMachineGroupCombined3,
+						SyncMachineGroupCombined4, SyncMachineGroupCombined5, SyncMachineGroupCombined6,
+						SyncMachineGroupCombined7, SyncMachineGroupCombined8
+
+					});
+					k = access.SaveChanges();
+					if (k <= 0)
+						throw new Exception("Failed to save SM and group combined changes!");
+					#endregion SyncMachineGroupCombined
 				}
 			}
 		}

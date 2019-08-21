@@ -190,13 +190,12 @@ namespace DERMSApp.ViewModels
 		/// <returns></returns>
 		public bool ButtonLoginOnClickExecute()
 		{
-			//aorManagementProxy = new AORManagementProxy();
-
-			//var aorAreaObjects = aorManagementProxy.Proxy.GetAORAreaObjectsForUsername("admin");// to do implement again xD 15.8.
+			aorManagementProxy = new AORManagementProxy();
+			var aorAreaObjects = aorManagementProxy.Proxy.GetAORAreaObjectsForUsername("admin");// to do implement again xD 15.8.
 			//var aorAreaNames = aorManagementProxy.Proxy.GetAORAreasForUsername("admin");
 			//var areasGroupsMapping = aorManagementProxy.Proxy.GetAORGroupsAreasMapping(aorAreaNames);
 
-			CurrentViewModel = new EntireNetworkViewModel(new List<AORCachedArea>()); // to do jako je bitno vratiti ga ovde 24.7.
+			CurrentViewModel = new EntireNetworkViewModel(aorAreaObjects); // to do jako je bitno vratiti ga ovde 24.7.
 			//var aorAreasStrings = aorManagementProxy.Proxy.GetAORAreasForUsername(TextBoxUsernameText); //to do vratiti se vrati se ovde obavezno. Znaci prvo sub pa onda Login.
 			//SubscribeEntireVMForEvents(aorAreasStrings);
 
@@ -244,7 +243,7 @@ namespace DERMSApp.ViewModels
 						throw;
 					}
 
-					Thread.Sleep(3000);
+					Thread.Sleep(2000);
 				}
 			}
 		}

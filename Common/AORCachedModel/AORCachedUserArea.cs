@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace FTN.Common.AORCachedModel
 {
+	[Obsolete("Please use AORCachedUserAreaNew class", true)]
 	/// <summary>
 	/// Mozda ce mi biti potreban DataMember tag.
 	/// </summary>

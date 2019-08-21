@@ -5,6 +5,8 @@ using AORManagementProxyNS;
 using EventAlarmService;
 using EventCollectorProxyNS;
 using EventCommon;
+using FTN.Common.AORCachedModel;
+using FTN.Common.AORHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,33 +21,60 @@ namespace TestConsoleApp
 	{
 		static void Main(string[] args) //ima neka fora, on kreira svoju NOVU bazu "UsersDatabase7xxxxx" umjesto da koristi onu postojecu.
 		{
-            //DERMSEventClientCallback callback = new DERMSEventClientCallback();
-            //IDERMSEventSubscription proxy = null;
+			//DERMSEventClientCallback callback = new DERMSEventClientCallback();
+			//IDERMSEventSubscription proxy = null;
 
-            //DuplexChannelFactory<IDERMSEventSubscription> factory = new DuplexChannelFactory<IDERMSEventSubscription>(
-            //	new InstanceContext(callback),
-            //	new NetTcpBinding(),
-            //	new EndpointAddress("net.tcp://localhost:10047/IDERMSEvent"));
-            //proxy = factory.CreateChannel();
+			//DuplexChannelFactory<IDERMSEventSubscription> factory = new DuplexChannelFactory<IDERMSEventSubscription>(
+			//	new InstanceContext(callback),
+			//	new NetTcpBinding(),
+			//	new EndpointAddress("net.tcp://localhost:10047/IDERMSEvent"));
+			//proxy = factory.CreateChannel();
 
-            //proxy.Subscribe(new List<long>(1) { 7 });//hardcoded subscribe
+			//proxy.Subscribe(new List<long>(1) { 7 });//hardcoded subscribe
 
-            //AORManagementProxy aorManagementProxy = new AORManagementProxy();// prvo subscribe pa posle login
-            //var areas = aorManagementProxy.Proxy.Login("state", "a");
+			//AORManagementProxy aorManagementProxy = new AORManagementProxy();// prvo subscribe pa posle login
+			//var areas = aorManagementProxy.Proxy.Login("state", "a");
 
-            //bool isSelected = aorManagementProxy.Proxy.SelectAreaForView("West-Area", true);
-            //bool isSelected = aorManagementProxy.Proxy.SelectAreaForControl("West-Area", true);
+			//bool isSelected = aorManagementProxy.Proxy.SelectAreaForView("West-Area", true);
+			//bool isSelected = aorManagementProxy.Proxy.SelectAreaForControl("West-Area", true);
 
-            //var areas = aorManagementProxy.Proxy.Login("state", "a");
+			//var areas = aorManagementProxy.Proxy.Login("state", "a");
 
+			RDAdapter rdAdapter = new RDAdapter();
+			AORCachedGroup aorGroup = null;
+			List<AORCachedGroup> aorGroups = new List<AORCachedGroup>(20);
+			HashSet<AORCachedSyncMachine> aorSMachinesHash = new HashSet<AORCachedSyncMachine>();
+			List<string> smNames = new List<string>(20);
+			var nmsAorGroups = rdAdapter.GetAORGroups();
 
-            var perms = AORCacheConfigurations.GetPermissionsForUser("admin");
-            //var p = Thread.CurrentPrincipal as IMyPrincipal;
-            //var p2 = Thread.CurrentPrincipal;
+			if (nmsAorGroups == null)
+			{
+				return;
+			}
 
-            //aorManagementProxy.Proxy.Test(null);
+			foreach (var nmsGroup in nmsAorGroups)
+			{
+				var syncMachines = rdAdapter.GetSyncMachinesForAreaGroupGid(new List<long>() { nmsGroup.GlobalId });
 
-            Console.WriteLine("Prosao main..");
+				var aorSyncMachines = NMSModelAORConverter.ConvertSyncMachinesFromNMS(syncMachines);
+
+				foreach (var sm in aorSyncMachines)
+				{
+					aorSMachinesHash.Add(sm);
+				}
+
+				aorGroup = NMSModelAORConverter.ConvertAORGroupFromNMS(nmsGroup);
+				aorGroup.SynchronousMachines = aorSyncMachines;
+				aorGroups.Add(aorGroup);
+			}
+
+			//var perms = AORCacheConfigurations.GetPermissionsForUser("admin");
+			//var p = Thread.CurrentPrincipal as IMyPrincipal;
+			//var p2 = Thread.CurrentPrincipal;
+
+			//aorManagementProxy.Proxy.Test(null);
+
+			Console.WriteLine("Prosao main..");
 			Console.Read();
 		}
 

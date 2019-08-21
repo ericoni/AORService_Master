@@ -251,25 +251,33 @@ namespace ActiveAORCache.Helpers
 
 			return areaNames;
 		}
-
+		/// <summary>
+		/// Methods which returns dictionary pair : key smGid, value list of AOR Group names.
+		/// </summary>
+		/// <param name="smGids"></param>
+		/// <returns></returns>
 		public static Dictionary<long, List<string>> GetAORGroupsForSyncMachines(List<long> smGids)
 		{
-			//List<AORCachedGroup> aorGroups = null;
-			//using (var access = new AccessDB())
-			//{
-			//	aorGroups = access.Groups.Include("SynchronousMachines").ToList();
-			//}
+			List<AORCachedSyncMachineGroupNew> syncMachineGroupsPair = null;
+			Dictionary<long, List<string>> result = new Dictionary<long, List<string>>();
 
-			//foreach (var aorGroup in aorGroups)
-			//{
-
-			//}
 			using (var access = new AccessDB())
 			{
-				var sms = access.SynchronousMachines.ToList();
+				syncMachineGroupsPair = access.CachedSyncMachineGroupsNew.ToList();
 			}
 
-			return new Dictionary<long, List<string>>();
+			foreach (var smGid in smGids)
+			{
+				foreach (var syncMachineGroup in syncMachineGroupsPair)
+				{
+					if (smGid == syncMachineGroup.SmGidFromNMS)
+					{
+						result[smGid].Add(syncMachineGroup.AORGroupName);
+					}
+				}
+			}
+
+			return result;
 		}
 
 		//public static void SelectAreaForControl(string areaName, bool isSelectedForControl)

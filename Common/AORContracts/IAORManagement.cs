@@ -13,7 +13,7 @@ using System.Security.Principal;
 namespace FTN.Common.AORContract
 {
 	/// <summary>
-	/// Relationship between AOR service and DERMS app. Jos ovo analizirati.
+	/// Relationship between AOR service and DERMS app. Analyze again.
 	/// </summary>
 	[ServiceContract]
 	public interface IAORManagement
@@ -29,6 +29,12 @@ namespace FTN.Common.AORContract
 
 		[OperationContract]
 		List<string> GetAORAreasForUsername(string username); // to do ovo bi mozda trebalo premjestiti, da ima jedinstven pristup cache-u
+
+		[OperationContract]
+		List<AORCachedArea> GetAORAreaObjectsForUsername(string username);
+
+		[OperationContract]
+		Dictionary<long, List<string>> GetAORGroupsForSyncMachines(List<long> smGids);
 
 		[OperationContract]
 		Dictionary<string, List<string>> GetAORGroupsAreasMapping(List<string> areaNames);

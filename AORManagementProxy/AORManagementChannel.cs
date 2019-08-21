@@ -61,5 +61,15 @@ namespace AORManagementProxyNS
 		{
 			return this.Channel.GetPermissionsForUser(username);
 		}
+
+		public Dictionary<long, List<string>> GetAORGroupsForSyncMachines(List<long> smGids)
+		{
+			return this.Channel.GetAORGroupsForSyncMachines(smGids);
+		}
+
+		public List<AORCachedArea> GetAORAreaObjectsForUsername(string username)
+		{
+			return this.Channel.GetAORAreaObjectsForUsername(username);
+		}
 	}
 }

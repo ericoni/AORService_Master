@@ -92,15 +92,15 @@ namespace DERMSApp.ViewModels
 
 			List<SynchronousMachine> syncMachines = rdAdapter.GetSyncMachinesByGids(smGids);
 
-			//try
-			//{
-			//	aorManagementProxy = new AORManagementProxy();
-			//	aorManagementProxy.Proxy.
-			//}
-			//catch (Exception e)
-			//{
-			//	throw e;
-			//}
+			try
+			{
+				aorManagementProxy = new AORManagementProxy();
+				var smGroupsPair = aorManagementProxy.Proxy.GetAORGroupsForSyncMachines(smGids);
+			}
+			catch (Exception e)
+			{
+				throw e;
+			}
 
 			foreach (SynchronousMachine der in syncMachines) // old 1.7. rdAdapter.GetAllDERs())
 			{// to do 15.8. mislim da je ovde potrebno dodati za setovanje grupe za Table item

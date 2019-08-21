@@ -19,12 +19,13 @@ namespace AORC.Acess
 		public DbSet<AORCachedGroup> Groups { get; set; }
 		public DbSet<AORCachedArea> Areas { get; set; }
 		public DbSet<AORCachedSyncMachine> SynchronousMachines { get; set; }
-        //public DbSet<AORCachedUserArea> CachedUserAreas { get; set; }
-        public DbSet<AORCachedUserAreaNew> CachedUserAreasNew { get; set; }
+		//public DbSet<AORCachedUserArea> CachedUserAreas { get; set; }
+		public DbSet<AORCachedUserAreaNew> CachedUserAreasNew { get; set; }
+		public DbSet<AORCachedSyncMachineGroupNew> CachedSyncMachineGroupsNew { get; set; }
 
-        //public DbSet<AreasGroupsCombined> AreasGroupsCombined { get; set; } //vrati se ovde
+		//public DbSet<AreasGroupsCombined> AreasGroupsCombined { get; set; } //vrati se ovde
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<Permission>()
 				.HasMany(a => a.DNAs)
@@ -76,7 +77,7 @@ namespace AORC.Acess
 					k.ToTable("UsersDNACombined");
 				});
 
-            base.OnModelCreating(modelBuilder);
+			base.OnModelCreating(modelBuilder);
 		}
 
 	}

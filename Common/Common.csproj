@@ -99,6 +99,7 @@
     <Compile Include="AORCachedModel\AORCachedEntity.cs" />
     <Compile Include="AORCachedModel\AORCachedGroup.cs" />
     <Compile Include="AORCachedModel\AORCachedSynchonousMachine.cs" />
+    <Compile Include="AORCachedModel\AORCachedSyncMachineGroupNew.cs" />
     <Compile Include="AORCachedModel\AORCachedUserArea.cs" />
     <Compile Include="AORCachedModel\AORCachedUserAreaNew.cs" />
     <Compile Include="AORContracts\IAORManagement.cs" />

@@ -37,7 +37,7 @@ namespace AORService
 
 				//var aorAreaNames = aorManagementProxy.Proxy.GetAORAreasForUsername("admin");
 				//var areasGroupsMapping = aorManagementProxy.Proxy.GetAORGroupsAreasMapping(aorAreaNames);
-				var x = AORCacheConfigurations.GetAORGroupsForSyncMachines(new List<long>() { 1 });
+				//var x = AORCacheConfigurations.GetAORGroupsForSyncMachines(new List<long>() { 1 });
 				//eventCollectorProxy = new EventCollectorProxy();//to do vrati se ovde za evente, nakon sto prodje db initialization
 
 				//var a = AORCacheConfigurations.GetAORAreaObjectsForUsername("admin");//samo se ovako testiraj, a ne iz console app iz drugog proj!!! BITNO
@@ -67,8 +67,6 @@ namespace AORService
 
 			return aorAreas;
 		}
-
-	 
 
 		public List<long> GetUsersSynchronousMachines()
 		{
@@ -106,6 +104,15 @@ namespace AORService
 		public Dictionary<string, List<string>> GetAORGroupsAreasMapping(List<string> areaNames)
 		{
 			return AORCacheConfigurations.GetAORGroupsForAreasUnsafe(areaNames);
+		}
+
+		public Dictionary<long, List<string>> GetAORGroupsForSyncMachines(List<long> smGids)
+		{
+			return AORCacheConfigurations.GetAORGroupsForSyncMachines(smGids);
+		}
+		public List<AORCachedArea> GetAORAreaObjectsForUsername(string username)
+		{
+			return AORCacheConfigurations.GetAORAreaObjectsForUsername(username);
 		}
 		/// <summary>
 		/// Ne znam za sta je ovo ubaceno.
