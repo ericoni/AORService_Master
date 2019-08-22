@@ -40,33 +40,36 @@ namespace TestConsoleApp
 
 			//var areas = aorManagementProxy.Proxy.Login("state", "a");
 
-			RDAdapter rdAdapter = new RDAdapter();
-			AORCachedGroup aorGroup = null;
-			List<AORCachedGroup> aorGroups = new List<AORCachedGroup>(20);
-			HashSet<AORCachedSyncMachine> aorSMachinesHash = new HashSet<AORCachedSyncMachine>();
-			List<string> smNames = new List<string>(20);
-			var nmsAorGroups = rdAdapter.GetAORGroups();
+			#region Adapter
+			//RDAdapter rdAdapter = new RDAdapter();
+			//AORCachedGroup aorGroup = null;
+			//List<AORCachedGroup> aorGroups = new List<AORCachedGroup>(20);
+			//HashSet<AORCachedSyncMachine> aorSMachinesHash = new HashSet<AORCachedSyncMachine>();
+			//List<string> smNames = new List<string>(20);
+			//var nmsAorGroups = rdAdapter.GetAORGroups();
 
-			if (nmsAorGroups == null)
-			{
-				return;
-			}
+			//if (nmsAorGroups == null)
+			//{
+			//	return;
+			//}
 
-			foreach (var nmsGroup in nmsAorGroups)
-			{
-				var syncMachines = rdAdapter.GetSyncMachinesForAreaGroupGid(new List<long>() { nmsGroup.GlobalId });
+			//foreach (var nmsGroup in nmsAorGroups)
+			//{
+			//	var syncMachines = rdAdapter.GetSyncMachinesForAreaGroupGid(new List<long>() { nmsGroup.GlobalId });
 
-				var aorSyncMachines = NMSModelAORConverter.ConvertSyncMachinesFromNMS(syncMachines);
+			//	var aorSyncMachines = NMSModelAORConverter.ConvertSyncMachinesFromNMS(syncMachines);
 
-				foreach (var sm in aorSyncMachines)
-				{
-					aorSMachinesHash.Add(sm);
-				}
+			//	foreach (var sm in aorSyncMachines)
+			//	{
+			//		aorSMachinesHash.Add(sm);
+			//	}
 
-				aorGroup = NMSModelAORConverter.ConvertAORGroupFromNMS(nmsGroup);
-				aorGroup.SynchronousMachines = aorSyncMachines;
-				aorGroups.Add(aorGroup);
-			}
+			//	aorGroup = NMSModelAORConverter.ConvertAORGroupFromNMS(nmsGroup);
+			//	aorGroup.SynchronousMachines = aorSyncMachines;
+			//	aorGroups.Add(aorGroup);
+			//}
+
+			#endregion Adapter
 
 			//var perms = AORCacheConfigurations.GetPermissionsForUser("admin");
 			//var p = Thread.CurrentPrincipal as IMyPrincipal;

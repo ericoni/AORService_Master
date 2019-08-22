@@ -272,6 +272,10 @@ namespace ActiveAORCache.Helpers
 				{
 					if (smGid == syncMachineGroup.SmGidFromNMS)
 					{
+						if (!result.ContainsKey(smGid))
+						{
+							result.Add(smGid, new List<string>(5));
+						}
 						result[smGid].Add(syncMachineGroup.AORGroupName);
 					}
 				}

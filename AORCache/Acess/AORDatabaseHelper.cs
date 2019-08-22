@@ -213,7 +213,7 @@ namespace AORC.Acess
 					#region SyncMachineGroupCombined 
 					List<AORCachedSyncMachine> listAorCachedSM = new List<AORCachedSyncMachine>(aorSMachinesHash);
 
-					// mozda izbaciti snimanje grupa u stari access.Groups
+					// mozda izbaciti snimanje relacije AOR GROUP i SyncMachine nego koristiti samo ovu poveznu tabelu.
 					var SyncMachineGroupCombined = new AORCachedSyncMachineGroupNew
 					{
 						Group = aorCachedGroups[0],

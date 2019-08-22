@@ -70,11 +70,9 @@ namespace DERMSApp.ViewModels
 		protected override void LoadDERS()
 		{
 			AORManagementProxy aorManagementProxy;
+			List<long> smGids = new List<long>();
 			EventSystem.Publish<long>(-1);
 			_ders.Clear();
-
-			// to do ubaciti aor proxy, a ne ovako direktno vezanje. Ne kontam sto je ovakav komentar 20.8.
-			List<long> smGids = new List<long>();
 
 			foreach (var area in aorAreas) // got aorAreas by login, hardcoded for the moment
 			{
@@ -90,20 +88,21 @@ namespace DERMSApp.ViewModels
 				}
 			}
 
-			List<SynchronousMachine> syncMachines = rdAdapter.GetSyncMachinesByGids(smGids);
+			List<SynchronousMachine> syncMachinesFromNMS = rdAdapter.GetSyncMachinesByGids(smGids);
+			Dictionary<long, List<string>> syncMachineGroupsPair;
 
 			try
 			{
 				aorManagementProxy = new AORManagementProxy();
-				var smGroupsPair = aorManagementProxy.Proxy.GetAORGroupsForSyncMachines(smGids);
+				syncMachineGroupsPair = aorManagementProxy.Proxy.GetAORGroupsForSyncMachines(smGids);
 			}
 			catch (Exception e)
 			{
-				throw e;
+				throw new Exception("Failed to get AOR groups for SyncMachines.", e);
 			}
 
-			foreach (SynchronousMachine der in syncMachines) // old 1.7. rdAdapter.GetAllDERs())
-			{// to do 15.8. mislim da je ovde potrebno dodati za setovanje grupe za Table item
+			foreach (SynchronousMachine der in syncMachinesFromNMS) // old 1.7. rdAdapter.GetAllDERs())
+			{
 				TableSMItem item = new TableSMItem();
 				item = (TableSMItem)CacheReceiver.Instance.TableItemList.Where(o => o.Gid.Equals(der.GlobalId)).FirstOrDefault();
 				if(item == null)
@@ -114,7 +113,32 @@ namespace DERMSApp.ViewModels
 					item.CurrentQ = 0;
 				}
 				item.Der = der;
-				_ders.Add(item);
+
+				List<string> assignedGroups;
+				syncMachineGroupsPair.TryGetValue(der.GlobalId, out assignedGroups);
+
+				if (assignedGroups != null)
+				{
+					item.AorGroup = assignedGroups[0];
+				}
+
+				_ders.Add(item);//DERs are tableSMItems
+			}
+		}
+
+		/// <summary>
+		/// To do: This method has to be moved somewhere else to be accessed by multiple view models. 22.8.
+		/// </summary>
+		/// <param name="syncMachineGroupPair"></param>
+		/// <param name="tableSmItem"></param>
+		private void SetGroupToTableSmItem(Dictionary<long, List<string>> syncMachineGroupPair, TableSMItem tableSmItem, long derGlobalID)
+		{
+			List<string> assignedGroups;
+			syncMachineGroupPair.TryGetValue(derGlobalID, out assignedGroups);// u kom slucaju se nece poklapati derGlobalID i item.Gid? Posto sam nasao da su isti.
+
+			if (assignedGroups != null)
+			{
+				tableSmItem.AorGroup = assignedGroups[0];
 			}
 		}
 

@@ -353,6 +353,7 @@
 									</DataTemplate>
 								</DataGridTextColumn.HeaderTemplate>
 							</DataGridTextColumn>
+							<DataGridTextColumn Header="AOR Group" Width="*" Binding="{Binding AorGroup}"/>
 						</DataGrid.Columns>
 					</DataGrid>
 				</StackPanel>

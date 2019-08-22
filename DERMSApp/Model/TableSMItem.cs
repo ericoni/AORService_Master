@@ -13,20 +13,20 @@ using Adapter;
 namespace DERMSApp.Model
 {
 	public class TableSMItem : BindableBase
-    {
+	{
 		private long gid;
 		private float _currentP;
 		private float _currentQ;
-        private float _pIncrease;
-        private float _pDecrease;
-        private float _qIncrease;
-        private float _qDecrease;
+		private float _pIncrease;
+		private float _pDecrease;
+		private float _qIncrease;
+		private float _qDecrease;
 		private DateTime _timestamp;
-        //private RDAdapter rdAdapter = new RDAdapter();
-        private string aorGroup;
-        private SynchronousMachine der;
+		//private RDAdapter rdAdapter = new RDAdapter();
+		private string aorGroup;
+		private SynchronousMachine der;
 
-        public TableSMItem()
+		public TableSMItem()
 		{
 			
 		}
@@ -48,16 +48,16 @@ namespace DERMSApp.Model
 			}
 		}
 
-        public long Gid
-        {
-            get { return gid; }
-            set { gid = value; }
-        }
+		public long Gid
+		{
+			get { return gid; }
+			set { gid = value; }
+		}
 
-        public string AorGroup
+		public string AorGroup
 		{
 			get { return aorGroup; }
-			set { aorGroup = value;  }
+			set { aorGroup = value; OnPropertyChanged("AorGroup"); }
 		}
 
 		public float CurrentP
@@ -78,73 +78,73 @@ namespace DERMSApp.Model
 			set { _timestamp = value; OnPropertyChanged("TimeStamp"); }
 		}
 
-        public SynchronousMachine Der
-        {
-            get
-            {
-                return der;
-            }
+		public SynchronousMachine Der
+		{
+			get
+			{
+				return der;
+			}
 
-            set
-            {
-                der = value;
-            }
-        }
+			set
+			{
+				der = value;
+			}
+		}
 
-        public float PIncrease
-        {
-            get
-            {
-                return _pIncrease;
-            }
+		public float PIncrease
+		{
+			get
+			{
+				return _pIncrease;
+			}
 
-            set
-            {
-                _pIncrease = value;
-                OnPropertyChanged("PIncrease");
-            }
-        }
+			set
+			{
+				_pIncrease = value;
+				OnPropertyChanged("PIncrease");
+			}
+		}
 
-        public float PDecrease
-        {
-            get
-            {
-                return _pDecrease;
-            }
+		public float PDecrease
+		{
+			get
+			{
+				return _pDecrease;
+			}
 
-            set
-            {
-                _pDecrease = value;
-                OnPropertyChanged("PDecrease");
-            }
-        }
+			set
+			{
+				_pDecrease = value;
+				OnPropertyChanged("PDecrease");
+			}
+		}
 
-        public float QIncrease
-        {
-            get
-            {
-                return _qIncrease;
-            }
+		public float QIncrease
+		{
+			get
+			{
+				return _qIncrease;
+			}
 
-            set
-            {
-                _qIncrease = value;
-                OnPropertyChanged("QIncrease");
-            }
-        }
+			set
+			{
+				_qIncrease = value;
+				OnPropertyChanged("QIncrease");
+			}
+		}
 
-        public float QDecrease
-        {
-            get
-            {
-                return _qDecrease;
-            }
+		public float QDecrease
+		{
+			get
+			{
+				return _qDecrease;
+			}
 
-            set
-            {
-                _qDecrease = value;
-                OnPropertyChanged("QDecrease");
-            }
-        }
-    }
+			set
+			{
+				_qDecrease = value;
+				OnPropertyChanged("QDecrease");
+			}
+		}
+	}
 }
