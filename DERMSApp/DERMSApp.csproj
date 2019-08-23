@@ -166,6 +166,7 @@
     <Compile Include="Converters\CoveredToBackground.cs" />
     <Compile Include="Converters\CoveredToString.cs" />
     <Compile Include="Converters\SeverityToForegroundConverter.cs" />
+    <Compile Include="Helpers\DERtoTableSMItemConverter.cs" />
     <Compile Include="Model\AlarmModel.cs" />
     <Compile Include="Model\AreaModel.cs" />
     <Compile Include="Model\BindableBase.cs" />
